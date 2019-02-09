@@ -1,0 +1,14 @@
+#/bin/sh
+
+make fclean
+rm -rf ./**/.DS*
+
+git add .
+git commit -m "$1"
+git push
+
+rm -rf ./**/.DS*
+cd lib/libmatrix
+git add .
+git commit -m "$1"
+git push
