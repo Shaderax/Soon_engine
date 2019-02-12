@@ -1,0 +1,6 @@
+[submodule "lib/glfw"]
+	path = lib/glfw
+	url = https://github.com/glfw/glfw
+[submodule "lib/libmathpp"]
+	path = lib/libmathpp
+	url = https://github.com/Shaderax/libmathpp.git
