@@ -6,7 +6,7 @@
 #    By: nrouzeva <nrouzeva@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/02 09:31:46 by nrouzeva          #+#    #+#              #
-#    Updated: 2019/01/24 13:14:58 by nrouzeva         ###   ########.fr        #
+#    Updated: 2019/02/13 21:32:15 by nrouzeva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,14 +17,19 @@ OBJ_PATH = ./obj
 LIB_PATH = ./lib/
 INC_PATH = ./inc $(LIB_PATH)glfw/include/ ./$(LIB_PATH)/libmathpp
 
-SRC_NAME = mod1.cpp
+SRC_NAME = main.cpp \
+		   window.cpp \
+		   init.cpp \
+		   mouse.cpp \
+		   camera.cpp \
+		   scene.cpp
 
 OBJ_NAME = $(SRC_NAME:.cpp=.o)
 LIB_NAME = glfw/src libmathpp
 
 CC = g++
 CFLAGS = #-Wextra -Wall -g -Werror -g3 -O2 #-fsanitize=address -fsanitize=undefined
-LIB_FLAGS = -lmathpp -lglfw3 #-framework AppKit -framework OpenGL -framework IOKit -framework CoreVideo
+LIB_FLAGS = -lmathpp -lglfw3 -framework AppKit -framework OpenGL -framework IOKit -framework CoreVideo
 
 
 RED=\033[1;31m

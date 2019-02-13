@@ -6,7 +6,7 @@
 /*   By: nrouzeva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 17:15:25 by nrouzeva          #+#    #+#             */
-/*   Updated: 2019/01/24 19:45:05 by nrouzeva         ###   ########.fr       */
+/*   Updated: 2019/02/13 21:30:24 by nrouzeva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	looper(t_scene *scene, t_window *window)
 int		main(int argc, char **argv)
 {
 //	t_scene		scene;
-//	t_window	window;
 
 	if (!init_glfw())
 		return (error("Error : Arguments or glfw"));
@@ -87,8 +86,6 @@ int		main(int argc, char **argv)
 		glfwSwapBuffers(window._win);
 		glfwPollEvents();
 	}
-
-
 
 //	window = new_window(1920, 1080, "JE SUIS FENETRE");
 //	if (!window.win)
