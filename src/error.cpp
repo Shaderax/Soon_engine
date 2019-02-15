@@ -1,20 +1,13 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nrouzeva <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/01 17:30:02 by nrouzeva          #+#    #+#             */
-/*   Updated: 2019/01/24 19:32:57 by nrouzeva         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "Soon.hpp"
+#include "Error.hpp"
 
-#include "scop.h"
-
-int	error(std::string msg)
+namespace Soon
 {
-	std::cout << msg << std::endl;
-	glfwTerminate();
-	return (-1);
+	bool	error(std::string msg)
+	{
+		std::cout << msg << std::endl;
+		glfwTerminate();
+		return (false);
+	}
 }
+

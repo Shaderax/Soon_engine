@@ -1,27 +1,24 @@
-#ifndef MOUSE_HPP
-# define MOUSE_HPP
+#pragma once
 
-#include "scop.h"
-class Window;
+#include "Window.hpp"
+
+namespace  Soon { class Window; };
 
 class Mouse
 {
 	public :
-		float   last_x;
-		float   last_y;
-		double  new_x;
-		double  new_y;
-		float   off_x;
-		float   off_y;
-		float   sensitivity;
-		float   yaw;
-		float   pitch;
+		float   _last_x;
+		float   _last_y;
+		double  _new_x;
+		double  _new_y;
+		float   _off_x;
+		float   _off_y;
+		float   _sensitivity;
+		float   _yaw;
+		float   _pitch;
 
-		Mouse( Window *window );
+		Mouse( Soon::Window *window );
 		~Mouse( void );
 
-		int mouseMoved( void );
+		bool mouseMoved( void );
 };
-
-
-#endif

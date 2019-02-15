@@ -1,23 +1,28 @@
-#ifndef WINDOW_HPP
-# define WINDOW_HPP
+#pragma once
 
-#include "scop.h"
+#include "Soon.hpp"
+#include "Mouse.hpp"
+#include <iostream>
+#include <string>
+
 class Mouse;
 
-class Window
+namespace Soon
 {
-	public:
-		int			_width;
-		int			_height;
-		Mouse*		_mouse;
-		GLFWwindow*	_win;
+	class Window
+	{
+		public:
+			int			_width;
+			int			_height;
+			Mouse*		_mouse;
+			GLFWwindow*	_win;
 
-		Window( std::string title, int width = WINDOW_WIDTH, int height = WINDOW_HEIGHT );
-		~Window( void );
+			Window( std::string title, int width = WINDOW_WIDTH, int height = WINDOW_HEIGHT );
+			~Window( void );
 
-		void makeContextCurrent( void );
-		int shouldClose( void );
-};
+			void makeContextCurrent( void );
+			bool shouldClose( void );
+	};
+}
 
-
-#endif
+void	framebuffer_size_callback(GLFWwindow *window, int width, int height);

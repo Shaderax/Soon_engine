@@ -6,11 +6,11 @@
 #    By: nrouzeva <nrouzeva@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/02 09:31:46 by nrouzeva          #+#    #+#              #
-#    Updated: 2019/02/13 21:32:15 by nrouzeva         ###   ########.fr        #
+#    Updated: 2019/02/15 22:48:55 by nrouzeva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = mod1
+NAME = Soon
 
 SRC_PATH = ./src
 OBJ_PATH = ./obj
@@ -18,18 +18,17 @@ LIB_PATH = ./lib/
 INC_PATH = ./inc $(LIB_PATH)glfw/include/ ./$(LIB_PATH)/libmathpp
 
 SRC_NAME = main.cpp \
-		   window.cpp \
-		   init.cpp \
-		   mouse.cpp \
-		   camera.cpp \
-		   scene.cpp
+		   Init.cpp \
+		   Error.cpp \
+		   Window.cpp \
+		   Mouse.cpp
 
 OBJ_NAME = $(SRC_NAME:.cpp=.o)
 LIB_NAME = glfw/src libmathpp
 
 CC = g++
 CFLAGS = #-Wextra -Wall -g -Werror -g3 -O2 #-fsanitize=address -fsanitize=undefined
-LIB_FLAGS = -lmathpp -lglfw3 -framework AppKit -framework OpenGL -framework IOKit -framework CoreVideo
+LIB_FLAGS = -lglfw3 -framework AppKit -framework OpenGL -framework IOKit -framework CoreVideo
 
 
 RED=\033[1;31m
@@ -48,7 +47,6 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	cmake -B $(LIB_PATH)glfw $(LIB_PATH)glfw
 	make -C $(LIB_PATH)glfw
-	make -C $(LIB_PATH)libmathpp
 	@echo "$(GREEN)[✓]$(NC) Library built"
 	$(CC) $(CFLAGS) $(LIB) $(INC) $(OBJ) $(LIB_FLAGS) -o $(NAME)
 
@@ -62,14 +60,11 @@ clean:
 	@rmdir $(OBJ_PATH) 2> /dev/null || true
 	@echo "$(RED)[-]$(NC) Objects cleaned"
 	@make -C $(LIB_PATH)glfw clean
-	@make -C $(LIB_PATH)libmathpp clean
 	@echo "$(RED)[-]$(NC) Library cleaned"
 
 fclean: clean
 	@rm -rf $(NAME)
 	@echo "$(RED)[-]$(NC) Program clear"
-	@make -C $(LIB_PATH)libmathpp fclean
-	@echo "$(RED)[-]$(NC) Lib clear"
 
 re:fclean
 	@make

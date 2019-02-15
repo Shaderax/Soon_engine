@@ -1,10 +1,13 @@
-#ifndef SCENE_HPP
-# define SCENE_HPP
+#pragma once
 
-class Scene
+namespace Soon
 {
-	public :
-		Camera    camera;
-}
+	class Scene
+	{
+		public :
+			Scene( void );
+			~Scene( void );
 
-#endif
+			Camera* _currentCamera;
+	}
+}

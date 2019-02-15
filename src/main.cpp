@@ -6,11 +6,9 @@
 /*   By: nrouzeva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 17:15:25 by nrouzeva          #+#    #+#             */
-/*   Updated: 2019/02/13 21:30:24 by nrouzeva         ###   ########.fr       */
+/*   Updated: 2019/02/15 22:57:24 by nrouzeva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "scop.h"
 
 /*
 void	looper(t_scene *scene, t_window *window)
@@ -65,38 +63,42 @@ void	looper(t_scene *scene, t_window *window)
 }
 */
 
+#include "Soon.hpp"
+#include "Init.hpp"
+#include "Error.hpp"
+#include "Window.hpp"
+
 int		main(int argc, char **argv)
 {
 //	t_scene		scene;
 
-	if (!init_glfw())
-		return (error("Error : Arguments or glfw"));
+	if (!Soon::Init())
+		return (Soon::error("Error : Init"));
 	
-	Window		window("Je suis suisse.");
-	if (!window._win)
-		return (error("Error : Window init"));
+	Soon::Window		window("Je suis suisse.");
 	window.makeContextCurrent();
 
-	glEnable(GL_DEPTH_TEST);
-	glClearColor(0, 0, 0, 1.0f);
-	glfwSwapInterval(0);
+//	glEnable(GL_DEPTH_TEST);
+//	glClearColor(0, 0, 0, 1.0f);
+//	glfwSwapInterval(0);
 	
+
+
+
+
+
+
 	while (!window.shouldClose())
 	{
 		glfwSwapBuffers(window._win);
 		glfwPollEvents();
 	}
 
-//	window = new_window(1920, 1080, "JE SUIS FENETRE");
-//	if (!window.win)
-//		return (error());
-//	set_mouse_win(&window);
 
-//	glEnable(GL_DEPTH_TEST);
-//	glClearColor(0, 0, 0, 1.0f);
-//	// fps
-//	glfwSwapInterval(0);
-////	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+
+	// fps
+	//	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 //	scene = new_scene(&window, argv[1], argv[2]);
 //	print_mat("VIEW", scene.camera.view);

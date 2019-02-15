@@ -1,16 +1,5 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   mouse.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nrouzeva <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/01 17:23:23 by nrouzeva          #+#    #+#             */
-/*   Updated: 2019/01/24 15:08:33 by nrouzeva         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include "Mouse.hpp"
 
-#include "scop.h"
 /*
    void	set_mouse_win(t_window *win)
    {
@@ -26,9 +15,9 @@
 
    int		mouse_moved(t_mouse *mouse)
    {
-   if (mouse->new_x != mouse->last_x || mouse->new_y != mouse->last_y)
-   return (1);
-   return (0);
+		if (mouse->new_x != mouse->last_x || mouse->new_y != mouse->last_y)
+			return (1);
+		return (0);
    }
 
    void	mouse_move(t_window *window, t_camera *camera)
@@ -56,18 +45,18 @@
    camera->target[3] = 0;
    vec4_norm(camera->target);
    }
-*/
+   */
 
-Mouse::Mouse( Window *window )
+Mouse::Mouse( Soon::Window *window )
 {
 	bzero(this, sizeof(Mouse));
 	glfwSetInputMode(window->_win, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	glfwGetCursorPos(window->_win, &new_x, &new_y);
-	last_x = new_x;
-	last_y = new_y;
-	sensitivity = 0.1f;
-	yaw = -90.0f;
-	pitch = 0.0f;
+	glfwGetCursorPos(window->_win, &_new_x, &_new_y);
+	_last_x = _new_x;
+	_last_y = _new_y;
+	_sensitivity = 0.1f;
+	_yaw = -90.0f;
+	_pitch = 0.0f;
 }
 
 Mouse::~Mouse( void )
@@ -75,9 +64,9 @@ Mouse::~Mouse( void )
 
 }
 
-int Mouse::mouseMoved( void )
+bool Mouse::mouseMoved( void )
 {
-	if (new_x != last_x || new_y != last_y)
-		return (1);
-	return (0);
+	if (_new_x != _last_x || _new_y != _last_y)
+		return (true);
+	return (false);
 }
