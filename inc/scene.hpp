@@ -9,5 +9,6 @@ namespace Soon
 			~Scene( void );
 
 			Camera* _currentCamera;
+			std::vector<Object*>	_objects;
 	}
 }

@@ -51,6 +51,7 @@ namespace Soon
 {
 	Scene::Scene( void )
 	{
-		
+		_currentCamera = null;
+		_objects.resize = 100;
 	}
 }
