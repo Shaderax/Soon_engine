@@ -11,7 +11,8 @@ namespace Soon
 				~World( void );
 
 			private:
-				std::vector<Entity>	_entityArray;
+				std::vector<Entity>	_entitys;
+				std::vector<System>	_systems;
 		}
 
 	}
