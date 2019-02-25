@@ -1,5 +1,8 @@
 #pragma once
 
+#include "Entity.hpp"
+#include "EntityPool.hpp"
+
 namespace Soon
 {
 	namespace ECS
@@ -10,10 +13,16 @@ namespace Soon
 				World( void );
 				~World( void );
 
+				Entity CreateEntity( void );
+				EntityPool GetEntityPool( void );
+				void Update( void );
+
 			private:
-				std::vector<Entity>	_entitys;
-				std::vector<System>	_systems;
-		}
+				EntityPool		_entityPool;
+				ComponentPool	_componentPool;
+				SystemPool		_systemPool;
+				EntityCache		_entityCache;
+		};
 
 	}
 

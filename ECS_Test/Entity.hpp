@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Ecs.hpp"
+
 namespace Soon
 {
 	namespace ECS
@@ -11,8 +13,9 @@ namespace Soon
 				~Entity( void );
 
 			private:
-				std::uint64_t	id;
-				World* _world;
+				// Check if 32 is faster
+				std::uint32_t	_id;
+				std::Bitset<MAX_COMPONENT> _bitset;
 		};
 	}
 }
