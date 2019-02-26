@@ -13,9 +13,13 @@ namespace Soon
 				World( void );
 				~World( void );
 
-				Entity CreateEntity( void );
-				EntityPool GetEntityPool( void );
-				void Update( void );
+				Entity		CreateEntity( void );
+				EntityPool	GetEntityPool( void );
+				void		Update( void );
+				void		Resize( std::size_t amount );
+				void		CheckResizePool( std::size_t amount );
+				std::size_t	GetAliveEntityCount( void ) const;
+				std::size_t	GetEntityCount( void ) const;
 
 			private:
 				EntityPool		_entityPool;

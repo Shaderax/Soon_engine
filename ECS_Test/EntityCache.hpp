@@ -6,8 +6,15 @@ namespace Soon
 	{
 		class EntityCache
 		{
-			EntityCache( void );
-			~EntityCache( void );
+			public:
+				EntityCache( void );
+				~EntityCache( void );
+
+			private:
+				std::vector<Entity> alive;
+				std::vector<Entity> killed;
+				std::vector<Entity> activated;
+				std::vector<Entity> deactivated;
 		}
 	}
 }

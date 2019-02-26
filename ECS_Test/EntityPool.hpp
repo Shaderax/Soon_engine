@@ -9,14 +9,16 @@ namespace Soon
 		class EntityPool
 		{
 			public:
-				EntityPool( World& world );
+				EntityPool( World& world ) { _nextId = 0; };
 				~EntityPool( void );
 
-				Entity CreateEntity( void );
+				Entity	CreateEntity( void );
+				std::size_t GetEntityCount( void );
+				void	Resize( std::size_t amount );
 
 			private:
-				std::uint32_t _nextId;
-				std::vector<Entity> _entityPool;
+				std::uint32_t		_nextId;
+				std::vector<Entity>	_freeId;
 		};
 	}
 }
