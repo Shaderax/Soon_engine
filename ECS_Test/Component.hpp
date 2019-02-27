@@ -6,7 +6,8 @@ namespace Soon
 	{
 		class Component
 		{
-			
+			Component( void );
+			virtual ~Component( void );
 		};
 	}
 }

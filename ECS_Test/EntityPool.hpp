@@ -12,13 +12,15 @@ namespace Soon
 				EntityPool( World& world ) { _nextId = 0; };
 				~EntityPool( void );
 
-				Entity	CreateEntity( void );
-				std::size_t GetEntityCount( void );
-				void	Resize( std::size_t amount );
+				Entity		CreateEntity( void );
+				std::size_t	GetEntityCount( void );
+				void		Resize( std::size_t amount );
+				void Remove( Entity::Id id );
 
 			private:
 				std::uint32_t		_nextId;
-				std::vector<Entity>	_freeId;
+				std::vector<Entity::Id>	_freeId;
+				std::vector<bool>	_idKilled;
 		};
 	}
 }

@@ -11,10 +11,10 @@ namespace Soon
 				~EntityCache( void );
 
 			private:
-				std::vector<Entity> alive;
-				std::vector<Entity> killed;
-				std::vector<Entity> activated;
-				std::vector<Entity> deactivated;
+				std::vector< Entity::Id > alive;
+				std::vector< Entity::Id > killed;
+				std::vector< Entity::Id > activated;
+				std::vector< Entity::Id > deactivated;
 		}
 	}
 }
