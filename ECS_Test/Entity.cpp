@@ -36,5 +36,18 @@ namespace Soon
 		{
 			GetWorld().KillEntity(GetIdClass());
 		}
+
+		template < typename T, Args && ... args >
+		void Entity::AddComponent( Args && ... args )
+		{
+			T* component{std::forward<Args>(args)...};
+			addComponent(component, ComponentId<T>());
+		}
+
+		template < typename T >
+		void Entity::AddComponent( T component, std::uint32_t componentId)
+		{
+			GetWorld()._entityAttributes._componentPool.addComponent(GetId(), component, componentId);
+		}
 	}
 }

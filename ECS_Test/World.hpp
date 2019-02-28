@@ -26,8 +26,6 @@ namespace Soon
 
 			private:
 				EntityPool			_entityPool;
-				ComponentPool		_componentPool;
-				SystemPool			_systemPool;
 				EntityCache			_entityCache;
 				EntityAttributes	_entityAttributes;
 		};

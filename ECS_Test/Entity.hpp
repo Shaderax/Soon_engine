@@ -30,7 +30,7 @@ namespace Soon
 				//				void Deactivate();
 								void Kill( void )
 
-				template< typename T > void AddComponent();
+				template< typename T, Args && ... args > void AddComponent( Args && ... args );
 
 
 			private:

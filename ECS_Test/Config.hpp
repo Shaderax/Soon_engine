@@ -1,3 +1,10 @@
 #pragma once
 
-#define DEFAULTPOOLSIZE 20
+namepsace Soon
+{
+	namespace ECS
+	{
+		constexpr const std::uint32_t MAX_COMPONENTS = 64;
+	}
+}
+

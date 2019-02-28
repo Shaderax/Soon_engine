@@ -9,6 +9,20 @@ namespace Soon
 			public:
 				ComponentPool( void );
 				~ComponentPool( void );
+
+				template < typename T >
+				void addComponent( Entity::Id idClass, T component, std::uint32_t componentId );
+
+				void GetEntityComponents( Entity::Id idClass );
+
+			private:
+				class EntityComponents
+				{
+					private:
+						std::array< Component, Soon::ECS::MAX_COMPONENTS > _entityComponents;
+				}
+
+				std::vector<EntityComponents> _entitiesComponents;
 		};
 	}
 }

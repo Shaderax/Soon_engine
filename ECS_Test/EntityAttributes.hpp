@@ -12,7 +12,7 @@ nanespace Soon
 				std::vector<bool> _systems;
 			};
 
-			//	EntityComponentStorage componentStorage;
+			ComponentPool _componentPool;
 
 			std::vector<Attribute> _attributes;
 		};
