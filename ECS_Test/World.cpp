@@ -5,9 +5,15 @@ namespace Soon
 {
 	namespace ECS
 	{
-		World::World( void )
+		World::World( void ) : World(Soon:::ECS::DEFAULT_POOL_SIZE)
 		{
+			
+		}
 
+		World::World( std::size_t poolSize)
+		{
+			_entityPool(poolSize);
+			_entityAttributes(poolSize);
 		}
 
 		World::~World( void )
@@ -138,6 +144,12 @@ namespace Soon
 			{
 				if (IsValid(id))
 					_entityCache.deactivated.push_back(id);
+			}
+			
+			void	World::ActivateEntity( Entity::Id id )
+			{
+				if (IsValid(id))
+					_entityCache.activated.push_back(id);
 			}
 
 			void	World::KillEntity( Entity::Id id )

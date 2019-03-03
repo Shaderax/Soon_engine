@@ -6,8 +6,12 @@ namespace Soon
 	{
 		class Component
 		{
-			Component( void );
-			virtual ~Component( void );
+			public:
+				Component( void );
+				virtual ~Component( void );
 		};
+
+		template < typename T >
+			std::uint32_t GetComponentTypeId( void );
 	}
 }

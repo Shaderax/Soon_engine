@@ -4,10 +4,11 @@ namespace Soon
 {
 	namespace ECS
 	{
-		template < T >
+		template < TBase >
 			class ClassTypeId
 			{
 				public:
+					template < typename T >
 					static std::uint32_t GetId()
 					{
 						static const std::uint32_t id = _nextId++;
@@ -19,6 +20,6 @@ namespace Soon
 			};
 
 		template < typename T >
-			ClassTypeId ClassTypeId<T>::_nextId{0};
+			std::uint32_t ClassTypeId<TBase>::_nextId{0};
 	}
 }

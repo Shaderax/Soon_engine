@@ -14,7 +14,7 @@ namespace Soon
 
 		Entity::~Entity( void )
 		{
-			
+
 		}
 
 		World& Entity::GetWorld( void ) const
@@ -27,27 +27,49 @@ namespace Soon
 			return (GetWorld().IsActivated(_id));
 		}
 
-		void Entity::Kill( void )
+		void Entity::Activate( void )
 		{
-			GetWorld().KillEntity(*this);
+			GetWorld().ActivateEntity(GetIdClass());
 		}
-		
+
+		void Entity::Desactivate( void )
+		{
+			GetWorld().DesactivateEntity(GetIdClass());
+		}
+
 		void Entity::Kill( void )
 		{
 			GetWorld().KillEntity(GetIdClass());
 		}
 
 		template < typename T, Args && ... args >
-		void Entity::AddComponent( Args && ... args )
-		{
-			T* component{std::forward<Args>(args)...};
-			addComponent(component, ComponentId<T>());
-		}
+			void Entity::AddComponent( Args && ... args )
+			{
+				T* component = new T{std::forward<Args>(args)...};
+				addComponent(component, GetComponentTypeId<T>());
+			}
 
 		template < typename T >
-		void Entity::AddComponent( T component, std::uint32_t componentId)
+			void Entity::AddComponent( T* component, std::uint32_t componentId)
+			{
+				GetWorld()._entityAttributes._componentPool.addComponent(GetIdClass(), component, componentId);
+			}
+
+		bool Entity::IsValid( void ) const
 		{
-			GetWorld()._entityAttributes._componentPool.addComponent(GetId(), component, componentId);
+			return (GetWorld().IsValid(GetIdClass()));
 		}
+
+		template <typename T>
+			bool Entity::HasComponent() const
+			{
+				return (HasComponent(GetComponentTypeId<T>()));
+			}
+
+		template < typename T >
+			bool Entity::HasComponent( std::uint32_t componentId ) const
+			{
+				GetWorld()._entitiesAttributes._componentPool.HasComponent(GetIdClass(), componentId);
+			}
 	}
 }

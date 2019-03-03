@@ -15,15 +15,22 @@ namespace Soon
 
 		}
 
-		void addComponent( Entity::Id idClass, Component* component, std::uint32_t componentId )
+		void ComponentPool::addComponent( Entity::Id idClass, Component* component, std::uint32_t componentId )
 		{
 			std::uint32_t index = idClass.GetId();
 			GetEntityComponents( index )._entityComponents[componentId] = component;
 		}
 
-		void GetEntityComponents( std::uint32_t id )
+		EntityComponents& ComponentPool::GetEntityComponents( std::uint32_t id ) const
 		{
 			return (_entitiesComponents[id]);
+		}
+
+		bool ComponentPool::HasComponent( Entity:: id, std::uint32_t componentId ) const
+		{
+			EntityComponents& components = GetEntityComponents(id.GetId());
+
+			return (components[componentId] != nullptr)
 		}
 	}
 }

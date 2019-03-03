@@ -21,16 +21,20 @@ namespace Soon
 
 				std::uint32_t GetId( void ) { return (_id.GetId()); };
 				Entity::Id GetIdClass( void ) { return (_id); };
-				//				bool IsValid() const;
 
-				//				std::uint32_t GetId() const;
+				bool IsValid() const;
+
 				World& GetWorld( void ) const;
 				bool IsActivated( void ) const;
-				//				void Activate();
-				//				void Deactivate();
-								void Kill( void )
+				void Activate( void );
+				void Deactivate( void );
+				void Kill( void )
 
 				template< typename T, Args && ... args > void AddComponent( Args && ... args );
+
+				template < typename T >
+				void AddComponent( T component, std::uint32_t componentId);
+
 
 
 			private:

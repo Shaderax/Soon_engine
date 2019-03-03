@@ -9,7 +9,7 @@ namespace Soon
 		class EntityPool
 		{
 			public:
-				EntityPool( World& world ) { _nextId = 0; };
+				EntityPool( std::size_t poolSize ) { _nextId = 0; };
 				~EntityPool( void );
 
 				Entity		CreateEntity( void );

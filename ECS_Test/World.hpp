@@ -22,7 +22,7 @@ namespace Soon
 				std::size_t	GetEntityCount( void ) const;
 
 				bool	IsActivated( Entity::Id id );
-				void	KillEntity( std::uint32_t id);
+				void	KillEntity( Entity::Id id );
 
 			private:
 				EntityPool			_entityPool;
