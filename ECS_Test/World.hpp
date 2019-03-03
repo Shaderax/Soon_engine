@@ -24,10 +24,15 @@ namespace Soon
 				bool	IsActivated( Entity::Id id );
 				void	KillEntity( Entity::Id id );
 
+				template < typename T >
+				void AddSystem( void );
+
 			private:
 				EntityPool			_entityPool;
 				EntityCache			_entityCache;
 				EntityAttributes	_entityAttributes;
+
+				std::unordered_map<std::uint32_t, std::shared_ptr<System>> _systemPool;
 		};
 
 	}

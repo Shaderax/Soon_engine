@@ -15,6 +15,11 @@ namespace Soon
 
 		}
 
+		void ComponentPool::Resize( std::size_t amount )
+		{
+			_entitiesComponents.resize(amount);
+		}
+
 		void ComponentPool::addComponent( Entity::Id idClass, Component* component, std::uint32_t componentId )
 		{
 			std::uint32_t index = idClass.GetId();

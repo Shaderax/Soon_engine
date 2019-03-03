@@ -30,7 +30,7 @@ namespace Soon
 
 		void EntityPool::Resize( std::size_t amount )
 		{
-
+			_idkilled.resize(amount);
 		}
 
 		bool EntityPool::IsValid( Entity::Id id )

@@ -61,7 +61,7 @@ namespace Soon
 		}
 
 		template <typename T>
-			bool Entity::HasComponent() const
+			bool Entity::HasComponent( void ) const
 			{
 				return (HasComponent(GetComponentTypeId<T>()));
 			}

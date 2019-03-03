@@ -7,7 +7,7 @@ namespace Soon
 	{
 		World::World( void ) : World(Soon:::ECS::DEFAULT_POOL_SIZE)
 		{
-			
+
 		}
 
 		World::World( std::size_t poolSize)
@@ -29,11 +29,6 @@ namespace Soon
 			return (_entityCache.alive.back());
 		}
 
-		//		EntityPool World::GetEntityPool( void )
-		//		{
-		//			return (_entityPool);
-		//		}
-
 		std::size_t World::GetAliveEntityCount( void ) const
 		{
 			return (_entityCache.alive.size());
@@ -41,7 +36,8 @@ namespace Soon
 
 		void World::Resize( std::size_t amount )
 		{
-			_entityPool.Resize();
+			_entityPool.Resize(amount);
+			_entityAttributes.Resize(amount);
 		}
 
 		std::size_t World::GetEntityCount( void ) const
@@ -55,6 +51,39 @@ namespace Soon
 
 			if (newSize > GetEntityCount())
 				Resize(newSize);
+		}
+		bool World::IsValid( Entity::Id id )
+		{
+			return (_entityPool.IsValid(id));
+		}
+
+		bool World::IsActivated( Entity::Id id )
+		{
+			if (IsValid(id))
+				return (_entityAttributes._attributes[id.GetId()].activated);
+			else
+				return (false);
+		}
+
+		void	World::DesactivateEntity( Entity::Id id )
+		{
+			if (IsValid(id))
+				_entityCache.deactivated.push_back(id);
+		}
+
+		void	World::ActivateEntity( Entity::Id id )
+		{
+			if (IsValid(id))
+				_entityCache.activated.push_back(id);
+		}
+
+		void	World::KillEntity( Entity::Id id )
+		{
+			if (IsValid(id))
+			{
+				DesactivateEntity(id);
+				_entityCache.killed.push_back(id);
+			}
 		}
 
 		void World::Update( void )
@@ -127,38 +156,12 @@ namespace Soon
 				_entityPool.remove(entity.GetId());
 			}
 
-			bool World::IsValid( Entity::Id id )
-			{
-				return (_entityPool.IsValid(id));
-			}
+		}
 
-			bool World::IsActivated( Entity::Id id )
-			{
-				if (IsValid(id))
-					return (_entityAttributes._attributes[id.GetId()].activated);
-				else
-					return (false);
-			}
-
-			void	World::DesactivateEntity( Entity::Id id )
-			{
-				if (IsValid(id))
-					_entityCache.deactivated.push_back(id);
-			}
-			
-			void	World::ActivateEntity( Entity::Id id )
-			{
-				if (IsValid(id))
-					_entityCache.activated.push_back(id);
-			}
-
-			void	World::KillEntity( Entity::Id id )
-			{
-				if (IsValid(id))
-				{
-					DesactivateEntity(id);
-					_entityCache.killed.push_back(id);
-				}
-			}
+		template < typename T >
+		void World::AddSystem( void )
+		{
+			T newSystem = new T();
+			std::uint32_t idSystem = GetSystemTypeId<T>();
 		}
 	}

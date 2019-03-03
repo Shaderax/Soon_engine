@@ -15,7 +15,7 @@ namespace Soon
 				Entity		CreateEntity( void );
 				std::size_t	GetEntityCount( void );
 				void		Resize( std::size_t amount );
-				void Remove( Entity::Id id );
+				void		Remove( Entity::Id id );
 
 			private:
 				std::uint32_t		_nextId;

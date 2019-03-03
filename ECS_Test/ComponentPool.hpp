@@ -10,6 +10,8 @@ namespace Soon
 				ComponentPool( void );
 				~ComponentPool( void );
 
+				void Resize( std::size_t amount );
+
 				template < typename T >
 				void addComponent( Entity::Id idClass, T component, std::uint32_t componentId );
 
