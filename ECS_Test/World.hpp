@@ -32,10 +32,8 @@ namespace Soon
 				EntityCache			_entityCache;
 				EntityAttributes	_entityAttributes;
 
-				std::unordered_map<std::uint32_t, std::shared_ptr<System>> _systemPool;
+				std::unordered_map<std::uint32_t, System> _systemPool;
 		};
 
 	}
-
-
 }

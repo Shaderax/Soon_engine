@@ -88,24 +88,26 @@ namespace Soon
 
 		void World::Update( void )
 		{
-			for(Entity::Id& entity : m_entityCache._activated)
+			for(Entity::Id& entityId : m_entityCache._activated)
 			{
-				EntityAttributes::Attribute& attribute = _entityAttributes._attributes[id.GetId()]; 
+				EntityAttributes::Attribute& attribute = _entityAttributes._attributes[entityId.GetId()]; 
 				attribute.activated = true;
 
 				// loop through all the systems within the world
-				for(auto& i : m_systems)
+				for(auto& system : _systemsPool)
 				{
-					auto systemIndex = i.first;
+					std::uint32_t systemIndex = system.first;
 
 					// if the entity passes the filter the system has and is not already part of the system
-					if(i.second->getFilter().doesPassFilter(m_entityAttributes.componentStorage.getComponentTypeList(entity)))
+					if(system.second->PassFilters(_entityAttributes._componentPool.GetComponentTypeList( entityId )))
 					{
 						if(attribute.systems.size() <= systemIndex || !attribute.systems[systemIndex])
 						{
-							i.second->add(entity); // add it to the system
+							system.second->AddEntity(entity); // add it to the system
 
-							util::EnsureCapacity(attribute.systems, systemIndex); 
+							if (attributes.systems.size() < systemIndex)
+								attributes.systems.resize(systemIndex + 1);
+
 							attribute.systems[systemIndex] = true;
 						}
 					}
@@ -115,36 +117,35 @@ namespace Soon
 					else if(attribute.systems.size() > systemIndex && attribute.systems[systemIndex])
 					{
 						// duplicate code (1)
-						i.second->remove(entity); 
+						system.second->remove(entity); 
 						attribute.systems[systemIndex] = false;
 					}
 				}
 			}
 
-
 			// go through all the deactivated entities from last call to refresh
-			for(auto& entity : m_entityCache.deactivated)
+			for(Entity::Id& entity : m_entityCache.deactivated)
 			{
 				EntityAttributes::Attribute& attribute = _entityAttributes._attributes[id.GetId()]; 
 				attribute.activated = false;
 
 				// loop through all the systems within the world
-				for(auto& i : m_systems)
+				for(auto& system : _systems)
 				{
-					auto systemIndex = i.first;
+					auto systemIndex = system.first;
 					if(attribute.systems.size() <= systemIndex) continue;
 
 					if(attribute.systems[systemIndex])
 					{
 						// duplicate code ...(1)
-						i.second->remove(entity); 
+						system.second->remove(entity); 
 						attribute.systems[systemIndex] = false;
 					}
 				}
 			}
 
 			// go through all the killed entities from last call to refresh
-			for(Entity::Id& entity : m_entityCache.killed)
+			for(Entity::Id& entity : _entityCache.killed)
 			{
 				// remove the entity from the alive array
 				_entityCache.alive.erase(std::remove(_entityCache.alive.begin(), _entityCache.alive.end(), entity), _entityCache.alive.end()); 
@@ -155,7 +156,6 @@ namespace Soon
 				// remove it from the id pool
 				_entityPool.remove(entity.GetId());
 			}
-
 		}
 
 		template < typename T >
@@ -163,5 +163,7 @@ namespace Soon
 		{
 			T newSystem = new T();
 			std::uint32_t idSystem = GetSystemTypeId<T>();
+
+			_systemPool[idSystem] = newSystem;
 		}
 	}

@@ -18,11 +18,14 @@ namespace Soon
 				void GetEntityComponents( Entity::Id idClass );
 				bool HasComponent( Entity::Id id, std::uint32_t componentId );
 
+				std::bitset GetComponentTypeList( Entity::Id id );
+
 			private:
 				class EntityComponents
 				{
 					private:
 						std::array< Component*, Soon::ECS::MAX_COMPONENTS > _entityComponents;
+						std::bitset<Soon::ECS::MAX_COMPONENTS> _componentTypeList;
 				};
 
 				std::vector<EntityComponents> _entitiesComponents;

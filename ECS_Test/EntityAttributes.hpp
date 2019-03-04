@@ -5,20 +5,22 @@ nanespace Soon
 	{
 		class EntityAttributes
 		{
-			EntityAttributes( void );
-			~EntityAttributes( void );
+			public:
+				EntityAttributes( void );
+				~EntityAttributes( void );
 
-			void Resize( std::size_t amount );
-			struct Attribute
-			{
-				bool _activated;
+				void Resize( std::size_t amount );
 
-				std::vector<bool> _systems;
-			};
-			private:
-			ComponentPool _componentPool;
+				struct Attribute
+				{
+					bool _activated;
 
-			std::vector<Attribute> _attributes;
+					std::vector<bool> _systems;
+				};
+
+				ComponentPool _componentPool;
+
+				std::vector<Attribute> _attributes;
 		};
 
 	}

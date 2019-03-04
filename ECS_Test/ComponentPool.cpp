@@ -24,6 +24,7 @@ namespace Soon
 		{
 			std::uint32_t index = idClass.GetId();
 			GetEntityComponents( index )._entityComponents[componentId] = component;
+			GetEntityComponents( index )._componentsTypeList[componentId] = true;
 		}
 
 		EntityComponents& ComponentPool::GetEntityComponents( std::uint32_t id ) const
@@ -35,7 +36,12 @@ namespace Soon
 		{
 			EntityComponents& components = GetEntityComponents(id.GetId());
 
-			return (components[componentId] != nullptr)
+			return (components[componentId] != nullptr);
+		}
+
+		std::bitset ComponentPool::GetComponentTypeList( Entity::Id id )
+		{
+			return (_entitiesComponents[id.GetId()]._componentTypeList);
 		}
 	}
 }
