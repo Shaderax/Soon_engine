@@ -14,7 +14,7 @@ namespace Soon
 				}
 			}
 
-			if(_excludeComponents & bitset).any())
+			if((_excludeComponents & bitset).any())
 				return false;
 
 			return (true);
@@ -23,6 +23,11 @@ namespace Soon
 		void System::AddEntity( Entity::Id id )
 		{
 			_entities.push_back(id);
+		}
+
+		std::vector< Entity::Id > GetEntities(void ) const
+		{
+			return (_entities);
 		}
 	}
 }

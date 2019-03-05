@@ -166,4 +166,10 @@ namespace Soon
 
 			_systemPool[idSystem] = newSystem;
 		}
+
+		template < typename T >
+		T& World::GetSystem( void ) const
+		{
+			return (_systems[GetSystemTypeId<T>()]);
+		}
 	}

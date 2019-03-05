@@ -27,6 +27,9 @@ namespace Soon
 				template < typename T >
 				void AddSystem( void );
 
+				template < typename T >
+				T& GetSystem( void ) const;
+
 			private:
 				EntityPool			_entityPool;
 				EntityCache			_entityCache;

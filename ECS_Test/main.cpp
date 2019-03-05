@@ -8,6 +8,14 @@ class Position : Soon::ECS::Component
 	float y;
 };
 
+class Movement : Soon::ECS::System
+{
+	void Update()
+	{
+		GetEntities();
+	}
+};
+
 int main(int argc, char **argv)
 {
 	Soon::ECS::World world;
@@ -15,6 +23,12 @@ int main(int argc, char **argv)
 	Soon::ECS::Entity entite = world.CreateEntity();
 
 	entite.AddComponent<Position>(5, 5);
+
+	world.AddSystem<Movement>();
+
+	world::refresh();
+
+	world::GetSystem<Movement>().Update();
 
 	return (0);
 }

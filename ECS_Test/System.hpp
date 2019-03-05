@@ -14,6 +14,8 @@ namespace Soon
 				bool PassFilters( std::bitset& bitset ) const;
 				void AddEntity( Entity::Id id );
 
+				std::vector< Entity::Id > GetEntities( void );
+
 			private:
 				std::vector< Entity::Id >				_entities;
 				std::bitset<Soon::ECS::MAX_COMPONENTS>	_requireComponents;
