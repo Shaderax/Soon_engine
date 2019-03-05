@@ -1,11 +1,16 @@
 #pragma once
 
 #include "Entity.hpp"
+#include <iostream>
+#include <vector>
 
 namespace Soon
 {
 	namespace ECS
 	{
+		class Entity;
+		class Entity::Id;
+
 		class EntityPool
 		{
 			public:
@@ -18,9 +23,9 @@ namespace Soon
 				void		Remove( Entity::Id id );
 
 			private:
-				std::uint32_t		_nextId;
-				std::vector<Entity::Id>	_freeId;
-				std::vector<bool>	_idKilled;
+				std::uint32_t			_nextId;
+				std::vector< Entity::Id >	_freeId;
+				std::vector< bool >		_idKilled;
 		};
 	}
 }

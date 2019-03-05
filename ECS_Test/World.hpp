@@ -1,12 +1,22 @@
 #pragma once
 
+#include "System.hpp"
 #include "Entity.hpp"
 #include "EntityPool.hpp"
+#include "EntityCache.hpp"
+#include "EntityAttributes.hpp"
+
+#include <iostream>
+#include <unordered_map>
+
+using namespace Soon::ECS;
 
 namespace Soon
 {
 	namespace ECS
 	{
+		class Entity;
+
 		class World
 		{
 			public:

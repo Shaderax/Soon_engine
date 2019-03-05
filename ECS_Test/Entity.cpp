@@ -1,18 +1,21 @@
-#include <iostream>
 #include "Entity.hpp"
 #include "World.hpp"
+
+#include <iostream>
 
 namespace Soon
 {
 	namespace ECS
 	{
-		Entity::Entity( World* world, std::uint32_t id ) :
+		Entity::Entity( World& world, std::uint32_t id ) :
 			_id(id),
 			_world(world)
 		{
 		}
 
-		Entity::~Entity( void )
+		Entity::~Entity( void ) :
+		   	_id(0)
+			_world(nulptr)
 		{
 
 		}

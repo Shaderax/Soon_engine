@@ -1,5 +1,9 @@
 #pragma once
-nanespace Soon
+
+#include <iostream>
+#include "ComponentPool.hpp"
+
+namespace Soon
 {
 	namespace ECS
 	{

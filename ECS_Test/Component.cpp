@@ -1,4 +1,8 @@
 #include "Component.hpp"
+#include "ClassTypeId.hpp"
+#include <cstdint>
+
+using namespace Soon::ECS;
 
 namespace Soon
 {
@@ -10,12 +14,10 @@ namespace Soon
 		}
 
 		template < typename T >
-		std::uint32_t GetComponentTypeId( void )
-		{
-			return (ClassTypeId::<Component>::GetId<T>());
-		}
+			std::uint32_t GetComponentTypeId( void )
+			{
+				return (ClassTypeId<Component>::GetId<T>());
+			}
 
 	}
-
-
 }

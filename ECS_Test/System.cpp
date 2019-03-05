@@ -1,4 +1,5 @@
 #include "System.hpp"
+#include <iostream>
 
 namespace Soon
 {

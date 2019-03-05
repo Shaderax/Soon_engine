@@ -1,5 +1,12 @@
 #pragma once
 
+#include "Entity.hpp"
+#include <iostream>
+#include "Config.hpp"
+#include <array>
+
+using namespace Soon::ECS;
+
 namespace Soon
 {
 	namespace ECS
@@ -18,7 +25,7 @@ namespace Soon
 				void GetEntityComponents( Entity::Id idClass );
 				bool HasComponent( Entity::Id id, std::uint32_t componentId );
 
-				std::bitset GetComponentTypeList( Entity::Id id );
+				std::bitset<Soon::ECS::MAX_COMPONENTS>& GetComponentTypeList( Entity::Id id );
 
 			private:
 				class EntityComponents

@@ -1,6 +1,8 @@
 #pragma once
 
-namepsace Soon
+#include <iostream>
+
+namespace Soon
 {
 	namespace ECS
 	{

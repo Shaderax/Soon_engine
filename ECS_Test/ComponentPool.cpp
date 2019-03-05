@@ -1,6 +1,8 @@
 #include "ComponentPool.hpp"
 #include "Entity.hpp"
 
+#include <iostream>
+
 namespace Soon
 {
 	namespace ECS
@@ -39,7 +41,7 @@ namespace Soon
 			return (components[componentId] != nullptr);
 		}
 
-		std::bitset ComponentPool::GetComponentTypeList( Entity::Id id )
+		std::bitset<Soon::ECS::MAX_COMPONENTS>& ComponentPool::GetComponentTypeList( Entity::Id id )
 		{
 			return (_entitiesComponents[id.GetId()]._componentTypeList);
 		}

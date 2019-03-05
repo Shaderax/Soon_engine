@@ -1,17 +1,25 @@
 #pragma once
 
+#include "Entity.hpp"
+#include "Config.hpp"
+#include "ClassTypeId.hpp"
+#include "Component.hpp"
+
+using namespace Soon::ECS;
+
 namespace Soon
 {
-
 	namespace ECS
 	{
+		class Entity;
+
 		class System
 		{
 			public:
 				System( void );
 				virtual ~System( void );
 
-				bool PassFilters( std::bitset& bitset ) const;
+				bool PassFilters( std::bitset<Soon::ECS::MAX_COMPONENTS>& bitset ) const;
 				void AddEntity( Entity::Id id );
 
 				std::vector< Entity::Id > GetEntities( void );
@@ -22,8 +30,8 @@ namespace Soon
 				std::bitset<Soon::ECS::MAX_COMPONENTS>	_excludeComponents;
 		};
 
-		template < T >
-			std::uint32_t GetSystemTypeId( void ) const
+		template < typename T >
+			std::uint32_t GetSystemTypeId( void )
 			{
 				return (ClassTypeId<System>::GetId<T>());
 			}

@@ -1,5 +1,10 @@
 #pragma once
 
+#include "Entity.hpp"
+#include <iostream>
+
+using namespace Soon::ECS;
+
 namespace Soon
 {
 	namespace ECS
@@ -15,6 +20,6 @@ namespace Soon
 				std::vector< Entity::Id > killed;
 				std::vector< Entity::Id > activated;
 				std::vector< Entity::Id > deactivated;
-		}
+		};
 	}
 }

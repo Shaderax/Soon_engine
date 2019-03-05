@@ -1,5 +1,5 @@
-#include <iostream>
 #include "World.hpp"
+#include <iostream>
 
 namespace Soon
 {
