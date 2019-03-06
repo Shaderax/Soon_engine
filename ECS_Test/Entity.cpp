@@ -1,5 +1,6 @@
 #include "Entity.hpp"
 #include "World.hpp"
+#include "Id.hpp"
 
 #include <iostream>
 
@@ -7,15 +8,13 @@ namespace Soon
 {
 	namespace ECS
 	{
-		Entity::Entity( World& world, std::uint32_t id ) :
+		Entity::Entity( World& world, TypeId id ) :
 			_id(id),
-			_world(world)
+			_world(&world)
 		{
 		}
 
-		Entity::~Entity( void ) :
-		   	_id(0)
-			_world(nulptr)
+		Entity::~Entity( void )
 		{
 
 		}
@@ -45,18 +44,17 @@ namespace Soon
 			GetWorld().KillEntity(GetIdClass());
 		}
 
-		template < typename T, Args && ... args >
+		template < typename T, typename ... Args >
 			void Entity::AddComponent( Args && ... args )
 			{
 				T* component = new T{std::forward<Args>(args)...};
 				addComponent(component, GetComponentTypeId<T>());
 			}
 
-		template < typename T >
-			void Entity::AddComponent( T* component, std::uint32_t componentId)
-			{
-				GetWorld()._entityAttributes._componentPool.addComponent(GetIdClass(), component, componentId);
-			}
+		void Entity::AddComponent( Component* component, TypeId componentId)
+		{
+			GetWorld()._entityAttributes._componentPool.AddComponent(GetIdClass(), component, componentId);
+		}
 
 		bool Entity::IsValid( void ) const
 		{
@@ -70,9 +68,9 @@ namespace Soon
 			}
 
 		template < typename T >
-			bool Entity::HasComponent( std::uint32_t componentId ) const
+			bool Entity::HasComponent( TypeId componentId ) const
 			{
-				GetWorld()._entitiesAttributes._componentPool.HasComponent(GetIdClass(), componentId);
+				return (GetWorld()._entityAttributes._componentPool.HasComponent(GetIdClass(), componentId));
 			}
 	}
 }

@@ -1,6 +1,9 @@
 #pragma once
 
+#include "Id.hpp"
 #include <iostream>
+
+using namespace Soon::ECS;
 
 namespace Soon
 {
@@ -14,6 +17,6 @@ namespace Soon
 		};
 
 		template < typename T >
-			std::uint32_t GetComponentTypeId( void );
+			TypeId GetComponentTypeId( void );
 	}
 }

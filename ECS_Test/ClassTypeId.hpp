@@ -1,5 +1,9 @@
 #pragma once
 
+#include "Id.hpp"
+
+using namespace Soon::ECS;
+
 namespace Soon
 {
 	namespace ECS
@@ -9,17 +13,17 @@ namespace Soon
 			{
 				public:
 					template < typename T >
-						static std::uint32_t GetId( void )
+						static TypeId GetId( void )
 						{
-							static const std::uint32_t id = _nextId++;
+							static const TypeId id = _nextId++;
 							return (id);
 						}
 
 				private:
-					static std::uint32_t _nextId;
+					static TypeId _nextId;
 			};
 
 		template < typename TBase >
-			std::uint32_t ClassTypeId<TBase>::_nextId{0};
+			TypeId ClassTypeId<TBase>::_nextId{0};
 	}
 }

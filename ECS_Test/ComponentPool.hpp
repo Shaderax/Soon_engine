@@ -1,9 +1,12 @@
 #pragma once
 
 #include "Entity.hpp"
-#include <iostream>
 #include "Config.hpp"
+#include "Id.hpp"
+
+#include <iostream>
 #include <array>
+#include <bitset>
 
 using namespace Soon::ECS;
 
@@ -19,20 +22,18 @@ namespace Soon
 
 				void Resize( std::size_t amount );
 
-				template < typename T >
-				void addComponent( Entity::Id idClass, T component, std::uint32_t componentId );
+				void AddComponent( Id idClass, Component* component, TypeId componentId );
 
-				void GetEntityComponents( Entity::Id idClass );
-				bool HasComponent( Entity::Id id, std::uint32_t componentId );
+				std::array< Component*, Soon::ECS::MAX_COMPONENTS >& GetEntityComponents( Id idClass );
+				bool HasComponent( Id id, TypeId componentId ) const;
 
-				std::bitset<Soon::ECS::MAX_COMPONENTS>& GetComponentTypeList( Entity::Id id );
+				std::bitset<Soon::ECS::MAX_COMPONENTS>& GetComponentTypeList( Id id );
 
 			private:
-				class EntityComponents
+				struct EntityComponents
 				{
-					private:
-						std::array< Component*, Soon::ECS::MAX_COMPONENTS > _entityComponents;
-						std::bitset<Soon::ECS::MAX_COMPONENTS> _componentTypeList;
+					std::array< Component*, Soon::ECS::MAX_COMPONENTS > _entityComponents;
+					std::bitset<Soon::ECS::MAX_COMPONENTS> _componentsTypeList;
 				};
 
 				std::vector<EntityComponents> _entitiesComponents;

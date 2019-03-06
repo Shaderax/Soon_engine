@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Id.hpp"
 #include "System.hpp"
 #include "Entity.hpp"
 #include "EntityPool.hpp"
@@ -21,6 +22,7 @@ namespace Soon
 		{
 			public:
 				World( void );
+				World( std::uint32_t poolSize );
 				~World( void );
 
 				Entity		CreateEntity( void );
@@ -31,8 +33,11 @@ namespace Soon
 				std::size_t	GetAliveEntityCount( void ) const;
 				std::size_t	GetEntityCount( void ) const;
 
-				bool	IsActivated( Entity::Id id );
-				void	KillEntity( Entity::Id id );
+				void ActivateEntity( Id id );
+				void DesactivateEntity( Id id );
+
+				bool	IsActivated( Id id );
+				void	KillEntity( Id id );
 
 				template < typename T >
 				void AddSystem( void );
@@ -40,12 +45,16 @@ namespace Soon
 				template < typename T >
 				T& GetSystem( void ) const;
 
+				bool IsValid( Id id );
+
 			private:
 				EntityPool			_entityPool;
 				EntityCache			_entityCache;
 				EntityAttributes	_entityAttributes;
 
-				std::unordered_map<std::uint32_t, System> _systemPool;
+				std::unordered_map<TypeId, System> _systemPool;
+
+				friend class Entity;
 		};
 
 	}

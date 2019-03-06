@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Entity.hpp"
+#include "Id.hpp"
+
 #include <iostream>
 #include <vector>
 
@@ -9,22 +11,28 @@ namespace Soon
 	namespace ECS
 	{
 		class Entity;
-		class Entity::Id;
 
 		class EntityPool
 		{
 			public:
-				EntityPool( std::size_t poolSize ) { _nextId = 0; };
+				EntityPool( std::uint32_t poolSize )
+			   	{
+					_nextId = 0;
+					Resize(poolSize);
+			   	};
+
 				~EntityPool( void );
 
 				Entity		CreateEntity( void );
 				std::size_t	GetEntityCount( void );
 				void		Resize( std::size_t amount );
-				void		Remove( Entity::Id id );
+				void		Remove( Id id );
+
+				bool		IsValid( Id id );
 
 			private:
-				std::uint32_t			_nextId;
-				std::vector< Entity::Id >	_freeId;
+				TypeId					_nextId;
+				std::vector< Id >	_freeId;
 				std::vector< bool >		_idKilled;
 		};
 	}

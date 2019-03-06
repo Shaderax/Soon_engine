@@ -1,4 +1,5 @@
 #include "System.hpp"
+#include "Id.hpp"
 #include <iostream>
 
 namespace Soon
@@ -21,12 +22,12 @@ namespace Soon
 			return (true);
 		}
 
-		void System::AddEntity( Entity::Id id )
+		void System::AddEntity( Id id )
 		{
 			_entities.push_back(id);
 		}
 
-		std::vector< Entity::Id > GetEntities(void ) const
+		std::vector< Id > GetEntities( void ) const
 		{
 			return (_entities);
 		}

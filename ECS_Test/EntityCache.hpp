@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Entity.hpp"
+#include "Id.hpp"
+
 #include <iostream>
 
 using namespace Soon::ECS;
@@ -9,17 +11,15 @@ namespace Soon
 {
 	namespace ECS
 	{
-		class EntityCache
+		struct EntityCache
 		{
-			public:
-				EntityCache( void );
-				~EntityCache( void );
+			EntityCache( void );
+			~EntityCache( void );
 
-			private:
-				std::vector< Entity::Id > alive;
-				std::vector< Entity::Id > killed;
-				std::vector< Entity::Id > activated;
-				std::vector< Entity::Id > deactivated;
+			std::vector< Id > _alive;
+			std::vector< Id > _killed;
+			std::vector< Id > _activated;
+			std::vector< Id > _desactivated;
 		};
 	}
 }

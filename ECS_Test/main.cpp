@@ -1,3 +1,4 @@
+#include "Id.hpp"
 #include "World.hpp"
 #include "EntityPool.hpp"
 #include "Entity.hpp"
@@ -16,7 +17,7 @@ class Movement : System
 {
 	void Update()
 	{
-		std::vector< Entity::Id >& entities = GetEntities();
+		std::vector< Id >& entities = GetEntities();
 		for (auto entity : entities)
 		{
 			

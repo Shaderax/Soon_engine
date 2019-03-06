@@ -1,7 +1,13 @@
 #include "ComponentPool.hpp"
+#include "Component.hpp"
 #include "Entity.hpp"
+#include "Config.hpp"
+#include "Id.hpp"
 
 #include <iostream>
+#include <array>
+
+using namespace Soon::ECS;
 
 namespace Soon
 {
@@ -22,28 +28,28 @@ namespace Soon
 			_entitiesComponents.resize(amount);
 		}
 
-		void ComponentPool::addComponent( Entity::Id idClass, Component* component, std::uint32_t componentId )
+		void ComponentPool::AddComponent( Id idClass, Component* component, TypeId componentId )
 		{
-			std::uint32_t index = idClass.GetId();
-			GetEntityComponents( index )._entityComponents[componentId] = component;
-			GetEntityComponents( index )._componentsTypeList[componentId] = true;
+			TypeId index = idClass.GetId();
+			_entitiesComponents[index]._entityComponents[componentId] = component;
+			_entitiesComponents[index]._componentsTypeList[componentId] = true;
 		}
 
-		EntityComponents& ComponentPool::GetEntityComponents( std::uint32_t id ) const
+		std::array< Component*, Soon::ECS::MAX_COMPONENTS >& ComponentPool::GetEntityComponents( Id idClass )
 		{
-			return (_entitiesComponents[id]);
+			return (_entitiesComponents[idClass.GetId()]._entityComponents);
 		}
 
-		bool ComponentPool::HasComponent( Entity:: id, std::uint32_t componentId ) const
+		bool ComponentPool::HasComponent( Id id, TypeId componentId ) const
 		{
-			EntityComponents& components = GetEntityComponents(id.GetId());
+			std::array< Component*, Soon::ECS::MAX_COMPONENTS >& components = GetEntityComponents(id);
 
 			return (components[componentId] != nullptr);
 		}
 
-		std::bitset<Soon::ECS::MAX_COMPONENTS>& ComponentPool::GetComponentTypeList( Entity::Id id )
+		std::bitset<Soon::ECS::MAX_COMPONENTS>& ComponentPool::GetComponentTypeList( Id id )
 		{
-			return (_entitiesComponents[id.GetId()]._componentTypeList);
+			return (_entitiesComponents[id.GetId()]._componentsTypeList);
 		}
 	}
 }

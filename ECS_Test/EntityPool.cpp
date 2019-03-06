@@ -1,4 +1,6 @@
 #include "EntityPool.hpp"
+#include "Id.hpp"
+
 #include <iostream>
 
 namespace Soon
@@ -7,10 +9,10 @@ namespace Soon
 	{
 		Entity EntityPool::CreateEntity( void )
 		{
-			Entity::Id id;
+			Id id;
 			if (!_freeId.empty())
 			{
-				id._id = _freeId.back();
+				id._id = _freeId.back()._id;
 				_idKilled[id.GetId()] = false;
 				_freeId.pop_back();
 			}
@@ -30,21 +32,21 @@ namespace Soon
 
 		void EntityPool::Resize( std::size_t amount )
 		{
-			_idkilled.resize(amount);
+			_idKilled.resize(amount);
 		}
 
-		bool EntityPool::IsValid( Entity::Id id )
+		bool EntityPool::IsValid( Id id )
 		{
-			std::uint32_t nb = id.GetId();
+			TypeId nb = id.GetId();
 
 			if (nb < 0 || nb > GetEntityCount() || _idKilled[nb])
 				return (false);
 			return (true);
 		}
 
-		void EntityPool::Remove( Entity::Id id )
+		void EntityPool::Remove( Id id )
 		{
-			_idKiled[id.GetId()] = true;
+			_idKilled[id.GetId()] = true;
 			_freeId.emplace_back(id);
 		}
 

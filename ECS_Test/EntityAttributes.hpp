@@ -1,30 +1,36 @@
 #pragma once
 
-#include <iostream>
 #include "ComponentPool.hpp"
+
+#include <iostream>
+
+using namespace Soon::ECS;
 
 namespace Soon
 {
 	namespace ECS
 	{
-		class EntityAttributes
+		struct EntityAttributes
 		{
-			public:
-				EntityAttributes( void );
-				~EntityAttributes( void );
+			EntityAttributes( std::uint32_t poolSize )
+			{
+				Resize( poolSize );
+			};
 
-				void Resize( std::size_t amount );
+			~EntityAttributes( void );
 
-				struct Attribute
-				{
-					bool _activated;
+			void Resize( std::size_t amount );
 
-					std::vector<bool> _systems;
-				};
+			struct Attribute
+			{
+				bool _activated;
 
-				ComponentPool _componentPool;
+				std::vector<bool> _systems;
+			};
 
-				std::vector<Attribute> _attributes;
+			ComponentPool _componentPool;
+
+			std::vector<Attribute> _attributes;
 		};
 
 	}
