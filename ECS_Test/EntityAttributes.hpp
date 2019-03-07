@@ -3,6 +3,7 @@
 #include "ComponentPool.hpp"
 
 #include <iostream>
+#include <vector>
 
 using namespace Soon::ECS;
 
@@ -16,8 +17,6 @@ namespace Soon
 			{
 				Resize( poolSize );
 			};
-
-			~EntityAttributes( void );
 
 			void Resize( std::size_t amount );
 

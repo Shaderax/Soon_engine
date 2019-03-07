@@ -6,7 +6,16 @@ namespace Soon
 {
 	namespace ECS
 	{
-		bool System::PassFilters( std::bitset& bitset ) const
+		System::System( void )
+		{
+
+		}
+		
+		System::~System( void )
+		{
+
+		}
+		bool System::PassFilters( std::bitset<Soon::ECS::MAX_COMPONENTS>& bitset ) const
 		{
 			for(std::size_t i = 0; i < _requireComponents.size(); ++i)
 			{
@@ -27,7 +36,7 @@ namespace Soon
 			_entities.push_back(id);
 		}
 
-		std::vector< Id > GetEntities( void ) const
+		std::vector< Id >& System::GetEntities( void )
 		{
 			return (_entities);
 		}

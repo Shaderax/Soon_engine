@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Entity.hpp"
 #include "Id.hpp"
 
 #include <iostream>
@@ -13,9 +12,6 @@ namespace Soon
 	{
 		struct EntityCache
 		{
-			EntityCache( void );
-			~EntityCache( void );
-
 			std::vector< Id > _alive;
 			std::vector< Id > _killed;
 			std::vector< Id > _activated;

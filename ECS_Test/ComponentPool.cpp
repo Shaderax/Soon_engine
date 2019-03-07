@@ -1,6 +1,5 @@
 #include "ComponentPool.hpp"
 #include "Component.hpp"
-#include "Entity.hpp"
 #include "Config.hpp"
 #include "Id.hpp"
 
@@ -40,7 +39,7 @@ namespace Soon
 			return (_entitiesComponents[idClass.GetId()]._entityComponents);
 		}
 
-		bool ComponentPool::HasComponent( Id id, TypeId componentId ) const
+		bool ComponentPool::HasComponent( Id id, TypeId componentId )
 		{
 			std::array< Component*, Soon::ECS::MAX_COMPONENTS >& components = GetEntityComponents(id);
 

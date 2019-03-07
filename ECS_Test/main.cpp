@@ -1,16 +1,22 @@
-#include "Id.hpp"
 #include "World.hpp"
-#include "EntityPool.hpp"
-#include "Entity.hpp"
-#include "Component.hpp"
 #include "System.hpp"
+#include "Entity.hpp"
 
 using namespace Soon::ECS;
 
-class Position : Component
+struct Position : Component
 {
-	float x;
-	float y;
+	Position( float x, float y ) : _x(x), _y(x)
+	{
+
+	}
+	float _x;
+	float _y;
+};
+
+struct TransformComponent : Component
+{
+	    int transform;
 };
 
 class Movement : System
@@ -20,24 +26,24 @@ class Movement : System
 		std::vector< Id >& entities = GetEntities();
 		for (auto entity : entities)
 		{
-			
+
 		}
 	}
 };
 
 int main(int argc, char **argv)
 {
-	Soon::ECS::World world;
+	World world;
 
-//	Soon::ECS::Entity entite = world.CreateEntity();
-//
-//	entite.AddComponent<Position>(5, 5);
-//
-//	world.AddSystem<Movement>();
-//
-//	world::Update();
-//
-//	world::GetSystem<Movement>().Update();
+	Soon::ECS::Entity entite = world.CreateEntity();
+
+	entite.AddComponent<TransformComponent>();
+
+	//	world.AddSystem<Movement>();
+
+	//	world::Update();
+
+	//	world::GetSystem<Movement>().Update();
 
 	return (0);
 }

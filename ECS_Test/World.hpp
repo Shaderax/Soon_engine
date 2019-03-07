@@ -1,11 +1,12 @@
 #pragma once
 
 #include "Id.hpp"
-#include "System.hpp"
 #include "Entity.hpp"
+#include "System.hpp"
 #include "EntityPool.hpp"
 #include "EntityCache.hpp"
 #include "EntityAttributes.hpp"
+
 
 #include <iostream>
 #include <unordered_map>
@@ -40,10 +41,10 @@ namespace Soon
 				void	KillEntity( Id id );
 
 				template < typename T >
-				void AddSystem( void );
+					void AddSystem( void );
 
 				template < typename T >
-				T& GetSystem( void ) const;
+					T& GetSystem( void ) const;
 
 				bool IsValid( Id id );
 

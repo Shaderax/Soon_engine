@@ -7,7 +7,18 @@ namespace Soon
 {
 	namespace ECS
 	{
-		Entity EntityPool::CreateEntity( void )
+		EntityPool::EntityPool( std::uint32_t poolSize )
+		{
+			_nextId = 0;
+			Resize(poolSize);
+		}
+
+		EntityPool::~EntityPool( void )
+		{
+
+		}
+
+		Id EntityPool::CreateEntity( void )
 		{
 			Id id;
 			if (!_freeId.empty())
@@ -21,11 +32,10 @@ namespace Soon
 				id._id = _nextId;
 				_nextId++;
 			}
-			Entity e(id.GetId());
-			return (e);
+			return (id);
 		}
 
-		std::size_t EntityPool::GetEntityCount( void )
+		std::size_t EntityPool::GetEntityCount( void ) const
 		{
 			return (_nextId);
 		}

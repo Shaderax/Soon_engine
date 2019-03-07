@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Id.hpp"
-#include <iostream>
 
 using namespace Soon::ECS;
 

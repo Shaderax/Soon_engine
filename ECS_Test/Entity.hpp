@@ -30,6 +30,9 @@ namespace Soon
 				void Desactivate( void );
 				void Kill( void );
 
+				template< typename T >
+					void AddComponent( void );
+
 				template< typename T, typename ... Args >
 					void AddComponent( Args && ... args );
 

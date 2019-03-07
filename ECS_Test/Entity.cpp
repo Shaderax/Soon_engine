@@ -1,6 +1,7 @@
 #include "Entity.hpp"
 #include "World.hpp"
 #include "Id.hpp"
+#include "Component.hpp"
 
 #include <iostream>
 
@@ -43,12 +44,19 @@ namespace Soon
 		{
 			GetWorld().KillEntity(GetIdClass());
 		}
+		
+		template < typename T >
+			void Entity::AddComponent( void )
+			{
+				T* component = new T();
+				AddComponent(component, GetComponentTypeId<T>());
+			}
 
 		template < typename T, typename ... Args >
 			void Entity::AddComponent( Args && ... args )
 			{
-				T* component = new T{std::forward<Args>(args)...};
-				addComponent(component, GetComponentTypeId<T>());
+				T* component = new T(std::forward<Args>(args) ...);
+				AddComponent(component, GetComponentTypeId<T>());
 			}
 
 		void Entity::AddComponent( Component* component, TypeId componentId)

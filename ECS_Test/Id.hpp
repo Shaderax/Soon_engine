@@ -12,7 +12,6 @@ namespace Soon
 		{
 				Id( TypeId id ) { _id = id; };
 				Id( void ) : _id(0) {};
-				~Id( void );
 
 				TypeId GetId( void ) { return (_id); };
 

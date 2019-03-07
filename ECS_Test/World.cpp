@@ -1,4 +1,5 @@
 #include "World.hpp"
+#include "Entity.hpp"
 #include "Id.hpp"
 #include "Config.hpp"
 
@@ -13,10 +14,10 @@ namespace Soon
 
 		}
 
-		World::World( std::uint32_t poolSize )
+		World::World( std::uint32_t poolSize ) :
+			_entityPool( poolSize ),
+			_entityAttributes( poolSize )
 		{
-			_entityPool( poolSize );
-			_entityAttributes( poolSize );
 		}
 
 		World::~World( void )
@@ -29,7 +30,9 @@ namespace Soon
 			CheckResizePool(1);
 
 			_entityCache._alive.push_back(_entityPool.CreateEntity());
-			return (_entityCache._alive.back());
+			Entity e(*this, _entityCache._alive.back().GetId());
+
+			return (e);
 		}
 
 		std::size_t World::GetAliveEntityCount( void ) const
@@ -55,6 +58,7 @@ namespace Soon
 			if (newSize > GetEntityCount())
 				Resize(newSize);
 		}
+		
 		bool World::IsValid( Id id )
 		{
 			return (_entityPool.IsValid(id));
@@ -173,7 +177,7 @@ namespace Soon
 		template < typename T >
 		T& World::GetSystem( void ) const
 		{
-			return (_systems[GetSystemTypeId<T>()]);
+			return (_systemPool[GetSystemTypeId<T>()]);
 		}
 	}
 }

@@ -1,12 +1,13 @@
 #pragma once
 
-#include "Entity.hpp"
+#include "Component.hpp"
 #include "Config.hpp"
 #include "Id.hpp"
 
 #include <iostream>
 #include <array>
 #include <bitset>
+#include <vector>
 
 using namespace Soon::ECS;
 
@@ -25,7 +26,7 @@ namespace Soon
 				void AddComponent( Id idClass, Component* component, TypeId componentId );
 
 				std::array< Component*, Soon::ECS::MAX_COMPONENTS >& GetEntityComponents( Id idClass );
-				bool HasComponent( Id id, TypeId componentId ) const;
+				bool HasComponent( Id id, TypeId componentId );
 
 				std::bitset<Soon::ECS::MAX_COMPONENTS>& GetComponentTypeList( Id id );
 

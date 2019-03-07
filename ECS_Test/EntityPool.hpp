@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Entity.hpp"
 #include "Id.hpp"
 
 #include <iostream>
@@ -10,21 +9,15 @@ namespace Soon
 {
 	namespace ECS
 	{
-		class Entity;
-
 		class EntityPool
 		{
 			public:
-				EntityPool( std::uint32_t poolSize )
-			   	{
-					_nextId = 0;
-					Resize(poolSize);
-			   	};
+				EntityPool( std::uint32_t poolSize );
 
 				~EntityPool( void );
 
-				Entity		CreateEntity( void );
-				std::size_t	GetEntityCount( void );
+				Id		CreateEntity( void );
+				std::size_t	GetEntityCount( void ) const;
 				void		Resize( std::size_t amount );
 				void		Remove( Id id );
 
