@@ -1,23 +1,9 @@
+#include "Entity.hpp"
 #include "World.hpp"
 #include "System.hpp"
-#include "Entity.hpp"
+#include "Transform.hpp"
 
 using namespace Soon::ECS;
-
-struct Position : Component
-{
-	Position( float x, float y ) : _x(x), _y(x)
-	{
-
-	}
-	float _x;
-	float _y;
-};
-
-struct TransformComponent : Component
-{
-	    int transform;
-};
 
 class Movement : System
 {
@@ -37,9 +23,10 @@ int main(int argc, char **argv)
 
 	Soon::ECS::Entity entite = world.CreateEntity();
 
-	entite.AddComponent<TransformComponent>();
+	 //entite.AddComponent<Component>();
+	// entite.AddComponent<Transform>();
 
-	//	world.AddSystem<Movement>();
+	//world.AddSystem<Movement>();
 
 	//	world::Update();
 

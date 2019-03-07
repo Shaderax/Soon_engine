@@ -44,7 +44,7 @@ namespace Soon
 		{
 			GetWorld().KillEntity(GetIdClass());
 		}
-		
+
 		template < typename T >
 			void Entity::AddComponent( void )
 			{
