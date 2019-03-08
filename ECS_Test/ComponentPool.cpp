@@ -50,5 +50,15 @@ namespace Soon
 		{
 			return (_entitiesComponents[id.GetId()]._componentsTypeList);
 		}
+
+		void ComponentPool::RemoveAllEntityComponents( Id id )
+		{
+			TypeId index = id.GetId();
+			EntityComponents& entityComponents = _entitiesComponents[index];
+
+			for(auto& c : entityComponents._entityComponents)
+				delete c;
+			entityComponents._componentsTypeList.reset();
+		}
 	}
 }

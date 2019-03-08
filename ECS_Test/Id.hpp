@@ -15,6 +15,16 @@ namespace Soon
 
 				TypeId GetId( void ) { return (_id); };
 
+				bool operator == ( const Id& rhs )
+				{
+					return (_id == rhs._id);
+				}
+
+				bool operator != ( const Id& rhs )
+				{
+					return (!(_id == rhs._id));
+				}
+
 				TypeId _id;
 		};
 	}

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Id.hpp"
+#include "ClassTypeId.hpp"
 
 using namespace Soon::ECS;
 
@@ -11,11 +12,13 @@ namespace Soon
 		class Component
 		{
 			public:
-				Component( void );
-				virtual ~Component( void );
+				virtual ~Component( void ) {};
 		};
 
 		template < typename T >
-			TypeId GetComponentTypeId( void );
+			TypeId GetComponentTypeId( void )
+			{
+				return (ClassTypeId<Component>::GetId<T>());
+			}
 	}
 }

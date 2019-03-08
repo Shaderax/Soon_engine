@@ -45,20 +45,6 @@ namespace Soon
 			GetWorld().KillEntity(GetIdClass());
 		}
 
-		template < typename T >
-			void Entity::AddComponent( void )
-			{
-				T* component = new T();
-				AddComponent(component, GetComponentTypeId<T>());
-			}
-
-		template < typename T, typename ... Args >
-			void Entity::AddComponent( Args && ... args )
-			{
-				T* component = new T(std::forward<Args>(args) ...);
-				AddComponent(component, GetComponentTypeId<T>());
-			}
-
 		void Entity::AddComponent( Component* component, TypeId componentId)
 		{
 			GetWorld()._entityAttributes._componentPool.AddComponent(GetIdClass(), component, componentId);
@@ -68,12 +54,6 @@ namespace Soon
 		{
 			return (GetWorld().IsValid(GetIdClass()));
 		}
-
-		template <typename T>
-			bool Entity::HasComponent( void ) const
-			{
-				return (HasComponent(GetComponentTypeId<T>()));
-			}
 
 		template < typename T >
 			bool Entity::HasComponent( TypeId componentId ) const

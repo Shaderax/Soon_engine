@@ -5,15 +5,17 @@
 
 using namespace Soon::ECS;
 
-class Movement : System
+class Movement : public System
 {
+	public:
+		Movement( void ) {};
 	void Update()
 	{
-		std::vector< Id >& entities = GetEntities();
-		for (auto entity : entities)
-		{
-
-		}
+//		std::vector< Id >& entities = GetEntities();
+//		for (auto entity : entities)
+//		{
+//
+//		}
 	}
 };
 
@@ -23,14 +25,13 @@ int main(int argc, char **argv)
 
 	Soon::ECS::Entity entite = world.CreateEntity();
 
-	 //entite.AddComponent<Component>();
-	// entite.AddComponent<Transform>();
+	entite.AddComponent<Transform>();
 
-	//world.AddSystem<Movement>();
+	world.AddSystem<Movement>();
 
-	//	world::Update();
+	world.Update();
 
-	//	world::GetSystem<Movement>().Update();
+	world.GetSystem<Movement>().Update();
 
 	return (0);
 }

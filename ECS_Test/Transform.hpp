@@ -2,7 +2,7 @@
 
 #include "Component.hpp"
 
-class Transform : Component
+struct Transform : Component
 {
 	Transform( void ) {};
 	float x;

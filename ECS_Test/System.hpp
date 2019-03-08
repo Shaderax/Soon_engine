@@ -21,6 +21,7 @@ namespace Soon
 
 				bool PassFilters( std::bitset<Soon::ECS::MAX_COMPONENTS>& bitset ) const;
 				void AddEntity( Id id );
+				void RemoveEntity( Id id );
 
 				std::vector< Id >& GetEntities( void );
 

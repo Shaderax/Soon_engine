@@ -7,7 +7,6 @@
 #include "EntityCache.hpp"
 #include "EntityAttributes.hpp"
 
-
 #include <iostream>
 #include <unordered_map>
 
@@ -44,7 +43,7 @@ namespace Soon
 					void AddSystem( void );
 
 				template < typename T >
-					T& GetSystem( void ) const;
+					T& GetSystem( void );
 
 				bool IsValid( Id id );
 
@@ -53,10 +52,24 @@ namespace Soon
 				EntityCache			_entityCache;
 				EntityAttributes	_entityAttributes;
 
-				std::unordered_map<TypeId, System> _systemPool;
+				std::unordered_map<TypeId, System*> _systemPool;
 
 				friend class Entity;
 		};
 
+		template < typename T >
+			void World::AddSystem( void )
+			{
+				T* newSystem = new T();
+				TypeId idSystem = GetSystemTypeId<T>();
+
+				_systemPool[idSystem] = newSystem;
+			}
+
+		template < typename T >
+			T& World::GetSystem( void )
+			{
+				return (_systemPool[GetSystemTypeId<T>()]);
+			}
 	}
 }

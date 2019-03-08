@@ -30,10 +30,7 @@ namespace Soon
 				void Desactivate( void );
 				void Kill( void );
 
-				template< typename T >
-					void AddComponent( void );
-
-				template< typename T, typename ... Args >
+				template < typename T, typename ... Args >
 					void AddComponent( Args && ... args );
 
 				void AddComponent( Component* component, TypeId componentId);
@@ -49,5 +46,17 @@ namespace Soon
 
 				World* _world;
 		};
+
+		template < typename T, typename ... Args >
+			void Entity::AddComponent( Args && ... args )
+			{
+				T* component = new T(std::forward<Args>(args) ...);
+				AddComponent(component, GetComponentTypeId<T>());
+			}
+		template <typename T>
+			bool Entity::HasComponent( void ) const
+			{
+				return (HasComponent(GetComponentTypeId<T>()));
+			}
 	}
 }

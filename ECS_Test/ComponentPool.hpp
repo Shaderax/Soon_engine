@@ -30,6 +30,8 @@ namespace Soon
 
 				std::bitset<Soon::ECS::MAX_COMPONENTS>& GetComponentTypeList( Id id );
 
+				void RemoveAllEntityComponents( Id id );
+
 			private:
 				struct EntityComponents
 				{
