@@ -31,7 +31,7 @@ int main(int argc, char **argv)
 
 	world.Update();
 
-	world.GetSystem<Movement>().Update();
+	world.GetSystem<Movement>();
 
 	return (0);
 }

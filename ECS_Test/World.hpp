@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <unordered_map>
+#include <memory>
 
 using namespace Soon::ECS;
 
@@ -52,7 +53,7 @@ namespace Soon
 				EntityCache			_entityCache;
 				EntityAttributes	_entityAttributes;
 
-				std::unordered_map<TypeId, System*> _systemPool;
+				std::unordered_map<TypeId, std::shared_ptr<System>> _systemPool;
 
 				friend class Entity;
 		};
@@ -69,7 +70,7 @@ namespace Soon
 		template < typename T >
 			T& World::GetSystem( void )
 			{
-				return (_systemPool[GetSystemTypeId<T>()]);
+				return *(std::static_pointer_cast<T>(_systemPool[GetSystemTypeId<T>()]));
 			}
 	}
 }
