@@ -4,6 +4,13 @@ namespace Soon
 {
 	namespace ECS
 	{
+		EntityAttributes::EntityAttributes( std::uint32_t poolSize ) :
+			_componentPool( poolSize ),
+			_attributes( poolSize )
+		{
+
+		}
+
 		void EntityAttributes::Resize( std::size_t amount )
 		{
 			_componentPool.Resize(amount);

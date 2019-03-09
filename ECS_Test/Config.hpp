@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <cassert>
 
 namespace Soon
 {
@@ -11,3 +12,4 @@ namespace Soon
 	}
 }
 
+#define ECS_ASSERT(condition, failMessage) assert((condition) && failMessage)

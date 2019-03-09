@@ -13,10 +13,7 @@ namespace Soon
 	{
 		struct EntityAttributes
 		{
-			EntityAttributes( std::uint32_t poolSize )
-			{
-				Resize( poolSize );
-			};
+			EntityAttributes( std::uint32_t poolSize );
 
 			void Resize( std::size_t amount );
 

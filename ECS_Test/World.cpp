@@ -19,6 +19,7 @@ namespace Soon
 			_entityPool( poolSize ),
 			_entityAttributes( poolSize )
 		{
+
 		}
 
 		World::~World( void )
@@ -59,7 +60,7 @@ namespace Soon
 			if (newSize > GetEntityCount())
 				Resize(newSize);
 		}
-		
+
 		bool World::IsValid( Id id )
 		{
 			return (_entityPool.IsValid(id));
@@ -75,23 +76,25 @@ namespace Soon
 
 		void	World::DesactivateEntity( Id id )
 		{
-			if (IsValid(id))
+			ECS_ASSERT(IsValid(id), "Invalid id tried to be desactivated")
+
 				_entityCache._desactivated.push_back(id);
 		}
 
 		void	World::ActivateEntity( Id id )
 		{
-			if (IsValid(id))
+			ECS_ASSERT(IsValid(id), "Invalid id tried to be activated")
+
 				_entityCache._activated.push_back(id);
 		}
 
 		void	World::KillEntity( Id id )
 		{
-			if (IsValid(id))
-			{
+			ECS::ASSERT(IsValid(id), "Invalid id tried to kill entity")
+
 				DesactivateEntity(id);
+
 				_entityCache._killed.push_back(id);
-			}
 		}
 
 		void World::Update( void )
@@ -142,7 +145,7 @@ namespace Soon
 				{
 					TypeId systemIndex = system.first;
 					if(attribute._systems.size() <= systemIndex)
-					   	continue;
+						continue;
 
 					if(attribute._systems[systemIndex])
 					{

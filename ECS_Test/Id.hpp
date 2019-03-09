@@ -10,22 +10,34 @@ namespace Soon
 
 		struct Id
 		{
-				Id( TypeId id ) { _id = id; };
-				Id( void ) : _id(0) {};
+			Id( TypeId id )
+			{
+				_id = id;
+			};
 
-				TypeId GetId( void ) { return (_id); };
+			Id( void ) :
+				_id(0)
+			{
+			};
 
-				bool operator == ( const Id& rhs )
-				{
-					return (_id == rhs._id);
-				}
+			TypeId GetId( void ) { return (_id); };
 
-				bool operator != ( const Id& rhs )
-				{
-					return (!(_id == rhs._id));
-				}
+			bool operator==( const Id& rhs )
+			{
+				return (_id == rhs._id);
+			}
 
-				TypeId _id;
+			bool operator!=( const Id& rhs )
+			{
+				return (!(_id == rhs._id));
+			}
+
+			void Clear( void )
+			{
+				_id = 0;
+			}
+
+			TypeId _id;
 		};
 	}
 }

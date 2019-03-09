@@ -24,6 +24,6 @@ namespace Soon
 			};
 
 		template < typename TBase >
-			TypeId ClassTypeId<TBase>::_nextId{0};
+			TypeId ClassTypeId<TBase>::_nextId = 0;
 	}
 }

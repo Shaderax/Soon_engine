@@ -2,6 +2,7 @@
 #include "World.hpp"
 #include "Id.hpp"
 #include "Component.hpp"
+#include "Config.hpp"
 
 #include <iostream>
 
@@ -22,7 +23,19 @@ namespace Soon
 
 		World& Entity::GetWorld( void ) const
 		{
+			ECS_ASSERT(_world, "world in entity is null");
+
 			return (*_world);
+		}
+
+		TypeId Entity::GetId( void ) const
+		{
+			return (_id.GetId());
+		}
+
+		Id Entity::GetIdClass( void ) const
+		{
+			return (_id);
 		}
 
 		bool Entity::IsActivated( void ) const
@@ -52,6 +65,8 @@ namespace Soon
 
 		bool Entity::IsValid( void ) const
 		{
+			if (_world == nullptr)
+				return (false);
 			return (GetWorld().IsValid(GetIdClass()));
 		}
 
@@ -60,5 +75,20 @@ namespace Soon
 			{
 				return (GetWorld()._entityAttributes._componentPool.HasComponent(GetIdClass(), componentId));
 			}
+
+		void Entity::RemoveAllComponents( void )
+		{
+			GetWorld()._entityAttributes._componentPool.RemoveAllEntityComponents(GetIdClass());
+		}
+
+		void Entity::RemoveComponent( TypeId componentTypeId )
+		{
+			GetWorld()._entityAttributes._componentPool.RemoveComponent(GetIdClass(), componentTypeId);
+		}
+
+		Component& Entity::GetComponent( TypeId componentTypeId ) const
+		{
+			return (GetWorld()._entityAttributes._componentPool.GetComponent(GetIdClass(), componentTypeId));
+		}
 	}
 }
