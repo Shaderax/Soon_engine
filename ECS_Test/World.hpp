@@ -53,7 +53,7 @@ namespace Soon
 				EntityCache			_entityCache;
 				EntityAttributes	_entityAttributes;
 
-				std::unordered_map<TypeId, std::shared_ptr<System>> _systemPool;
+				std::unordered_map<TypeId, System*> _systemPool;
 
 				friend class Entity;
 		};
@@ -70,7 +70,7 @@ namespace Soon
 		template < typename T >
 			T& World::GetSystem( void )
 			{
-				return *(std::static_pointer_cast<T>(_systemPool[GetSystemTypeId<T>()]));
+				return *(static_cast<T*>(_systemPool[GetSystemTypeId<T>()]));
 			}
 	}
 }
