@@ -20,8 +20,9 @@ namespace Soon
 				std::size_t	GetEntityCount( void ) const;
 				void		Resize( std::size_t amount );
 				void		Remove( Id id );
+				void		Clear( void );
 
-				bool		IsValid( Id id );
+				bool		IsValid( Id id ) const;
 
 			private:
 				TypeId			_nextId;

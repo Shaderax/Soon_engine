@@ -37,6 +37,23 @@ namespace Soon
 			return (e);
 		}
 
+		std::vector<Entity> World::CreateEntities(std::size_t amount)
+		{
+			std::vector<Entity> tmp;
+			tmp.reserve(amount);
+
+			CheckResizePool(amount);
+
+			for( std::size_t i = 0; i < amount; ++i )
+			{
+				Entity e(*this, _entityPool.CreateEntity().GetId());
+				_entityCache._alive.push_back(e.GetIdClass());
+				tmp.push_back(e);
+			}
+
+			return tmp;
+		}
+
 		std::size_t World::GetAliveEntityCount( void ) const
 		{
 			return (_entityCache._alive.size());
@@ -61,7 +78,7 @@ namespace Soon
 				Resize(newSize);
 		}
 
-		bool World::IsValid( Id id )
+		bool World::IsValid( Id id ) const
 		{
 			return (_entityPool.IsValid(id));
 		}
@@ -74,27 +91,54 @@ namespace Soon
 				return (false);
 		}
 
+		void World::AddSystem( System* newSystem, TypeId SystemTypeId )
+		{
+			_systemPool[SystemTypeId] = newSystem;
+		}
+
+		void World::RemoveAllSystems( void )
+		{
+			for(auto& system : _systemPool)
+				delete system.second;
+			_systemPool.clear();
+		}
+
+		void World::RemoveSystem( TypeId SystemTypeId )
+		{
+			delete _systemPool[SystemTypeId];
+
+			_systemPool.erase(SystemTypeId);
+		}
+
 		void	World::DesactivateEntity( Id id )
 		{
-			ECS_ASSERT(IsValid(id), "Invalid id tried to be desactivated")
+			ECS_ASSERT(IsValid(id), "Invalid id tried to be desactivated");
 
-				_entityCache._desactivated.push_back(id);
+			_entityCache._desactivated.push_back(id);
 		}
 
 		void	World::ActivateEntity( Id id )
 		{
-			ECS_ASSERT(IsValid(id), "Invalid id tried to be activated")
+			ECS_ASSERT(IsValid(id), "Invalid id tried to be activated");
 
-				_entityCache._activated.push_back(id);
+			_entityCache._activated.push_back(id);
 		}
 
 		void	World::KillEntity( Id id )
 		{
-			ECS::ASSERT(IsValid(id), "Invalid id tried to kill entity")
+			ECS_ASSERT(IsValid(id), "Invalid id tried to kill entity");
 
-				DesactivateEntity(id);
+			DesactivateEntity(id);
 
-				_entityCache._killed.push_back(id);
+			_entityCache._killed.push_back(id);
+		}
+
+		void World::KillEntities(std::vector<Entity>& entities)
+		{
+			for(auto& i : entities)
+			{
+				KillEntity(i.GetIdClass());
+			}
 		}
 
 		void World::Update( void )
@@ -168,6 +212,18 @@ namespace Soon
 				// remove it from the id pool
 				_entityPool.Remove(entityId.GetId());
 			}
+			_entityCache.ClearTemp();
+		}
+
+		void World::Clear( void )
+		{
+			RemoveAllSystems();
+
+			_entityPool.Clear();
+
+			_entityCache.Clear();
+
+			_entityAttributes.Clear();
 		}
 	}
 }

@@ -23,7 +23,7 @@ namespace Soon
 
 				Id GetIdClass( void ) const;
 
-				bool IsValid() const;
+				bool IsValid( void ) const;
 
 				World& GetWorld( void ) const;
 				bool IsActivated( void ) const;
@@ -41,18 +41,17 @@ namespace Soon
 				template <typename T>
 					bool HasComponent( void ) const;
 
-				template < typename T >
-					bool HasComponent( TypeId componentId ) const;
+				bool HasComponent( TypeId componentId ) const;
 
 				template < typename T >
 					void RemoveComponent( void );
 
-					void RemoveComponent( TypeId componentTypeId );
+				void RemoveComponent( TypeId componentTypeId );
 
-					template < typename T >
-						T& GetComponent( void ) const;
+				template < typename T >
+					T& GetComponent( void ) const;
 
-						Component& GetComponent( TypeId componentTypeId ) const;
+				Component& GetComponent( TypeId componentTypeId ) const;
 
 			private:
 				Id _id;
@@ -66,6 +65,7 @@ namespace Soon
 				T* component = new T(std::forward<Args>(args) ...);
 				AddComponent(component, GetComponentTypeId<T>());
 			}
+
 		template <typename T>
 			bool Entity::HasComponent( void ) const
 			{
@@ -73,15 +73,15 @@ namespace Soon
 			}
 
 		template < typename T >
-			void RemoveComponent( void )
+			void Entity::RemoveComponent( void )
 			{
 				RemoveComponent(GetComponentTypeId<T>());
 			}
 
 		template < typename T >
-			T& GetComponent( void ) const
+			T& Entity::GetComponent( void ) const
 			{
-				return (static_cast<T&>(GetComponent(GetComponentTypeId<T>())))
+				return (static_cast<T&>(GetComponent(GetComponentTypeId<T>())));
 			}
 	}
 }

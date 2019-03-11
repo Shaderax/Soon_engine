@@ -20,7 +20,7 @@ namespace Soon
 
 		bool System::PassFilters( std::bitset<Soon::ECS::MAX_COMPONENTS>& bitset ) const
 		{
-			for(std::size_t i = 0; i < _requireComponents.size(); ++i)
+			for (std::size_t i = 0; i < _requireComponents.size(); ++i)
 			{
 				if(_requireComponents[i] == true && bitset[i] == false)
 				{
@@ -28,7 +28,7 @@ namespace Soon
 				}
 			}
 
-			if((_excludeComponents & bitset).any())
+			if ((_excludeComponents & bitset).any())
 				return false;
 
 			return (true);

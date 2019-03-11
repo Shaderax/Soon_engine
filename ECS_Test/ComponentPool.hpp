@@ -18,12 +18,17 @@ namespace Soon
 		class ComponentPool
 		{
 			public:
-				ComponentPool( void );
+				ComponentPool( std::size_t poolSize );
 				~ComponentPool( void );
 
 				void Resize( std::size_t amount );
 
 				void AddComponent( Id idClass, Component* component, TypeId componentId );
+				void RemoveComponent( Id id, TypeId componentId );
+
+				Component& GetComponent( Id id, TypeId componentTypeId);
+
+				void Clear( void );
 
 				std::array< Component*, Soon::ECS::MAX_COMPONENTS >& GetEntityComponents( Id idClass );
 				bool HasComponent( Id id, TypeId componentId );

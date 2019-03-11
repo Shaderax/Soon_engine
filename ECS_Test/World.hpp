@@ -27,26 +27,38 @@ namespace Soon
 				~World( void );
 
 				Entity		CreateEntity( void );
+				std::vector<Entity> CreateEntities(std::size_t amount);
 				EntityPool	GetEntityPool( void );
 				void		Update( void );
-				void		Resize( std::size_t amount );
 				void		CheckResizePool( std::size_t amount );
+				void		Resize( std::size_t amount );
 				std::size_t	GetAliveEntityCount( void ) const;
 				std::size_t	GetEntityCount( void ) const;
 
 				void ActivateEntity( Id id );
 				void DesactivateEntity( Id id );
 
+				void RemoveAllSystems( void );
+				void RemoveSystem( TypeId SystemTypeId );
+
 				bool	IsActivated( Id id );
 				void	KillEntity( Id id );
+				void	KillEntities(std::vector<Entity>& entities);
+
+				void	Clear( void );
+
+				void AddSystem( System* sys, TypeId SystemTypeId );
 
 				template < typename T >
 					void AddSystem( void );
 
 				template < typename T >
+					void RemoveSystem( void );
+
+				template < typename T >
 					T& GetSystem( void );
 
-				bool IsValid( Id id );
+				bool IsValid( Id id ) const;
 
 			private:
 				EntityPool			_entityPool;
@@ -58,13 +70,18 @@ namespace Soon
 				friend class Entity;
 		};
 
-		template < typename T >
+		template < class T >
 			void World::AddSystem( void )
 			{
 				T* newSystem = new T();
-				TypeId idSystem = GetSystemTypeId<T>();
 
-				_systemPool[idSystem] = newSystem;
+				AddSystem(newSystem, GetSystemTypeId<T>());
+			}
+
+		template < class T >
+			void World::RemoveSystem( void )
+			{
+				RemoveSystem(GetSystemTypeId<T>());
 			}
 
 		template < typename T >

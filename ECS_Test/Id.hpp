@@ -20,7 +20,7 @@ namespace Soon
 			{
 			};
 
-			TypeId GetId( void ) { return (_id); };
+			TypeId GetId( void ) const { return (_id); };
 
 			bool operator==( const Id& rhs )
 			{

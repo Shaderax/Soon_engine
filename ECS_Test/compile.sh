@@ -1,1 +1,1 @@
-g++ -std=c++11 -Wall -Wextra *.cpp -I .
+clear ; g++ -std=c++11 -Wall -Wextra *.cpp -I .

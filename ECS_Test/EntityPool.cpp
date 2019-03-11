@@ -7,10 +7,10 @@ namespace Soon
 {
 	namespace ECS
 	{
-		EntityPool::EntityPool( std::uint32_t poolSize )
+		EntityPool::EntityPool( std::uint32_t poolSize ) :
+			_nextId(0),
+			_idKilled(poolSize)
 		{
-			_nextId = 0;
-			Resize(poolSize);
 		}
 
 		EntityPool::~EntityPool( void )
@@ -45,7 +45,7 @@ namespace Soon
 			_idKilled.resize(amount);
 		}
 
-		bool EntityPool::IsValid( Id id )
+		bool EntityPool::IsValid( Id id ) const
 		{
 			TypeId nb = id.GetId();
 
@@ -57,8 +57,14 @@ namespace Soon
 		void EntityPool::Remove( Id id )
 		{
 			_idKilled[id.GetId()] = true;
-			_freeId.emplace_back(id);
+			_freeId.push_back(id);
 		}
 
+		void EntityPool::Clear( void )
+		{
+			_nextId = 0;
+			_freeId.clear();
+			_idKilled.clear();
+		}
 	}
 }

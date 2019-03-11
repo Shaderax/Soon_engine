@@ -16,5 +16,11 @@ namespace Soon
 			_componentPool.Resize(amount);
 			_attributes.resize(amount);
 		}
+
+		void EntityAttributes::Clear( void )
+		{
+			_componentPool.Clear();
+			_attributes.clear();
+		}
 	}
 }

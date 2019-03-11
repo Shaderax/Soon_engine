@@ -40,7 +40,7 @@ namespace Soon
 
 		bool Entity::IsActivated( void ) const
 		{
-			return (GetWorld().IsActivated(_id));
+			return (GetWorld().IsActivated(GetIdClass()));
 		}
 
 		void Entity::Activate( void )
@@ -67,14 +67,14 @@ namespace Soon
 		{
 			if (_world == nullptr)
 				return (false);
+
 			return (GetWorld().IsValid(GetIdClass()));
 		}
 
-		template < typename T >
-			bool Entity::HasComponent( TypeId componentId ) const
-			{
-				return (GetWorld()._entityAttributes._componentPool.HasComponent(GetIdClass(), componentId));
-			}
+		bool Entity::HasComponent( TypeId componentId ) const
+		{
+			return (GetWorld()._entityAttributes._componentPool.HasComponent(GetIdClass(), componentId));
+		}
 
 		void Entity::RemoveAllComponents( void )
 		{
