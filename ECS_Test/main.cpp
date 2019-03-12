@@ -19,7 +19,7 @@ class Movement : public System
 	}
 };
 
-int main(int argc, char **argv)
+int main()
 {
 	World world;
 
