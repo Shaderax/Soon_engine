@@ -25,10 +25,10 @@ namespace Soon
 				ClearTemp();
 			}
 
-			std::vector< Id > _alive;
-			std::vector< Id > _killed;
-			std::vector< Id > _activated;
-			std::vector< Id > _desactivated;
+			std::vector< Entity > _alive;
+			std::vector< Entity > _killed;
+			std::vector< Entity > _activated;
+			std::vector< Entity > _desactivated;
 		};
 	}
 }

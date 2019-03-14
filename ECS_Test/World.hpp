@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Id.hpp"
-#include "Entity.hpp"
 #include "System.hpp"
 #include "EntityPool.hpp"
 #include "EntityCache.hpp"
@@ -27,6 +26,7 @@ namespace Soon
 				~World( void );
 
 				Entity		CreateEntity( void );
+				Id 			CreateEntityId( void );
 				std::vector<Entity> CreateEntities(std::size_t amount);
 				EntityPool	GetEntityPool( void );
 				void		Update( void );
@@ -35,14 +35,14 @@ namespace Soon
 				std::size_t	GetAliveEntityCount( void ) const;
 				std::size_t	GetEntityCount( void ) const;
 
-				void ActivateEntity( Id id );
-				void DesactivateEntity( Id id );
+				void ActivateEntity( Entity entity );
+				void DesactivateEntity( Entity entity );
 
 				void RemoveAllSystems( void );
 				void RemoveSystem( TypeId SystemTypeId );
 
-				bool	IsActivated( Id id );
-				void	KillEntity( Id id );
+				bool	IsActivated( Entity entity );
+				void	KillEntity( Entity entity );
 				void	KillEntities(std::vector<Entity>& entities);
 
 				void	Clear( void );
@@ -58,7 +58,7 @@ namespace Soon
 				template < typename T >
 					T& GetSystem( void );
 
-				bool IsValid( Id id ) const;
+				bool IsValid( Entity entity ) const;
 
 			private:
 				EntityPool			_entityPool;
@@ -89,5 +89,7 @@ namespace Soon
 			{
 				return *(static_cast<T*>(_systemPool[GetSystemTypeId<T>()]));
 			}
+
+		static World world;
 	}
 }

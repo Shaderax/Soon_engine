@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Component.hpp"
-#include "World.hpp"
 #include "Config.hpp"
 #include "Id.hpp"
 
@@ -16,7 +15,8 @@ namespace Soon
 		class Entity
 		{
 			public:
-				Entity( World& world, TypeId id = 0 );
+				Entity( void );
+				Entity( TypeId id );
 				~Entity( void );
 
 				TypeId GetId( void ) const;
@@ -25,7 +25,6 @@ namespace Soon
 
 				bool IsValid( void ) const;
 
-				World& GetWorld( void ) const;
 				bool IsActivated( void ) const;
 				void Activate( void );
 				void Desactivate( void );
@@ -53,10 +52,13 @@ namespace Soon
 
 				Component& GetComponent( TypeId componentTypeId ) const;
 
+				bool operator==( const Entity& rhs )
+				{
+					return (_id == rhs._id);
+				}
+
 			private:
 				Id _id;
-
-				World* _world;
 		};
 
 		template < typename T, typename ... Args >
