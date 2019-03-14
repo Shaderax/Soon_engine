@@ -164,7 +164,7 @@ namespace Soon
 					// if the entity passes the filter the system has and is not already part of the system
 					if(system.second->PassFilters(_entityAttributes._componentPool.GetComponentTypeList( entity.GetId() )))
 					{
-						if(attribute._systems.size() <= systemIndex || !attribute._systems[systemIndex])
+						if (attribute._systems.size() <= systemIndex || !attribute._systems[systemIndex])
 						{
 							system.second->AddEntity(entity); // add it to the system
 

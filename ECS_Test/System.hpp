@@ -27,7 +27,7 @@ namespace Soon
 				std::vector< Entity >& GetEntities( void );
 
 			private:
-				std::vector< Entity >						_entities;
+				std::vector< Entity >					_entities;
 				std::bitset<Soon::ECS::MAX_COMPONENTS>	_requireComponents;
 				std::bitset<Soon::ECS::MAX_COMPONENTS>	_excludeComponents;
 		};
