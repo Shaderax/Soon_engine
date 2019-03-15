@@ -1,5 +1,6 @@
 #include "System.hpp"
 #include "Id.hpp"
+#include "Entity.hpp"
 
 #include <iostream>
 #include <algorithm>
@@ -22,10 +23,8 @@ namespace Soon
 		{
 			for (std::size_t i = 0; i < _requireComponents.size(); ++i)
 			{
-				if(_requireComponents[i] == true && bitset[i] == false)
-				{
+				if (_requireComponents[i] == true && bitset[i] == false)
 					return false;
-				}
 			}
 
 			if ((_excludeComponents & bitset).any())
@@ -34,17 +33,17 @@ namespace Soon
 			return (true);
 		}
 
-		void System::AddEntity( Id id )
+		void System::AddEntity( Entity entity )
 		{
-			_entities.push_back(id);
+			_entities.push_back(entity);
 		}
 
-		void System::RemoveEntity( Id id )
+		void System::RemoveEntity( Entity entity )
 		{
-			_entities.erase(std::remove(_entities.begin(), _entities.end(), id), _entities.end());
+			_entities.erase(std::remove(_entities.begin(), _entities.end(), entity), _entities.end());
 		}
 
-		std::vector< Id >& System::GetEntities( void )
+		std::vector< Entity >& System::GetEntities( void )
 		{
 			return (_entities);
 		}

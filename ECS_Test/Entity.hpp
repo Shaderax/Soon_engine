@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Component.hpp"
-#include "World.hpp"
 #include "Config.hpp"
 #include "Id.hpp"
 
@@ -16,7 +15,8 @@ namespace Soon
 		class Entity
 		{
 			public:
-				Entity( World& world, TypeId id = 0 );
+				Entity( void );
+				Entity( TypeId id );
 				~Entity( void );
 
 				TypeId GetId( void ) const;
@@ -25,7 +25,6 @@ namespace Soon
 
 				bool IsValid( void ) const;
 
-				World& GetWorld( void ) const;
 				bool IsActivated( void ) const;
 				void Activate( void );
 				void Desactivate( void );
@@ -34,7 +33,7 @@ namespace Soon
 				void RemoveAllComponents( void );
 
 				template < typename T, typename ... Args >
-					void AddComponent( Args && ... args );
+					T& AddComponent( Args && ... args );
 
 				void AddComponent( Component* component, TypeId componentId);
 
@@ -53,34 +52,42 @@ namespace Soon
 
 				Component& GetComponent( TypeId componentTypeId ) const;
 
+				bool operator==( const Entity& rhs )
+				{
+					return (_id == rhs._id);
+				}
+
 			private:
 				Id _id;
-
-				World* _world;
 		};
 
 		template < typename T, typename ... Args >
-			void Entity::AddComponent( Args && ... args )
+			T& Entity::AddComponent( Args && ... args )
 			{
+				static_assert(std::is_base_of<Component, T>(), "T is not a component, cannot add T");
 				T* component = new T(std::forward<Args>(args) ...);
 				AddComponent(component, GetComponentTypeId<T>());
+				return *(component);
 			}
 
 		template <typename T>
 			bool Entity::HasComponent( void ) const
 			{
+				static_assert(std::is_base_of<Component, T>(), "T is not a component, HasComponent");
 				return (HasComponent(GetComponentTypeId<T>()));
 			}
 
 		template < typename T >
 			void Entity::RemoveComponent( void )
 			{
+				static_assert(std::is_base_of<Component, T>(), "T is not a component, cannot remove T");
 				RemoveComponent(GetComponentTypeId<T>());
 			}
 
 		template < typename T >
 			T& Entity::GetComponent( void ) const
 			{
+				static_assert(std::is_base_of<Component, T>(), "T is not a component, cannot get T");
 				return (static_cast<T&>(GetComponent(GetComponentTypeId<T>())));
 			}
 	}

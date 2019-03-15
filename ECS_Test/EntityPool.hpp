@@ -25,7 +25,7 @@ namespace Soon
 				bool		IsValid( Id id ) const;
 
 			private:
-				TypeId			_nextId;
+				TypeId				_nextId;
 				std::vector< Id >	_freeId;
 				std::vector< bool >	_idKilled;
 		};

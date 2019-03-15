@@ -10,16 +10,16 @@ namespace Soon
 {
 	namespace ECS
 	{
-		World::World( void ) : World(Soon::ECS::DEFAULT_POOL_SIZE)
-		{
-
-		}
+//		World::World( void ) : World(Soon::ECS::DEFAULT_POOL_SIZE)
+//		{
+//			std::cout << __PRETTY_FUNCTION__ << std::endl;
+//		}
 
 		World::World( std::uint32_t poolSize ) :
 			_entityPool( poolSize ),
 			_entityAttributes( poolSize )
 		{
-
+			std::cout << __PRETTY_FUNCTION__ << std::endl;
 		}
 
 		World::~World( void )
@@ -31,10 +31,18 @@ namespace Soon
 		{
 			CheckResizePool(1);
 
-			_entityCache._alive.push_back(_entityPool.CreateEntity());
-			Entity e(*this, _entityCache._alive.back().GetId());
+			_entityCache._alive.emplace_back(_entityPool.CreateEntity().GetId());
 
-			return (e);
+			return (_entityCache._alive.back());
+		}
+
+		Id World::CreateEntityId( void )
+		{
+			CheckResizePool(1);
+
+			_entityCache._alive.emplace_back(_entityPool.CreateEntity().GetId());
+
+			return (_entityCache._alive.back().GetId());
 		}
 
 		std::vector<Entity> World::CreateEntities(std::size_t amount)
@@ -46,8 +54,8 @@ namespace Soon
 
 			for( std::size_t i = 0; i < amount; ++i )
 			{
-				Entity e(*this, _entityPool.CreateEntity().GetId());
-				_entityCache._alive.push_back(e.GetIdClass());
+				Entity e(_entityPool.CreateEntity().GetId());
+				_entityCache._alive.push_back(e);
 				tmp.push_back(e);
 			}
 
@@ -78,15 +86,15 @@ namespace Soon
 				Resize(newSize);
 		}
 
-		bool World::IsValid( Id id ) const
+		bool World::IsValid( Entity entity ) const
 		{
-			return (_entityPool.IsValid(id));
+			return (_entityPool.IsValid(entity.GetId()));
 		}
 
-		bool World::IsActivated( Id id )
+		bool World::IsActivated( Entity entity )
 		{
-			if (IsValid(id))
-				return (_entityAttributes._attributes[id.GetId()]._activated);
+			if (IsValid(entity))
+				return (_entityAttributes._attributes[entity.GetId()]._activated);
 			else
 				return (false);
 		}
@@ -110,42 +118,42 @@ namespace Soon
 			_systemPool.erase(SystemTypeId);
 		}
 
-		void	World::DesactivateEntity( Id id )
+		void	World::DesactivateEntity( Entity entity )
 		{
-			ECS_ASSERT(IsValid(id), "Invalid id tried to be desactivated");
+			ECS_ASSERT(IsValid(entity), "Invalid id tried to be desactivated");
 
-			_entityCache._desactivated.push_back(id);
+			_entityCache._desactivated.push_back(entity);
 		}
 
-		void	World::ActivateEntity( Id id )
+		void	World::ActivateEntity( Entity entity )
 		{
-			ECS_ASSERT(IsValid(id), "Invalid id tried to be activated");
+			ECS_ASSERT(IsValid(entity), "Invalid id tried to be activated");
 
-			_entityCache._activated.push_back(id);
+			_entityCache._activated.push_back(entity);
 		}
 
-		void	World::KillEntity( Id id )
+		void	World::KillEntity( Entity entity )
 		{
-			ECS_ASSERT(IsValid(id), "Invalid id tried to kill entity");
+			ECS_ASSERT(IsValid(entity), "Invalid id tried to kill entity");
 
-			DesactivateEntity(id);
+			DesactivateEntity(entity);
 
-			_entityCache._killed.push_back(id);
+			_entityCache._killed.push_back(entity);
 		}
 
 		void World::KillEntities(std::vector<Entity>& entities)
 		{
 			for(auto& i : entities)
 			{
-				KillEntity(i.GetIdClass());
+				KillEntity(i);
 			}
 		}
 
 		void World::Update( void )
 		{
-			for(Id& entityId : _entityCache._activated)
+			for(Entity& entity : _entityCache._activated)
 			{
-				EntityAttributes::Attribute& attribute = _entityAttributes._attributes[entityId.GetId()]; 
+				EntityAttributes::Attribute& attribute = _entityAttributes._attributes[entity.GetId()]; 
 				attribute._activated = true;
 
 				// loop through all the systems within the world
@@ -154,13 +162,13 @@ namespace Soon
 					TypeId systemIndex = system.first;
 
 					// if the entity passes the filter the system has and is not already part of the system
-					if(system.second->PassFilters(_entityAttributes._componentPool.GetComponentTypeList( entityId )))
+					if(system.second->PassFilters(_entityAttributes._componentPool.GetComponentTypeList( entity )))
 					{
-						if(attribute._systems.size() <= systemIndex || !attribute._systems[systemIndex])
+						if (attribute._systems.size() <= systemIndex || !attribute._systems[systemIndex])
 						{
-							system.second->AddEntity(entityId); // add it to the system
+							system.second->AddEntity(entity); // add it to the system
 
-							if (attribute._systems.size() < systemIndex)
+							if (attribute._systems.size() <= systemIndex)
 								attribute._systems.resize(systemIndex + 1);
 
 							attribute._systems[systemIndex] = true;
@@ -172,16 +180,16 @@ namespace Soon
 					else if(attribute._systems.size() > systemIndex && attribute._systems[systemIndex])
 					{
 						// duplicate code (1)
-						system.second->RemoveEntity(entityId); 
+						system.second->RemoveEntity(entity); 
 						attribute._systems[systemIndex] = false;
 					}
 				}
 			}
 
 			// go through all the deactivated entities from last call to refresh
-			for(Id& entityId : _entityCache._desactivated)
+			for(Entity& entity : _entityCache._desactivated)
 			{
-				EntityAttributes::Attribute& attribute = _entityAttributes._attributes[entityId.GetId()]; 
+				EntityAttributes::Attribute& attribute = _entityAttributes._attributes[entity.GetId()]; 
 				attribute._activated = false;
 
 				// loop through all the systems within the world
@@ -194,23 +202,23 @@ namespace Soon
 					if(attribute._systems[systemIndex])
 					{
 						// duplicate code ...(1)
-						system.second->RemoveEntity(entityId); 
+						system.second->RemoveEntity(entity); 
 						attribute._systems[systemIndex] = false;
 					}
 				}
 			}
 
 			// go through all the killed entities from last call to refresh
-			for(Id& entityId : _entityCache._killed)
+			for(Entity& entity : _entityCache._killed)
 			{
 				// remove the entity from the alive array
-				_entityCache._alive.erase(std::remove(_entityCache._alive.begin(), _entityCache._alive.end(), entityId), _entityCache._alive.end()); 
+				_entityCache._alive.erase(std::remove(_entityCache._alive.begin(), _entityCache._alive.end(), entity), _entityCache._alive.end()); 
 
 				// destroy all the components it has
-				_entityAttributes._componentPool.RemoveAllEntityComponents(entityId);
+				_entityAttributes._componentPool.RemoveAllEntityComponents(entity.GetId());
 
 				// remove it from the id pool
-				_entityPool.Remove(entityId.GetId());
+				_entityPool.Remove(entity.GetId());
 			}
 			_entityCache.ClearTemp();
 		}
@@ -220,10 +228,13 @@ namespace Soon
 			RemoveAllSystems();
 
 			_entityPool.Clear();
-
 			_entityCache.Clear();
-
 			_entityAttributes.Clear();
+		}
+
+		bool World::HasSystem( TypeId idSys ) const
+		{
+			return (_systemPool.find( idSys ) != _systemPool.end());
 		}
 	}
 }
