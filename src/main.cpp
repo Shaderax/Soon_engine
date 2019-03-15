@@ -6,7 +6,7 @@
 /*   By: nrouzeva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/01 17:15:25 by nrouzeva          #+#    #+#             */
-/*   Updated: 2019/02/15 22:57:24 by nrouzeva         ###   ########.fr       */
+/*   Updated: 2019/03/15 18:38:53 by nrouzeva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,14 @@ void	looper(t_scene *scene, t_window *window)
 #include "Error.hpp"
 #include "Window.hpp"
 
+//ECS
+#include "World.hpp"
+#include "Entity.hpp"
+
 int		main(int argc, char **argv)
 {
 //	t_scene		scene;
+	Entity entite;
 
 	if (!Soon::Init())
 		return (Soon::error("Error : Init"));
@@ -82,20 +87,11 @@ int		main(int argc, char **argv)
 //	glClearColor(0, 0, 0, 1.0f);
 //	glfwSwapInterval(0);
 	
-
-
-
-
-
-
 	while (!window.shouldClose())
 	{
 		glfwSwapBuffers(window._win);
 		glfwPollEvents();
 	}
-
-
-
 
 	// fps
 	//	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

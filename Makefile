@@ -6,7 +6,7 @@
 #    By: nrouzeva <nrouzeva@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/05/02 09:31:46 by nrouzeva          #+#    #+#              #
-#    Updated: 2019/02/15 22:48:55 by nrouzeva         ###   ########.fr        #
+#    Updated: 2019/03/15 17:36:38 by nrouzeva         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = Soon
 SRC_PATH = ./src
 OBJ_PATH = ./obj
 LIB_PATH = ./lib/
-INC_PATH = ./inc $(LIB_PATH)glfw/include/ ./$(LIB_PATH)/libmathpp
+INC_PATH = ./inc $(LIB_PATH)glfw/include/ ./$(LIB_PATH)/libmathpp ./$(LIB_PATH)/ECS
 
 SRC_NAME = main.cpp \
 		   Init.cpp \
@@ -24,11 +24,11 @@ SRC_NAME = main.cpp \
 		   Mouse.cpp
 
 OBJ_NAME = $(SRC_NAME:.cpp=.o)
-LIB_NAME = glfw/src libmathpp
+LIB_NAME = glfw/src libmathpp ECS/build
 
 CC = g++
-CFLAGS = #-Wextra -Wall -g -Werror -g3 -O2 #-fsanitize=address -fsanitize=undefined
-LIB_FLAGS = -lglfw3 -framework AppKit -framework OpenGL -framework IOKit -framework CoreVideo
+CFLAGS = -std=c++11 #-Wextra -Wall -g -Werror -g3 -O2 #-fsanitize=address -fsanitize=undefined
+LIB_FLAGS = -lECS -lglfw3 -framework AppKit -framework OpenGL -framework IOKit -framework CoreVideo
 
 
 RED=\033[1;31m
@@ -46,7 +46,9 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	cmake -B $(LIB_PATH)glfw $(LIB_PATH)glfw
+	cmake $(LIB_PATH)ECS -B $(LIB_PATH)ECS/build
 	make -C $(LIB_PATH)glfw
+	make -C $(LIB_PATH)ECS/build
 	@echo "$(GREEN)[✓]$(NC) Library built"
 	$(CC) $(CFLAGS) $(LIB) $(INC) $(OBJ) $(LIB_FLAGS) -o $(NAME)
 

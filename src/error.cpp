@@ -5,7 +5,7 @@ namespace Soon
 {
 	bool	error(std::string msg)
 	{
-		std::cout << msg << std::endl;
+		std::cout << "Error : " << msg << std::endl;
 		glfwTerminate();
 		return (false);
 	}
