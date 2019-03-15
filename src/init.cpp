@@ -24,7 +24,7 @@ namespace Soon
 	bool Init( void )
 	{
 		if (!InitGlfw())
-			return (Soon::error("Error : glfw init"));
+			return (Soon::error("glfw init"));
 		return (true);
 	}
 }
