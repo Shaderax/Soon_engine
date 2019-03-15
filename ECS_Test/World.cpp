@@ -130,7 +130,6 @@ namespace Soon
 			ECS_ASSERT(IsValid(entity), "Invalid id tried to be activated");
 
 			_entityCache._activated.push_back(entity);
-			std::cout << _entityCache._activated.size() << std::endl;
 		}
 
 		void	World::KillEntity( Entity entity )
@@ -163,7 +162,7 @@ namespace Soon
 					TypeId systemIndex = system.first;
 
 					// if the entity passes the filter the system has and is not already part of the system
-					if(system.second->PassFilters(_entityAttributes._componentPool.GetComponentTypeList( entity.GetId() )))
+					if(system.second->PassFilters(_entityAttributes._componentPool.GetComponentTypeList( entity )))
 					{
 						if (attribute._systems.size() <= systemIndex || !attribute._systems[systemIndex])
 						{
@@ -172,7 +171,6 @@ namespace Soon
 							if (attribute._systems.size() <= systemIndex)
 								attribute._systems.resize(systemIndex + 1);
 
-							std::cout << "Pass" << std::endl;
 							attribute._systems[systemIndex] = true;
 						}
 					}
@@ -232,6 +230,11 @@ namespace Soon
 			_entityPool.Clear();
 			_entityCache.Clear();
 			_entityAttributes.Clear();
+		}
+
+		bool World::HasSystem( TypeId idSys ) const
+		{
+			return (_systemPool.find( idSys ) != _systemPool.end());
 		}
 	}
 }

@@ -64,6 +64,7 @@ namespace Soon
 		template < typename T, typename ... Args >
 			T& Entity::AddComponent( Args && ... args )
 			{
+				static_assert(std::is_base_of<Component, T>(), "T is not a component, cannot add T");
 				T* component = new T(std::forward<Args>(args) ...);
 				AddComponent(component, GetComponentTypeId<T>());
 				return *(component);
@@ -72,18 +73,21 @@ namespace Soon
 		template <typename T>
 			bool Entity::HasComponent( void ) const
 			{
+				static_assert(std::is_base_of<Component, T>(), "T is not a component, HasComponent");
 				return (HasComponent(GetComponentTypeId<T>()));
 			}
 
 		template < typename T >
 			void Entity::RemoveComponent( void )
 			{
+				static_assert(std::is_base_of<Component, T>(), "T is not a component, cannot remove T");
 				RemoveComponent(GetComponentTypeId<T>());
 			}
 
 		template < typename T >
 			T& Entity::GetComponent( void ) const
 			{
+				static_assert(std::is_base_of<Component, T>(), "T is not a component, cannot get T");
 				return (static_cast<T&>(GetComponent(GetComponentTypeId<T>())));
 			}
 	}

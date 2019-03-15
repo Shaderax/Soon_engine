@@ -5,6 +5,7 @@
 #include "EntityPool.hpp"
 #include "EntityCache.hpp"
 #include "EntityAttributes.hpp"
+#include "Config.hpp"
 
 #include <iostream>
 #include <unordered_map>
@@ -64,6 +65,9 @@ namespace Soon
 					static World world;
 					return (world);
 				}
+				template < typename T >
+					bool HasSystem( void ) const;
+				bool HasSystem( TypeId idSys ) const;
 
 			private:
 				World( std::uint32_t poolSize = Soon::ECS::DEFAULT_POOL_SIZE );
@@ -80,6 +84,8 @@ namespace Soon
 		template < class T >
 			void World::AddSystem( void )
 			{
+				static_assert(std::is_base_of<System, T>(), "Template argument does not inherit from System");
+				ECS_ASSERT(!HasSystem<T>(), "System argument is already in World");
 				T* newSystem = new T();
 
 				AddSystem(newSystem, GetSystemTypeId<T>());
@@ -88,13 +94,22 @@ namespace Soon
 		template < class T >
 			void World::RemoveSystem( void )
 			{
+				static_assert(std::is_base_of<System, T>(), "Template argument does not inherit from System");
+				static_assert(HasSystem<T>(), "System argument is not in World");
 				RemoveSystem(GetSystemTypeId<T>());
 			}
 
 		template < typename T >
 			T& World::GetSystem( void )
 			{
+				static_assert(std::is_base_of<System, T>(), "Template argument does not inherit from System");
 				return *(static_cast<T*>(_systemPool[GetSystemTypeId<T>()]));
+			}
+
+		template < typename T >
+			bool World::HasSystem( void ) const
+			{
+				return (HasSystem(GetSystemTypeId<T>()));
 			}
 	}
 }

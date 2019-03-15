@@ -57,7 +57,7 @@ namespace Soon
 
 		void Entity::AddComponent( Component* component, TypeId componentId)
 		{
-			world._entityAttributes._componentPool.AddComponent(GetIdClass(), component, componentId);
+			world._entityAttributes._componentPool.AddComponent(*this, component, componentId);
 		}
 
 		bool Entity::IsValid( void ) const
@@ -67,22 +67,22 @@ namespace Soon
 
 		bool Entity::HasComponent( TypeId componentId ) const
 		{
-			return (world._entityAttributes._componentPool.HasComponent(GetIdClass(), componentId));
+			return (world._entityAttributes._componentPool.HasComponent(*this, componentId));
 		}
 
 		void Entity::RemoveAllComponents( void )
 		{
-			world._entityAttributes._componentPool.RemoveAllEntityComponents(GetIdClass());
+			world._entityAttributes._componentPool.RemoveAllEntityComponents(*this);
 		}
 
 		void Entity::RemoveComponent( TypeId componentTypeId )
 		{
-			world._entityAttributes._componentPool.RemoveComponent(GetIdClass(), componentTypeId);
+			world._entityAttributes._componentPool.RemoveComponent(*this, componentTypeId);
 		}
 
 		Component& Entity::GetComponent( TypeId componentTypeId ) const
 		{
-			return (world._entityAttributes._componentPool.GetComponent(GetIdClass(), componentTypeId));
+			return (world._entityAttributes._componentPool.GetComponent(*this, componentTypeId));
 		}
 	}
 }

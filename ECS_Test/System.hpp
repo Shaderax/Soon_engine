@@ -3,6 +3,7 @@
 #include "Config.hpp"
 #include "Id.hpp"
 #include "ClassTypeId.hpp"
+#include "Component.hpp"
 
 #include <bitset>
 #include <vector>
@@ -44,7 +45,8 @@ namespace Soon
 		template <typename T>
 			void System::RequireComponent( void )
 			{
-				_requireComponents.set(GetSystemTypeId<T>());
+				static_assert(std::is_base_of<Component, T>(), "T is not a component, cannot add T");
+				_requireComponents.set(GetComponentTypeId<T>());
 			}
 
 	}

@@ -2,6 +2,7 @@
 #include "Component.hpp"
 #include "Config.hpp"
 #include "Id.hpp"
+#include "Entity.hpp"
 
 #include <iostream>
 #include <array>
@@ -27,23 +28,26 @@ namespace Soon
 			_entitiesComponents.resize(amount);
 		}
 
-		void ComponentPool::AddComponent( Id idClass, Component* component, TypeId componentId )
+		void ComponentPool::AddComponent( Entity entity, Component* component, TypeId componentId )
 		{
-			TypeId index = idClass.GetId();
+			ECS_ASSERT(entity.IsValid(), "invalid entity cannot have components added to it");
+
+			TypeId index = entity.GetId();
 			_entitiesComponents[index]._entityComponents[componentId] = component;
 			_entitiesComponents[index]._componentsTypeList[componentId] = true;
 		}
 
-		void ComponentPool::RemoveComponent( Id id, TypeId componentId )
+		void ComponentPool::RemoveComponent( Entity entity, TypeId componentId )
 		{
-			TypeId index = id.GetId();
+			ECS_ASSERT(entity.IsValid(), "invalid entity cannot remove components");
+			TypeId index = entity.GetId();
 			_entitiesComponents[index]._entityComponents[componentId] = nullptr;
 			_entitiesComponents[index]._componentsTypeList[componentId] = false;
 		}
 
-		void ComponentPool::RemoveAllEntityComponents( Id id )
+		void ComponentPool::RemoveAllEntityComponents( Entity entity )
 		{
-			TypeId index = id.GetId();
+			TypeId index = entity.GetId();
 			EntityComponents& entityComponents = _entitiesComponents[index];
 
 			for(auto& c : entityComponents._entityComponents)
@@ -51,19 +55,20 @@ namespace Soon
 			entityComponents._componentsTypeList.reset();
 		}
 
-		std::array< Component*, Soon::ECS::MAX_COMPONENTS >& ComponentPool::GetEntityComponents( Id idClass )
+		std::array< Component*, Soon::ECS::MAX_COMPONENTS >& ComponentPool::GetEntityComponents( Entity entity )
 		{
-			return (_entitiesComponents[idClass.GetId()]._entityComponents);
+			return (_entitiesComponents[entity.GetId()]._entityComponents);
 		}
 
-		std::bitset<Soon::ECS::MAX_COMPONENTS>& ComponentPool::GetComponentTypeList( Id id )
+		std::bitset<Soon::ECS::MAX_COMPONENTS>& ComponentPool::GetComponentTypeList( Entity entity )
 		{
-			return (_entitiesComponents[id.GetId()]._componentsTypeList);
+			ECS_ASSERT(entity.IsValid(), "invalid entity cannot retrieve the component list");
+			return (_entitiesComponents[entity.GetId()]._componentsTypeList);
 		}
 
-		bool ComponentPool::HasComponent( Id id, TypeId componentId )
+		bool ComponentPool::HasComponent( Entity entity, TypeId componentId )
 		{
-			std::array< Component*, Soon::ECS::MAX_COMPONENTS >& components = GetEntityComponents(id);
+			std::array< Component*, Soon::ECS::MAX_COMPONENTS >& components = GetEntityComponents(entity);
 
 			return (components[componentId] != nullptr);
 		}
@@ -73,9 +78,10 @@ namespace Soon
 			_entitiesComponents.clear();
 		}
 
-		Component& ComponentPool::GetComponent( Id id, TypeId componentTypeId )
+		Component& ComponentPool::GetComponent( Entity entity, TypeId componentTypeId )
 		{
-			return *(GetEntityComponents( id )[componentTypeId]);
+			ECS_ASSERT(entity.IsValid() && HasComponent(entity, componentTypeId), "Entity is not valid or does not contain component");
+			return *(GetEntityComponents( entity )[componentTypeId]);
 		}
 	}
 }
