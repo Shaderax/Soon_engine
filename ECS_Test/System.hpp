@@ -3,6 +3,7 @@
 #include "Config.hpp"
 #include "Id.hpp"
 #include "ClassTypeId.hpp"
+#include "Component.hpp"
 
 #include <bitset>
 #include <vector>
@@ -13,6 +14,7 @@ namespace Soon
 {
 	namespace ECS
 	{
+		class Entity;
 		class System
 		{
 			public:
@@ -20,13 +22,16 @@ namespace Soon
 				virtual ~System( void );
 
 				bool PassFilters( std::bitset<Soon::ECS::MAX_COMPONENTS>& bitset ) const;
-				void AddEntity( Id id );
-				void RemoveEntity( Id id );
+				void AddEntity( Entity entity );
+				void RemoveEntity( Entity entity );
 
-				std::vector< Id >& GetEntities( void );
+				template <typename T>
+					void RequireComponent( void );
+
+				std::vector< Entity >& GetEntities( void );
 
 			private:
-				std::vector< Id >						_entities;
+				std::vector< Entity >				_entities;
 				std::bitset<Soon::ECS::MAX_COMPONENTS>	_requireComponents;
 				std::bitset<Soon::ECS::MAX_COMPONENTS>	_excludeComponents;
 		};
@@ -36,5 +41,13 @@ namespace Soon
 			{
 				return (ClassTypeId<System>::GetId<T>());
 			}
+
+		template <typename T>
+			void System::RequireComponent( void )
+			{
+				static_assert(std::is_base_of<Component, T>(), "T is not a component, cannot add T");
+				_requireComponents.set(GetComponentTypeId<T>());
+			}
+
 	}
 }

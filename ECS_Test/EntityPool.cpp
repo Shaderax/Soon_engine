@@ -21,6 +21,7 @@ namespace Soon
 		Id EntityPool::CreateEntity( void )
 		{
 			Id id;
+
 			if (!_freeId.empty())
 			{
 				id._id = _freeId.back()._id;
@@ -49,7 +50,7 @@ namespace Soon
 		{
 			TypeId nb = id.GetId();
 
-			if (nb < 0 || nb > GetEntityCount() || _idKilled[nb])
+			if (nb > GetEntityCount() || _idKilled[nb])
 				return (false);
 			return (true);
 		}

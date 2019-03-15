@@ -15,6 +15,8 @@ namespace Soon
 {
 	namespace ECS
 	{
+		class Entity;
+
 		class ComponentPool
 		{
 			public:
@@ -23,19 +25,19 @@ namespace Soon
 
 				void Resize( std::size_t amount );
 
-				void AddComponent( Id idClass, Component* component, TypeId componentId );
-				void RemoveComponent( Id id, TypeId componentId );
+				void AddComponent( Entity entity, Component* component, TypeId componentId );
+				void RemoveComponent( Entity entity, TypeId componentId );
 
-				Component& GetComponent( Id id, TypeId componentTypeId);
+				Component& GetComponent( Entity entity, TypeId componentTypeId);
 
 				void Clear( void );
 
-				std::array< Component*, Soon::ECS::MAX_COMPONENTS >& GetEntityComponents( Id idClass );
-				bool HasComponent( Id id, TypeId componentId );
+				std::array< Component*, Soon::ECS::MAX_COMPONENTS >& GetEntityComponents( Entity entity );
+				bool HasComponent( Entity entity, TypeId componentId );
 
-				std::bitset<Soon::ECS::MAX_COMPONENTS>& GetComponentTypeList( Id id );
+				std::bitset<Soon::ECS::MAX_COMPONENTS>& GetComponentTypeList( Entity entity );
 
-				void RemoveAllEntityComponents( Id id );
+				void RemoveAllEntityComponents( Entity entity );
 
 			private:
 				struct EntityComponents

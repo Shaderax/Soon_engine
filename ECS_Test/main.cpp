@@ -3,35 +3,44 @@
 #include "System.hpp"
 #include "Transform.hpp"
 
-using namespace Soon::ECS;
-
 class Movement : public System
 {
 	public:
-		Movement( void ) {};
-	void Update()
-	{
-//		std::vector< Id >& entities = GetEntities();
-//		for (auto entity : entities)
-//		{
-//
-//		}
-	}
+		Movement( void )
+		{
+			RequireComponent<Transform>();
+		};
+		void Update()
+		{
+			std::vector< Entity >& entities = GetEntities();
+			for (auto& entity : entities)
+			{
+				std::cout << "In Update" << entity.GetId() << std::endl;
+					entity.GetComponent<Transform>().x += 1.0001f;
+			}
+		}
 };
 
 int main()
 {
-	World world;
+	Soon::ECS::Entity entite;
+	Soon::ECS::Entity entite2;
 
-	Soon::ECS::Entity entite = world.CreateEntity();
+	Transform& tr = entite.AddComponent<Transform>();
+	Transform& tre = entite2.AddComponent<Transform>();
 
-	entite.AddComponent<Transform>();
-
+	tr.x += 10.0f;
+	tre.x += 510.0f;
 	world.AddSystem<Movement>();
+	entite.Activate();
+	entite2.Activate();
 
-	world.Update();
+	Soon::ECS::world.Update();
 
-	world.GetSystem<Movement>().Update();
+	Soon::ECS::world.GetSystem<Movement>().Update();
+
+	std::cout << entite.GetComponent<Transform>().x << std::endl;
+	std::cout << entite2.GetComponent<Transform>().x << std::endl;
 
 	return (0);
 }

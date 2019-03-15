@@ -1,9 +1,11 @@
 #pragma once
 
 #include "ComponentPool.hpp"
+#include "Id.hpp"
 
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 
 using namespace Soon::ECS;
 
