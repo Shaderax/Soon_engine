@@ -33,7 +33,7 @@ namespace Soon
 				void RemoveAllComponents( void );
 
 				template < typename T, typename ... Args >
-					void AddComponent( Args && ... args );
+					T& AddComponent( Args && ... args );
 
 				void AddComponent( Component* component, TypeId componentId);
 
@@ -62,10 +62,11 @@ namespace Soon
 		};
 
 		template < typename T, typename ... Args >
-			void Entity::AddComponent( Args && ... args )
+			T& Entity::AddComponent( Args && ... args )
 			{
 				T* component = new T(std::forward<Args>(args) ...);
 				AddComponent(component, GetComponentTypeId<T>());
+				return *(component);
 			}
 
 		template <typename T>

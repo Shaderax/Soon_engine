@@ -10,16 +10,16 @@ namespace Soon
 {
 	namespace ECS
 	{
-		World::World( void ) : World(Soon::ECS::DEFAULT_POOL_SIZE)
-		{
-
-		}
+//		World::World( void ) : World(Soon::ECS::DEFAULT_POOL_SIZE)
+//		{
+//			std::cout << __PRETTY_FUNCTION__ << std::endl;
+//		}
 
 		World::World( std::uint32_t poolSize ) :
 			_entityPool( poolSize ),
 			_entityAttributes( poolSize )
 		{
-
+			std::cout << __PRETTY_FUNCTION__ << std::endl;
 		}
 
 		World::~World( void )
@@ -130,6 +130,7 @@ namespace Soon
 			ECS_ASSERT(IsValid(entity), "Invalid id tried to be activated");
 
 			_entityCache._activated.push_back(entity);
+			std::cout << _entityCache._activated.size() << std::endl;
 		}
 
 		void	World::KillEntity( Entity entity )
@@ -168,9 +169,10 @@ namespace Soon
 						{
 							system.second->AddEntity(entity); // add it to the system
 
-							if (attribute._systems.size() < systemIndex)
+							if (attribute._systems.size() <= systemIndex)
 								attribute._systems.resize(systemIndex + 1);
 
+							std::cout << "Pass" << std::endl;
 							attribute._systems[systemIndex] = true;
 						}
 					}
@@ -228,9 +230,7 @@ namespace Soon
 			RemoveAllSystems();
 
 			_entityPool.Clear();
-
 			_entityCache.Clear();
-
 			_entityAttributes.Clear();
 		}
 	}

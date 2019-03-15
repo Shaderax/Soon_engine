@@ -1,8 +1,10 @@
 #pragma once
 
 #include "Id.hpp"
+#include "Entity.hpp"
 
 #include <iostream>
+#include <vector>
 
 using namespace Soon::ECS;
 
@@ -12,18 +14,9 @@ namespace Soon
 	{
 		struct EntityCache
 		{
-			void ClearTemp( void )
-			{
-				_killed.clear();
-				_activated.clear();
-				_desactivated.clear();
-			}
+			void ClearTemp( void );
 
-			void Clear( void )
-			{
-				_alive.clear();
-				ClearTemp();
-			}
+			void Clear( void );
 
 			std::vector< Entity > _alive;
 			std::vector< Entity > _killed;

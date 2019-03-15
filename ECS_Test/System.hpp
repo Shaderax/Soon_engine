@@ -24,10 +24,13 @@ namespace Soon
 				void AddEntity( Entity entity );
 				void RemoveEntity( Entity entity );
 
+				template <typename T>
+					void RequireComponent( void );
+
 				std::vector< Entity >& GetEntities( void );
 
 			private:
-				std::vector< Entity >					_entities;
+				std::vector< Entity >				_entities;
 				std::bitset<Soon::ECS::MAX_COMPONENTS>	_requireComponents;
 				std::bitset<Soon::ECS::MAX_COMPONENTS>	_excludeComponents;
 		};
@@ -37,5 +40,12 @@ namespace Soon
 			{
 				return (ClassTypeId<System>::GetId<T>());
 			}
+
+		template <typename T>
+			void System::RequireComponent( void )
+			{
+				_requireComponents.set(GetSystemTypeId<T>());
+			}
+
 	}
 }

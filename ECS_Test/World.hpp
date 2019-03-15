@@ -21,8 +21,7 @@ namespace Soon
 		class World
 		{
 			public:
-				World( void );
-				World( std::uint32_t poolSize );
+				//				World( void );
 				~World( void );
 
 				Entity		CreateEntity( void );
@@ -60,7 +59,14 @@ namespace Soon
 
 				bool IsValid( Entity entity ) const;
 
+				static World& GetInstanceWorld( void )
+				{
+					static World world;
+					return (world);
+				}
+
 			private:
+				World( std::uint32_t poolSize = Soon::ECS::DEFAULT_POOL_SIZE );
 				EntityPool			_entityPool;
 				EntityCache			_entityCache;
 				EntityAttributes	_entityAttributes;
@@ -69,6 +75,7 @@ namespace Soon
 
 				friend class Entity;
 		};
+		static World& world = World::GetInstanceWorld();
 
 		template < class T >
 			void World::AddSystem( void )
@@ -89,7 +96,5 @@ namespace Soon
 			{
 				return *(static_cast<T*>(_systemPool[GetSystemTypeId<T>()]));
 			}
-
-		static World world;
 	}
 }
