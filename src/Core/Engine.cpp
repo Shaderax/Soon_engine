@@ -5,7 +5,7 @@
 
 namespace Soon
 {
-	bool	InitGlfw( void )
+	bool	Engine::InitGlfw( void )
 	{
 		if (!glfwInit())
 		{
@@ -21,7 +21,7 @@ namespace Soon
 		return (true);
 	}
 
-	bool Init( void )
+	bool Engine::Init( void )
 	{
 		if (!InitGlfw())
 			return (Soon::error("glfw init"));
