@@ -2,6 +2,7 @@
 
 #include "ComponentPool.hpp"
 #include "Id.hpp"
+#include "Entity.hpp"
 
 #include <iostream>
 #include <vector>
@@ -23,6 +24,9 @@ namespace Soon
 			struct Attribute
 			{
 				bool _activated;
+
+				Entity*				_parent;
+				std::vector<Entity> _childs;
 
 				std::vector<bool> _systems;
 			};

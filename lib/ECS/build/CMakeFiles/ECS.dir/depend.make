@@ -26,6 +26,7 @@ CMakeFiles/ECS.dir/EntityAttributes.cpp.o: ../ClassTypeId.hpp
 CMakeFiles/ECS.dir/EntityAttributes.cpp.o: ../Component.hpp
 CMakeFiles/ECS.dir/EntityAttributes.cpp.o: ../ComponentPool.hpp
 CMakeFiles/ECS.dir/EntityAttributes.cpp.o: ../Config.hpp
+CMakeFiles/ECS.dir/EntityAttributes.cpp.o: ../Entity.hpp
 CMakeFiles/ECS.dir/EntityAttributes.cpp.o: ../EntityAttributes.cpp
 CMakeFiles/ECS.dir/EntityAttributes.cpp.o: ../EntityAttributes.hpp
 CMakeFiles/ECS.dir/EntityAttributes.cpp.o: ../Id.hpp

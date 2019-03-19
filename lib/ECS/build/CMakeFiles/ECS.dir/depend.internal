@@ -27,6 +27,7 @@ CMakeFiles/ECS.dir/EntityAttributes.cpp.o
  /Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/Component.hpp
  /Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/ComponentPool.hpp
  /Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/Config.hpp
+ /Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/Entity.hpp
  /Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/EntityAttributes.cpp
  /Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/EntityAttributes.hpp
  /Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/Id.hpp
