@@ -16,22 +16,6 @@ Id.hpp
 ClassTypeId.hpp
 /Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/ClassTypeId.hpp
 
-/Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/ComponentPool.cpp
-ComponentPool.hpp
-/Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/ComponentPool.hpp
-Component.hpp
-/Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/Component.hpp
-Config.hpp
-/Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/Config.hpp
-Id.hpp
-/Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/Id.hpp
-Entity.hpp
-/Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/Entity.hpp
-iostream
--
-array
--
-
 /Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/ComponentPool.hpp
 Component.hpp
 /Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/Component.hpp
@@ -85,16 +69,14 @@ ComponentPool.hpp
 /Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/ComponentPool.hpp
 Id.hpp
 /Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/Id.hpp
+Entity.hpp
+/Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/Entity.hpp
 iostream
 -
 vector
 -
 unordered_map
 -
-
-/Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/EntityCache.cpp
-EntityCache.hpp
-/Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/EntityCache.hpp
 
 /Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/EntityCache.hpp
 Id.hpp
@@ -104,14 +86,6 @@ Entity.hpp
 iostream
 -
 vector
--
-
-/Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/EntityPool.cpp
-EntityPool.hpp
-/Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/EntityPool.hpp
-Id.hpp
-/Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/Id.hpp
-iostream
 -
 
 /Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/EntityPool.hpp
@@ -124,18 +98,6 @@ vector
 
 /Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/Id.hpp
 cstdint
--
-
-/Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/System.cpp
-System.hpp
-/Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/System.hpp
-Id.hpp
-/Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/Id.hpp
-Entity.hpp
-/Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/Entity.hpp
-iostream
--
-algorithm
 -
 
 /Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/System.hpp

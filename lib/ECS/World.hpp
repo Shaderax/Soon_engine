@@ -1,11 +1,12 @@
 #pragma once
 
 #include "Id.hpp"
+#include "Config.hpp"
+#include "Entity.hpp"
 #include "System.hpp"
 #include "EntityPool.hpp"
 #include "EntityCache.hpp"
 #include "EntityAttributes.hpp"
-#include "Config.hpp"
 
 #include <iostream>
 #include <unordered_map>
@@ -62,9 +63,11 @@ namespace Soon
 
 				static World& GetInstanceWorld( void )
 				{
+					std::cout << "NONONONO" << std::endl;
 					static World world;
 					return (world);
 				}
+
 				template < typename T >
 					bool HasSystem( void ) const;
 				bool HasSystem( TypeId idSys ) const;
@@ -79,7 +82,6 @@ namespace Soon
 
 				friend class Entity;
 		};
-		static World& world = World::GetInstanceWorld();
 
 		template < class T >
 			void World::AddSystem( void )
