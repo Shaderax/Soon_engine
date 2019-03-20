@@ -1,10 +1,14 @@
-#include "Soon.hpp"
-#include "Init.hpp"
 #include "Error.hpp"
 #include <stdio.h>
 
 namespace Soon
 {
+	Engine::Engine( void ) :
+		_world(Soon::ECS::World::GetInstance())
+	{
+		
+	}
+
 	bool	Engine::InitGlfw( void )
 	{
 		if (!glfwInit())
@@ -26,6 +30,27 @@ namespace Soon
 		if (!InitGlfw())
 			return (Soon::error("glfw init"));
 		return (true);
+	}
+
+	void Engine::Update( void )
+	{
+		_world.Update();
+	}
+
+	static Engine& Engine::GetInstance( void )
+	{
+		static Engine engine;
+
+		return (engine);
+	}
+
+	Scene& Engine::NewScene( void )
+	{
+		Scene* scene = new Scene();
+
+		_currentScene = scene;
+		_scenes.push_back(scene);
+		return *(scene);
 	}
 }
 

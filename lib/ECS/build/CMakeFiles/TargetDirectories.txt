@@ -1,3 +1,0 @@
-/Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/build/CMakeFiles/rebuild_cache.dir
-/Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/build/CMakeFiles/edit_cache.dir
-/Users/nrouzeva/Documents/42_PJ/Soon_engine/lib/ECS/build/CMakeFiles/ECS.dir
