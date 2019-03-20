@@ -8,11 +8,17 @@ namepsace Soon
 	{
 		public:
 			void Update( void );
-	bool Init( void )
-			static Engine* GetInstance( void );
+			bool Init( void );
+			static Engine& GetInstance( void );
+			Scene& NewScene( void );
 		private:
-	bool	InitGlfw( void )
-			std::vector<Scene> Scenes;
+			Engine( void );
+			bool					InitGlfw( void );
+
+			Scene*					_currentScene;
+			std::vector< Scene* >	_scenes;
+
+			Soon::ECS::World&		_world;
 	};
 }
 

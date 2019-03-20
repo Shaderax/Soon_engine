@@ -9,6 +9,6 @@ namespace Soon
 		public:
 			
 		private:
-			std::vector< std::vector<Entity> > Tree;
+			std::vector< std::vector< Object& > > Tree;
 	};
 }

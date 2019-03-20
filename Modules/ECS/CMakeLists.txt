@@ -1,0 +1,26 @@
+
+cmake_minimum_required(VERSION 3.14)
+project(ECS)
+
+set(CMAKE_CXX_STANDARD 11)
+
+add_library(ECS
+	ClassTypeId.hpp
+	Component.hpp
+	ComponentPool.cpp
+	ComponentPool.hpp
+	Config.hpp
+	Entity.cpp
+	Entity.hpp
+	EntityAttributes.cpp
+	EntityAttributes.hpp
+	EntityCache.cpp
+	EntityCache.hpp
+	EntityPool.cpp
+	EntityPool.hpp
+	Id.hpp
+	System.cpp
+	System.hpp
+	World.cpp
+	World.hpp
+	)
