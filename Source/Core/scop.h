@@ -134,41 +134,4 @@ typedef struct	s_scene
 	char		option;
 }				t_scene;
 
-void			input_control(t_window *window, t_scene *scene);
-int				new_shader(t_shader *shader, char *pathv, char *pathf);
-GLuint			load_shader(char const *path_shader, int shader_type);
-unsigned int	new_shader_program(GLuint vertex, GLuint fragment);
-void			set_vec2_shader(GLint shader_program, char *name, t_vec3 vec);
-void			set_vec3_shader(GLint shader_program, char *name, t_vec4 vec);
-void			set_mat4_shader(GLint shader_program, char *name, t_mat4 mat);
-void			set_int_shader(GLint shader_program, char *name, int integer);
-t_window		new_window(int width, int height, char *name_window);
-void			delete_object(t_object obj);
-t_object		new_object(char *path);
-void			compute_model(t_object *obj);
-void			compute_mvp(t_object *obj, t_camera *cam);
-void			new_projection_matrix(float fov, float ratio, t_camera *cam);
-void			set_projection_matrix(float fov, float ratio, t_camera *cam);
-void			set_view(t_vec4 pos, t_vec4 target, t_vec4 vec_y, t_mat4 view);
-void			new_view(t_camera *camera, float speed);
-void			print_mat(char *name, t_mat4 mat);
-int				tab_len(char **tab);
-int				count_char(char *line, char c);
-void			show_fps(double *lastime, int *nb_frame);
-int				mouse_moved(t_mouse *mouse);
-void			mouse_move(t_window *window, t_camera *camera);
-void			set_mouse_win(t_window *window);
-t_light			new_light(t_vec4 pos, t_vec4 color, float strength);
-void			new_buffer(t_buffer *buf);
-t_scene			new_scene(t_window *window, char *path, char *text);
-int				parse_obj_file(char *path, t_object *object);
-int				new_obj_texture(char *path, t_texture *obj_txt);
-*/
-
-int				init_glfw();
-
-int				error(std::string msg);
-
-void			framebuffer_size_callback(GLFWwindow *window, int width, int height);
-
 #endif

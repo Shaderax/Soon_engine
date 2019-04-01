@@ -11,6 +11,8 @@ namespace Soon
 			Object*					_parent;
 			std::vector<Object&>	_childs
 
+			Transform&	_transform;
+
 			Scene*		_scene;
 
 			friend Scene;

@@ -28,16 +28,6 @@ void	looper(t_scene *scene, t_window *window)
 	{
 		show_fps(&lastime, &nb_frame);
 		input_control(window, scene);
-		if (glfwGetKey(window->win, GLFW_KEY_HOME) == GLFW_PRESS)
-		{
-			v_colore[0] -= 0.0001f;
-			v_colore[1] -= 0.00001f;
-		}
-		if (glfwGetKey(window->win, GLFW_KEY_END) == GLFW_PRESS)
-		{
-			v_colore[0] += 0.0001f;
-			v_colore[1] += 0.00001f;
-		}
 		vec4_add(scene->camera.pos, scene->camera.target, sub);
 		set_view(scene->camera.pos, sub, scene->camera.rotate, scene->camera.view);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

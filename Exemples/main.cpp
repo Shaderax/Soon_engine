@@ -10,7 +10,8 @@ int main(int argc, char**argv)
 
 	engine._world.AddSystem<GravitySystem>();
 
-	engine.Update();
+	while (engine.ShouldClose())
+		engine.Update();
 
 	return (0);
 }
