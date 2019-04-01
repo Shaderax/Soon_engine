@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Soon.hpp"
 #include "Mouse.hpp"
 #include <iostream>
 #include <string>
@@ -17,7 +16,7 @@ namespace Soon
 			Mouse*		_mouse;
 			GLFWwindow*	_win;
 
-			Window( std::string title, int width = WINDOW_WIDTH, int height = WINDOW_HEIGHT );
+			Window( std::string title, int width = 1280, int height = 720 );
 			~Window( void );
 
 			void makeContextCurrent( void );

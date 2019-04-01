@@ -2,9 +2,14 @@
 
 namespace Soon
 {
+	Scene::Scene( void )
+	{
+		
+	}
+
 	bool Scene::ObjectInScene( Object& obj )
 	{
-		return (obj.parent == this ? true : false);
+		return (obj._scene == this ? true : false);
 	}
 
 	Object& Scene::AddObjectInScene( Object& obj )

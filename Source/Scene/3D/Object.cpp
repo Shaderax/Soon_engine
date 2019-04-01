@@ -5,5 +5,6 @@ namespace Soon
 {
 	Object::Object( void )
 	{
+		_transform = AddComponent<Transform>();
 	}
 }
