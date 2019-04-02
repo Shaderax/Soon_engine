@@ -11,28 +11,24 @@ namespace Soon
 	
 	Engine::~Engine( void )
 	{
-	}
-
-	bool	Engine::InitGlfw( void )
-	{
-		if (!glfwInit())
-		{
-			printf("%s", "Failed to initialize GLFW\n");
-			return (false);
-		}
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, OPENGL_MAJOR_VERSION);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, OPENGL_MINOR_VERSION);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-
-		return (true);
+		Destroy();
 	}
 
 	bool Engine::Init( void )
 	{
-		if (!InitGlfw())
-			return (0);
+		InitGraphics();
+
 		return (true);
+	}
+
+	void Engine::InitGraphics( void )
+	{
+		InitGraphicsGLFWOpenGL();
+	}
+
+	void Engine::Destroy()
+	{
+		glfwterminate();
 	}
 
 	void Engine::Update( void )
