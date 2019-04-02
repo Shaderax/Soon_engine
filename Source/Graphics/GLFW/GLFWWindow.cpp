@@ -22,7 +22,7 @@ namespace Soon
 	   }
 	   */
 
-	Window::Window( std::string title, int width, int height )
+	GLFWWindow::GLFWWindow( std::string title, int width, int height )
 	{
 		_width = width;
 		_height = height;
@@ -34,20 +34,20 @@ namespace Soon
 		glfwSetFramebufferSizeCallback(_win, framebuffer_size_callback);
 		glViewport(0, 0, _width, _height);
 
-		_mouse = new Mouse(this);
+//		_mouse = new Mouse(this);
 	}
 
-	Window::~Window( void )
+	GLFWWindow::~GLFWWindow( void )
 	{
 
 	}
 
-	void Window::makeContextCurrent( void )
+	void GLFWWindow::MakeContextCurrent( void )
 	{
 		glfwMakeContextCurrent(_win);
 	}
 
-	bool Window::shouldClose( void )
+	bool GLFWWindow::ShouldClose( void )
 	{
 		return(glfwWindowShouldClose(_win));
 	}

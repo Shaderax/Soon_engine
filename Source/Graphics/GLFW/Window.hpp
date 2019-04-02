@@ -8,19 +8,19 @@ class Mouse;
 
 namespace Soon
 {
-	class Window
+	class GLFWWindow
 	{
 		public:
 			int			_width;
 			int			_height;
-			Mouse*		_mouse;
 			GLFWwindow*	_win;
+//			Mouse*		_mouse;
 
-			Window( std::string title, int width = 1280, int height = 720 );
-			~Window( void );
+			GLFWWindow( std::string title, int width = 1280, int height = 720 );
+			~GLFWWindow( void );
 
-			void makeContextCurrent( void );
-			bool shouldClose( void );
+			void MakeContextCurrent( void );
+			bool ShouldClose( void );
 	};
 }
 
