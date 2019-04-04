@@ -16,14 +16,15 @@ namespace Soon
 
 	bool Engine::Init( void )
 	{
-		InitGraphics();
+		InitOS();
+//		InitGraphics();
 
 		return (true);
 	}
 
 	void Engine::InitGraphics( void )
 	{
-		InitGraphicsGLFWOpenGL();
+//		InitGraphicsGLFWOpenGL();
 	}
 
 	void Engine::Destroy()
