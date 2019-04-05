@@ -16,8 +16,8 @@ namespace Soon
 
 	bool Engine::Init( void )
 	{
-		InitOS();
-//		InitGraphics();
+		_os = NewOS();
+		_os->Initialize();
 
 		return (true);
 	}
@@ -29,7 +29,7 @@ namespace Soon
 
 	void Engine::Destroy()
 	{
-		glfwterminate();
+		delete _os;
 	}
 
 	void Engine::Update( void )
