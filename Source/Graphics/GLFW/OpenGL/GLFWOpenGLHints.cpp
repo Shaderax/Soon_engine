@@ -1,6 +1,6 @@
 namespace
 {
-	void InitGLFWOpenGLHints( void )
+	void InitGLFWHints( void )
 	{
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, @OPENGL_MAJOR_VERSION@);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, @OPENGL_MINOR_VERSION@);
