@@ -4,7 +4,8 @@ namespace Soon
 	{
 		InitGLFW();
 		InitGLFWHints();
-		InitContextGL();
+		_context = NewContextGL();
+		_context.Initialize();
 	}
 
 	OSGLFW* NewOS( void )
