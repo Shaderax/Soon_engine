@@ -1,4 +1,4 @@
-namespace
+namespace Soon
 {
 	void InitGLFWHints( void )
 	{
