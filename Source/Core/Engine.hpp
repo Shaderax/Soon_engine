@@ -13,7 +13,6 @@ namepsace Soon
 			Scene& NewScene( void );
 		private:
 			Engine( void );
-			bool					InitGlfw( void );
 
 			Scene*					_currentScene;
 			std::vector< Scene* >	_scenes;

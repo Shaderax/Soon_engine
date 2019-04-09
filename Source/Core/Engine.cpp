@@ -1,5 +1,6 @@
-#include "Error.hpp"
-#include <stdio.h>
+#include "Engine.hpp"
+//#include "Error.hpp"
+//#include <stdio.h>
 
 namespace Soon
 {
@@ -16,8 +17,8 @@ namespace Soon
 
 	bool Engine::Init( void )
 	{
-		_os = NewOS();
-		_os->Initialize();
+		NewOS();
+		OS::GetSingleton()->Initialize();
 
 		return (true);
 	}
