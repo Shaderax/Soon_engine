@@ -13,6 +13,7 @@ namespace Soon
 		Entity::Entity( void ) :
 			_id(Soon::ECS::World::GetInstanceWorld().CreateEntityId())
 		{
+			int ok;
 		}
 
 		Entity::Entity( TypeId id ) :

@@ -23,11 +23,6 @@ namespace Soon
 		return (true);
 	}
 
-	void Engine::InitGraphics( void )
-	{
-//		InitGraphicsGLFWOpenGL();
-	}
-
 	void Engine::Destroy()
 	{
 		delete _os;

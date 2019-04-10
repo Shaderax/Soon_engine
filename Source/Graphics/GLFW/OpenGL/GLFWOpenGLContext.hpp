@@ -4,7 +4,7 @@ namespace Soon
 	{
 		public:
 		private:
-			GLFWWindow* context;
+			GLFWWindow* _context;
 	};
 
 	InitContextGL();

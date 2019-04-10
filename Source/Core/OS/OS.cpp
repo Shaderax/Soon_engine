@@ -3,8 +3,7 @@ namespace Soon
 	class OS
 	{
 		public:
-
-		static OS* GetSingleton( void );
+			static OS* GetSingleton( void );
 
 		private:
 			OS( void );
