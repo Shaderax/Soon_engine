@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.10)
 
 set(SRC 
-	Engine.cpp
+	OS.cpp
 	)
 
-add_subdirectory(OS)
+add_subdirectory(Input)

@@ -1,11 +1,11 @@
 namespace Soon
 {
-	class GLFWOpenGLContext : ContextGL
-	{
-		public:
-		private:
-			GLFWWindow* _context;
-	};
+//	class GLFWOpenGLContext : ContextGL
+//	{
+//		public:
+//		private:
+//			GLFWwindow* _context;
+//	};
 
-	InitContextGL();
+	GLFWwindow* NewContextGL( void );
 }

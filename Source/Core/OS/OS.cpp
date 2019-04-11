@@ -1,12 +1,11 @@
+#include "Core/OS/OS.hpp"
+
 namespace Soon
 {
-	class OS
-	{
-		public:
-			static OS* GetSingleton( void );
+	OS *OS::_singleton = NULL;
 
-		private:
-			OS( void );
-			static OS*	_os;
-	};
+	OS::OS( void )
+	{
+		_singleton = this;
+	}
 }
