@@ -5,7 +5,4 @@ add_subdirectory(Graphics)
 add_subdirectory(Scene)
 #add_subdirectory(Utilities)
 
-add_library(Source INTERFACE
-	)
-
-target_link_libraries(Source INTERFACE Core)
+add_library(Soon INTERFACE)

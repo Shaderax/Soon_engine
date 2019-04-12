@@ -2,7 +2,7 @@
 
 namespace Soon
 {
-	Input *Input::_singleton = NULL;
+	Input *Input::_singleton = nullptr;
 
 	Input* Input::GetSingleton( void )
 	{

@@ -2,8 +2,8 @@
 
 // OpenGL
 
-#include "Graphics/GLFW/OpenGL/GLFWOpenGLHints.hpp"
-#include "Graphics/GLFW/OpenGL/GLFWOpenGLContext.hpp"
+#include "Graphics/GLFW/GLFWOpenGL/GLFWOpenGLHints.hpp"
+#include "Graphics/GLFW/GLFWOpenGL/GLFWOpenGLContext.hpp"
 
 
 // Vulkan

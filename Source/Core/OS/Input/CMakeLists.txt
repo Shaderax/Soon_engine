@@ -4,3 +4,4 @@ set(SRC
 	Input.cpp
 	)
 
+add_library(Input ${SRC})

@@ -4,4 +4,8 @@ set(SRC
 	OS.cpp
 	)
 
+add_library(OS ${SRC})
+
 add_subdirectory(Input)
+
+target_link_libraries(OS Input)

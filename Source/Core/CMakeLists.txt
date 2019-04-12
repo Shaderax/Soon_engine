@@ -4,4 +4,8 @@ set(SRC
 	Engine.cpp
 	)
 
+add_library(Core ${SRC})
+
 add_subdirectory(OS)
+
+target_link_libraries(Core OS)

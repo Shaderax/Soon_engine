@@ -1,7 +1,8 @@
 #include "Core/OS/OS.hpp"
 #include "Graphics/GLFW/GLFWCallback.hpp"
+#include "Graphics/GLFW/GLFWOpenGL/GLFWOpenGLContext.hpp"
 
-# include <GLFW/glfw3.h>
+#include <GLFW/glfw3.h>
 
 namespace Soon
 {
@@ -20,7 +21,7 @@ namespace Soon
 	GLFWwindow* NewContextGL( void )
 	{
 		OS::WindowAttribute winAttr = OS::GetSingleton()->GetWindowAttribute();
-		GLFWwindow* context = glfwCreateWindow(winAttr._width, winAttr._height, winAttr._name.c_str(), NULL, NULL);;
+		GLFWwindow* context = glfwCreateWindow(winAttr._width, winAttr._height, winAttr._name.c_str(), NULL, NULL);
 
 		glfwMakeContextCurrent(context);
 		glfwSetFramebufferSizeCallback(context, framebuffer_size_callback);

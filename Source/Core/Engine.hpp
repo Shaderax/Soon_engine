@@ -1,8 +1,9 @@
 #pragma once
 
+#include "Scene/Scene.hpp"
 #include <vector>
 
-namepsace Soon
+namespace Soon
 {
 	class Engine
 	{
@@ -11,6 +12,8 @@ namepsace Soon
 			bool Init( void );
 			static Engine& GetInstance( void );
 			Scene& NewScene( void );
+			void Destroy( void );
+			~Engine( void );
 		private:
 			Engine( void );
 

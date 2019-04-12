@@ -26,11 +26,13 @@ namespace Soon
 				}
 			};
 
-			virtual OS::WindowAttribute GetWindowAttribute( void );
-			virtual void* GetContext( void );
+			virtual void Initialize( void ) = 0;
+			virtual void* GetContext( void ) = 0;
+			virtual OS::WindowAttribute GetWindowAttribute( void ) = 0;
 
 			OS( void );
+			virtual ~OS( void );
 		private:
-			static OS*	_os;
+			static OS*	_singleton;
 	};
 }

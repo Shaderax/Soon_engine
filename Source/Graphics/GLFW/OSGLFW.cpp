@@ -10,6 +10,11 @@ namespace Soon
 
 	}
 
+	OSGLFW::~OSGLFW( void )
+	{
+
+	}
+
 	void OSGLFW::Initialize( void )
 	{
 		InitGLFW();
@@ -28,6 +33,10 @@ namespace Soon
 	void* OSGLFW::GetContext( void )
 	{
 		return (_context);
+	}
 
+	OS::WindowAttribute OSGLFW::GetWindowAttribute( void )
+	{
+		return (_winAttr);
 	}
 }

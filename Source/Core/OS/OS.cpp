@@ -8,4 +8,14 @@ namespace Soon
 	{
 		_singleton = this;
 	}
+
+	OS::~OS( void )
+	{
+		_singleton = nullptr;
+	}
+
+	OS* OS::GetSingleton( void )
+	{
+		return (_singleton);
+	}
 }

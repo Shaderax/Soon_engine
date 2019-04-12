@@ -61,9 +61,8 @@ namespace Soon
 
 				bool IsValid( Entity entity ) const;
 
-				static World& GetInstanceWorld( void )
+				static World& GetInstance( void )
 				{
-					std::cout << "NONONONO" << std::endl;
 					static World world;
 					return (world);
 				}
