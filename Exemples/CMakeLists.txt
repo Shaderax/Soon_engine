@@ -2,10 +2,8 @@ cmake_minimum_required (VERSION 3.10)
 
 set (CMAKE_CXX_STANDARD 11)
 
-project(Soon)
+project(Test)
 
-add_subdirectory(Modules)
+add_executable (Test main_test.cpp)
 
-add_subdirectory(ThirdParty)
-
-add_library (Soon INTERFACE)
+target_link_libraries(Test Core ECS Graphics glfw )

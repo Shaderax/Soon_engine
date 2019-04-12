@@ -1,6 +1,6 @@
 #include "Engine.hpp"
-//#include "Error.hpp"
-//#include <stdio.h>
+#include "ECS/World.hpp"
+#include "Graphics/OSHeaders.hpp"
 
 namespace Soon
 {
@@ -25,7 +25,7 @@ namespace Soon
 
 	void Engine::Destroy()
 	{
-		delete _os;
+
 	}
 
 	void Engine::Update( void )
@@ -33,7 +33,7 @@ namespace Soon
 		_world.Update();
 	}
 
-	static Engine& Engine::GetInstance( void )
+	Engine& Engine::GetInstance( void )
 	{
 		static Engine engine;
 

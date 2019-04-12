@@ -11,7 +11,7 @@ namespace Soon
 	namespace ECS
 	{
 		Entity::Entity( void ) :
-			_id(Soon::ECS::World::GetInstanceWorld().CreateEntityId())
+			_id(Soon::ECS::World::GetInstance().CreateEntityId())
 		{
 
 		}
@@ -38,52 +38,52 @@ namespace Soon
 
 		bool Entity::IsActivated( void ) const
 		{
-			return (Soon::ECS::World::GetInstanceWorld().IsActivated(*this));
+			return (Soon::ECS::World::GetInstance().IsActivated(*this));
 		}
 
 		void Entity::Activate( void )
 		{
-			Soon::ECS::World::GetInstanceWorld().ActivateEntity(*this);
+			Soon::ECS::World::GetInstance().ActivateEntity(*this);
 		}
 
 		void Entity::Desactivate( void )
 		{
-			Soon::ECS::World::GetInstanceWorld().DesactivateEntity(*this);
+			Soon::ECS::World::GetInstance().DesactivateEntity(*this);
 		}
 
 		void Entity::Kill( void )
 		{
-			Soon::ECS::World::GetInstanceWorld().KillEntity(*this);
+			Soon::ECS::World::GetInstance().KillEntity(*this);
 		}
 
 		void Entity::AddComponent( Component* component, TypeId componentId)
 		{
-			Soon::ECS::World::GetInstanceWorld()._entityAttributes._componentPool.AddComponent(*this, component, componentId);
+			Soon::ECS::World::GetInstance()._entityAttributes._componentPool.AddComponent(*this, component, componentId);
 		}
 
 		bool Entity::IsValid( void ) const
 		{
-			return (Soon::ECS::World::GetInstanceWorld().IsValid(*this));
+			return (Soon::ECS::World::GetInstance().IsValid(*this));
 		}
 
 		bool Entity::HasComponent( TypeId componentId ) const
 		{
-			return (Soon::ECS::World::GetInstanceWorld()._entityAttributes._componentPool.HasComponent(*this, componentId));
+			return (Soon::ECS::World::GetInstance()._entityAttributes._componentPool.HasComponent(*this, componentId));
 		}
 
 		void Entity::RemoveAllComponents( void )
 		{
-			Soon::ECS::World::GetInstanceWorld()._entityAttributes._componentPool.RemoveAllEntityComponents(*this);
+			Soon::ECS::World::GetInstance()._entityAttributes._componentPool.RemoveAllEntityComponents(*this);
 		}
 
 		void Entity::RemoveComponent( TypeId componentTypeId )
 		{
-			Soon::ECS::World::GetInstanceWorld()._entityAttributes._componentPool.RemoveComponent(*this, componentTypeId);
+			Soon::ECS::World::GetInstance()._entityAttributes._componentPool.RemoveComponent(*this, componentTypeId);
 		}
 
 		Component& Entity::GetComponent( TypeId componentTypeId ) const
 		{
-			return (Soon::ECS::World::GetInstanceWorld()._entityAttributes._componentPool.GetComponent(*this, componentTypeId));
+			return (Soon::ECS::World::GetInstance()._entityAttributes._componentPool.GetComponent(*this, componentTypeId));
 		}
 	}
 }

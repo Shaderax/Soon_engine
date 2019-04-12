@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Entity.hpp"
+#include "Scene/Object.hpp"
+#include <vector>
 
 namespace Soon
 {
@@ -9,6 +10,6 @@ namespace Soon
 		public:
 			
 		private:
-			std::vector< std::vector< Object& > > Tree;
+//			std::vector< std::vector< Object& > > Tree;
 	};
 }

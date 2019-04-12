@@ -1,7 +1,7 @@
 #include <GLFW/glfw3.h>
 
 #include "GLFWOpenGLHints.hpp"
-#include "Graphics/GLFW/OpenGL/Config.hpp"
+#include "Graphics/GLFW/GLFWOpenGL/Config.hpp"
 
 namespace Soon
 {

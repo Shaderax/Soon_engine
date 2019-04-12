@@ -2,7 +2,7 @@
 #include "GLFW/glfw3.h"
 #include <iostream>
 
-namespace
+namespace Soon
 {
 	bool InitGLFW( void )
 	{

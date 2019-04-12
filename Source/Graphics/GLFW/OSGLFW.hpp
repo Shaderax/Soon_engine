@@ -10,8 +10,10 @@ namespace Soon
 	{
 		public:
 			OSGLFW( void );
+			~OSGLFW( void );
 			virtual void Initialize( void );
 			virtual void* GetContext( void );
+			virtual OS::WindowAttribute GetWindowAttribute( void );
 
 		private:
 			GLFWwindow*		_context;
@@ -19,5 +21,5 @@ namespace Soon
 			GLFWInput*		_input;
 	};
 
-	void InitOS( void );
+	OSGLFW* NewOS( void );
 }

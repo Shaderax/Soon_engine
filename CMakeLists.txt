@@ -12,5 +12,6 @@ add_subdirectory(Source)
 add_subdirectory(Modules)
 add_subdirectory(ThirdParty)
 
-add_library (Soon INTERFACE)
-target_link_libraries( Soon )
+add_subdirectory(Exemples)
+
+add_library (Build INTERFACE)
