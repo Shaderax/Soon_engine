@@ -31,6 +31,9 @@ namespace Soon
 	void Engine::Update( void )
 	{
 		_world.Update();
+
+		OS::GetSingleton()->SwapBuffer();
+		OS::GetSingleton()->PollEvent();
 	}
 
 	Engine& Engine::GetInstance( void )
@@ -38,6 +41,11 @@ namespace Soon
 		static Engine engine;
 
 		return (engine);
+	}
+
+	bool Engine::ShouldEnd( void )
+	{
+		return (OS::GetSingleton()->ShouldClose());
 	}
 
 	Scene& Engine::NewScene( void )

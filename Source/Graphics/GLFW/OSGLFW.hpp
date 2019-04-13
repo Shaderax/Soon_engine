@@ -14,6 +14,9 @@ namespace Soon
 			virtual void Initialize( void );
 			virtual void* GetContext( void );
 			virtual OS::WindowAttribute GetWindowAttribute( void );
+			virtual bool ShouldClose( void );
+			virtual void PollEvent( void );
+			virtual void SwapBuffer( void );
 
 		private:
 			GLFWwindow*		_context;

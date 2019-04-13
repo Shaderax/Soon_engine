@@ -13,7 +13,10 @@ namespace Soon
 			static Engine& GetInstance( void );
 			Scene& NewScene( void );
 			void Destroy( void );
+			bool ShouldEnd( void );
+
 			~Engine( void );
+
 		private:
 			Engine( void );
 
@@ -23,4 +26,3 @@ namespace Soon
 			Soon::ECS::World&		_world;
 	};
 }
-

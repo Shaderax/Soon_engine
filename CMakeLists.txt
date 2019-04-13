@@ -1,5 +1,7 @@
 cmake_minimum_required (VERSION 3.10)
 
+option (USE_VULKAN "Use Vulkan" OFF) 
+
 include_directories(Source)
 include_directories(Modules)
 include_directories(ThirdParty/glfw/include/)

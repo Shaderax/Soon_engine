@@ -1,23 +1,30 @@
 #include "Core/Engine.hpp"
+#include "GLFW/glfw3.h"
+#include "Core/OS/OS.hpp"
+
+float vertices[] = {
+	-0.5f, -0.5f, 0.0f,
+	0.5f, -0.5f, 0.0f,
+	0.0f,  0.5f, 0.0f
+};  
 
 Soon::Engine& engine = Soon::Engine::GetInstance();
-// or
-// Soon::Init();
 
 int main(int argc, char**argv)
 {
-//	Soon::Window window("Je suis suisse.");
-//	window.makeContextCurrent();
-//
-//	Scene& scene = engine.NewScene();
-//
-//	Object& object1 = scene.NewObjectInScene();
-//
-//	object1.AddComponent<GravityComponent>();
-//
-//	engine._world.AddSystem<GravitySystem>();
-//
-//	engine.Update();
+	while (!engine.ShouldEnd())
+	{
+		engine.Update();
+	}
+	//	Scene& scene = engine.NewScene();
+	//
+	//	Object& object1 = scene.NewObjectInScene();
+	//
+	//	object1.AddComponent<GravityComponent>();
+	//
+	//	engine._world.AddSystem<GravitySystem>();
+	//
+	//	engine.Update();
 
 	return (0);
 }
