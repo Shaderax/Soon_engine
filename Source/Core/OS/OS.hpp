@@ -29,6 +29,9 @@ namespace Soon
 			virtual void Initialize( void ) = 0;
 			virtual void* GetContext( void ) = 0;
 			virtual OS::WindowAttribute GetWindowAttribute( void ) = 0;
+			virtual bool ShouldClose( void ) = 0;
+			virtual void PollEvent( void ) = 0;
+			virtual void SwapBuffer( void ) = 0;
 
 			OS( void );
 			virtual ~OS( void );

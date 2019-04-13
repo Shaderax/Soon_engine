@@ -9,8 +9,13 @@ set(SOURCE
 
 add_library(GraphicsGLFW ${SOURCE})
 
-add_subdirectory( GLFWOpenGL )
+if (${USE_VULKAN})
+	add_subdirectory( GLFWVulkan )
+	target_link_libraries(GraphicsGLFW GLFWVulkan glfw)
+else()
+	add_subdirectory( GLFWOpenGL )
+	target_link_libraries(GraphicsGLFW GLFWOpenGL glfw)
+endif()
 
-target_link_libraries(GraphicsGLFW GLFWOpenGL glfw)
 
-#find_package(OpenGL REQUIRED)
+	#find_package(OpenGL REQUIRED)

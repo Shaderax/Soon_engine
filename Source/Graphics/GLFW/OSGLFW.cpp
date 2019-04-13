@@ -5,7 +5,7 @@
 
 namespace Soon
 {
-	OSGLFW::OSGLFW( void )
+	OSGLFW::OSGLFW( void ) : _context(nullptr)
 	{
 
 	}
@@ -38,5 +38,25 @@ namespace Soon
 	OS::WindowAttribute OSGLFW::GetWindowAttribute( void )
 	{
 		return (_winAttr);
+	}
+
+	bool OSGLFW::ShouldClose( void )
+	{
+		return (glfwWindowShouldClose(_context));
+	}
+
+	void OSGLFW::PollEvent( void )
+	{
+		glfwPollEvents();
+	}
+
+//	void OSGLFW::ClearColor(float r, float g, float b)
+//	{
+//		glClearColor(r, g, b, 1.0f);
+//	}
+
+	void OSGLFW::SwapBuffer( void )
+	{
+		glfwSwapBuffers(_context);
 	}
 }
