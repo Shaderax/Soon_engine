@@ -1,6 +1,7 @@
 #include "Core/OS/OS.hpp"
 #include "Graphics/GLFW/GLFWCallback.hpp"
 #include "Graphics/GLFW/GLFWVulkan/GLFWVulkanContext.hpp"
+#include "vulkan/vulkan.h"
 
 #include <GLFW/glfw3.h>
 
