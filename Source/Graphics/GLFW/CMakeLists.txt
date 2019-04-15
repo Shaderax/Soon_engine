@@ -16,6 +16,3 @@ else()
 	add_subdirectory( GLFWOpenGL )
 	target_link_libraries(GraphicsGLFW GLFWOpenGL glfw)
 endif()
-
-
-	#find_package(OpenGL REQUIRED)
