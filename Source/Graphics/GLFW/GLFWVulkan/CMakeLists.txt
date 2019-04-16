@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.10)
 
 set (SRC
-	GLFWVulkanContext.cpp
+	GLFWVulkan.cpp
 	GLFWVulkanHints.cpp
 	)
 
@@ -16,7 +16,8 @@ find_library(
 		NO_DEFAULT_PATH
 	)
 
+target_compile_definitions(GLFWVulkan PUBLIC USE_VULKAN)
 #link_directories("/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/vulkan/libs")
 target_link_libraries(GLFWVulkan glfw ${VULKAN_LIB})
 #// APPLE
-target_link_libraries(GLFWVulkan "-framework AppKit -framework OpenGL -framework IOKit -framework CoreVideo")
+#target_link_libraries(GLFWVulkan "-framework AppKit -framework OpenGL -framework IOKit -framework CoreVideo")

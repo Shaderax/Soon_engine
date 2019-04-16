@@ -12,6 +12,7 @@ namespace Soon
 			OSGLFW( void );
 			~OSGLFW( void );
 			virtual void Initialize( void );
+			virtual void Destroy( void );
 			virtual void* GetContext( void );
 			virtual OS::WindowAttribute GetWindowAttribute( void );
 			virtual bool ShouldClose( void );
@@ -19,7 +20,7 @@ namespace Soon
 			virtual void SwapBuffer( void );
 
 		private:
-			GLFWwindow*		_context;
+			GLFWwindow*		_window;
 			WindowAttribute	_winAttr;
 			GLFWInput*		_input;
 	};

@@ -1,26 +1,34 @@
+#include "ContextHeaders.hpp"
 #include "InitGLFW.hpp"
 #include "OSGLFW.hpp"
 #include "GLFWInput.hpp"
-#include "ContextHeaders.hpp"
+#include "Graphics/GraphicsInstance.hpp"
 
 namespace Soon
 {
-	OSGLFW::OSGLFW( void ) : _context(nullptr)
+	OSGLFW::OSGLFW( void )
 	{
 
 	}
 
 	OSGLFW::~OSGLFW( void )
 	{
-
+		Destroy();
 	}
 
 	void OSGLFW::Initialize( void )
 	{
 		InitGLFW();
 		InitGLFWHints();
-		_context = NewContextGL();
+		NewGraphicsInstance();
+		GraphicsInstance::GetInstance()->Initialize();
+		_window = static_cast<GLFWwindow*>(GraphicsInstance::GetInstance()->GetContext());
 		_input = new GLFWInput;
+	}
+
+	void OSGLFW::Destroy( void )
+	{
+		glfwTerminate();
 	}
 
 	OSGLFW* NewOS( void )
@@ -32,7 +40,7 @@ namespace Soon
 
 	void* OSGLFW::GetContext( void )
 	{
-		return (_context);
+		return (_window);
 	}
 
 	OS::WindowAttribute OSGLFW::GetWindowAttribute( void )
@@ -42,7 +50,7 @@ namespace Soon
 
 	bool OSGLFW::ShouldClose( void )
 	{
-		return (glfwWindowShouldClose(_context));
+		return (glfwWindowShouldClose(_window));
 	}
 
 	void OSGLFW::PollEvent( void )
@@ -57,6 +65,6 @@ namespace Soon
 
 	void OSGLFW::SwapBuffer( void )
 	{
-		glfwSwapBuffers(_context);
+		glfwSwapBuffers(_window);
 	}
 }
