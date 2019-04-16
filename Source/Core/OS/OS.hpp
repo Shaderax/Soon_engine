@@ -27,6 +27,7 @@ namespace Soon
 			};
 
 			virtual void Initialize( void ) = 0;
+			virtual void Destroy( void ) = 0;
 			virtual void* GetContext( void ) = 0;
 			virtual OS::WindowAttribute GetWindowAttribute( void ) = 0;
 			virtual bool ShouldClose( void ) = 0;

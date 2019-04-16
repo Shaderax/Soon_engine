@@ -1,3 +1,7 @@
+#pragma once
+
+#include "GLFW/glfw3.h"
+
 namespace Soon
 {
 //	class GLFWOpenGLContext : ContextGL
