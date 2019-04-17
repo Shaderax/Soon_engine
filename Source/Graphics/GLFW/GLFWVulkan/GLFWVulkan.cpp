@@ -45,9 +45,12 @@ namespace Soon
 
 		VkResult result = vkCreateInstance(&createInfo, nullptr, &_vulkanInstance);
 
-		if (vkCreateInstance(&createInfo, nullptr, &_vulkanInstance) != VK_SUCCESS) {
+		VkResult ret;
+		if ((ret = vkCreateInstance(&createInfo, nullptr, &_vulkanInstance)) != VK_SUCCESS) {
 			//TODO ERROR
-			printf("IGIGIVIB\n");
+			if (ret == VK_ERROR_INCOMPATIBLE_DRIVER)
+				printf("Wsh\n");
+			printf("IGIGIVIB\n       %d\n", ret);
 		}
 	}
 
