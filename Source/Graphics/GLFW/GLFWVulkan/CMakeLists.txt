@@ -9,28 +9,37 @@ add_library(GLFWVulkan
 	${SRC}
 	)
 
-
 if(APPLE)
-message(${CMAKE_SOURCE_DIR})
-find_library(
-		VULKAN_LIB
-		NAMES libvulkan.dylib
-		HINTS "${CMAKE_SOURCE_DIR}/ThirdParty/vulkan/libs/macos/"
-		NO_DEFAULT_PATH
-	)
+	find_library(
+			VULKAN_LIB
+			NAMES libvulkan.dylib
+			HINTS "${CMAKE_SOURCE_DIR}/ThirdParty/vulkan/libs/macos/"
+			NO_DEFAULT_PATH
+		)
+
+	find_library(
+			MOLTENVK_LIB
+			NAMES libMoltenVK.dylib
+			HINTS "${CMAKE_SOURCE_DIR}/ThirdParty/MoltenVK/macOS/"
+			NO_DEFAULT_PATH
+		)
+
+#set(PRIVATE_COMPILE_DEFINITIONS VK_USE_PLATFORM_MACOS_MVK=1)
+#include_directories("${CMAKE_SOURCE_DIR}/ThirdParty/MoltenVK/include")
+
 elseif(UNIX)
-message(${CMAKE_SOURCE_DIR})
-find_library(
-		VULKAN_LIB
-		NAMES libvulkan.so
-		HINTS "${CMAKE_SOURCE_DIR}/ThirdParty/vulkan/libs/linux/"
-		NO_DEFAULT_PATH
-	)
+	find_library(
+			VULKAN_LIB
+			NAMES libvulkan.so
+			HINTS "${CMAKE_SOURCE_DIR}/ThirdParty/vulkan/libs/linux/"
+			NO_DEFAULT_PATH
+		)
 
 endif()
 
 target_compile_definitions(GLFWVulkan PUBLIC USE_VULKAN)
 #link_directories("/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/vulkan/libs")
-target_link_libraries(GLFWVulkan glfw ${VULKAN_LIB})
+#target_link_libraries(GLFWVulkan glfw ${VULKAN_LIB} ${MOLTENVK_LIB})
+target_link_libraries(GLFWVulkan glfw ${MOLTENVK_LIB})
 #// APPLE
 #target_link_libraries(GLFWVulkan "-framework AppKit -framework OpenGL -framework IOKit -framework CoreVideo")
