@@ -43,14 +43,12 @@ namespace Soon
 
 		createInfo.enabledLayerCount = 0;
 
-		VkResult result = vkCreateInstance(&createInfo, nullptr, &_vulkanInstance);
-
-		VkResult ret;
-		if ((ret = vkCreateInstance(&createInfo, nullptr, &_vulkanInstance)) != VK_SUCCESS) {
+		VkResult result;
+		if ((result = vkCreateInstance(&createInfo, nullptr, &_vulkanInstance)) != VK_SUCCESS) {
 			//TODO ERROR
-			if (ret == VK_ERROR_INCOMPATIBLE_DRIVER)
+			if (result == VK_ERROR_INCOMPATIBLE_DRIVER)
 				printf("Wsh\n");
-			printf("IGIGIVIB\n       %d\n", ret);
+			printf("IGIGIVIB\n       %d\n", result);
 		}
 	}
 
