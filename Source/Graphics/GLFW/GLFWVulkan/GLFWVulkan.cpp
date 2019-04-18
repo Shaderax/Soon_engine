@@ -1,5 +1,7 @@
 #include "Graphics/GLFW/GLFWVulkan/GLFWVulkan.hpp"
 #include "Core/OS/OS.hpp"
+#include <iostream>
+#include <vector>
 
 namespace Soon
 {
@@ -32,6 +34,18 @@ namespace Soon
 		VkInstanceCreateInfo createInfo = {};
 		createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
 		createInfo.pApplicationInfo = &appInfo;
+//// Check Exten
+		uint32_t extensionCount = 0;
+		vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
+		std::vector<VkExtensionProperties> extensions(extensionCount);
+		vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensions.data());
+		std::cout << "available extensions:" << std::endl;
+
+		for (const auto& extension : extensions)
+		{
+			std::cout << "\t" << extension.extensionName << std::endl;
+		}
+//// end Check Exten
 
 		uint32_t glfwExtensionCount = 0;
 		const char** glfwExtensions;
