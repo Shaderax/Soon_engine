@@ -39,7 +39,7 @@ elseif(UNIX)
 
 endif()
 
-target_compile_definitions(GLFWVulkan PUBLIC USE_VULKAN)
+#target_compile_definitions(GLFWVulkan PUBLIC USE_VULKAN=1)
 #link_directories("/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/vulkan/libs")
 #target_link_libraries(GLFWVulkan glfw ${VULKAN_LIB} ${MOLTENVK_LIB})
 #// APPLE

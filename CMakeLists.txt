@@ -2,6 +2,10 @@ cmake_minimum_required (VERSION 3.10)
 
 option (USE_VULKAN "Use Vulkan" OFF) 
 
+if(${USE_VULKAN})
+	add_definitions(-DUSE_VULKAN)
+endif()
+
 include_directories(Source)
 include_directories(Modules)
 include_directories(ThirdParty/glfw/include/)
