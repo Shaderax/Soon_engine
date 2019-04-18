@@ -2,6 +2,10 @@
 #include "Core/OS/OS.hpp"
 #include <iostream>
 #include <vector>
+#include <map>
+#include "Core/Error.hpp"
+#include "GLFW/glfw3.h"
+
 
 namespace Soon
 {
@@ -33,18 +37,6 @@ namespace Soon
 		return (-1);
 	}
 
-	bool GLFWVulkan::isDeviceSuitable(VkPhysicalDevice device)
-	{
-		VkPhysicalDeviceProperties deviceProperties;
-		VkPhysicalDeviceFeatures deviceFeatures;
-		vkGetPhysicalDeviceProperties(device, &deviceProperties);
-		vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
-
-		std::cout << GetQueueFamilyIndex(device, VK_QUEUE_GRAPHICS_BIT) << std::endl;
-
-		return deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU && GetQueueFamilyIndex(device, VK_QUEUE_GRAPHICS_BIT) != -1 /* && deviceFeatures.geometryShader*/;
-	}
-
 	void GLFWVulkan::GetPhysicalDeviceInfo( void )
 	{
 		VkPhysicalDeviceProperties deviceProperties;
@@ -67,35 +59,60 @@ namespace Soon
 		vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
 	}
 
+	bool GLFWVulkan::isDeviceSuitable(VkPhysicalDevice device)
+	{
+		VkPhysicalDeviceProperties deviceProperties;
+		VkPhysicalDeviceFeatures deviceFeatures;
+		vkGetPhysicalDeviceProperties(device, &deviceProperties);
+		vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
+
+		return deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU && GetQueueFamilyIndex(device, VK_QUEUE_GRAPHICS_BIT) != -1 /* && deviceFeatures.geometryShader*/;
+	}
+
+	int GLFWVulkan::RateDeviceSuitable(VkPhysicalDevice device)
+	{
+		int score = 0;
+
+		VkPhysicalDeviceProperties deviceProperties;
+		VkPhysicalDeviceFeatures deviceFeatures;
+		vkGetPhysicalDeviceProperties(device, &deviceProperties);
+		vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
+
+		if (GetQueueFamilyIndex(device, VK_QUEUE_GRAPHICS_BIT) == -1)
+			return (score);
+		if (deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU)
+			score += 10;
+		return score + 1;
+	}
 
 	void GLFWVulkan::PickPhysicalDevice( void )
 	{
+		std::map<int, VkPhysicalDevice> scoreDevice;
+
 		uint32_t deviceCount = 0;
 		vkEnumeratePhysicalDevices(_vulkanInstance, &deviceCount, nullptr);
 
 		if (deviceCount == 0)
-		{
-			std::cout << "failed to find GPUs with Vulkan support!" << std::endl;
-			//	throw std::runtime_error("failed to find GPUs with Vulkan support!");
-		}
+			SOON_ERR_THROW(0, "failed to find GPUs with Vulkan support!");
 
 		std::vector<VkPhysicalDevice> devices(deviceCount);
 		vkEnumeratePhysicalDevices(_vulkanInstance, &deviceCount, devices.data());
 
 		for (const auto& device : devices)
 		{
-			if (isDeviceSuitable(device))
-			{
-				_physicalDevice = device;
-				break;
-			}
+			int score = 0;
+
+			score = RateDeviceSuitable(device);
+			scoreDevice.insert(std::make_pair(score, device));
 		}
 
+		if (scoreDevice.rbegin()->first > 0)
+			_physicalDevice = scoreDevice.rbegin()->second;
+		else
+			SOON_ERR_THROW(0, "failed to find a suitable GPU!");
+
 		if (_physicalDevice == VK_NULL_HANDLE)
-		{
-			std::cout << "failed to find a suitable GPU!" << std::endl;
-			//			throw std::runtime_error("failed to find a suitable GPU!");
-		}
+			SOON_ERR_THROW(0, "failed to find a suitable GPU!");
 
 		GetPhysicalDeviceInfo();
 	}
@@ -104,6 +121,7 @@ namespace Soon
 	{
 		OS::WindowAttribute winAttr = OS::GetSingleton()->GetWindowAttribute();
 		_window = glfwCreateWindow(winAttr._width, winAttr._height, winAttr._name.c_str()  , NULL, NULL);
+		SOON_ERR_THROW(_window, "Can't Initialize Window");
 	}
 
 	void GLFWVulkan::CreateInstance( void )
@@ -143,11 +161,9 @@ namespace Soon
 		createInfo.enabledLayerCount = 0;
 
 		VkResult result;
-		if ((result = vkCreateInstance(&createInfo, nullptr, &_vulkanInstance)) != VK_SUCCESS) {
-			//TODO ERROR
-			if (result == VK_ERROR_INCOMPATIBLE_DRIVER)
-				printf("Wsh\n");
-			printf("IGIGIVIB\n       %d\n", result);
+		if ((result = vkCreateInstance(&createInfo, nullptr, &_vulkanInstance)) != VK_SUCCESS)
+		{
+			SOON_ERR_THROW(0, "Can't Initialize a Vulkan Instance");
 		}
 	}
 
@@ -173,12 +189,15 @@ namespace Soon
 		createInfo.pEnabledFeatures = &deviceFeatures;
 
 		if (vkCreateDevice(_physicalDevice, &createInfo, nullptr, &_device) != VK_SUCCESS)
-		{
-			std::cout << "failed to create logical device!" << std::endl;
-		 //   throw std::runtime_error("failed to create logical device!");
-		}
+			SOON_ERR_THROW(0, "failed to create logical device!");
 
 		vkGetDeviceQueue(_device, index, 0, &_graphicsQueue);
+	}
+
+	void GLFWVulkan::CreateSurface( void )
+	{
+	//	if (glfwCreateWindowSurface(_vulkanInstance, _window, nullptr, &_surface) != VK_SUCCESS)
+	//		SOON_ERR_THROW(0, "failed to create window surface!");
 	}
 
 	void GLFWVulkan::Initialize( void )
@@ -187,6 +206,7 @@ namespace Soon
 		CreateInstance();
 		PickPhysicalDevice();
 		CreateLogicalDevice();
+		CreateSurface();
 	}
 
 	void* GLFWVulkan::GetContext( void )
@@ -202,6 +222,8 @@ namespace Soon
 	void GLFWVulkan::Destroy( void )
 	{
 		glfwDestroyWindow(_window);
+		vkDestroySurfaceKHR(_vulkanInstance, _surface, nullptr);
 		vkDestroyDevice(_device, nullptr);
+		vkDestroyInstance(_vulkanInstance, nullptr);
 	}
 }
