@@ -196,8 +196,8 @@ namespace Soon
 
 	void GLFWVulkan::CreateSurface( void )
 	{
-	//	if (glfwCreateWindowSurface(_vulkanInstance, _window, nullptr, &_surface) != VK_SUCCESS)
-	//		SOON_ERR_THROW(0, "failed to create window surface!");
+		if (glfwCreateWindowSurface(_vulkanInstance, _window, nullptr, &_surface) != VK_SUCCESS)
+			SOON_ERR_THROW(0, "failed to create window surface!");
 	}
 
 	void GLFWVulkan::Initialize( void )
