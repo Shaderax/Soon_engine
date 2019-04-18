@@ -1,0 +1,2 @@
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar qc libGLFWVulkan.a  CMakeFiles/GLFWVulkan.dir/GLFWVulkan.cpp.o CMakeFiles/GLFWVulkan.dir/GLFWVulkanHints.cpp.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib libGLFWVulkan.a
