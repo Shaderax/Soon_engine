@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source/Core/OS/Input/Input.cpp
+Input.hpp
+/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source/Core/OS/Input/Input.hpp
+
+/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source/Core/OS/Input/Input.hpp
+

@@ -16,11 +16,22 @@ namespace Soon
 			virtual void* GetContext( void );
 
 			void CreateInstance( void );
+			void PickPhysicalDevice( void );
+			void CreateLogicalDevice( void );
 			void CreateWindow( void );
 
+			void GetPhysicalDeviceInfo( void );
+			void GetPhysicalDeviceInfo(VkPhysicalDevice device);
+
+			int GetQueueFamilyIndex(VkPhysicalDevice device, VkQueueFlagBits queue);
+			bool isDeviceSuitable(VkPhysicalDevice device);
+
 		private:
-			GLFWwindow*	_window;
-			VkInstance	_vulkanInstance;
+			GLFWwindow*			_window;
+			VkInstance			_vulkanInstance;
+			VkPhysicalDevice	_physicalDevice;
+			VkDevice 			_device;
+			VkQueue				_graphicsQueue;
 	};
 
 	void NewGraphicsInstance( void );

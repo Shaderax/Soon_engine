@@ -1,6 +1,6 @@
 cmake -B Folder_test -DUSE_VULKAN=ON
 cd Folder_test
-make -j 4
+make -j 10
 ./Exemples/Test
-..
-rm -rf Folder_test
+cd ..
+#rm -rf Folder_test
