@@ -1,13 +1,12 @@
 #pragma once
 
-#define USE_VULKAN 1
 // Vulkan
 #if defined(USE_VULKAN)
-#warning "ole"
-	#define GLFW_INCLUDE_VULKAN 1
-	#include "Graphics/GLFW/GLFWVulkan/GLFWVulkanHints.hpp"
+	#warning "ole"
 	#include "Graphics/GLFW/GLFWVulkan/GLFWVulkan.hpp"
+	#include "Graphics/GLFW/GLFWVulkan/GLFWVulkanHints.hpp"
 #else
+	#warning "Spa bon"
 // OpenGL
 	#include "Graphics/GLFW/GLFWOpenGL/GLFWOpenGLHints.hpp"
 	#include "Graphics/GLFW/GLFWOpenGL/GLFWOpenGLContext.hpp"

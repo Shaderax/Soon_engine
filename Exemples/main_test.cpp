@@ -1,6 +1,4 @@
 #include "Core/Engine.hpp"
-#include "GLFW/glfw3.h"
-#include "Core/OS/OS.hpp"
 
 float vertices[] = {
 	-0.5f, -0.5f, 0.0f,
