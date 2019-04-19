@@ -5,6 +5,7 @@
 #include <map>
 #include "Core/Error.hpp"
 #include "GLFW/glfw3.h"
+//#include <MoltenVK/vk_mvk_moltenvk.h>
 
 
 namespace Soon
@@ -144,9 +145,12 @@ namespace Soon
 		vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensions.data());
 		std::cout << "available extensions:" << std::endl;
 
-		for (const auto& extension : extensions)
+		std::cout << "AVAILABLE EXT\n";
+		std::vector<char const *> extNames(extensionCount);
+		for (uint32_t i = 0; i < extensionCount; ++i)
 		{
-			std::cout << "\t" << extension.extensionName << std::endl;
+			extNames[i] = extensions[i].extensionName;
+			std::cout << extNames[i] << std::endl;
 		}
 		//// end Check Exten
 
@@ -155,8 +159,21 @@ namespace Soon
 
 		glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
 
+		std::cout << "GLFW EXT\n";
+		for (size_t i = 0; i < glfwExtensionCount; ++i) {
+			std::cout << glfwExtensions[i] << std::endl;
+		}
+
+
+		/*std::cout << "GLFW - EXTENSIONS\n";
+		for (const auto &ext: glfwExtensions) {
+			std::cout << ext.extensionName << std::endl;
+		}*/
+
 		createInfo.enabledExtensionCount = glfwExtensionCount;
 		createInfo.ppEnabledExtensionNames = glfwExtensions;
+		//createInfo.enabledExtensionCount = extNames.size();
+		//createInfo.ppEnabledExtensionNames = extNames.data();
 
 		createInfo.enabledLayerCount = 0;
 
@@ -196,17 +213,38 @@ namespace Soon
 
 	void GLFWVulkan::CreateSurface( void )
 	{
-		if (glfwCreateWindowSurface(_vulkanInstance, _window, nullptr, &_surface) != VK_SUCCESS)
+		VkResult ret;
+		if ((ret = glfwCreateWindowSurface(_vulkanInstance, _window, nullptr, &_surface)) != VK_SUCCESS)
+		{
+			if (ret == GLFW_NOT_INITIALIZED)
+				std::cout << " GLFW_NOT_INITIALIZED" << std::endl;
+			else if (ret == GLFW_API_UNAVAILABLE)
+				std::cout << "GLFW_API_UNAVAILABLE" << std::endl;
+			else if (ret == GLFW_PLATFORM_ERROR)
+				std::cout << "GLFW_PLATFORM_ERROR" << std::endl;
+			else if (ret == GLFW_INVALID_VALUE)
+				std::cout << "GLFW_INVALID_VALUE" << std::endl;
+			else if (ret == VK_ERROR_INITIALIZATION_FAILED)
+				std::cout << "VK_ERROR_INITIALIZATION_FAILED" << std::endl;
+			else if (ret == VK_ERROR_EXTENSION_NOT_PRESENT)
+				std::cout << "VK_ERROR_EXTENSION_NOT_PRESENT" << std::endl;
 			SOON_ERR_THROW(0, "failed to create window surface!");
+		}
 	}
 
 	void GLFWVulkan::Initialize( void )
 	{
+		if (!glfwVulkanSupported())
+		{
+			std::cout << "VULKAN Y VEUT PAS SANS DOUTE A CAUSE DE SE MOLTENVK DE MERDE" << std::endl;
+			    // Vulkan is available, at least for compute
+		}
 		CreateWindow();
 		CreateInstance();
+		CreateSurface();
 		PickPhysicalDevice();
 		CreateLogicalDevice();
-		CreateSurface();
+		//CreateSurface();
 	}
 
 	void* GLFWVulkan::GetContext( void )
