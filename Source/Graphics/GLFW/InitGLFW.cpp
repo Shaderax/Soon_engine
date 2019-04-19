@@ -1,14 +1,17 @@
 #include "InitGLFW.hpp"
+#include "GLFWCallback.hpp"
 #include "GLFW/glfw3.h"
 #include <iostream>
+#include "Core/Error.hpp"
 
 namespace Soon
 {
 	bool InitGLFW( void )
 	{
+		glfwSetErrorCallback(error_callback);
 		if (!glfwInit())
 		{
-			std::cout << "Failed to initialize GLFW" << std::endl;
+			SOON_ERR_THROW(0, "Failed to initialize GLFW");
 			return (false);
 		}
 		return (true);
