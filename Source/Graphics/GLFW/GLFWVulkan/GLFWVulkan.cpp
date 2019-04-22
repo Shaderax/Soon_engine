@@ -20,24 +20,6 @@ namespace Soon
 
 	}
 
-	int GLFWVulkan::GetQueueFamilyIndex(VkPhysicalDevice device, VkQueueFlagBits queue)
-	{
-		uint32_t queueFamilyCount = 0;
-		vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, nullptr);
-
-		std::vector<VkQueueFamilyProperties> queueFamilies(queueFamilyCount);
-		vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, queueFamilies.data());
-
-		int i = 0;
-		for (const auto& queueFamily : queueFamilies)
-		{
-			if (queueFamily.queueCount > 0 && queueFamily.queueFlags & queue)
-				return i;
-			i++;
-		}
-		return (-1);
-	}
-
 	void GLFWVulkan::GetPhysicalDeviceInfo( void )
 	{
 		VkPhysicalDeviceProperties deviceProperties;
@@ -59,15 +41,23 @@ namespace Soon
 		VkPhysicalDeviceFeatures deviceFeatures;
 		vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
 	}
-
-	bool GLFWVulkan::isDeviceSuitable(VkPhysicalDevice device)
+	
+	int GLFWVulkan::GetQueueFamilyIndex(VkPhysicalDevice device, VkQueueFlagBits queue)
 	{
-		VkPhysicalDeviceProperties deviceProperties;
-		VkPhysicalDeviceFeatures deviceFeatures;
-		vkGetPhysicalDeviceProperties(device, &deviceProperties);
-		vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
+		uint32_t queueFamilyCount = 0;
+		vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, nullptr);
 
-		return deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU && GetQueueFamilyIndex(device, VK_QUEUE_GRAPHICS_BIT) != -1 /* && deviceFeatures.geometryShader*/;
+		std::vector<VkQueueFamilyProperties> queueFamilies(queueFamilyCount);
+		vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, queueFamilies.data());
+
+		int i = 0;
+		for (const auto& queueFamily : queueFamilies)
+		{
+			if (queueFamily.queueCount > 0 && queueFamily.queueFlags & queue)
+				return i;
+			i++;
+		}
+		return (-1);
 	}
 
 	int GLFWVulkan::RateDeviceSuitable(VkPhysicalDevice device)
@@ -79,7 +69,7 @@ namespace Soon
 		vkGetPhysicalDeviceProperties(device, &deviceProperties);
 		vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
 
-		if (GetQueueFamilyIndex(device, VK_QUEUE_GRAPHICS_BIT) == -1)
+		if (GetQueueFamilyIndex(device, VK_QUEUE_GRAPHICS_BIT) == -1 || !presentSupport)
 			return (score);
 		if (deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU)
 			score += 10;
@@ -244,7 +234,6 @@ namespace Soon
 		CreateSurface();
 		PickPhysicalDevice();
 		CreateLogicalDevice();
-		//CreateSurface();
 	}
 
 	void* GLFWVulkan::GetContext( void )

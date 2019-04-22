@@ -26,7 +26,6 @@ namespace Soon
 			void GetPhysicalDeviceInfo(VkPhysicalDevice device);
 
 			int GetQueueFamilyIndex(VkPhysicalDevice device, VkQueueFlagBits queue);
-			bool isDeviceSuitable(VkPhysicalDevice device);
 			int RateDeviceSuitable(VkPhysicalDevice device);
 
 		private:
