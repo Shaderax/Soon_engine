@@ -3,12 +3,35 @@
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 #include "Graphics/GraphicsInstance.hpp"
+#include <vector>
 //#include "vulkan/vulkan.h"
+
+//Swap chain struct
+struct SwapChainSupportDetails
+{
+	VkSurfaceCapabilitiesKHR capabilities;
+	std::vector<VkSurfaceFormatKHR> formats;
+	std::vector<VkPresentModeKHR> presentModes;
+};
 
 namespace Soon
 {
 	class GLFWVulkan : GraphicsInstance
 	{
+
+		private:
+			GLFWwindow*			_window;
+			VkInstance			_vulkanInstance;
+			VkPhysicalDevice	_physicalDevice;
+			VkDevice 			_device;
+			VkQueue				_graphicsQueue;
+			VkSurfaceKHR 		_surface;
+			VkQueue				_presentQueue;
+			VkSwapchainKHR		_swapChain;
+			std::vector<VkImage> _swapChainImages;
+			VkExtent2D			_swapChainExtent;
+			VkFormat			_swapChainImageFormat;
+
 		public:
 			GLFWVulkan( void );
 			~GLFWVulkan( void );
@@ -28,14 +51,9 @@ namespace Soon
 			int GetQueueFamilyIndex(VkPhysicalDevice device, VkQueueFlagBits queue);
 			int RateDeviceSuitable(VkPhysicalDevice device);
 
-		private:
-			GLFWwindow*			_window;
-			VkInstance			_vulkanInstance;
-			VkPhysicalDevice	_physicalDevice;
-			VkDevice 			_device;
-			VkQueue				_graphicsQueue;
-			VkSurfaceKHR 		_surface;
-			VkQueue				_presentQueue;
+			SwapChainSupportDetails QuerySwapChainSupport(VkPhysicalDevice device);
+
+			void CreateSwapChain( void );
 	};
 
 	void NewGraphicsInstance( void );
