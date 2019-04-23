@@ -6,6 +6,7 @@
 #include "Core/Error.hpp"
 #include "GLFW/glfw3.h"
 #include <set>
+#include <algorithm>
 //#include <MoltenVK/vk_mvk_moltenvk.h>
 
 
@@ -86,6 +87,85 @@ namespace Soon
 		return requiredExtensions.empty();	
 	}
 
+	//SWAP CHAIN
+	SwapChainSupportDetails GLFWVulkan::QuerySwapChainSupport(VkPhysicalDevice device)
+	{
+		SwapChainSupportDetails details;
+
+		vkGetPhysicalDeviceSurfaceCapabilitiesKHR(device, _surface, &details.capabilities);
+
+		uint32_t formatCount;
+		vkGetPhysicalDeviceSurfaceFormatsKHR(device, _surface, &formatCount, nullptr);
+
+		if (formatCount != 0) {
+			details.formats.resize(formatCount);
+			vkGetPhysicalDeviceSurfaceFormatsKHR(device, _surface, &formatCount, details.formats.data());
+		}
+
+		uint32_t presentModeCount;
+		vkGetPhysicalDeviceSurfacePresentModesKHR(device, _surface, &presentModeCount, nullptr);
+
+		if (presentModeCount != 0) {
+			details.presentModes.resize(presentModeCount);
+			vkGetPhysicalDeviceSurfacePresentModesKHR(device, _surface, &presentModeCount, details.presentModes.data());
+		}
+
+		return details;
+	}
+
+	VkSurfaceFormatKHR ChooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats)
+	{
+		if (availableFormats.size() == 1 && availableFormats[0].format == VK_FORMAT_UNDEFINED)
+			return {VK_FORMAT_B8G8R8A8_UNORM, VK_COLOR_SPACE_SRGB_NONLINEAR_KHR};
+
+		for (const auto& availableFormat : availableFormats)
+		{
+			if (availableFormat.format == VK_FORMAT_B8G8R8A8_UNORM && availableFormat.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR)
+				return availableFormat;
+		}
+
+		return availableFormats[0];
+	}
+
+	VkPresentModeKHR ChooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes)
+	{
+		VkPresentModeKHR bestMode = VK_PRESENT_MODE_FIFO_KHR;
+
+		for (const auto& availablePresentMode : availablePresentModes)
+		{
+			if (availablePresentMode == VK_PRESENT_MODE_MAILBOX_KHR)
+			{
+				std::cout << "VK_PRESENT_MODE_MAILBOX_KHR" << std::endl;
+				return availablePresentMode;
+			}
+			else if (availablePresentMode == VK_PRESENT_MODE_IMMEDIATE_KHR)
+			{
+				std::cout << "VK_PRESENT_MODE_IMMEDIATE_KHR" << std::endl;
+				bestMode = availablePresentMode;
+			}
+		}
+
+		std::cout << "VK_PRESENT_MODE_LIFO_KHR" << std::endl;
+		return bestMode;
+	}
+
+	VkExtent2D ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities)
+	{
+		OS::WindowAttribute winAttr = OS::GetSingleton()->GetWindowAttribute();
+
+		if (capabilities.currentExtent.width != std::numeric_limits<uint32_t>::max())
+			return capabilities.currentExtent;
+		else
+		{
+			VkExtent2D actualExtent = {winAttr._width, winAttr._height};
+
+			actualExtent.width = std::max(capabilities.minImageExtent.width, std::min(capabilities.maxImageExtent.width, actualExtent.width));
+			actualExtent.height = std::max(capabilities.minImageExtent.height, std::min(capabilities.maxImageExtent.height, actualExtent.height));
+
+			return actualExtent;
+		}
+	}
+
 	int GLFWVulkan::RateDeviceSuitable(VkPhysicalDevice device)
 	{
 		int score = 0;
@@ -95,7 +175,14 @@ namespace Soon
 		vkGetPhysicalDeviceProperties(device, &deviceProperties);
 
 		bool extensionsSupported = CheckDeviceExtensionSupport(device);
-		if (GetQueueFamilyIndex(device, VK_QUEUE_GRAPHICS_BIT) == -1 || !extensionsSupported)
+		bool swapChainAdequate = false;
+		if (extensionsSupported)
+		{
+			SwapChainSupportDetails swapChainSupport = QuerySwapChainSupport(device);
+			swapChainAdequate = !swapChainSupport.formats.empty() && !swapChainSupport.presentModes.empty();
+		}
+
+		if (GetQueueFamilyIndex(device, VK_QUEUE_GRAPHICS_BIT) == -1 || !extensionsSupported || !swapChainAdequate)
 			return (score);
 		if (deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU)
 			score += 10;
@@ -161,12 +248,12 @@ namespace Soon
 		vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensions.data());
 		std::cout << "available extensions:" << std::endl;
 
-		std::cout << "AVAILABLE EXT\n";
+		std::cout << "AVAILABLE EXTENSIONS : " << extensionCount << std::endl;
 		std::vector<char const *> extNames(extensionCount);
 		for (uint32_t i = 0; i < extensionCount; ++i)
 		{
 			extNames[i] = extensions[i].extensionName;
-			std::cout << extNames[i] << std::endl;
+			std::cout << "\t" << extNames[i] << std::endl;
 		}
 		//// end Check Exten
 
@@ -175,37 +262,29 @@ namespace Soon
 
 		glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
 
-		std::cout << "GLFW EXT : " << glfwExtensionCount << std::endl;
+		std::cout << "GLFW - EXTENSIONS : " << glfwExtensionCount << std::endl;
 		for (size_t i = 0; i < glfwExtensionCount; ++i) {
-			std::cout << glfwExtensions[i] << std::endl;
+			std::cout << "\t" << glfwExtensions[i] << std::endl;
 		}
-
-
-		/*std::cout << "GLFW - EXTENSIONS\n";
-		  for (const auto &ext: glfwExtensions) {
-		  std::cout << ext.extensionName << std::endl;
-		  }*/
 
 		createInfo.enabledExtensionCount = glfwExtensionCount;
 		createInfo.ppEnabledExtensionNames = glfwExtensions;
-		//createInfo.enabledExtensionCount = extNames.size();
-		//createInfo.ppEnabledExtensionNames = extNames.data();
 
 		createInfo.enabledLayerCount = 0;
 
 		VkResult result;
 		if ((result = vkCreateInstance(&createInfo, nullptr, &_vulkanInstance)) != VK_SUCCESS)
-		{
 			SOON_ERR_THROW(0, "Can't Initialize a Vulkan Instance");
-		}
 	}
 
 	void GLFWVulkan::CreateLogicalDevice( void )
 	{
+		std::cout << "VROUM VROUM : " << VK_KHR_SWAPCHAIN_EXTENSION_NAME << std::endl;
 		// TODO //Get queue for drawing and queue for presentation
 		int index = GetQueueFamilyIndex(_physicalDevice, VK_QUEUE_GRAPHICS_BIT);
 
-		SOON_ERR_THROW((index == 0), "Did not find FamilyIndex");
+//		std::cout << index << std::endl;
+//		SOON_ERR_THROW((index != -1), "Did not find FamilyIndex");
 
 		float queuePriority = 1.0f;
 		VkDeviceQueueCreateInfo queueCreateInfo = {};
@@ -234,50 +313,75 @@ namespace Soon
 	{
 		VkResult ret;
 		if ((ret = glfwCreateWindowSurface(_vulkanInstance, _window, nullptr, &_surface)) != VK_SUCCESS)
-		{
-			if (ret == GLFW_NOT_INITIALIZED)
-				std::cout << " GLFW_NOT_INITIALIZED" << std::endl;
-			else if (ret == GLFW_API_UNAVAILABLE)
-				std::cout << "GLFW_API_UNAVAILABLE" << std::endl;
-			else if (ret == GLFW_PLATFORM_ERROR)
-				std::cout << "GLFW_PLATFORM_ERROR" << std::endl;
-			else if (ret == GLFW_INVALID_VALUE)
-				std::cout << "GLFW_INVALID_VALUE" << std::endl;
-			else if (ret == VK_ERROR_INITIALIZATION_FAILED)
-				std::cout << "VK_ERROR_INITIALIZATION_FAILED" << std::endl;
-			else if (ret == VK_ERROR_EXTENSION_NOT_PRESENT)
-				std::cout << "VK_ERROR_EXTENSION_NOT_PRESENT" << std::endl;
 			SOON_ERR_THROW(0, "failed to create window surface!");
-		}
 	}
 
-	//SWAP CHAIN
-	struct SwapChainSupportDetails
+	void GLFWVulkan::CreateSwapChain( void )
 	{
-		VkSurfaceCapabilitiesKHR capabilities;
-		std::vector<VkSurfaceFormatKHR> formats;
-		std::vector<VkPresentModeKHR> presentModes;
-	};
+		SwapChainSupportDetails swapChainSupport = QuerySwapChainSupport(_physicalDevice);
 
-	SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device)
-	{
-		SwapChainSupportDetails details;
+		VkSurfaceFormatKHR surfaceFormat = ChooseSwapSurfaceFormat(swapChainSupport.formats);
+		VkPresentModeKHR presentMode = ChooseSwapPresentMode(swapChainSupport.presentModes);
+		VkExtent2D extent = ChooseSwapExtent(swapChainSupport.capabilities);
 
-		return details;
+		uint32_t imageCount = swapChainSupport.capabilities.minImageCount + 1;
+		if (swapChainSupport.capabilities.maxImageCount > 0 && imageCount > swapChainSupport.capabilities.maxImageCount)
+			imageCount = swapChainSupport.capabilities.maxImageCount;
+
+		VkSwapchainCreateInfoKHR createInfo = {};
+		createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
+		createInfo.surface = _surface;
+
+		createInfo.minImageCount = imageCount;
+		createInfo.imageFormat = surfaceFormat.format;
+		createInfo.imageColorSpace = surfaceFormat.colorSpace;
+		createInfo.imageExtent = extent;
+		createInfo.imageArrayLayers = 1;
+		createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
+
+//		int index = GetQueueFamilyIndex(_physicalDevice, VK_QUEUE_GRAPHICS_BIT);
+
+//		if (indices.graphicsFamily != indices.presentFamily)
+//		{
+//			createInfo.imageSharingMode = VK_SHARING_MODE_CONCURRENT;
+//			createInfo.queueFamilyIndexCount = 2;
+//			createInfo.pQueueFamilyIndices = queueFamilyIndices;
+//		}
+//		else
+//		{
+			createInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
+			createInfo.queueFamilyIndexCount = 0; // Optional
+			createInfo.pQueueFamilyIndices = nullptr; // Optional
+//		}
+
+		createInfo.preTransform = swapChainSupport.capabilities.currentTransform;
+		createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
+		createInfo.presentMode = presentMode;
+		createInfo.clipped = VK_TRUE;
+
+		createInfo.oldSwapchain = VK_NULL_HANDLE;
+
+		if (vkCreateSwapchainKHR(_device, &createInfo, nullptr, &_swapChain) != VK_SUCCESS)
+			SOON_ERR_THROW(0, "Cant Create SwapChain");
+
+		vkGetSwapchainImagesKHR(_device, _swapChain, &imageCount, nullptr);
+		_swapChainImages.resize(imageCount);
+		vkGetSwapchainImagesKHR(_device, _swapChain, &imageCount, _swapChainImages.data());
+
+		_swapChainImageFormat = surfaceFormat.format;
+		_swapChainExtent = extent;
 	}
 
 	void GLFWVulkan::Initialize( void )
 	{
 		if (!glfwVulkanSupported())
-		{
 			std::cout << "VULKAN Y VEUT PAS SANS DOUTE A CAUSE DE SE MOLTENVK DE MERDE" << std::endl;
-			// Vulkan is available, at least for compute
-		}
 		CreateWindow();
 		CreateInstance();
 		CreateSurface();
 		PickPhysicalDevice();
 		CreateLogicalDevice();
+		CreateSwapChain();
 	}
 
 	void* GLFWVulkan::GetContext( void )

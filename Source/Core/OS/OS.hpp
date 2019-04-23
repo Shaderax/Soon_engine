@@ -10,8 +10,8 @@ namespace Soon
 
 			struct WindowAttribute
 			{
-				int		_width;
-				int		_height;
+				uint32_t	_width;
+				uint32_t	_height;
 				bool	_fullscreen;
 				bool	_vsync;
 				std::string _name;
