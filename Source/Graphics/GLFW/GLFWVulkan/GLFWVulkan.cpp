@@ -133,6 +133,7 @@ namespace Soon
 
 		for (const auto& availablePresentMode : availablePresentModes)
 		{
+			std::cout << "availablePresentMode : " << availablePresentMode << std::endl;
 			if (availablePresentMode == VK_PRESENT_MODE_MAILBOX_KHR)
 			{
 				std::cout << "VK_PRESENT_MODE_MAILBOX_KHR" << std::endl;
