@@ -9,6 +9,41 @@
 #include <algorithm>
 //#include <MoltenVK/vk_mvk_moltenvk.h>
 
+const std::vector<const char*> validationLayers = {
+	"VK_LAYER_LUNARG_standard_validation"
+};
+
+#define NDEBUG
+#ifdef NDEBUG
+const bool enableValidationLayers = false;
+#else
+const bool enableValidationLayers = true;
+#endif
+
+bool checkValidationLayerSupport( void ) {
+	uint32_t layerCount;
+	vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
+
+	std::vector<VkLayerProperties> availableLayers(layerCount);
+	vkEnumerateInstanceLayerProperties(&layerCount, availableLayers.data());
+
+	for (const char* layerName : validationLayers) {
+		bool layerFound = false;
+
+		for (const auto& layerProperties : availableLayers) {
+			if (strcmp(layerName, layerProperties.layerName) == 0) {
+				layerFound = true;
+				break;
+			}
+		}
+
+		if (!layerFound) {
+			return false;
+		}
+	}
+
+	return true;
+}
 
 namespace Soon
 {
@@ -133,7 +168,6 @@ namespace Soon
 
 		for (const auto& availablePresentMode : availablePresentModes)
 		{
-			std::cout << "availablePresentMode : " << availablePresentMode << std::endl;
 			if (availablePresentMode == VK_PRESENT_MODE_MAILBOX_KHR)
 			{
 				std::cout << "VK_PRESENT_MODE_MAILBOX_KHR" << std::endl;
@@ -231,6 +265,9 @@ namespace Soon
 
 	void GLFWVulkan::CreateInstance( void )
 	{
+		if (enableValidationLayers && !checkValidationLayerSupport())
+			throw std::runtime_error("validation layers requested, but not available!");
+
 		VkApplicationInfo appInfo = {};
 		appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
 		appInfo.pApplicationName = nullptr;
@@ -284,8 +321,8 @@ namespace Soon
 		// TODO //Get queue for drawing and queue for presentation
 		int index = GetQueueFamilyIndex(_physicalDevice, VK_QUEUE_GRAPHICS_BIT);
 
-//		std::cout << index << std::endl;
-//		SOON_ERR_THROW((index != -1), "Did not find FamilyIndex");
+		//		std::cout << index << std::endl;
+		//		SOON_ERR_THROW((index != -1), "Did not find FamilyIndex");
 
 		float queuePriority = 1.0f;
 		VkDeviceQueueCreateInfo queueCreateInfo = {};
@@ -308,6 +345,7 @@ namespace Soon
 			SOON_ERR_THROW(0, "failed to create logical device!");
 
 		vkGetDeviceQueue(_device, index, 0, &_graphicsQueue);
+		vkGetDeviceQueue(_device, index, 0, &_presentQueue);
 	}
 
 	void GLFWVulkan::CreateSurface( void )
@@ -340,20 +378,20 @@ namespace Soon
 		createInfo.imageArrayLayers = 1;
 		createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
 
-//		int index = GetQueueFamilyIndex(_physicalDevice, VK_QUEUE_GRAPHICS_BIT);
+		//		int index = GetQueueFamilyIndex(_physicalDevice, VK_QUEUE_GRAPHICS_BIT);
 
-//		if (indices.graphicsFamily != indices.presentFamily)
-//		{
-//			createInfo.imageSharingMode = VK_SHARING_MODE_CONCURRENT;
-//			createInfo.queueFamilyIndexCount = 2;
-//			createInfo.pQueueFamilyIndices = queueFamilyIndices;
-//		}
-//		else
-//		{
-			createInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
-			createInfo.queueFamilyIndexCount = 0; // Optional
-			createInfo.pQueueFamilyIndices = nullptr; // Optional
-//		}
+		//		if (indices.graphicsFamily != indices.presentFamily)
+		//		{
+		//			createInfo.imageSharingMode = VK_SHARING_MODE_CONCURRENT;
+		//			createInfo.queueFamilyIndexCount = 2;
+		//			createInfo.pQueueFamilyIndices = queueFamilyIndices;
+		//		}
+		//		else
+		//		{
+		createInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
+		createInfo.queueFamilyIndexCount = 0; // Optional
+		createInfo.pQueueFamilyIndices = nullptr; // Optional
+		//		}
 
 		createInfo.preTransform = swapChainSupport.capabilities.currentTransform;
 		createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
