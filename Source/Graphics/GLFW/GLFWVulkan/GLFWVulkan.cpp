@@ -42,7 +42,7 @@ namespace Soon
 		VkPhysicalDeviceFeatures deviceFeatures;
 		vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
 	}
-	
+
 	int GLFWVulkan::GetQueueFamilyIndex(VkPhysicalDevice device, VkQueueFlagBits queue)
 	{
 		uint32_t queueFamilyCount = 0;
@@ -67,23 +67,23 @@ namespace Soon
 
 	const std::vector<const char*> deviceExtensions =
 	{
-		    VK_KHR_SWAPCHAIN_EXTENSION_NAME
+		VK_KHR_SWAPCHAIN_EXTENSION_NAME
 	};
 
 	bool CheckDeviceExtensionSupport(VkPhysicalDevice device)
 	{
-	    uint32_t extensionCount;
-	    vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, nullptr);
+		uint32_t extensionCount;
+		vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, nullptr);
 
-	    std::vector<VkExtensionProperties> availableExtensions(extensionCount);
-	    vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, availableExtensions.data());
+		std::vector<VkExtensionProperties> availableExtensions(extensionCount);
+		vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, availableExtensions.data());
 
-	    std::set<std::string> requiredExtensions(deviceExtensions.begin(), deviceExtensions.end());
+		std::set<std::string> requiredExtensions(deviceExtensions.begin(), deviceExtensions.end());
 
-	    for (const auto& extension : availableExtensions)
-		        requiredExtensions.erase(extension.extensionName);
+		for (const auto& extension : availableExtensions)
+			requiredExtensions.erase(extension.extensionName);
 
-	    return requiredExtensions.empty();	
+		return requiredExtensions.empty();	
 	}
 
 	int GLFWVulkan::RateDeviceSuitable(VkPhysicalDevice device)
@@ -182,9 +182,9 @@ namespace Soon
 
 
 		/*std::cout << "GLFW - EXTENSIONS\n";
-		for (const auto &ext: glfwExtensions) {
-			std::cout << ext.extensionName << std::endl;
-		}*/
+		  for (const auto &ext: glfwExtensions) {
+		  std::cout << ext.extensionName << std::endl;
+		  }*/
 
 		createInfo.enabledExtensionCount = glfwExtensionCount;
 		createInfo.ppEnabledExtensionNames = glfwExtensions;
@@ -251,12 +251,27 @@ namespace Soon
 		}
 	}
 
+	//SWAP CHAIN
+	struct SwapChainSupportDetails
+	{
+		VkSurfaceCapabilitiesKHR capabilities;
+		std::vector<VkSurfaceFormatKHR> formats;
+		std::vector<VkPresentModeKHR> presentModes;
+	};
+
+	SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device)
+	{
+		SwapChainSupportDetails details;
+
+		return details;
+	}
+
 	void GLFWVulkan::Initialize( void )
 	{
 		if (!glfwVulkanSupported())
 		{
 			std::cout << "VULKAN Y VEUT PAS SANS DOUTE A CAUSE DE SE MOLTENVK DE MERDE" << std::endl;
-			    // Vulkan is available, at least for compute
+			// Vulkan is available, at least for compute
 		}
 		CreateWindow();
 		CreateInstance();
