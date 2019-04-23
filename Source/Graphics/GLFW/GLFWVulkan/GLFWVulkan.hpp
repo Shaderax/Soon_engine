@@ -31,10 +31,11 @@ namespace Soon
 		private:
 			GLFWwindow*			_window;
 			VkInstance			_vulkanInstance;
-			VkPhysicalDevice		_physicalDevice;
+			VkPhysicalDevice	_physicalDevice;
 			VkDevice 			_device;
 			VkQueue				_graphicsQueue;
-			VkSurfaceKHR 			_surface;
+			VkSurfaceKHR 		_surface;
+			VkQueue				_presentQueue;
 	};
 
 	void NewGraphicsInstance( void );

@@ -5,6 +5,7 @@
 #include <map>
 #include "Core/Error.hpp"
 #include "GLFW/glfw3.h"
+#include <set>
 //#include <MoltenVK/vk_mvk_moltenvk.h>
 
 
@@ -53,11 +54,36 @@ namespace Soon
 		int i = 0;
 		for (const auto& queueFamily : queueFamilies)
 		{
-			if (queueFamily.queueCount > 0 && queueFamily.queueFlags & queue)
+			VkBool32 presentSupport = false;
+			vkGetPhysicalDeviceSurfaceSupportKHR(device, i, _surface, &presentSupport);
+
+			if (queueFamily.queueCount > 0 && queueFamily.queueFlags & queue && presentSupport)
 				return i;
+
 			i++;
 		}
 		return (-1);
+	}
+
+	const std::vector<const char*> deviceExtensions =
+	{
+		    VK_KHR_SWAPCHAIN_EXTENSION_NAME
+	};
+
+	bool CheckDeviceExtensionSupport(VkPhysicalDevice device)
+	{
+	    uint32_t extensionCount;
+	    vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, nullptr);
+
+	    std::vector<VkExtensionProperties> availableExtensions(extensionCount);
+	    vkEnumerateDeviceExtensionProperties(device, nullptr, &extensionCount, availableExtensions.data());
+
+	    std::set<std::string> requiredExtensions(deviceExtensions.begin(), deviceExtensions.end());
+
+	    for (const auto& extension : availableExtensions)
+		        requiredExtensions.erase(extension.extensionName);
+
+	    return requiredExtensions.empty();	
 	}
 
 	int GLFWVulkan::RateDeviceSuitable(VkPhysicalDevice device)
@@ -67,9 +93,9 @@ namespace Soon
 		VkPhysicalDeviceProperties deviceProperties;
 		VkPhysicalDeviceFeatures deviceFeatures;
 		vkGetPhysicalDeviceProperties(device, &deviceProperties);
-		vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
 
-		if (GetQueueFamilyIndex(device, VK_QUEUE_GRAPHICS_BIT) == -1 || !presentSupport)
+		bool extensionsSupported = CheckDeviceExtensionSupport(device);
+		if (GetQueueFamilyIndex(device, VK_QUEUE_GRAPHICS_BIT) == -1 || !extensionsSupported)
 			return (score);
 		if (deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU)
 			score += 10;
@@ -149,7 +175,7 @@ namespace Soon
 
 		glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
 
-		std::cout << "GLFW EXT\n";
+		std::cout << "GLFW EXT : " << glfwExtensionCount << std::endl;
 		for (size_t i = 0; i < glfwExtensionCount; ++i) {
 			std::cout << glfwExtensions[i] << std::endl;
 		}
@@ -176,16 +202,17 @@ namespace Soon
 
 	void GLFWVulkan::CreateLogicalDevice( void )
 	{
+		// TODO //Get queue for drawing and queue for presentation
 		int index = GetQueueFamilyIndex(_physicalDevice, VK_QUEUE_GRAPHICS_BIT);
 
+		SOON_ERR_THROW((index == 0), "Did not find FamilyIndex");
+
+		float queuePriority = 1.0f;
 		VkDeviceQueueCreateInfo queueCreateInfo = {};
 		queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
 		queueCreateInfo.queueFamilyIndex = index;
 		queueCreateInfo.queueCount = 1;
-
-		float queuePriority = 1.0f;
 		queueCreateInfo.pQueuePriorities = &queuePriority;
-
 
 		VkPhysicalDeviceFeatures deviceFeatures = {};
 
