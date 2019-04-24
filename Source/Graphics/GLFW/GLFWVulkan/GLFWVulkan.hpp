@@ -31,6 +31,7 @@ namespace Soon
 			std::vector<VkImage> _swapChainImages;
 			VkExtent2D			_swapChainExtent;
 			VkFormat			_swapChainImageFormat;
+			VkDebugUtilsMessengerEXT	_debugMessenger;
 
 		public:
 			GLFWVulkan( void );
@@ -54,6 +55,8 @@ namespace Soon
 			SwapChainSupportDetails QuerySwapChainSupport(VkPhysicalDevice device);
 
 			void CreateSwapChain( void );
+
+			void SetupDebugMessenger( void );
 	};
 
 	void NewGraphicsInstance( void );
