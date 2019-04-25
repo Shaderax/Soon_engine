@@ -10,10 +10,10 @@ Soon::Engine& engine = Soon::Engine::GetInstance();
 
 int main(int argc, char**argv)
 {
-//	while (!engine.ShouldEnd())
-//	{
-//		engine.Update();
-//	}
+	while (!engine.ShouldEnd())
+	{
+		engine.Update();
+	}
 	//	Scene& scene = engine.NewScene();
 	//
 	//	Object& object1 = scene.NewObjectInScene();

@@ -8,6 +8,7 @@
 #include <set>
 #include <algorithm>
 #include "string.h"
+#include <fstream>
 //#include <MoltenVK/vk_mvk_moltenvk.h>
 
 const std::vector<const char*> validationLayers = {
@@ -222,8 +223,8 @@ namespace Soon
 
 	void GLFWVulkan::CreateInstance( void )
 	{
-		if (enableValidationLayers && !checkValidationLayerSupport())
-			throw std::runtime_error("validation layers requested, but not available!");
+		//		if (enableValidationLayers && !checkValidationLayerSupport())
+		//			throw std::runtime_error("validation layers requested, but not available!");
 
 		VkApplicationInfo appInfo = {};
 		appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
@@ -290,7 +291,7 @@ namespace Soon
 
 	void GLFWVulkan::CreateLogicalDevice( void )
 	{
-		std::cout << "VROUM VROUM : " << VK_KHR_SWAPCHAIN_EXTENSION_NAME << std::endl;
+		std::cout << "VK_KHR_SWAPCHAIN_EXTENSION_NAME : " << VK_KHR_SWAPCHAIN_EXTENSION_NAME << std::endl;
 		// TODO //Get queue for drawing and queue for presentation
 		int index = GetQueueFamilyIndex(_physicalDevice, VK_QUEUE_GRAPHICS_BIT);
 
@@ -315,7 +316,6 @@ namespace Soon
 		std::vector<const char*> ko;
 		ko.push_back(VK_KHR_SWAPCHAIN_EXTENSION_NAME);
 		createInfo.ppEnabledExtensionNames = &ko.data()[0];//deviceExtensions.data();
-		std::cout << "COUCOUC : " << deviceExtensions.size() << std::endl;
 
 		if (vkCreateDevice(_physicalDevice, &createInfo, nullptr, &_device) != VK_SUCCESS)
 			SOON_ERR_THROW(0, "failed to create logical device!");
@@ -383,7 +383,7 @@ namespace Soon
 			return actualExtent;
 		}
 	}
-	
+
 	//SWAP CHAIN
 	SwapChainSupportDetails GLFWVulkan::QuerySwapChainSupport(VkPhysicalDevice device)
 	{
@@ -415,13 +415,13 @@ namespace Soon
 		SwapChainSupportDetails swapChainSupport = QuerySwapChainSupport(_physicalDevice);
 
 		VkSurfaceFormatKHR surfaceFormat = ChooseSwapSurfaceFormat(swapChainSupport.formats);
-		std::cout << surfaceFormat.format << std::endl;
-		std::cout << surfaceFormat.colorSpace << std::endl;
+		std::cout << "Surface Format" << surfaceFormat.format << std::endl;
+		std::cout << "Surface Color space : " << surfaceFormat.colorSpace << std::endl;
 		VkPresentModeKHR presentMode = ChooseSwapPresentMode(swapChainSupport.presentModes);
-		std::cout << presentMode << std::endl;
+		std::cout << "Present Mode : " << presentMode << std::endl;
 		VkExtent2D extent = ChooseSwapExtent(swapChainSupport.capabilities);
-		std::cout << extent.width << std::endl;
-		std::cout << extent.height << std::endl;
+		std::cout << "Extext Wodth : " << extent.width << std::endl;
+		std::cout <<  "Extext Height : " << extent.height << std::endl;
 
 		uint32_t imageCount = swapChainSupport.capabilities.minImageCount + 1;
 		if (swapChainSupport.capabilities.maxImageCount > 0 && imageCount > swapChainSupport.capabilities.maxImageCount)
@@ -474,6 +474,91 @@ namespace Soon
 			throw std::runtime_error("failed to set up debug messenger!");
 	}
 
+	void GLFWVulkan::CreateImageViews( void )
+	{
+		_swapChainImageViews.resize(_swapChainImages.size());
+
+		for (size_t i = 0; i < _swapChainImages.size(); i++)
+		{
+			VkImageViewCreateInfo createInfo = {};
+			createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
+			createInfo.image = _swapChainImages[i];
+			createInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
+			createInfo.format = _swapChainImageFormat;
+			createInfo.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
+			createInfo.components.g = VK_COMPONENT_SWIZZLE_IDENTITY;
+			createInfo.components.b = VK_COMPONENT_SWIZZLE_IDENTITY;
+			createInfo.components.a = VK_COMPONENT_SWIZZLE_IDENTITY;
+			createInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+			createInfo.subresourceRange.baseMipLevel = 0;
+			createInfo.subresourceRange.levelCount = 1;
+			createInfo.subresourceRange.baseArrayLayer = 0;
+			createInfo.subresourceRange.layerCount = 1;
+
+			if (vkCreateImageView(_device, &createInfo, nullptr, &_swapChainImageViews[i]) != VK_SUCCESS)
+				throw std::runtime_error("failed to create image views!");
+		}
+	}
+
+	static std::vector<char> readFile(const std::string& filename)
+	{
+		std::ifstream file(filename, std::ios::ate | std::ios::binary);
+
+		if (!file.is_open())
+			throw std::runtime_error("failed to open file!");
+
+		size_t fileSize = (size_t) file.tellg();
+		std::vector<char> buffer(fileSize);
+
+		file.seekg(0);
+		file.read(buffer.data(), fileSize);
+
+		file.close();
+
+		return buffer;
+	}
+
+	VkShaderModule GLFWVulkan::CreateShaderModule(const std::vector<char>& code)
+	{
+		VkShaderModuleCreateInfo createInfo = {};
+		createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+		createInfo.codeSize = code.size();
+		createInfo.pCode = reinterpret_cast<const uint32_t*>(code.data());
+
+		VkShaderModule shaderModule;
+		if (vkCreateShaderModule(_device, &createInfo, nullptr, &shaderModule) != VK_SUCCESS) {
+			throw std::runtime_error("failed to create shader module!");
+		}
+
+		return shaderModule;
+	}
+
+	void GLFWVulkan::CreateGraphicsPipeline( void )
+	{
+		auto vertShaderCode = readFile("../Source/Graphics/GLFW/GLFWVulkan/vert.spv");
+		auto fragShaderCode = readFile("../Source/Graphics/GLFW/GLFWVulkan/frag.spv");
+
+		VkShaderModule vertShaderModule = CreateShaderModule(vertShaderCode);
+		VkShaderModule fragShaderModule = CreateShaderModule(fragShaderCode);
+
+		VkPipelineShaderStageCreateInfo vertShaderStageInfo = {};
+		vertShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+		vertShaderStageInfo.stage = VK_SHADER_STAGE_VERTEX_BIT;
+		vertShaderStageInfo.module = vertShaderModule;
+		vertShaderStageInfo.pName = "main";
+
+		VkPipelineShaderStageCreateInfo fragShaderStageInfo = {};
+		fragShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+		fragShaderStageInfo.stage = VK_SHADER_STAGE_FRAGMENT_BIT;
+		fragShaderStageInfo.module = fragShaderModule;
+		fragShaderStageInfo.pName = "main";
+
+		VkPipelineShaderStageCreateInfo shaderStages[] = {vertShaderStageInfo, fragShaderStageInfo};
+
+		vkDestroyShaderModule(_device, fragShaderModule, nullptr);
+		vkDestroyShaderModule(_device, vertShaderModule, nullptr);
+	}
+
 	void GLFWVulkan::Initialize( void )
 	{
 		if (!glfwVulkanSupported())
@@ -485,6 +570,8 @@ namespace Soon
 		PickPhysicalDevice();
 		CreateLogicalDevice();
 		CreateSwapChain();
+		CreateImageViews();
+		CreateGraphicsPipeline();
 	}
 
 	void* GLFWVulkan::GetContext( void )
@@ -506,5 +593,7 @@ namespace Soon
 		vkDestroyDevice(_device, nullptr);
 		vkDestroyInstance(_vulkanInstance, nullptr);
 		vkDestroySwapchainKHR(_device, _swapChain, nullptr);
+		for (auto imageView : _swapChainImageViews)
+			vkDestroyImageView(_device, imageView, nullptr);
 	}
 }

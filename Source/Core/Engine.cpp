@@ -32,7 +32,7 @@ namespace Soon
 	{
 		_world.Update();
 
-		OS::GetSingleton()->SwapBuffer();
+//		OS::GetSingleton()->SwapBuffer();
 		OS::GetSingleton()->PollEvent();
 	}
 
