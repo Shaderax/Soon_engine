@@ -620,7 +620,7 @@ namespace Soon
 		pipelineLayoutInfo.setLayoutCount = 0;
 		pipelineLayoutInfo.pushConstantRangeCount = 0;
 
-		if (vkCreatePipelineLayout(_device, &pipelineLayoutInfo, nullptr, &pipelineLayout) != VK_SUCCESS) {
+		if (vkCreatePipelineLayout(_device, &pipelineLayoutInfo, nullptr, &_pipelineLayout) != VK_SUCCESS) {
 			throw std::runtime_error("failed to create pipeline layout!");
 		}
 
@@ -664,5 +664,6 @@ namespace Soon
 		vkDestroySwapchainKHR(_device, _swapChain, nullptr);
 		for (auto imageView : _swapChainImageViews)
 			vkDestroyImageView(_device, imageView, nullptr);
+		vkDestroyPipelineLayout(_device, _pipelineLayout, nullptr);
 	}
 }
