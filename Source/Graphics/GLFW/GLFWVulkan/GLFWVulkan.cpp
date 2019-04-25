@@ -661,6 +661,45 @@ namespace Soon
 		}
 	}
 
+	void GLFWVulkan::CreateFramebuffers( void )
+	{
+		_swapChainFramebuffers.resize(_swapChainImageViews.size());
+
+		for (size_t i = 0; i < _swapChainImageViews.size(); i++)
+		{
+			VkImageView attachments[] =
+			{
+				_swapChainImageViews[i]
+			};
+
+			VkFramebufferCreateInfo framebufferInfo = {};
+			framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
+			framebufferInfo.renderPass = _renderPass;
+			framebufferInfo.attachmentCount = 1;
+			framebufferInfo.pAttachments = attachments;
+			framebufferInfo.width = _swapChainExtent.width;
+			framebufferInfo.height = _swapChainExtent.height;
+			framebufferInfo.layers = 1;
+
+			if (vkCreateFramebuffer(_device, &framebufferInfo, nullptr, &_swapChainFramebuffers[i]) != VK_SUCCESS) {
+				throw std::runtime_error("failed to create framebuffer!");
+			}
+		}
+	}
+
+	void GLFWVulkan::CreateCommandPool( void )
+	{
+		int index = GetQueueFamilyIndex(_physicalDevice, VK_QUEUE_GRAPHICS_BIT);
+
+		VkCommandPoolCreateInfo poolInfo = {};
+		poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
+		poolInfo.queueFamilyIndex = index;
+
+		if (vkCreateCommandPool(_device, &poolInfo, nullptr, &_commandPool) != VK_SUCCESS) {
+			throw std::runtime_error("failed to create command pool!");
+		}
+	}
+
 	void GLFWVulkan::Initialize( void )
 	{
 		if (!glfwVulkanSupported())
@@ -675,6 +714,8 @@ namespace Soon
 		CreateImageViews();
 		CreateRenderPass();
 		CreateGraphicsPipeline();
+		CreateFramebuffers(); 
+		CreateCommandPool();
 	}
 
 	void* GLFWVulkan::GetContext( void )
@@ -700,5 +741,7 @@ namespace Soon
 			vkDestroyImageView(_device, imageView, nullptr);
 		vkDestroyPipelineLayout(_device, _pipelineLayout, nullptr);
 		vkDestroyRenderPass(_device, _renderPass, nullptr);
+		for (auto framebuffer : _swapChainFramebuffers)
+			vkDestroyFramebuffer(_device, framebuffer, nullptr);
 	}
 }
