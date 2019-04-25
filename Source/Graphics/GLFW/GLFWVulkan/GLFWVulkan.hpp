@@ -34,6 +34,7 @@ namespace Soon
 			VkDebugUtilsMessengerEXT	_debugMessenger;
 			std::vector<VkImageView> _swapChainImageViews;
 			VkPipelineLayout 		_pipelineLayout;
+			VkRenderPass			_renderPass;
 
 		public:
 			GLFWVulkan( void );
@@ -65,6 +66,8 @@ namespace Soon
 			void CreateGraphicsPipeline( void );
 
 			VkShaderModule CreateShaderModule(const std::vector<char>& code);
+
+			void CreateRenderPass( void );
 	};
 
 	void NewGraphicsInstance( void );
