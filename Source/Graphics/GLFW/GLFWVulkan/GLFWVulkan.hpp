@@ -20,23 +20,27 @@ namespace Soon
 	{
 
 		private:
-			GLFWwindow*					_window;
-			VkInstance					_vulkanInstance;
-			VkPhysicalDevice			_physicalDevice;
-			VkDevice 					_device;
-			VkQueue						_graphicsQueue;
-			VkSurfaceKHR 				_surface;
-			VkQueue						_presentQueue;
-			VkSwapchainKHR				_swapChain;
-			std::vector<VkImage>		 _swapChainImages;
-			VkExtent2D					_swapChainExtent;
-			VkFormat					_swapChainImageFormat;
-			VkDebugUtilsMessengerEXT	_debugMessenger;
-			std::vector<VkImageView>	_swapChainImageViews;
-			VkPipelineLayout 			_pipelineLayout;
-			VkRenderPass				_renderPass;
-			std::vector<VkFramebuffer> 	_swapChainFramebuffers;
-			VkCommandPool 				_commandPool;
+			GLFWwindow*						_window;
+			VkInstance						_vulkanInstance;
+			VkPhysicalDevice				_physicalDevice;
+			VkDevice 						_device;
+			VkQueue							_graphicsQueue;
+			VkSurfaceKHR 					_surface;
+			VkQueue							_presentQueue;
+			VkSwapchainKHR					_swapChain;
+			std::vector<VkImage>			_swapChainImages;
+			VkExtent2D						_swapChainExtent;
+			VkFormat						_swapChainImageFormat;
+			VkDebugUtilsMessengerEXT		_debugMessenger;
+			std::vector<VkImageView>		_swapChainImageViews;
+			VkPipelineLayout 				_pipelineLayout;
+			VkPipeline						_graphicsPipeline;
+			VkRenderPass					_renderPass;
+			std::vector<VkFramebuffer> 		_swapChainFramebuffers;
+			VkCommandPool 					_commandPool;
+			std::vector<VkCommandBuffer>	_commandBuffers;
+			VkSemaphore						_imageAvailableSemaphore;
+			VkSemaphore						_renderFinishedSemaphore;
 
 		public:
 			GLFWVulkan( void );
@@ -74,6 +78,8 @@ namespace Soon
 			void CreateFramebuffers( void );
 
 			void CreateCommandPool( void );
+
+			void CreateCommandBuffers( void );
 	};
 
 	void NewGraphicsInstance( void );
