@@ -20,21 +20,23 @@ namespace Soon
 	{
 
 		private:
-			GLFWwindow*			_window;
-			VkInstance			_vulkanInstance;
-			VkPhysicalDevice	_physicalDevice;
-			VkDevice 			_device;
-			VkQueue				_graphicsQueue;
-			VkSurfaceKHR 		_surface;
-			VkQueue				_presentQueue;
-			VkSwapchainKHR		_swapChain;
-			std::vector<VkImage> _swapChainImages;
-			VkExtent2D			_swapChainExtent;
-			VkFormat			_swapChainImageFormat;
+			GLFWwindow*					_window;
+			VkInstance					_vulkanInstance;
+			VkPhysicalDevice			_physicalDevice;
+			VkDevice 					_device;
+			VkQueue						_graphicsQueue;
+			VkSurfaceKHR 				_surface;
+			VkQueue						_presentQueue;
+			VkSwapchainKHR				_swapChain;
+			std::vector<VkImage>		 _swapChainImages;
+			VkExtent2D					_swapChainExtent;
+			VkFormat					_swapChainImageFormat;
 			VkDebugUtilsMessengerEXT	_debugMessenger;
-			std::vector<VkImageView> _swapChainImageViews;
-			VkPipelineLayout 		_pipelineLayout;
-			VkRenderPass			_renderPass;
+			std::vector<VkImageView>	_swapChainImageViews;
+			VkPipelineLayout 			_pipelineLayout;
+			VkRenderPass				_renderPass;
+			std::vector<VkFramebuffer> 	_swapChainFramebuffers;
+			VkCommandPool 				_commandPool;
 
 		public:
 			GLFWVulkan( void );
@@ -68,6 +70,10 @@ namespace Soon
 			VkShaderModule CreateShaderModule(const std::vector<char>& code);
 
 			void CreateRenderPass( void );
+
+			void CreateFramebuffers( void );
+
+			void CreateCommandPool( void );
 	};
 
 	void NewGraphicsInstance( void );
