@@ -32,6 +32,7 @@ namespace Soon
 			VkExtent2D			_swapChainExtent;
 			VkFormat			_swapChainImageFormat;
 			VkDebugUtilsMessengerEXT	_debugMessenger;
+			std::vector<VkImageView> _swapChainImageViews;
 
 		public:
 			GLFWVulkan( void );
@@ -57,6 +58,12 @@ namespace Soon
 			void CreateSwapChain( void );
 
 			void SetupDebugMessenger( void );
+
+			void CreateImageViews( void );
+
+			void CreateGraphicsPipeline( void );
+
+			VkShaderModule CreateShaderModule(const std::vector<char>& code);
 	};
 
 	void NewGraphicsInstance( void );
