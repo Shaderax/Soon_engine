@@ -33,6 +33,7 @@ namespace Soon
 			VkFormat			_swapChainImageFormat;
 			VkDebugUtilsMessengerEXT	_debugMessenger;
 			std::vector<VkImageView> _swapChainImageViews;
+			VkPipelineLayout 		_pipelineLayout;
 
 		public:
 			GLFWVulkan( void );
