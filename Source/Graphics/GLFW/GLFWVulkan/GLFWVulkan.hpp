@@ -80,6 +80,8 @@ namespace Soon
 			void CreateCommandPool( void );
 
 			void CreateCommandBuffers( void );
+
+			void CreateSyncObjects( void );
 	};
 
 	void NewGraphicsInstance( void );
