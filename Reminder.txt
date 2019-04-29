@@ -1,0 +1,11 @@
+Class System -> render 
+Class Component
+
+Je cree un GameObject Player, je lui ajoute un component sprite renderer, 
+
+J'ai un system renderer qui as une liste de GameObject.
+-> Pour chaque ca render ?
+
+Sprite = GameObject with Sprite renderer Component
+
+Sprite renderer = Component
