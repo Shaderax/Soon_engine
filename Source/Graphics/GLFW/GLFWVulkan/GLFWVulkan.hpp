@@ -39,8 +39,10 @@ namespace Soon
 			std::vector<VkFramebuffer> 		_swapChainFramebuffers;
 			VkCommandPool 					_commandPool;
 			std::vector<VkCommandBuffer>	_commandBuffers;
-			VkSemaphore						_imageAvailableSemaphore;
-			VkSemaphore						_renderFinishedSemaphore;
+			std::vector<VkSemaphore>		_imageAvailableSemaphores;
+			std::vector<VkSemaphore>		_renderFinishedSemaphores;
+			std::vector<VkFence>			_inFlightFences;
+			size_t							_currentFrame;
 
 		public:
 			GLFWVulkan( void );
@@ -82,6 +84,8 @@ namespace Soon
 			void CreateCommandBuffers( void );
 
 			void CreateSyncObjects( void );
+
+			void DrawFrame( void );
 	};
 
 	void NewGraphicsInstance( void );

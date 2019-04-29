@@ -67,4 +67,9 @@ namespace Soon
 	{
 		glfwSwapBuffers(_window);
 	}
+
+	void OSGLFW::DrawFrame( void )
+	{
+		GraphicsInstance::GetInstance()->DrawFrame();
+	}
 }

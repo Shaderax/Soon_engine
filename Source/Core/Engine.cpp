@@ -28,6 +28,12 @@ namespace Soon
 
 	}
 
+	void Engine::DrawFrame( void )
+	{
+		OS::GetSingleton()->DrawFrame();
+		
+	}
+
 	void Engine::Update( void )
 	{
 		_world.Update();

@@ -89,7 +89,7 @@ void DestroyDebugUtilsMessengerEXT(VkInstance instance, VkDebugUtilsMessengerEXT
 
 namespace Soon
 {
-	GLFWVulkan::GLFWVulkan( void ) : _physicalDevice(VK_NULL_HANDLE)
+	GLFWVulkan::GLFWVulkan( void ) : _physicalDevice(VK_NULL_HANDLE), _currentFrame(0)
 	{
 
 	}
@@ -768,28 +768,75 @@ namespace Soon
 		}
 	}
 
+#define MAX_FRAMES_IN_FLIGHT 2
+
 	void GLFWVulkan::CreateSyncObjects( void )
 	{
-//		_imageAvailableSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
-//		_renderFinishedSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
-//		inFlightFences.resize(MAX_FRAMES_IN_FLIGHT);
-//
-//		VkSemaphoreCreateInfo semaphoreInfo = {};
-//		semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
-//
-//		VkFenceCreateInfo fenceInfo = {};
-//		fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
-//		fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
-//
-//		for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++)
-//		{
-//			if (vkCreateSemaphore(device, &semaphoreInfo, nullptr, &imageAvailableSemaphores[i]) != VK_SUCCESS ||
-//					vkCreateSemaphore(device, &semaphoreInfo, nullptr, &renderFinishedSemaphores[i]) != VK_SUCCESS ||
-//					vkCreateFence(device, &fenceInfo, nullptr, &inFlightFences[i]) != VK_SUCCESS)
-//			{
-//				throw std::runtime_error("failed to create synchronization objects for a frame!");
-//			}
-//		}
+		_imageAvailableSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
+		_renderFinishedSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
+		_inFlightFences.resize(MAX_FRAMES_IN_FLIGHT);
+
+		VkSemaphoreCreateInfo semaphoreInfo = {};
+		semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
+
+		VkFenceCreateInfo fenceInfo = {};
+		fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
+		fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
+
+		for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++)
+		{
+			if (vkCreateSemaphore(_device, &semaphoreInfo, nullptr, &_imageAvailableSemaphores[i]) != VK_SUCCESS ||
+					vkCreateSemaphore(_device, &semaphoreInfo, nullptr, &_renderFinishedSemaphores[i]) != VK_SUCCESS ||
+					vkCreateFence(_device, &fenceInfo, nullptr, &_inFlightFences[i]) != VK_SUCCESS)
+			{
+				throw std::runtime_error("failed to create synchronization objects for a frame!");
+			}
+		}
+	}
+
+	void GLFWVulkan::DrawFrame( void )
+	{
+		vkWaitForFences(_device, 1, &_inFlightFences[_currentFrame], VK_TRUE, std::numeric_limits<uint64_t>::max());
+		vkResetFences(_device, 1, &_inFlightFences[_currentFrame]);
+
+		uint32_t imageIndex;
+		vkAcquireNextImageKHR(_device, _swapChain, std::numeric_limits<uint64_t>::max(), _imageAvailableSemaphores[_currentFrame], VK_NULL_HANDLE, &imageIndex);
+
+		VkSubmitInfo submitInfo = {};
+		submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+
+		VkSemaphore waitSemaphores[] = {_imageAvailableSemaphores[_currentFrame]};
+		VkPipelineStageFlags waitStages[] = {VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
+		submitInfo.waitSemaphoreCount = 1;
+		submitInfo.pWaitSemaphores = waitSemaphores;
+		submitInfo.pWaitDstStageMask = waitStages;
+
+		submitInfo.commandBufferCount = 1;
+		submitInfo.pCommandBuffers = &_commandBuffers[imageIndex];
+
+		VkSemaphore signalSemaphores[] = {_renderFinishedSemaphores[_currentFrame]};
+		submitInfo.signalSemaphoreCount = 1;
+		submitInfo.pSignalSemaphores = signalSemaphores;
+
+		if (vkQueueSubmit(_graphicsQueue, 1, &submitInfo, _inFlightFences[_currentFrame]) != VK_SUCCESS) {
+			throw std::runtime_error("failed to submit draw command buffer!");
+		}
+
+		VkPresentInfoKHR presentInfo = {};
+		presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
+
+		presentInfo.waitSemaphoreCount = 1;
+		presentInfo.pWaitSemaphores = signalSemaphores;
+
+		VkSwapchainKHR swapChains[] = {_swapChain};
+		presentInfo.swapchainCount = 1;
+		presentInfo.pSwapchains = swapChains;
+
+		presentInfo.pImageIndices = &imageIndex;
+
+		vkQueuePresentKHR(_presentQueue, &presentInfo);
+
+		_currentFrame = (_currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
 	}
 
 	void GLFWVulkan::Initialize( void )
@@ -824,6 +871,12 @@ namespace Soon
 
 	void GLFWVulkan::Destroy( void )
 	{
+		for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
+			vkDestroySemaphore(_device, _renderFinishedSemaphores[i], nullptr);
+			vkDestroySemaphore(_device, _imageAvailableSemaphores[i], nullptr);
+			vkDestroyFence(_device, _inFlightFences[i], nullptr);
+		}
+
 		if (enableValidationLayers)
 			DestroyDebugUtilsMessengerEXT(_vulkanInstance, _debugMessenger, nullptr);
 		glfwDestroyWindow(_window);
@@ -838,7 +891,5 @@ namespace Soon
 		for (auto framebuffer : _swapChainFramebuffers)
 			vkDestroyFramebuffer(_device, framebuffer, nullptr);
 		vkDestroyCommandPool(_device, _commandPool, nullptr);
-		vkDestroySemaphore(_device, _renderFinishedSemaphore, nullptr);
-		vkDestroySemaphore(_device, _imageAvailableSemaphore, nullptr);
 	}
 }

@@ -33,6 +33,7 @@ namespace Soon
 			virtual bool ShouldClose( void ) = 0;
 			virtual void PollEvent( void ) = 0;
 			virtual void SwapBuffer( void ) = 0;
+			virtual void DrawFrame( void ) = 0;
 
 			OS( void );
 			virtual ~OS( void );
