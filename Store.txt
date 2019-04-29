@@ -15,7 +15,7 @@ V
 Surface -> kinf of connector to the glfw window;
 |
 v
-Swap Chain; -> Controler of image renderer to the screen; basic purpose is to ensure that the image that we're currently rendering to is different from the one that is currently on the screen.
+Swap Chain; -> queue of images that are waiting to be presented to the screen ; Controler of image renderer to the screen; basic purpose is to ensure that the image that we're currently rendering to is different from the one that is currently on the screen.
 |
 V
 Image View; -> Wrapper of specific part of image in swap chain;
@@ -24,3 +24,7 @@ Framebuffer -> Set of Image view for image coloring;
 V
 Render Pass -> Describe the type of images that are used during rendering operations, how they will be used, and how their contents should be treated;
 
+
+To Draw -> Acquire an image from the swap chain
+		-> Execute the command buffer with that image as attachment in the framebuffer
+		-> Return the image to the swap chain for presentation

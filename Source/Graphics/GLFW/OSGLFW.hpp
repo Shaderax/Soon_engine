@@ -19,6 +19,7 @@ namespace Soon
 			virtual bool ShouldClose( void );
 			virtual void PollEvent( void );
 			virtual void SwapBuffer( void );
+			virtual void DrawFrame( void );
 
 		private:
 			GLFWwindow*		_window;

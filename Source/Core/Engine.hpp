@@ -15,6 +15,8 @@ namespace Soon
 			void Destroy( void );
 			bool ShouldEnd( void );
 
+			void DrawFrame( void );
+
 			~Engine( void );
 
 		private:

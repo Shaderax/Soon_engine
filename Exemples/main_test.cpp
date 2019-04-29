@@ -13,6 +13,7 @@ int main(int argc, char**argv)
 	while (!engine.ShouldEnd())
 	{
 		engine.Update();
+		engine.DrawFrame();
 	}
 	//	Scene& scene = engine.NewScene();
 	//
