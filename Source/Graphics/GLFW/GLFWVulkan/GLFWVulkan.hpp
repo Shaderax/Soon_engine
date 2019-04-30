@@ -43,6 +43,7 @@ namespace Soon
 			std::vector<VkSemaphore>		_renderFinishedSemaphores;
 			std::vector<VkFence>			_inFlightFences;
 			size_t							_currentFrame;
+			bool 							_framebufferResized;
 
 		public:
 			GLFWVulkan( void );
@@ -86,6 +87,14 @@ namespace Soon
 			void CreateSyncObjects( void );
 
 			void DrawFrame( void );
+
+			void RecreateSwapChain( void );
+
+			void CleanupSwapChain( void );
+
+			VkExtent2D ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
+
+			static void FramebufferResizeCallback(GLFWwindow *window, int width, int height);
 	};
 
 	void NewGraphicsInstance( void );

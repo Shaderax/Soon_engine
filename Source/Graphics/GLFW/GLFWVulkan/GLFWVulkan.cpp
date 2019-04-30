@@ -89,7 +89,7 @@ void DestroyDebugUtilsMessengerEXT(VkInstance instance, VkDebugUtilsMessengerEXT
 
 namespace Soon
 {
-	GLFWVulkan::GLFWVulkan( void ) : _physicalDevice(VK_NULL_HANDLE), _currentFrame(0)
+	GLFWVulkan::GLFWVulkan( void ) : _physicalDevice(VK_NULL_HANDLE), _currentFrame(0), _framebufferResized(false)
 	{
 
 	}
@@ -218,6 +218,8 @@ namespace Soon
 	{
 		OS::WindowAttribute winAttr = OS::GetSingleton()->GetWindowAttribute();
 		_window = glfwCreateWindow(winAttr._width, winAttr._height, winAttr._name.c_str()  , NULL, NULL);
+		glfwSetWindowUserPointer(_window, this);
+		glfwSetFramebufferSizeCallback(_window, FramebufferResizeCallback);
 		SOON_ERR_THROW(_window, "Can't Initialize Window");
 	}
 
@@ -367,7 +369,7 @@ namespace Soon
 		return bestMode;
 	}
 
-	VkExtent2D ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities)
+	VkExtent2D GLFWVulkan::ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities)
 	{
 		OS::WindowAttribute winAttr = OS::GetSingleton()->GetWindowAttribute();
 
@@ -375,7 +377,10 @@ namespace Soon
 			return capabilities.currentExtent;
 		else
 		{
-			VkExtent2D actualExtent = {winAttr._width, winAttr._height};
+			int width, height;
+			glfwGetFramebufferSize(_window, &width, &height);
+			VkExtent2D actualExtent = {static_cast<uint32_t>(width), static_cast<uint32_t>(height)};
+			//VkExtent2D actualExtent = {winAttr._width, winAttr._height};
 
 			actualExtent.width = std::max(capabilities.minImageExtent.width, std::min(capabilities.maxImageExtent.width, actualExtent.width));
 			actualExtent.height = std::max(capabilities.minImageExtent.height, std::min(capabilities.maxImageExtent.height, actualExtent.height));
@@ -535,8 +540,8 @@ namespace Soon
 
 	void GLFWVulkan::CreateGraphicsPipeline( void )
 	{
-		auto vertShaderCode = readFile("../Source/Graphics/GLFW/GLFWVulkan/vert.spv");
-		auto fragShaderCode = readFile("../Source/Graphics/GLFW/GLFWVulkan/frag.spv");
+		auto vertShaderCode = readFile("../Source/Graphics/Shaders/vert.spv");
+		auto fragShaderCode = readFile("../Source/Graphics/Shaders/frag.spv");
 
 		VkShaderModule vertShaderModule = CreateShaderModule(vertShaderCode);
 		VkShaderModule fragShaderModule = CreateShaderModule(fragShaderCode);
@@ -797,10 +802,16 @@ namespace Soon
 	void GLFWVulkan::DrawFrame( void )
 	{
 		vkWaitForFences(_device, 1, &_inFlightFences[_currentFrame], VK_TRUE, std::numeric_limits<uint64_t>::max());
-		vkResetFences(_device, 1, &_inFlightFences[_currentFrame]);
 
 		uint32_t imageIndex;
-		vkAcquireNextImageKHR(_device, _swapChain, std::numeric_limits<uint64_t>::max(), _imageAvailableSemaphores[_currentFrame], VK_NULL_HANDLE, &imageIndex);
+		VkResult result = vkAcquireNextImageKHR(_device, _swapChain, std::numeric_limits<uint64_t>::max(), _imageAvailableSemaphores[_currentFrame], VK_NULL_HANDLE, &imageIndex);
+		if (result == VK_ERROR_OUT_OF_DATE_KHR)
+		{
+			RecreateSwapChain();
+			return;
+		}
+		else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR)
+			    throw std::runtime_error("failed to acquire swap chain image!");
 
 		VkSubmitInfo submitInfo = {};
 		submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
@@ -818,6 +829,8 @@ namespace Soon
 		submitInfo.signalSemaphoreCount = 1;
 		submitInfo.pSignalSemaphores = signalSemaphores;
 
+		vkResetFences(_device, 1, &_inFlightFences[_currentFrame]);
+
 		if (vkQueueSubmit(_graphicsQueue, 1, &submitInfo, _inFlightFences[_currentFrame]) != VK_SUCCESS) {
 			throw std::runtime_error("failed to submit draw command buffer!");
 		}
@@ -834,9 +847,56 @@ namespace Soon
 
 		presentInfo.pImageIndices = &imageIndex;
 
-		vkQueuePresentKHR(_presentQueue, &presentInfo);
+		result = vkQueuePresentKHR(_presentQueue, &presentInfo);
+
+		if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || _framebufferResized)
+		{
+			_framebufferResized = false;
+			RecreateSwapChain();
+		} else if (result != VK_SUCCESS) {
+			    throw std::runtime_error("failed to present swap chain image!");
+		}
 
 		_currentFrame = (_currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
+	}
+
+	void GLFWVulkan::RecreateSwapChain( void )
+	{
+		int width = 0, height = 0;
+		while (width == 0 || height == 0)
+		{
+			glfwGetFramebufferSize(_window, &width, &height);
+			glfwWaitEvents();
+		}
+
+		vkDeviceWaitIdle(_device);
+
+		CleanupSwapChain();
+
+		CreateSwapChain();
+		CreateImageViews();
+		CreateRenderPass();
+		CreateGraphicsPipeline();
+		CreateFramebuffers();
+		CreateCommandBuffers();
+	}
+
+	void GLFWVulkan::CleanupSwapChain( void )
+	{
+		for (auto framebuffer : _swapChainFramebuffers)
+			vkDestroyFramebuffer(_device, framebuffer, nullptr);
+
+		vkFreeCommandBuffers(_device, _commandPool, static_cast<uint32_t>(_commandBuffers.size()), _commandBuffers.data());
+
+		vkDestroyPipeline(_device, _graphicsPipeline, nullptr);
+		vkDestroyPipelineLayout(_device, _pipelineLayout, nullptr);
+		vkDestroyRenderPass(_device, _renderPass, nullptr);
+
+		for (auto imageView : _swapChainImageViews) {
+			vkDestroyImageView(_device, imageView, nullptr);
+		}
+
+		vkDestroySwapchainKHR(_device, _swapChain, nullptr);
 	}
 
 	void GLFWVulkan::Initialize( void )
@@ -871,25 +931,26 @@ namespace Soon
 
 	void GLFWVulkan::Destroy( void )
 	{
-		for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
+		CleanupSwapChain();
+		for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++)
+		{
 			vkDestroySemaphore(_device, _renderFinishedSemaphores[i], nullptr);
 			vkDestroySemaphore(_device, _imageAvailableSemaphores[i], nullptr);
 			vkDestroyFence(_device, _inFlightFences[i], nullptr);
 		}
 
+		vkDestroyCommandPool(_device, _commandPool, nullptr);
+		vkDestroyDevice(_device, nullptr);
 		if (enableValidationLayers)
 			DestroyDebugUtilsMessengerEXT(_vulkanInstance, _debugMessenger, nullptr);
-		glfwDestroyWindow(_window);
 		vkDestroySurfaceKHR(_vulkanInstance, _surface, nullptr);
-		vkDestroyDevice(_device, nullptr);
 		vkDestroyInstance(_vulkanInstance, nullptr);
-		vkDestroySwapchainKHR(_device, _swapChain, nullptr);
-		for (auto imageView : _swapChainImageViews)
-			vkDestroyImageView(_device, imageView, nullptr);
-		vkDestroyPipelineLayout(_device, _pipelineLayout, nullptr);
-		vkDestroyRenderPass(_device, _renderPass, nullptr);
-		for (auto framebuffer : _swapChainFramebuffers)
-			vkDestroyFramebuffer(_device, framebuffer, nullptr);
-		vkDestroyCommandPool(_device, _commandPool, nullptr);
+		glfwDestroyWindow(_window);
+	}
+	
+	void	GLFWVulkan::FramebufferResizeCallback(GLFWwindow *window, int width, int height)
+	{
+		auto app = reinterpret_cast<GLFWVulkan*>(glfwGetWindowUserPointer(window));
+		app->_framebufferResized = true;
 	}
 }

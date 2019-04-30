@@ -9,3 +9,6 @@ J'ai un system renderer qui as une liste de GameObject.
 Sprite = GameObject with Sprite renderer Component
 
 Sprite renderer = Component
+
+
+Un buffer pour chaque shader
