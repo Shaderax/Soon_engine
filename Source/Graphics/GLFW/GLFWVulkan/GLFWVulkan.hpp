@@ -44,6 +44,8 @@ namespace Soon
 			std::vector<VkFence>			_inFlightFences;
 			size_t							_currentFrame;
 			bool 							_framebufferResized;
+			VkBuffer						_vertexBuffer;
+			VkDeviceMemory					_vertexBufferMemory;
 
 		public:
 			GLFWVulkan( void );
@@ -95,6 +97,10 @@ namespace Soon
 			VkExtent2D ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
 
 			static void FramebufferResizeCallback(GLFWwindow *window, int width, int height);
+
+			void CreateVertexBuffer( void );
+			
+			uint32_t FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
 	};
 
 	void NewGraphicsInstance( void );

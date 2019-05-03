@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: nrouzeva <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/01 16:16:41 by nrouzeva          #+#    #+#             */
-/*   Updated: 2018/12/06 17:19:33 by nrouzeva         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #if 1 == 1
 # if 1 == 1
 #  if 1 == 1
@@ -29,7 +17,7 @@
 #                if 1 == 1
 #                 if 1 == 1
 #                  if 1 == 1
-#                   include "scop.h"
+#                  // include "scop.h"
 #                  endif
 #                 endif
 #                endif
@@ -193,7 +181,7 @@ void	push_line(char *line, t_buffer tmp[3], int **tab, t_object *obj)
 	}
 }
 
-int		parse_obj_file(char *path, t_object *obj)
+int		parse_obj_file(char *path, 3dObj* obj)
 {
 	int			fd;
 	char		*line;

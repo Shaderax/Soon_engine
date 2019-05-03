@@ -10,5 +10,44 @@ Sprite = GameObject with Sprite renderer Component
 
 Sprite renderer = Component
 
-
 Un buffer pour chaque shader
+
+class Render
+{
+	public:
+		struct Rendering_element
+		{
+			struct renderCompoennt
+			{
+				int VBO;
+				int VAO;
+			};
+
+			Transform* tr;
+			std::vector<renderCompoennt> wsh;
+		};
+
+	private:
+		std::vector< Rendering_element > elem;
+}
+
+si il fait tous les uniform en premier, non car on fill l'uniform qui appartient au bind, on perd au bind.
+Besoin de fill les mat de pos rot et scale a chaque frame, 
+
+Recup Transform au lieu de pos rot sca; = 36 octect
+
+Si un component isRendable()
+-> ca le met dans mon vector de vector,
+-> a chaque tour de frame ca parcours mon vector par entity
+-> puis par component, ici il n'y a onc que des vbo de components actif
+-> et donc ca recup les vbo et vao et au passage ca a besoin du transform et donc ya un ptr sur le transform du game object
+-> en recup le transform ca recup les component suivant de l'entity; // CE QUI EST INUTILE faudrait les Transform suivant
+
+-> faudrait qu'au recup du transform il recup aussi les transform suivant.
+
+-> faudrait que les Transforms soit contigue au mieux, mais nan
+
+-> un component a un draw function, elle contient la struct vulkan pour en faire un vao et un vbo
+-> son vao et vbo est fait a sa creation.
+
+DONC : Le but auj est de rajouter a ma classe component un GetDrawInfo() ce qui me donne la struct vulkan pour gen les vao/vbo de mon object, 
