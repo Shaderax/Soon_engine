@@ -41,6 +41,7 @@ namespace Soon
 		{
 			ECS_ASSERT(entity.IsValid(), "invalid entity cannot remove components");
 			TypeId index = entity.GetId();
+			delete _entitiesComponents[index]._entityComponents[componentId];
 			_entitiesComponents[index]._entityComponents[componentId] = nullptr;
 			_entitiesComponents[index]._componentsTypeList[componentId] = false;
 		}

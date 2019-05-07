@@ -789,13 +789,10 @@ namespace Soon
 
 			vkCmdDraw(_commandBuffers[i], static_cast<uint32_t>(3), 1, 0, 0);
 
-//			vkCmdDraw(_commandBuffers[i], 3, 1, 0, 0);
-
 			vkCmdEndRenderPass(_commandBuffers[i]);
 
-			if (vkEndCommandBuffer(_commandBuffers[i]) != VK_SUCCESS) {
+			if (vkEndCommandBuffer(_commandBuffers[i]) != VK_SUCCESS)
 				throw std::runtime_error("failed to record command buffer!");
-			}
 		}
 	}
 
@@ -857,9 +854,8 @@ namespace Soon
 
 		vkResetFences(_device, 1, &_inFlightFences[_currentFrame]);
 
-		if (vkQueueSubmit(_graphicsQueue, 1, &submitInfo, _inFlightFences[_currentFrame]) != VK_SUCCESS) {
+		if (vkQueueSubmit(_graphicsQueue, 1, &submitInfo, _inFlightFences[_currentFrame]) != VK_SUCCESS)
 			throw std::runtime_error("failed to submit draw command buffer!");
-		}
 
 		VkPresentInfoKHR presentInfo = {};
 		presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
@@ -879,9 +875,9 @@ namespace Soon
 		{
 			_framebufferResized = false;
 			RecreateSwapChain();
-		} else if (result != VK_SUCCESS) {
-			throw std::runtime_error("failed to present swap chain image!");
 		}
+		else if (result != VK_SUCCESS)
+			throw std::runtime_error("failed to present swap chain image!");
 
 		_currentFrame = (_currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
 	}
@@ -941,7 +937,7 @@ namespace Soon
 		CreateGraphicsPipeline();
 		CreateFramebuffers(); 
 		CreateCommandPool();
-		CreateVertexBuffer();
+//		CreateVertexBuffer();
 		CreateCommandBuffers();
 		CreateSyncObjects();
 	}
@@ -961,38 +957,69 @@ namespace Soon
 	}
 
 	const float vre[] = {0.0f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f};
-
-	void GLFWVulkan::CreateVertexBuffer( void )
+	
+	GLFWVulkan::BufferRenderer GLFWVulkan::CreateVertexBuffer( size_t size )
 	{
+		BufferRenderer					bufRenderer;
+
 		VkBufferCreateInfo bufferInfo = {};
 		bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
-		bufferInfo.size = sizeof(float) * 6;
+		bufferInfo.size = size;
 		bufferInfo.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
 		bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 
-		if (vkCreateBuffer(_device, &bufferInfo, nullptr, &_vertexBuffer) != VK_SUCCESS) {
+		if (vkCreateBuffer(_device, &bufferInfo, nullptr, &bufRenderer._vertexBuffer) != VK_SUCCESS)
 			throw std::runtime_error("failed to create vertex buffer!");
-		}
 
 		VkMemoryRequirements memRequirements;
-		vkGetBufferMemoryRequirements(_device, _vertexBuffer, &memRequirements);
+		vkGetBufferMemoryRequirements(_device, bufRenderer._vertexBuffer, &memRequirements);
 
 		VkMemoryAllocateInfo allocInfo = {};
 		allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
 		allocInfo.allocationSize = memRequirements.size;
 		allocInfo.memoryTypeIndex = FindMemoryType(memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 
-		if (vkAllocateMemory(_device, &allocInfo, nullptr, &_vertexBufferMemory) != VK_SUCCESS) {
+		if (vkAllocateMemory(_device, &allocInfo, nullptr, &bufRenderer._vertexBufferMemory) != VK_SUCCESS)
 			throw std::runtime_error("failed to allocate vertex buffer memory!");
-		}
 
-		vkBindBufferMemory(_device, _vertexBuffer, _vertexBufferMemory, 0);
+		vkBindBufferMemory(_device, bufRenderer._vertexBuffer, bufRenderer._vertexBufferMemory, 0);
 
-		void* data;
-		vkMapMemory(_device, _vertexBufferMemory, 0, bufferInfo.size, 0, &data);
-		memcpy(data, vre, (size_t)bufferInfo.size);
-		vkUnmapMemory(_device, _vertexBufferMemory);
+//		void* data;
+//		vkMapMemory(_device, bufRenderer._vertexBufferMemory, 0, bufferInfo.size, 0, &data);
+//		memcpy(data, vre, (size_t)bufferInfo.size);
+//		vkUnmapMemory(_device, bufRenderer._vertexBufferMemory);
+		return ( bufRenderer );
 	}
+
+//	void GLFWVulkan::CreateVertexBuffer( void )
+//	{
+//		VkBufferCreateInfo bufferInfo = {};
+//		bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
+//		bufferInfo.size = sizeof(float) * 6;
+//		bufferInfo.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
+//		bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
+//
+//		if (vkCreateBuffer(_device, &bufferInfo, nullptr, &_vertexBuffer) != VK_SUCCESS)
+//			throw std::runtime_error("failed to create vertex buffer!");
+//
+//		VkMemoryRequirements memRequirements;
+//		vkGetBufferMemoryRequirements(_device, _vertexBuffer, &memRequirements);
+//
+//		VkMemoryAllocateInfo allocInfo = {};
+//		allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
+//		allocInfo.allocationSize = memRequirements.size;
+//		allocInfo.memoryTypeIndex = FindMemoryType(memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
+//
+//		if (vkAllocateMemory(_device, &allocInfo, nullptr, &_vertexBufferMemory) != VK_SUCCESS)
+//			throw std::runtime_error("failed to allocate vertex buffer memory!");
+//
+//		vkBindBufferMemory(_device, _vertexBuffer, _vertexBufferMemory, 0);
+//
+//		void* data;
+//		vkMapMemory(_device, _vertexBufferMemory, 0, bufferInfo.size, 0, &data);
+//		memcpy(data, vre, (size_t)bufferInfo.size);
+//		vkUnmapMemory(_device, _vertexBufferMemory);
+//	}
 
 	void* GLFWVulkan::GetContext( void )
 	{

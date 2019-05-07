@@ -18,7 +18,6 @@ namespace Soon
 {
 	class GLFWVulkan : GraphicsInstance
 	{
-
 		private:
 			GLFWwindow*						_window;
 			VkInstance						_vulkanInstance;
@@ -48,6 +47,12 @@ namespace Soon
 			VkDeviceMemory					_vertexBufferMemory;
 
 		public:
+			struct BufferRenderer
+			{
+				VkBuffer                        _vertexBuffer;
+				VkDeviceMemory                  _vertexBufferMemory;
+			};
+
 			GLFWVulkan( void );
 			~GLFWVulkan( void );
 			virtual void Initialize( void );
@@ -98,8 +103,8 @@ namespace Soon
 
 			static void FramebufferResizeCallback(GLFWwindow *window, int width, int height);
 
-			void CreateVertexBuffer( void );
-			
+			BufferRenderer CreateVertexBuffer( size_t size );
+
 			uint32_t FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
 	};
 

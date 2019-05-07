@@ -41,7 +41,8 @@ Si un component isRendable()
 -> a chaque tour de frame ca parcours mon vector par entity
 -> puis par component, ici il n'y a onc que des vbo de components actif
 -> et donc ca recup les vbo et vao et au passage ca a besoin du transform et donc ya un ptr sur le transform du game object
--> en recup le transform ca recup les component suivant de l'entity; // CE QUI EST INUTILE faudrait les Transform suivant
+//-> en recup le transform ca recup les address des component suivant de l'entity; // CE QUI EST INUTILE faudrait les Transform suivant
+en recup transform ca recup on ne sais ps quoi au passage car c'est un ptr;
 
 -> faudrait qu'au recup du transform il recup aussi les transform suivant.
 
@@ -51,3 +52,16 @@ Si un component isRendable()
 -> son vao et vbo est fait a sa creation.
 
 DONC : Le but auj est de rajouter a ma classe component un GetDrawInfo() ce qui me donne la struct vulkan pour gen les vao/vbo de mon object, 
+
+-> il me faudrait un allocateur pour mes components comme ca ils sont contigue en memoire
+-> Le truc etant que mes component ont une taille qui differe et il pourrait etre free; et ya pas de taille max
+
+Donc : tu dois faire que quand tu cree l'objet triangle ca fini par l'afficher.
+
+//****
+GameObject Player;
+
+Player.AddComponent<TriangleRenderer>();
+***********////////
+Il faut creer un vao/vbo a la creation du component puis ce qu'il s'applique au component.
+j'ai besoin d'une liste qui contient tous mes 
