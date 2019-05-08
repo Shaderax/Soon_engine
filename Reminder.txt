@@ -64,4 +64,10 @@ GameObject Player;
 Player.AddComponent<TriangleRenderer>();
 ***********////////
 Il faut creer un vao/vbo a la creation du component puis ce qu'il s'applique au component.
-j'ai besoin d'une liste qui contient tous mes 
+
+chaque component a une ptr vers le vector qui detiens les datas
+
+le pb etant inaginons qu'on supp le component apres faut le retrouver et le supp.
+
+Ptr ittor in component vers vector.
+donc a sa creation (component) ca push back dans mon vector render et recup l'iteratr sur ce vector. et ca fait un get component transform de l'entity pour le mettre dans transform.
