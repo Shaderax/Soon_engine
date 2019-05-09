@@ -1,25 +1,36 @@
 #pragma once
 
-class VulkanRenderer
+class GLFWVulkanRenderer
 {
 	public:
-		BufferRenderer VulkanRenderer::AddToRender( uint32_t id )
+		std::vector<ComponentRenderer>::iterator VulkanRenderer::AddToRender( Transform* tr, VertexBufferInfo inf)
 		{
 			BufferRenderer handler;
 
-			handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(24);
+			handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(inf);
 
-			_entityRenderer.push_back(handler);
+			_componentRenderer.emplace_back(handler, tr);
 
-			return handler;
+			return _componentRenderer.end();
+		}
+
+		std::vector< ComponentRenderer > GetvkBuffers( void )
+		{
+			return (_vkBuffers);
+		}
+
+		std::vector< ComponentRenderer > GetvkDeviceMemory( void )
+		{
+			return (_vkDevicesMemoryBuffers);
+		}
+
+		std::vector< ComponentRenderer > GetTransform( void )
+		{
+			return (_transform);
 		}
 
 	private:
-		struct EntityRenderer
-		{
-			Transform* tr;
-			std::vector< BufferRenderer > Components;
-		};
-
-		std::vector< EntityRenderer > _entityRenderer;
+		std::vector< Transform* >		_transform;
+		std::vector< VkBuffer >			_vkBuffers;
+		std::vector< VkDeviceMemory >	_vkDevicesMemoryBuffers;
 };

@@ -763,10 +763,9 @@ namespace Soon
 			VkCommandBufferBeginInfo beginInfo = {};
 			beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
 			beginInfo.flags = VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT;
-
-			if (vkBeginCommandBuffer(_commandBuffers[i], &beginInfo) != VK_SUCCESS) {
+//
+			if (vkBeginCommandBuffer(_commandBuffers[i], &beginInfo) != VK_SUCCESS)
 				throw std::runtime_error("failed to begin recording command buffer!");
-			}
 
 			VkRenderPassBeginInfo renderPassInfo = {};
 			renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
@@ -790,9 +789,47 @@ namespace Soon
 			vkCmdDraw(_commandBuffers[i], static_cast<uint32_t>(3), 1, 0, 0);
 
 			vkCmdEndRenderPass(_commandBuffers[i]);
-
 			if (vkEndCommandBuffer(_commandBuffers[i]) != VK_SUCCESS)
 				throw std::runtime_error("failed to record command buffer!");
+//
+		}
+	}
+
+	void GLFWVulkan::RecreateCommandBuffer( void )
+	{
+		for (size_t i = 0; i < _commandBuffers.size(); i++)
+		{
+			VkCommandBufferBeginInfo beginInfo = {};
+			beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+			beginInfo.flags = VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT;
+
+			if (vkBeginCommandBuffer(_commandBuffers[i], &beginInfo) != VK_SUCCESS)
+				throw std::runtime_error("failed to begin recording command buffer!");
+
+			VkRenderPassBeginInfo renderPassInfo = {};
+			renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+			renderPassInfo.renderPass = _renderPass;
+			renderPassInfo.framebuffer = _swapChainFramebuffers[i];
+			renderPassInfo.renderArea.offset = {0, 0};
+			renderPassInfo.renderArea.extent = _swapChainExtent;
+
+			VkClearValue clearColor = {0.0f, 0.0f, 0.0f, 1.0f};
+			renderPassInfo.clearValueCount = 1;
+			renderPassInfo.pClearValues = &clearColor;
+
+			vkCmdBeginRenderPass(_commandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+
+			vkCmdBindPipeline(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _graphicsPipeline);
+
+			VkDeviceSize offsets[] = {0};
+			vkCmdBindVertexBuffers(_commandBuffers[i], 0, GraphicsRenderer::GetInstance()->GetvkBuffers().size(), GraphicsRenderer::GetInstance()->GetvkBuffers(), offsets);
+
+			vkCmdDraw(_commandBuffers[i], static_cast<uint32_t>(3), GraphicsRenderer::GetInstance()->GetvkBuffers().size(), 0, 0);
+
+			vkCmdEndRenderPass(_commandBuffers[i]);
+			if (vkEndCommandBuffer(_commandBuffers[i]) != VK_SUCCESS)
+				throw std::runtime_error("failed to record command buffer!");
+
 		}
 	}
 
@@ -957,14 +994,20 @@ namespace Soon
 	}
 
 	const float vre[] = {0.0f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f};
+
+	struct VertexBufferInfo
+	{
+		size_t	_size;
+		void*	_data;
+	}
 	
-	GLFWVulkan::BufferRenderer GLFWVulkan::CreateVertexBuffer( size_t size )
+	GLFWVulkan::BufferRenderer GLFWVulkan::CreateVertexBuffer( VertexBufferInfo inf )
 	{
 		BufferRenderer					bufRenderer;
 
 		VkBufferCreateInfo bufferInfo = {};
 		bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
-		bufferInfo.size = size;
+		bufferInfo.size = inf.size;
 		bufferInfo.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
 		bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 
@@ -984,10 +1027,11 @@ namespace Soon
 
 		vkBindBufferMemory(_device, bufRenderer._vertexBuffer, bufRenderer._vertexBufferMemory, 0);
 
-//		void* data;
-//		vkMapMemory(_device, bufRenderer._vertexBufferMemory, 0, bufferInfo.size, 0, &data);
-//		memcpy(data, vre, (size_t)bufferInfo.size);
-//		vkUnmapMemory(_device, bufRenderer._vertexBufferMemory);
+		void* data;
+		vkMapMemory(_device, bufRenderer._vertexBufferMemory, 0, bufferInfo.size, 0, &data);
+		memcpy(data, *inf.data, (size_t)bufferInfo.size);
+		vkUnmapMemory(_device, bufRenderer._vertexBufferMemory);
+
 		return ( bufRenderer );
 	}
 
@@ -1048,6 +1092,8 @@ namespace Soon
 		vkDestroySurfaceKHR(_vulkanInstance, _surface, nullptr);
 		vkDestroyInstance(_vulkanInstance, nullptr);
 		glfwDestroyWindow(_window);
+//		vkDestroyBuffer(device, vertexBuffer, nullptr);
+//		vkFreeMemory(device, vertexBufferMemory, nullptr);
 	}
 
 	void	GLFWVulkan::FramebufferResizeCallback(GLFWwindow *window, int width, int height)
