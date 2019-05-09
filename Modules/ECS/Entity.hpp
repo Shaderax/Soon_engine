@@ -65,7 +65,9 @@ namespace Soon
 			T& Entity::AddComponent( Args && ... args )
 			{
 				static_assert(std::is_base_of<Component, T>(), "T is not a component, cannot add T");
-				T* component = new T(std::forward<Args>(args) ...);
+				T* component = new T(*this, std::forward<Args>(args) ...);
+//				if (component->IsRenderable())
+//					component->render = GraphicsRenderer::GetInstance()->AddToRender(GetComponent<Transform>());
 				AddComponent(component, GetComponentTypeId<T>());
 				return *(component);
 			}
