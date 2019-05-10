@@ -6,6 +6,7 @@ set(SOURCE
 	InitGLFW.cpp
 	GLFWCallback.cpp
 	"../GraphicsInstance.cpp"
+	"../GraphicsRenderer.cpp"
 	)
 
 add_library(GraphicsGLFW ${SOURCE})

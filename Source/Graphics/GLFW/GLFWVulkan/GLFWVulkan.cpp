@@ -10,6 +10,7 @@
 #include "string.h"
 #include <fstream>
 #include <array>
+#include "Graphics/GraphicsRenderer.hpp"
 //#include <MoltenVK/vk_mvk_moltenvk.h>
 
 const std::vector<const char*> validationLayers = {
@@ -822,9 +823,17 @@ namespace Soon
 			vkCmdBindPipeline(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _graphicsPipeline);
 
 			VkDeviceSize offsets[] = {0};
-			vkCmdBindVertexBuffers(_commandBuffers[i], 0, GraphicsRenderer::GetInstance()->GetvkBuffers().size(), GraphicsRenderer::GetInstance()->GetvkBuffers(), offsets);
-
-			vkCmdDraw(_commandBuffers[i], static_cast<uint32_t>(3), GraphicsRenderer::GetInstance()->GetvkBuffers().size(), 0, 0);
+			size_t* vecNbVer = GraphicsRenderer::GetInstance()->GetNbVertex().data();
+			size_t vecSiz = GraphicsRenderer::GetInstance()->GetvkBuffers().size();
+			VkBuffer* vecBuf = GraphicsRenderer::GetInstance()->GetvkBuffers().data();
+			i = 0;
+			while (i++ < vecSiz)
+			{
+				vkCmdBindVertexBuffers(_commandBuffers[i], 0, 1, &vecBuf[i], offsets);
+				
+				vkCmdDraw(_commandBuffers[i], static_cast<uint32_t>(vecNbVer[i]), 1, 0, 0);
+				//                                      ^<-Nb vertice == point
+			}
 
 			vkCmdEndRenderPass(_commandBuffers[i]);
 			if (vkEndCommandBuffer(_commandBuffers[i]) != VK_SUCCESS)
@@ -993,21 +1002,13 @@ namespace Soon
 		throw std::runtime_error("failed to find suitable memory type!");
 	}
 
-	const float vre[] = {0.0f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f};
-
-	struct VertexBufferInfo
-	{
-		size_t	_size;
-		void*	_data;
-	}
-	
-	GLFWVulkan::BufferRenderer GLFWVulkan::CreateVertexBuffer( VertexBufferInfo inf )
+	BufferRenderer GLFWVulkan::CreateVertexBuffer( VertexBufferInfo inf )
 	{
 		BufferRenderer					bufRenderer;
 
 		VkBufferCreateInfo bufferInfo = {};
 		bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
-		bufferInfo.size = inf.size;
+		bufferInfo.size = inf._size;
 		bufferInfo.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
 		bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 
@@ -1029,7 +1030,7 @@ namespace Soon
 
 		void* data;
 		vkMapMemory(_device, bufRenderer._vertexBufferMemory, 0, bufferInfo.size, 0, &data);
-		memcpy(data, *inf.data, (size_t)bufferInfo.size);
+		memcpy(data, inf._data, (size_t)bufferInfo.size);
 		vkUnmapMemory(_device, bufRenderer._vertexBufferMemory);
 
 		return ( bufRenderer );

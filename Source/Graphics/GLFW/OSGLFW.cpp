@@ -3,6 +3,7 @@
 #include "OSGLFW.hpp"
 #include "GLFWInput.hpp"
 #include "Graphics/GraphicsInstance.hpp"
+#include "Graphics/GLFW/GLFWVulkan/GLFWVulkanRenderer.hpp"
 
 namespace Soon
 {
@@ -22,6 +23,7 @@ namespace Soon
 		InitGLFWHints();
 		NewGraphicsInstance();
 		GraphicsInstance::GetInstance()->Initialize();
+		new GLFWVulkanRenderer();
 		_window = static_cast<GLFWwindow*>(GraphicsInstance::GetInstance()->GetContext());
 		_input = new GLFWInput;
 	}

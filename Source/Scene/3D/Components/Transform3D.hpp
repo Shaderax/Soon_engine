@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Component.hpp"
+#include "ECS/Component.hpp"
 
-struct Transform3D : Component
+struct Transform : Component
 {
 	float x;
 	float y;

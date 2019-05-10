@@ -1,6 +1,6 @@
 cmake_minimum_required (VERSION 3.10)
 
-option (USE_VULKAN "Use Vulkan" OFF) 
+option (USE_VULKAN "Use Vulkan" ON) 
 
 #set(ENV{VK_ICD_FILENAMES} ${CMAKE_SOURCE_DIR}/ThirdParty/MoltenVK/macOS/MoltenVK_icd.json)
 
