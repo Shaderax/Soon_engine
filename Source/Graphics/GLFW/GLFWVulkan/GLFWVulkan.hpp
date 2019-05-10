@@ -14,6 +14,19 @@ struct SwapChainSupportDetails
 	std::vector<VkPresentModeKHR> presentModes;
 };
 
+struct BufferRenderer
+{
+	VkBuffer                        _vertexBuffer;
+	VkDeviceMemory                  _vertexBufferMemory;
+};
+
+struct VertexBufferInfo
+{
+	size_t	_nbVertex;
+	size_t	_size;
+	void*	_data;
+};
+
 namespace Soon
 {
 	class GLFWVulkan : GraphicsInstance
@@ -47,12 +60,6 @@ namespace Soon
 			VkDeviceMemory					_vertexBufferMemory;
 
 		public:
-			struct BufferRenderer
-			{
-				VkBuffer                        _vertexBuffer;
-				VkDeviceMemory                  _vertexBufferMemory;
-			};
-
 			GLFWVulkan( void );
 			~GLFWVulkan( void );
 			virtual void Initialize( void );
@@ -103,9 +110,11 @@ namespace Soon
 
 			static void FramebufferResizeCallback(GLFWwindow *window, int width, int height);
 
-			BufferRenderer CreateVertexBuffer( size_t size );
+			BufferRenderer CreateVertexBuffer( VertexBufferInfo inf );
 
 			uint32_t FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
+
+			void RecreateCommandBuffer( void );
 	};
 
 	void NewGraphicsInstance( void );

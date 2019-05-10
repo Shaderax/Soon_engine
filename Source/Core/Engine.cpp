@@ -1,6 +1,7 @@
 #include "Engine.hpp"
 #include "ECS/World.hpp"
 #include "Graphics/OSHeaders.hpp"
+#include "Graphics/GraphicsRenderer.hpp"
 
 namespace Soon
 {
@@ -38,7 +39,11 @@ namespace Soon
 	{
 		_world.Update();
 
-//		OS::GetSingleton()->SwapBuffer();
+		if (GraphicsRenderer::GetInstance()->HasChange())
+		{
+			GraphicsInstance::GetInstance()->RecreateCommandBuffer();
+			GraphicsRenderer::GetInstance()->SetChangeFalse();
+		}
 		OS::GetSingleton()->PollEvent();
 	}
 

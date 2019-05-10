@@ -1,36 +1,76 @@
 #pragma once
 
-class GLFWVulkanRenderer
+#include "Scene/3D/Components/Transform3D.hpp"
+
+#include "Graphics/GraphicsRenderer.hpp"
+#include "Graphics/GLFW/GLFWVulkan/GLFWVulkan.hpp"
+
+struct ComponentRenderer
 {
+	std::vector< Transform* >::iterator		_transform;
+	std::vector< VkBuffer >::iterator		_vkBuffers;
+	std::vector< VkDeviceMemory >::iterator	_vkDevicesMemoryBuffers;
+}
+
+class GLFWVulkanRenderer : GraphicsRenderer
+{
+	static GLFWVulkanRenderer* _instance;
 	public:
-		std::vector<ComponentRenderer>::iterator VulkanRenderer::AddToRender( Transform* tr, VertexBufferInfo inf)
+		static GLFWVulkanRenderer* GetInstance( void )
+		{
+			return (_instance);
+		}
+
+		GLFWVulkanRenderer( void ) : _changes(false)
+		{
+			_instance = this;
+		}
+
+		ComponentRenderer VulkanRenderer::AddToRender( Transform* tr, VertexBufferInfo inf)
 		{
 			BufferRenderer handler;
+			ComponentRenderer ret;
 
 			handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(inf);
 
-			_componentRenderer.emplace_back(handler, tr);
+			_nbVertex.push_back(inf._nbVertex);
+			_transform.push_back(tr);
+			_vkBuffers.push_back(handler._vertexBuffer);
+			_vkDevicesMemoryBuffers.push_back(handler._vertexBufferMemory);
 
-			return _componentRenderer.end();
+			ret._transform = _transform.end();
+			ret._vkBuffers = _vkBuffers.end();
+			ret._vkDevicesMemoryBuffers = _vkDevicesMemoryBuffers.end();
+
+			_changes = true;
+			return ret;
 		}
 
-		std::vector< ComponentRenderer > GetvkBuffers( void )
+		std::vector< VkBuffer > GetvkBuffers( void )
 		{
 			return (_vkBuffers);
 		}
-
-		std::vector< ComponentRenderer > GetvkDeviceMemory( void )
+		
+		std::vector< size_t > GetNbVertex( void )
 		{
-			return (_vkDevicesMemoryBuffers);
+			return (_nbVertex);
 		}
 
-		std::vector< ComponentRenderer > GetTransform( void )
+		bool GLFWVulkanRenderer::HasChange( void )
 		{
-			return (_transform);
+			return (_changes);
+		}
+		
+		void GLFWVulkanRenderer::SetChangeFalse( void )
+		{
+			_changes = false;
 		}
 
 	private:
+		std::vector< std::size_t >		_nbVertex;
 		std::vector< Transform* >		_transform;
 		std::vector< VkBuffer >			_vkBuffers;
 		std::vector< VkDeviceMemory >	_vkDevicesMemoryBuffers;
+
+		bool _changes;
 };
