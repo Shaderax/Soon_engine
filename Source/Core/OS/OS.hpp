@@ -1,9 +1,7 @@
 #pragma once
 #include <string>
-#include "ContextHeaders.hpp"
-#include "Core/OS/OS.hpp"
 #include <GLFW/glfw3.h>
-#include "Graphics/GLFW/GLFWInput.hpp"
+#include "Core/OS/Input/Input.hpp"
 
 namespace Soon
 {
@@ -46,7 +44,7 @@ namespace Soon
 
 			GLFWwindow*     _window;
 			WindowAttribute _winAttr;
-			GLFWInput*      _input;
+			Input*      _input;
 	};
 	OSGLFW* NewOS( void );
 }
