@@ -1,9 +1,6 @@
 #pragma once
 
-#include "Scene/3D/Components/Transform3D.hpp"
-
-#include "Graphics/GraphicsRenderer.hpp"
-#include "Graphics/GLFW/GLFWVulkan/GLFWVulkan.hpp"
+#include "Graphics/Vulkan/GraphicsInstance.hpp"
 
 struct ComponentRenderer
 {

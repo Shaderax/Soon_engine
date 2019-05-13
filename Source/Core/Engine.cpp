@@ -1,6 +1,5 @@
 #include "Engine.hpp"
 #include "ECS/World.hpp"
-#include "Graphics/OSHeaders.hpp"
 #include "Graphics/GraphicsRenderer.hpp"
 
 namespace Soon
@@ -33,7 +32,6 @@ namespace Soon
 	void Engine::DrawFrame( void )
 	{
 		OS::GetSingleton()->DrawFrame();
-		
 	}
 
 	void Engine::Update( void )

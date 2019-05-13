@@ -1,9 +1,8 @@
 #include "Core/OS/OS.hpp"
-#include "ContextHeaders.hpp"
-#include "InitGLFW.hpp"
-#include "GLFWInput.hpp"
-#include "Graphics/GraphicsInstance.hpp"
-#include "Graphics/GLFW/GLFWVulkan/GLFWVulkanRenderer.hpp"
+#include "Graphics/GLFW/InitGLFW.hpp"
+#include "Core/OS/Input/Input.hpp"
+#include "Graphics/Vulkan/GraphicsInstance.hpp"
+#include "Graphics/Vulkan/GraphicsRenderer.hpp"
 
 namespace Soon
 {
@@ -29,10 +28,11 @@ namespace Soon
 	{
 		InitGLFW();
 		InitGLFWHints();
-		NewGraphicsInstance();
+		new GraphicsInstance;
+	//	NewGraphicsInstance();
 		GraphicsInstance::GetInstance()->Initialize();
-		new GLFWVulkanRenderer();
-		_window = GraphicsInstance::GetInstance()->GetContext();
+		_window = GraphicsInstance::GetInstance()->GetWindow();
+		new GraphicsRenderer;
 		_input = new GLFWInput;
 	}
 

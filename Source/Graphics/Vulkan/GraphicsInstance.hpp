@@ -2,9 +2,8 @@
 
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
-#include "Graphics/GraphicsInstance.hpp"
 #include <vector>
-//#include "vulkan/vulkan.h"
+#include "Graphics/Vulkan/GraphicsInstance.hpp"
 
 //Swap chain struct
 struct SwapChainSupportDetails
@@ -29,7 +28,7 @@ struct VertexBufferInfo
 
 namespace Soon
 {
-	class GLFWVulkan : GraphicsInstance
+	class GraphicsInstance
 	{
 		private:
 			GLFWwindow*						_window;
@@ -62,9 +61,9 @@ namespace Soon
 		public:
 			GLFWVulkan( void );
 			~GLFWVulkan( void );
-			virtual void Initialize( void );
-			virtual void Destroy( void );
-			virtual void* GetContext( void );
+			void Initialize( void );
+			void Destroy( void );
+			void* GetContext( void );
 
 			void CreateInstance( void );
 			void PickPhysicalDevice( void );

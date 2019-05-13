@@ -1,17 +1,16 @@
-#include "Graphics/GLFW/GLFWVulkan/GLFWVulkan.hpp"
+#include "Graphics/Vulkan/GraphicsInstance.hpp"
 #include "Core/OS/OS.hpp"
+#include "Core/Error.hpp"
+#include "GLFW/glfw3.h"
+#include "Graphics/Vulkan/GraphicsRenderer.hpp"
 #include <iostream>
 #include <vector>
 #include <map>
-#include "Core/Error.hpp"
-#include "GLFW/glfw3.h"
 #include <set>
 #include <algorithm>
-#include "string.h"
 #include <fstream>
 #include <array>
-#include "Graphics/GraphicsRenderer.hpp"
-//#include <MoltenVK/vk_mvk_moltenvk.h>
+#include "string.h"
 
 const std::vector<const char*> validationLayers = {
 	"VK_LAYER_LUNARG_standard_validation"
