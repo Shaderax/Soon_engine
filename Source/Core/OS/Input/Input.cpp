@@ -1,4 +1,5 @@
 #include "Input.hpp"
+#include "GLFW/glfw3.h"
 
 namespace Soon
 {
@@ -8,9 +9,14 @@ namespace Soon
 	{
 		return (_singleton);
 	}
-	
+
 	Input::Input( void )
 	{
 		_singleton = this;
+	}
+
+	bool Input::GetKeyDown( int key )
+	{
+		return (glfwGetKey(OS::GetSingleton()->GetWindow(), key) == GLFW_PRESS);
 	}
 }

@@ -18,7 +18,8 @@ namespace Soon
 
 	bool Engine::Init( void )
 	{
-		NewOS();
+		new OS;
+//		NewOS();
 		OS::GetSingleton()->Initialize();
 
 		return (true);

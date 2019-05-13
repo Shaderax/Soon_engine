@@ -12,16 +12,17 @@ struct ComponentRenderer
 	std::vector< VkDeviceMemory >::iterator	_vkDevicesMemoryBuffers;
 }
 
-class GLFWVulkanRenderer : GraphicsRenderer
+class GraphicsRenderer
 {
-	static GLFWVulkanRenderer* _instance;
+	static GraphicsRenderer* _instance;
+
 	public:
 		static GLFWVulkanRenderer* GetInstance( void )
 		{
 			return (_instance);
 		}
 
-		GLFWVulkanRenderer( void ) : _changes(false)
+		GraphicsRenderer( void ) : _changes(false)
 		{
 			_instance = this;
 		}
