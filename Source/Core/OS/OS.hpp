@@ -1,10 +1,17 @@
+#pragma once
 #include <string>
+#include "ContextHeaders.hpp"
+#include "Core/OS/OS.hpp"
+#include <GLFW/glfw3.h>
+#include "Graphics/GLFW/GLFWInput.hpp"
 
 namespace Soon
 {
 	class OS
 	{
 		public:
+			OS( void );
+			~OS( void );
 
 			static OS* GetSingleton( void );
 
@@ -26,18 +33,20 @@ namespace Soon
 				}
 			};
 
-			virtual void Initialize( void ) = 0;
-			virtual void Destroy( void ) = 0;
-			virtual void* GetContext( void ) = 0;
-			virtual OS::WindowAttribute GetWindowAttribute( void ) = 0;
-			virtual bool ShouldClose( void ) = 0;
-			virtual void PollEvent( void ) = 0;
-			virtual void SwapBuffer( void ) = 0;
-			virtual void DrawFrame( void ) = 0;
-
-			OS( void );
-			virtual ~OS( void );
+			void Initialize( void );
+			void Destroy( void );
+			GLFWwindow* GetWindow( void );
+			OS::WindowAttribute GetWindowAttribute( void );
+			bool ShouldClose( void );
+			void PollEvent( void );
+			void SwapBuffer( void );
+			void DrawFrame( void );
 		private:
 			static OS*	_singleton;
+
+			GLFWwindow*     _window;
+			WindowAttribute _winAttr;
+			GLFWInput*      _input;
 	};
+	OSGLFW* NewOS( void );
 }
