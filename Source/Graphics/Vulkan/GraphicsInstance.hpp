@@ -3,7 +3,6 @@
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 #include <vector>
-#include "Graphics/Vulkan/GraphicsInstance.hpp"
 
 //Swap chain struct
 struct SwapChainSupportDetails
@@ -57,13 +56,15 @@ namespace Soon
 			bool 							_framebufferResized;
 			VkBuffer						_vertexBuffer;
 			VkDeviceMemory					_vertexBufferMemory;
+			static GraphicsInstance*		_singleton;
 
 		public:
-			GLFWVulkan( void );
-			~GLFWVulkan( void );
+			static GraphicsInstance* GetInstance( void );
+			GraphicsInstance( void );
+			~GraphicsInstance( void );
 			void Initialize( void );
 			void Destroy( void );
-			void* GetContext( void );
+			GLFWwindow* GetWindow( void );
 
 			void CreateInstance( void );
 			void PickPhysicalDevice( void );

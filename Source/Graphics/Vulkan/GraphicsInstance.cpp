@@ -21,7 +21,6 @@ const std::vector<const char*> deviceExtensions =
 	VK_KHR_SWAPCHAIN_EXTENSION_NAME
 };
 
-
 #define NDEBUG 1
 //#ifdef NDEBUG
 //const bool enableValidationLayers = false;
@@ -90,17 +89,24 @@ void DestroyDebugUtilsMessengerEXT(VkInstance instance, VkDebugUtilsMessengerEXT
 
 namespace Soon
 {
-	GLFWVulkan::GLFWVulkan( void ) : _physicalDevice(VK_NULL_HANDLE), _currentFrame(0), _framebufferResized(false)
+	GraphicsInstance* GraphicsInstance::_singleton = nullptr;
+
+	GraphicsInstance* GraphicsInstance::GetInstance( void )
+	{
+		return (_singleton);
+	}
+
+	GraphicsInstance::GraphicsInstance( void ) : _physicalDevice(VK_NULL_HANDLE), _currentFrame(0), _framebufferResized(false)
+	{
+		_singleton = this;
+	}
+
+	GraphicsInstance::~GraphicsInstance( void )
 	{
 
 	}
 
-	GLFWVulkan::~GLFWVulkan( void )
-	{
-
-	}
-
-	void GLFWVulkan::GetPhysicalDeviceInfo( void )
+	void GraphicsInstance::GetPhysicalDeviceInfo( void )
 	{
 		VkPhysicalDeviceProperties deviceProperties;
 		vkGetPhysicalDeviceProperties(_physicalDevice, &deviceProperties);
@@ -111,7 +117,7 @@ namespace Soon
 		vkGetPhysicalDeviceFeatures(_physicalDevice, &deviceFeatures);
 	}
 
-	void GLFWVulkan::GetPhysicalDeviceInfo( VkPhysicalDevice device )
+	void GraphicsInstance::GetPhysicalDeviceInfo( VkPhysicalDevice device )
 	{
 		VkPhysicalDeviceProperties deviceProperties;
 		vkGetPhysicalDeviceProperties(device, &deviceProperties);
@@ -122,7 +128,7 @@ namespace Soon
 		vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
 	}
 
-	int GLFWVulkan::GetQueueFamilyIndex(VkPhysicalDevice device, VkQueueFlagBits queue)
+	int GraphicsInstance::GetQueueFamilyIndex(VkPhysicalDevice device, VkQueueFlagBits queue)
 	{
 		uint32_t queueFamilyCount = 0;
 		vkGetPhysicalDeviceQueueFamilyProperties(device, &queueFamilyCount, nullptr);
@@ -160,7 +166,7 @@ namespace Soon
 		return requiredExtensions.empty();	
 	}
 
-	int GLFWVulkan::RateDeviceSuitable(VkPhysicalDevice device)
+	int GraphicsInstance::RateDeviceSuitable(VkPhysicalDevice device)
 	{
 		int score = 0;
 
@@ -183,7 +189,7 @@ namespace Soon
 		return score + 1;
 	}
 
-	void GLFWVulkan::PickPhysicalDevice( void )
+	void GraphicsInstance::PickPhysicalDevice( void )
 	{
 		std::map<int, VkPhysicalDevice> scoreDevice;
 
@@ -215,16 +221,16 @@ namespace Soon
 		GetPhysicalDeviceInfo();
 	}
 
-	void GLFWVulkan::CreateWindow( void )
+	void GraphicsInstance::CreateWindow( void )
 	{
-		OS::WindowAttribute winAttr = OS::GetSingleton()->GetWindowAttribute();
+		OS::WindowAttribute winAttr = OS::GetInstance()->GetWindowAttribute();
 		_window = glfwCreateWindow(winAttr._width, winAttr._height, winAttr._name.c_str()  , NULL, NULL);
 		glfwSetWindowUserPointer(_window, this);
 		glfwSetFramebufferSizeCallback(_window, FramebufferResizeCallback);
 		SOON_ERR_THROW(_window, "Can't Initialize Window");
 	}
 
-	void GLFWVulkan::CreateInstance( void )
+	void GraphicsInstance::CreateInstance( void )
 	{
 		//		if (enableValidationLayers && !checkValidationLayerSupport())
 		//			throw std::runtime_error("validation layers requested, but not available!");
@@ -292,7 +298,7 @@ namespace Soon
 			SOON_ERR_THROW(0, "Can't Initialize a Vulkan Instance");
 	}
 
-	void GLFWVulkan::CreateLogicalDevice( void )
+	void GraphicsInstance::CreateLogicalDevice( void )
 	{
 		std::cout << "VK_KHR_SWAPCHAIN_EXTENSION_NAME : " << VK_KHR_SWAPCHAIN_EXTENSION_NAME << std::endl;
 		// TODO //Get queue for drawing and queue for presentation
@@ -327,7 +333,7 @@ namespace Soon
 		vkGetDeviceQueue(_device, index, 0, &_presentQueue);
 	}
 
-	void GLFWVulkan::CreateSurface( void )
+	void GraphicsInstance::CreateSurface( void )
 	{
 		VkResult ret;
 		if ((ret = glfwCreateWindowSurface(_vulkanInstance, _window, nullptr, &_surface)) != VK_SUCCESS)
@@ -370,9 +376,9 @@ namespace Soon
 		return bestMode;
 	}
 
-	VkExtent2D GLFWVulkan::ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities)
+	VkExtent2D GraphicsInstance::ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities)
 	{
-		OS::WindowAttribute winAttr = OS::GetSingleton()->GetWindowAttribute();
+		OS::WindowAttribute winAttr = OS::GetInstance()->GetWindowAttribute();
 
 		if (capabilities.currentExtent.width != std::numeric_limits<uint32_t>::max())
 			return capabilities.currentExtent;
@@ -391,7 +397,7 @@ namespace Soon
 	}
 
 	//SWAP CHAIN
-	SwapChainSupportDetails GLFWVulkan::QuerySwapChainSupport(VkPhysicalDevice device)
+	SwapChainSupportDetails GraphicsInstance::QuerySwapChainSupport(VkPhysicalDevice device)
 	{
 		SwapChainSupportDetails details;
 
@@ -416,7 +422,7 @@ namespace Soon
 		return details;
 	}
 
-	void GLFWVulkan::CreateSwapChain( void )
+	void GraphicsInstance::CreateSwapChain( void )
 	{
 		SwapChainSupportDetails swapChainSupport = QuerySwapChainSupport(_physicalDevice);
 
@@ -466,7 +472,7 @@ namespace Soon
 		_swapChainExtent = extent;
 	}
 
-	void GLFWVulkan::SetupDebugMessenger( void )
+	void GraphicsInstance::SetupDebugMessenger( void )
 	{
 		if (!enableValidationLayers) return;
 
@@ -480,7 +486,7 @@ namespace Soon
 			throw std::runtime_error("failed to set up debug messenger!");
 	}
 
-	void GLFWVulkan::CreateImageViews( void )
+	void GraphicsInstance::CreateImageViews( void )
 	{
 		_swapChainImageViews.resize(_swapChainImages.size());
 
@@ -524,7 +530,7 @@ namespace Soon
 		return buffer;
 	}
 
-	VkShaderModule GLFWVulkan::CreateShaderModule(const std::vector<char>& code)
+	VkShaderModule GraphicsInstance::CreateShaderModule(const std::vector<char>& code)
 	{
 		VkShaderModuleCreateInfo createInfo = {};
 		createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
@@ -539,7 +545,7 @@ namespace Soon
 		return shaderModule;
 	}
 
-	void GLFWVulkan::CreateGraphicsPipeline( void )
+	void GraphicsInstance::CreateGraphicsPipeline( void )
 	{
 		auto vertShaderCode = readFile("../Source/Graphics/Shaders/vert.spv");
 		auto fragShaderCode = readFile("../Source/Graphics/Shaders/frag.spv");
@@ -672,7 +678,7 @@ namespace Soon
 		vkDestroyShaderModule(_device, vertShaderModule, nullptr);
 	}
 
-	void GLFWVulkan::CreateRenderPass( void )
+	void GraphicsInstance::CreateRenderPass( void )
 	{
 		VkAttachmentDescription colorAttachment = {};
 		colorAttachment.format = _swapChainImageFormat;
@@ -705,7 +711,7 @@ namespace Soon
 		}
 	}
 
-	void GLFWVulkan::CreateFramebuffers( void )
+	void GraphicsInstance::CreateFramebuffers( void )
 	{
 		_swapChainFramebuffers.resize(_swapChainImageViews.size());
 
@@ -731,7 +737,7 @@ namespace Soon
 		}
 	}
 
-	void GLFWVulkan::CreateCommandPool( void )
+	void GraphicsInstance::CreateCommandPool( void )
 	{
 		int index = GetQueueFamilyIndex(_physicalDevice, VK_QUEUE_GRAPHICS_BIT);
 
@@ -744,7 +750,7 @@ namespace Soon
 		}
 	}
 
-	void GLFWVulkan::CreateCommandBuffers( void )
+	void GraphicsInstance::CreateCommandBuffers( void )
 	{
 		_commandBuffers.resize(_swapChainFramebuffers.size());
 
@@ -795,7 +801,7 @@ namespace Soon
 		}
 	}
 
-	void GLFWVulkan::RecreateCommandBuffer( void )
+	void GraphicsInstance::RecreateCommandBuffer( void )
 	{
 		for (size_t i = 0; i < _commandBuffers.size(); i++)
 		{
@@ -843,7 +849,7 @@ namespace Soon
 
 #define MAX_FRAMES_IN_FLIGHT 2
 
-	void GLFWVulkan::CreateSyncObjects( void )
+	void GraphicsInstance::CreateSyncObjects( void )
 	{
 		_imageAvailableSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
 		_renderFinishedSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
@@ -867,7 +873,7 @@ namespace Soon
 		}
 	}
 
-	void GLFWVulkan::DrawFrame( void )
+	void GraphicsInstance::DrawFrame( void )
 	{
 		vkWaitForFences(_device, 1, &_inFlightFences[_currentFrame], VK_TRUE, std::numeric_limits<uint64_t>::max());
 
@@ -927,7 +933,7 @@ namespace Soon
 		_currentFrame = (_currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
 	}
 
-	void GLFWVulkan::RecreateSwapChain( void )
+	void GraphicsInstance::RecreateSwapChain( void )
 	{
 		int width = 0, height = 0;
 		while (width == 0 || height == 0)
@@ -948,7 +954,7 @@ namespace Soon
 		CreateCommandBuffers();
 	}
 
-	void GLFWVulkan::CleanupSwapChain( void )
+	void GraphicsInstance::CleanupSwapChain( void )
 	{
 		for (auto framebuffer : _swapChainFramebuffers)
 			vkDestroyFramebuffer(_device, framebuffer, nullptr);
@@ -966,7 +972,7 @@ namespace Soon
 		vkDestroySwapchainKHR(_device, _swapChain, nullptr);
 	}
 
-	void GLFWVulkan::Initialize( void )
+	void GraphicsInstance::Initialize( void )
 	{
 		if (!glfwVulkanSupported())
 			std::cout << "VULKAN Y VEUT PAS SANS DOUTE A CAUSE DE SE MOLTENVK DE MERDE" << std::endl;
@@ -987,7 +993,7 @@ namespace Soon
 		CreateSyncObjects();
 	}
 
-	uint32_t GLFWVulkan::FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties)
+	uint32_t GraphicsInstance::FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties)
 	{
 		VkPhysicalDeviceMemoryProperties memProperties;
 		vkGetPhysicalDeviceMemoryProperties(_physicalDevice, &memProperties);
@@ -1001,7 +1007,7 @@ namespace Soon
 		throw std::runtime_error("failed to find suitable memory type!");
 	}
 
-	BufferRenderer GLFWVulkan::CreateVertexBuffer( VertexBufferInfo inf )
+	BufferRenderer GraphicsInstance::CreateVertexBuffer( VertexBufferInfo inf )
 	{
 		BufferRenderer					bufRenderer;
 
@@ -1035,7 +1041,7 @@ namespace Soon
 		return ( bufRenderer );
 	}
 
-//	void GLFWVulkan::CreateVertexBuffer( void )
+//	void GraphicsInstance::CreateVertexBuffer( void )
 //	{
 //		VkBufferCreateInfo bufferInfo = {};
 //		bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
@@ -1065,17 +1071,17 @@ namespace Soon
 //		vkUnmapMemory(_device, _vertexBufferMemory);
 //	}
 
-	void* GLFWVulkan::GetContext( void )
+	GLFWwindow* GraphicsInstance::GetWindow( void )
 	{
 		return (_window);
 	}
 
 	void NewGraphicsInstance( void )
 	{
-		GLFWVulkan* instance = new GLFWVulkan;
+		GraphicsInstance* instance = new GraphicsInstance;
 	}
 
-	void GLFWVulkan::Destroy( void )
+	void GraphicsInstance::Destroy( void )
 	{
 		CleanupSwapChain();
 		for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++)
@@ -1096,9 +1102,9 @@ namespace Soon
 //		vkFreeMemory(device, vertexBufferMemory, nullptr);
 	}
 
-	void	GLFWVulkan::FramebufferResizeCallback(GLFWwindow *window, int width, int height)
+	void	GraphicsInstance::FramebufferResizeCallback(GLFWwindow *window, int width, int height)
 	{
-		auto app = reinterpret_cast<GLFWVulkan*>(glfwGetWindowUserPointer(window));
+		auto app = reinterpret_cast<GraphicsInstance*>(glfwGetWindowUserPointer(window));
 		app->_framebufferResized = true;
 	}
 }

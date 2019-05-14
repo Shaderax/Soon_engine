@@ -1,4 +1,4 @@
-#include "GLFWCallback.hpp"
+#include "Callback.hpp"
 #include <iostream>
 
 namespace Soon

@@ -5,7 +5,7 @@ set (SRC
 	GraphicsRenderer.cpp
 	)
 
-add_library(GLFWVulkan
+add_library(GraphicsVulkan
 	${SRC}
 	)
 
@@ -24,7 +24,7 @@ if(APPLE)
 			NO_DEFAULT_PATH
 		)
 
-target_link_libraries(GLFWVulkan glfw ${VULKAN_LIB})
+target_link_libraries(GraphicsVulkan glfw ${VULKAN_LIB})
 #link_directories("${CMAKE_SOURCE_DIR}/ThirdParty/vulkan/libs/macos/")
 #set(PRIVATE_COMPILE_DEFINITIONS VK_USE_PLATFORM_MACOS_MVK=1)
 #include_directories("${CMAKE_SOURCE_DIR}/ThirdParty/MoltenVK/include")
@@ -36,15 +36,14 @@ elseif(UNIX)
 			HINTS "${CMAKE_SOURCE_DIR}/ThirdParty/vulkan/libs/linux/"
 			NO_DEFAULT_PATH
 		)
-	target_link_libraries(GLFWVulkan glfw ${VULKAN_LIB})
+	target_link_libraries(GraphicsVulkan glfw ${VULKAN_LIB})
 
 endif()
 
-#target_compile_definitions(GLFWVulkan PUBLIC USE_VULKAN=1)
 #link_directories("/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/vulkan/libs/macos")
-#target_link_libraries(GLFWVulkan glfw ${VULKAN_LIB} ${MOLTENVK_LIB})
+#target_link_libraries(GraphicsVulkan glfw ${VULKAN_LIB} ${MOLTENVK_LIB})
 #// APPLE
-#target_link_libraries(GLFWVulkan "-framework AppKit -framework OpenGL -framework IOKit -framework CoreVideo")
+#target_link_libraries(GraphicsVulkan "-framework AppKit -framework OpenGL -framework IOKit -framework CoreVideo")
 
 #VK_ICD_FILENAMES=/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/MoltenVK/macOS/MoltenVK_icd.json
 #LD_LIBRARY_PATH=:/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/vulkan/libs/macos
