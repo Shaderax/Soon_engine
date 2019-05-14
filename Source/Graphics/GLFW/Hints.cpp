@@ -1,5 +1,5 @@
 #include <GLFW/glfw3.h>
-#include "GLFWVulkanHints.hpp"
+#include "Hints.hpp"
 
 namespace Soon
 {

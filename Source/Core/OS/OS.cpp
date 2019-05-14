@@ -1,5 +1,6 @@
 #include "Core/OS/OS.hpp"
-#include "Graphics/GLFW/InitGLFW.hpp"
+#include "Graphics/GLFW/Init.hpp"
+#include "Graphics/GLFW/Hints.hpp"
 #include "Core/OS/Input/Input.hpp"
 #include "Graphics/Vulkan/GraphicsInstance.hpp"
 #include "Graphics/Vulkan/GraphicsRenderer.hpp"
@@ -33,7 +34,7 @@ namespace Soon
 		GraphicsInstance::GetInstance()->Initialize();
 		_window = GraphicsInstance::GetInstance()->GetWindow();
 		new GraphicsRenderer;
-		_input = new GLFWInput;
+		_input = new Input;
 	}
 
 	void OS::Destroy( void )
@@ -61,12 +62,12 @@ namespace Soon
 		glfwPollEvents();
 	}
 
-	void OSGLFW::SwapBuffer( void )
+	void OS::SwapBuffer( void )
 	{
 		glfwSwapBuffers(_window);
 	}
 
-	void OSGLFW::DrawFrame( void )
+	void OS::DrawFrame( void )
 	{
 		GraphicsInstance::GetInstance()->DrawFrame();
 	}

@@ -9,5 +9,3 @@ set(SOURCE
 add_library(GraphicsGLFW ${SOURCE})
 
 target_link_libraries(GraphicsGLFW glfw Input)
-
-endif()

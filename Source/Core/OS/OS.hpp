@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
-#include <GLFW/glfw3.h>
+#include "Graphics/Vulkan/GraphicsInstance.hpp"
+//#define GLFW_INCLUDE_VULKAN
+//#include <GLFW/glfw3.h>
 #include "Core/OS/Input/Input.hpp"
 
 namespace Soon
@@ -11,7 +13,7 @@ namespace Soon
 			OS( void );
 			~OS( void );
 
-			static OS* GetSingleton( void );
+			static OS* GetInstance( void );
 
 			struct WindowAttribute
 			{
@@ -46,5 +48,5 @@ namespace Soon
 			WindowAttribute _winAttr;
 			Input*      _input;
 	};
-	OSGLFW* NewOS( void );
+	OS* NewOS( void );
 }

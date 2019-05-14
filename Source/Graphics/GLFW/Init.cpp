@@ -1,5 +1,5 @@
-#include "InitGLFW.hpp"
-#include "GLFWCallback.hpp"
+#include "Init.hpp"
+#include "Callback.hpp"
 #include "GLFW/glfw3.h"
 #include <iostream>
 #include "Core/Error.hpp"

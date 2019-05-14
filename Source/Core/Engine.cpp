@@ -1,6 +1,7 @@
 #include "Engine.hpp"
+#include "Core/OS/OS.hpp"
 #include "ECS/World.hpp"
-#include "Graphics/GraphicsRenderer.hpp"
+#include "Graphics/Vulkan/GraphicsRenderer.hpp"
 
 namespace Soon
 {
@@ -19,7 +20,7 @@ namespace Soon
 	{
 		new OS;
 //		NewOS();
-		OS::GetSingleton()->Initialize();
+		OS::GetInstance()->Initialize();
 
 		return (true);
 	}
@@ -31,7 +32,7 @@ namespace Soon
 
 	void Engine::DrawFrame( void )
 	{
-		OS::GetSingleton()->DrawFrame();
+		OS::GetInstance()->DrawFrame();
 	}
 
 	void Engine::Update( void )
@@ -43,7 +44,7 @@ namespace Soon
 			GraphicsInstance::GetInstance()->RecreateCommandBuffer();
 			GraphicsRenderer::GetInstance()->SetChangeFalse();
 		}
-		OS::GetSingleton()->PollEvent();
+		OS::GetInstance()->PollEvent();
 	}
 
 	Engine& Engine::GetInstance( void )
@@ -55,7 +56,7 @@ namespace Soon
 
 	bool Engine::ShouldEnd( void )
 	{
-		return (OS::GetSingleton()->ShouldClose());
+		return (OS::GetInstance()->ShouldClose());
 	}
 
 	Scene& Engine::NewScene( void )
