@@ -16,7 +16,7 @@ namespace Soon
 			_instance = this;
 		}
 
-		ComponentRenderer GraphicsRenderer::AddToRender( Transform* tr, VertexBufferInfo inf)
+		ComponentRenderer GraphicsRenderer::AddToRender( Transform3D& tr, VertexBufferInfo inf)
 		{
 			BufferRenderer handler;
 			ComponentRenderer ret;
@@ -24,7 +24,7 @@ namespace Soon
 			handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(inf);
 
 			_nbVertex.push_back(inf._nbVertex);
-			_transform.push_back(tr);
+			_transform.push_back(&tr);
 			_vkBuffers.push_back(handler._vertexBuffer);
 			_vkDevicesMemoryBuffers.push_back(handler._vertexBufferMemory);
 
@@ -41,7 +41,7 @@ namespace Soon
 			return (_vkBuffers);
 		}
 
-		std::vector< size_t > GraphicsRenderer::GetNbVertex( void )
+		std::vector< uint32_t > GraphicsRenderer::GetNbVertex( void )
 		{
 			return (_nbVertex);
 		}

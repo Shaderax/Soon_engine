@@ -20,9 +20,9 @@ struct BufferRenderer
 
 struct VertexBufferInfo
 {
-	size_t	_nbVertex;
-	size_t	_size;
-	void*	_data;
+	uint32_t	_nbVertex;
+	size_t		_size;
+	void*		_data;
 };
 
 namespace Soon

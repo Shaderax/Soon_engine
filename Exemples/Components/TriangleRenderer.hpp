@@ -1,30 +1,36 @@
 #include "ECS/Component.hpp"
 #include "Core/Math/vec3.hpp"
-#include "Core/Math/vec2.hpp"
-#include "Graphics/GLFW/GLFWVulkan/GLFWVulkanRenderer.hpp"
+#include "Graphics/Vulkan/GraphicsRenderer.hpp"
+#include "Scene/3D/Components/Transform3D.hpp"
 
-class TriangleRenderer : Component
+namespace Soon
 {
-	public:
-		TriangleRenderer( Entity& entity )
-		{
-			bool isRenderable = true;
+	class TriangleRenderer : public Component
+	{
+		public:
+			TriangleRenderer( Entity& entity )
+			{
+				float ok[6] = {0.0f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f};
+//				_ui = ok;
+//				_ui = {0.0f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f};
+				bool isRenderable = true;
 
-			if (isRenderable)
-				_itRender = GraphicsRenderer::GetInstance()->AddToRender(entity.GetComponent<Transform>(), _inf);
-		};
+				if (isRenderable)
+					_itRender = GraphicsRenderer::GetInstance()->AddToRender(entity.GetComponent<Transform3D>(), _inf);
+			};
 
-		~TriangleRenderer( void );
+			~TriangleRenderer( void ) {};
 
-	private:
-		const float _ui[] = {0.0f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f};
+		private:
+			float _ui[6] = {0.0f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f};
 
-		VertexBufferInfo _inf =
-		{
-			3,
-			6 * sizeof(float),
-			&_ui;
-		};
+			VertexBufferInfo _inf =
+			{
+				3,
+				6 * sizeof(float),
+				&_ui
+			};
 
-		ComponentRenderer _itRender;
-};
+			ComponentRenderer _itRender;
+	};
+}
