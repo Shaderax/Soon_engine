@@ -7,7 +7,7 @@ namespace Soon
 {
 	struct ComponentRenderer
 	{
-		std::vector< Transform* >::iterator		_transform;
+		std::vector< Transform3D* >::iterator		_transform;
 		std::vector< VkBuffer >::iterator		_vkBuffers;
 		std::vector< VkDeviceMemory >::iterator	_vkDevicesMemoryBuffers;
 	};
@@ -19,15 +19,15 @@ namespace Soon
 		public:
 		static GraphicsRenderer* GetInstance( void );
 		GraphicsRenderer( void );
-		ComponentRenderer AddToRender( Transform* tr, VertexBufferInfo inf);
+		ComponentRenderer AddToRender( Transform3D& tr, VertexBufferInfo inf);
 		std::vector< VkBuffer > GetvkBuffers( void );
-		std::vector< size_t > GetNbVertex( void );
+		std::vector< uint32_t > GetNbVertex( void );
 		bool HasChange( void );
 		void SetChangeFalse( void );
 
 		private:
-		std::vector< std::size_t >		_nbVertex;
-		std::vector< Transform* >		_transform;
+		std::vector< uint32_t >			_nbVertex;
+		std::vector< Transform3D* >		_transform;
 		std::vector< VkBuffer >			_vkBuffers;
 		std::vector< VkDeviceMemory >	_vkDevicesMemoryBuffers;
 

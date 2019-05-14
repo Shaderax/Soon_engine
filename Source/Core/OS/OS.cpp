@@ -4,6 +4,7 @@
 #include "Core/OS/Input/Input.hpp"
 #include "Graphics/Vulkan/GraphicsInstance.hpp"
 #include "Graphics/Vulkan/GraphicsRenderer.hpp"
+#include <iostream>
 
 namespace Soon
 {
@@ -30,10 +31,11 @@ namespace Soon
 		InitGLFW();
 		InitGLFWHints();
 		new GraphicsInstance;
+		new GraphicsRenderer;
+		std::cout << GraphicsInstance::GetInstance() << std::endl;
 	//	NewGraphicsInstance();
 		GraphicsInstance::GetInstance()->Initialize();
 		_window = GraphicsInstance::GetInstance()->GetWindow();
-		new GraphicsRenderer;
 		_input = new Input;
 	}
 
