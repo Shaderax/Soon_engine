@@ -789,17 +789,17 @@ namespace Soon
 			vkCmdBindPipeline(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _graphicsPipeline);
 
 			VkDeviceSize offsets[] = {0};
-			uint32_t* vecNbVer = GraphicsRenderer::GetInstance()->GetNbVertex().data();
-			size_t vecSiz = GraphicsRenderer::GetInstance()->GetvkBuffers().size();
-			VkBuffer* vecBuf = GraphicsRenderer::GetInstance()->GetvkBuffers().data();
-//			int j = -1;
-//			while (++j < vecSiz)
-//			{
-//				vkCmdBindVertexBuffers(_commandBuffers[i], 0, 1, &vecBuf[j], offsets);
-//				
-//				vkCmdDraw(_commandBuffers[i], vecNbVer[j], 1, 0, 0);
-//				//                                      ^<-Nb vertice == point
-//			}
+			std::vector<VkBuffer> vecBuf = GraphicsRenderer::GetInstance()->GetvkBuffers();
+			std::vector< uint32_t > vecNbVer = GraphicsRenderer::GetInstance()->GetNbVertex();
+
+			uint32_t j = 0;
+			for (auto& buf : GraphicsRenderer::GetInstance()->GetvkBuffers())
+			{
+				std::cout << "VkBuffer : " << buf << std::endl << "NbVer : " << vecNbVer.at(j) << std::endl;
+				vkCmdBindVertexBuffers(_commandBuffers[i], 0, 1, &buf, offsets);
+				vkCmdDraw(_commandBuffers[i], vecNbVer.at(j), 1, 0, 0);
+				j++;
+			}
 
 			vkCmdEndRenderPass(_commandBuffers[i]);
 			if (vkEndCommandBuffer(_commandBuffers[i]) != VK_SUCCESS)
@@ -816,6 +816,7 @@ namespace Soon
 			beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
 			beginInfo.flags = VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT;
 
+			std::cout << "Prout" << std::endl;
 			if (vkBeginCommandBuffer(_commandBuffers[i], &beginInfo) != VK_SUCCESS)
 				throw std::runtime_error("failed to begin recording command buffer!");
 
@@ -835,22 +836,17 @@ namespace Soon
 			vkCmdBindPipeline(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _graphicsPipeline);
 
 			VkDeviceSize offsets[] = {0};
-			size_t vecSiz = GraphicsRenderer::GetInstance()->GetvkBuffers().size();
-			VkBuffer* vecBuf = GraphicsRenderer::GetInstance()->GetvkBuffers().data();
-			uint32_t* vecNbVer = GraphicsRenderer::GetInstance()->GetNbVertex().data();
-			std::cout << "NbVer : " << vecNbVer[0] << std::endl;
-			for (uint32_t& ok : GraphicsRenderer::GetInstance()->GetNbVertex())
-				std::cout << "NbVer : " << ok << std::endl;
-			std::cout << "Devrait etre 3 : " <<  vecNbVer[0] << std::endl;
+			std::vector<VkBuffer> vecBuf = GraphicsRenderer::GetInstance()->GetvkBuffers();
+			std::vector< uint32_t > vecNbVer = GraphicsRenderer::GetInstance()->GetNbVertex();
+
 
 			uint32_t j = 0;
-			VkBuffer ok[] = {(VkBuffer)0x19};
-			std::cout << "Vec Size : " << vecSiz << std::endl;
-			while (j++ < vecSiz)
+			for (auto& buf : GraphicsRenderer::GetInstance()->GetvkBuffers())
 			{
-				vkCmdBindVertexBuffers(_commandBuffers[i], 0, 1, ok, offsets);
-				vkCmdDraw(_commandBuffers[i], /*vecNbVer[j]*/3, 1, 0, 0);
-				//                                      ^<-Nb vertice == point
+				vkCmdBindVertexBuffers(_commandBuffers[i], 0, 1, &buf, offsets);
+				std::cout << vecNbVer.at(j) << std::endl;
+				vkCmdDraw(_commandBuffers[i], vecNbVer.at(j), 1, 0, 0);
+				j++;
 			}
 
 			vkCmdEndRenderPass(_commandBuffers[i]);
@@ -965,6 +961,7 @@ namespace Soon
 		CreateGraphicsPipeline();
 		CreateFramebuffers();
 		CreateCommandBuffers();
+//		RecreateCommandBuffer();
 	}
 
 	void GraphicsInstance::CleanupSwapChain( void )
@@ -1046,7 +1043,6 @@ namespace Soon
 
 		vkBindBufferMemory(_device, bufRenderer._vertexBuffer, bufRenderer._vertexBufferMemory, 0);
 
-		std::cout << "JPPPPPPPPPPPPPPPP : " << bufRenderer._vertexBuffer << std::endl;
 		void* data;
 		vkMapMemory(_device, bufRenderer._vertexBufferMemory, 0, bufferInfo.size, 0, &data);
 		memcpy(data, inf._data, (size_t)bufferInfo.size);
@@ -1054,36 +1050,6 @@ namespace Soon
 
 		return ( bufRenderer );
 	}
-
-//	void GraphicsInstance::CreateVertexBuffer( void )
-//	{
-//		VkBufferCreateInfo bufferInfo = {};
-//		bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
-//		bufferInfo.size = sizeof(float) * 6;
-//		bufferInfo.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
-//		bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
-//
-//		if (vkCreateBuffer(_device, &bufferInfo, nullptr, &_vertexBuffer) != VK_SUCCESS)
-//			throw std::runtime_error("failed to create vertex buffer!");
-//
-//		VkMemoryRequirements memRequirements;
-//		vkGetBufferMemoryRequirements(_device, _vertexBuffer, &memRequirements);
-//
-//		VkMemoryAllocateInfo allocInfo = {};
-//		allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
-//		allocInfo.allocationSize = memRequirements.size;
-//		allocInfo.memoryTypeIndex = FindMemoryType(memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-//
-//		if (vkAllocateMemory(_device, &allocInfo, nullptr, &_vertexBufferMemory) != VK_SUCCESS)
-//			throw std::runtime_error("failed to allocate vertex buffer memory!");
-//
-//		vkBindBufferMemory(_device, _vertexBuffer, _vertexBufferMemory, 0);
-//
-//		void* data;
-//		vkMapMemory(_device, _vertexBufferMemory, 0, bufferInfo.size, 0, &data);
-//		memcpy(data, vre, (size_t)bufferInfo.size);
-//		vkUnmapMemory(_device, _vertexBufferMemory);
-//	}
 
 	GLFWwindow* GraphicsInstance::GetWindow( void )
 	{

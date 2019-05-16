@@ -33,7 +33,6 @@ namespace Soon
 		new GraphicsInstance;
 		new GraphicsRenderer;
 		std::cout << GraphicsInstance::GetInstance() << std::endl;
-	//	NewGraphicsInstance();
 		GraphicsInstance::GetInstance()->Initialize();
 		_window = GraphicsInstance::GetInstance()->GetWindow();
 		_input = new Input;

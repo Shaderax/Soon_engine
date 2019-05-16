@@ -61,7 +61,7 @@ void	fill_array_vertice(char **split, t_buffer *buffer)
 	{
 		if (!(buffer->size % BSIZE))
 			buffer->array = realloc(buffer->array, SIZE_ALLOC(buffer->size)
-				* sizeof(float));
+					* sizeof(float));
 		buffer->array[buffer->size] = split[index] ?
 			(float)(atof(split[index])) : 0;
 		if (buffer->array[buffer->size] < buffer->min[index - 1])
@@ -207,4 +207,28 @@ int		parse_obj_file(char *path, 3dObj* obj)
 	printf("vertex min : %f, %f, %f\n", tmp[0].min[0], tmp[0].min[1], tmp[0].min[2]);
 	printf("veretx max : %f, %f, %f\n", tmp[0].max[0], tmp[0].max[1], tmp[0].max[2]);
 	return (1);
+}
+
+class ObjFile : Component
+{
+	void LoadObjFile(std::string path)
+	{
+		FILE* fp = fopen(path.c_str(), "r");
+		if (fp == NULL)
+			exit(-1);
+
+		char* line = NULL;
+		size_t len = 0;
+		while ((getline(&line, &len, fp)) != -1)
+			printf("%s", line);
+			// using printf() in all tests for consistency
+		fclose(fp);
+		if (line)
+			free(line);
+
+	}
+
+	std::vector< vec3 > _vertex;
+	std::vector< vec3 > _normal;
+	std::vector< vec3 > _vectexTexture;
 }

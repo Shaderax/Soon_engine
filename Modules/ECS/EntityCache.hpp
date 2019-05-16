@@ -18,8 +18,6 @@ namespace Soon
 
 			void Clear( void );
 
-			int ok = 50;
-
 			std::vector< Entity > _alive;
 			std::vector< Entity > _killed;
 			std::vector< Entity > _activated;

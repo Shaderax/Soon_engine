@@ -64,12 +64,6 @@ namespace Soon
 
 		std::size_t World::GetAliveEntityCount( void ) const
 		{
-			std::cout << "dthpjietogim" << std::endl;
-			if (_entityCache.ok == 50)
-				std::cout << "Oui" << std::endl;
-			else
-				std::cout << "Non" << std::endl;
-			std::cout << "dthpjietogim" << std::endl;
 			return (_entityCache._alive.size());
 		}
 
@@ -86,9 +80,7 @@ namespace Soon
 
 		void World::CheckResizePool( std::size_t amount )
 		{
-			std::cout << "Pass" << std::endl;
 			std::size_t newSize = GetAliveEntityCount() + amount;
-			std::cout << "dthpjietogim" << std::endl;
 
 			if (newSize > GetEntityCount())
 				Resize(newSize);

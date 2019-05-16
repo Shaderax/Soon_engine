@@ -32,6 +32,7 @@ namespace Soon
 
 	void Engine::DrawFrame( void )
 	{
+		OS::GetInstance()->PollEvent();
 		OS::GetInstance()->DrawFrame();
 	}
 
@@ -41,10 +42,10 @@ namespace Soon
 
 		if (GraphicsRenderer::GetInstance()->HasChange())
 		{
+//			GraphicsInstance::GetInstance()->RecreateSwapChain();
 			GraphicsInstance::GetInstance()->RecreateCommandBuffer();
 			GraphicsRenderer::GetInstance()->SetChangeFalse();
 		}
-		OS::GetInstance()->PollEvent();
 	}
 
 	Engine& Engine::GetInstance( void )
