@@ -10,9 +10,6 @@ namespace Soon
 		public:
 			TriangleRenderer( Entity& entity )
 			{
-				float ok[6] = {0.0f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f};
-//				_ui = ok;
-//				_ui = {0.0f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f};
 				bool isRenderable = true;
 
 				if (isRenderable)
@@ -21,8 +18,8 @@ namespace Soon
 
 			~TriangleRenderer( void ) {};
 
-		private:
 			float _ui[6] = {0.0f, -0.5f, 0.5f, 0.5f, -0.5f, 0.5f};
+		private:
 
 			VertexBufferInfo _inf =
 			{
