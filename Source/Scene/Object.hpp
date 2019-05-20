@@ -10,7 +10,7 @@ namespace Soon
 	class Object : public Entity
 	{
 		public:
-			Object( void );
+			Object( Object* parent = nullptr );
 			~Object( void );
 		private:
 			Object*					_parent;

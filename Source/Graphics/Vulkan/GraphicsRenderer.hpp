@@ -29,7 +29,8 @@ namespace Soon
 		std::vector< uint32_t >			_nbVertex;
 		std::vector< Transform3D* >		_transform;
 		std::vector< VkBuffer >			_vkBuffers;
-		std::vector< VkDeviceMemory >	_vkDevicesMemoryBuffers;
+		std::vector< VkDeviceMemory >		_vkDevicesMemoryBuffers;
+		std::vector< mat4 >			_matrix;
 
 		bool _changes;
 	};

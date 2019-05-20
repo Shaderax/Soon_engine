@@ -45,6 +45,11 @@ endif()
 #// APPLE
 #target_link_libraries(GraphicsVulkan "-framework AppKit -framework OpenGL -framework IOKit -framework CoreVideo")
 
+#42 Mac :
 #VK_ICD_FILENAMES=/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/MoltenVK/macOS/MoltenVK_icd.json
 #LD_LIBRARY_PATH=:/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/vulkan/libs/macos
 #VK_LAYER_PATH=/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/vulkan/explicit_layer.d/
+
+#linux :
+#VK_LAYER_PATH=/home/shaderax/Documents/Project/Soon_engine/ThirdParty/vulkan/Validation_Layer/explicit_layer.d/linux/
+
