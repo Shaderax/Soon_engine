@@ -574,14 +574,14 @@ namespace Soon
 		////// TMP ////////////////
 		VkVertexInputBindingDescription bindingDescription = {};
 		bindingDescription.binding = 0;
-		bindingDescription.stride = sizeof(float) * 2; // stride : size of one pointe
+		bindingDescription.stride = sizeof(float) * 3; // stride : size of one pointe
 		bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
 
 		std::array<VkVertexInputAttributeDescription, 1> attributeDescriptions;
 
 		attributeDescriptions[0].binding = 0;
 		attributeDescriptions[0].location = 0;
-		attributeDescriptions[0].format = VK_FORMAT_R32G32_SFLOAT;
+		attributeDescriptions[0].format = VK_FORMAT_R32G32B32_SFLOAT;//VK_FORMAT_R32G32_SFLOAT;
 		attributeDescriptions[0].offset = 0;//offsetof(Vertex, pos);
 		/////////////// END /////////////
 		//		auto bindingDescription = Vertex::getBindingDescription();

@@ -4,23 +4,15 @@ namespace Soon
 {
 	Scene::Scene( void )
 	{
-		
+
 	}
 
-	bool Scene::ObjectInScene( Object& obj )
+	bool Scene::IsObjectInScene( Object& obj )
 	{
 		return (obj._scene == this ? true : false);
 	}
 
-	Object& Scene::AddObjectInScene( Object& obj )
-	{
-		obj._scene = this;
-		obj._parent = nullptr;
-		Tree.push_back(obj);
-		Tree.back().push_back(obj._childs);
-	}
-
-	void Scene::AddObjectInScene( Object* parent, Object& obj )
+	void Scene::AddObject( Object* parent, Object& obj )
 	{
 		if (parent)
 		{
@@ -30,21 +22,20 @@ namespace Soon
 			{
 				obj._scene = this;
 				obj._parent = parent;
-				Tree.push_back(obj);
-				Tree.back().push_back(obj._childs);
+				//			Tree.push_back(obj);
+				//			Tree.back().push_back(obj._childs);
 			}
 		}
 	}
 
-	Object& Scene::NewObjectInScene( void )
+	Camera3D* Scene::GetCurrentCamera( void )
 	{
-		Object* obj = new Object();
-
-		obj->_scene = this;
-		obj->_parent = nullptr;
-
-		Tree.push_back(obj);
-		
-		return *(obj);
+		return (_camera);
 	}
+
+	void Scene::SetCurrentCamera( Camera3D* cam )
+	{
+		_camera = cam;
+	}
+
 }

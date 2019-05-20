@@ -28,6 +28,7 @@ namespace Soon
 			_transform.push_back(&tr);
 			_vkBuffers.push_back(handler._vertexBuffer);
 			_vkDevicesMemoryBuffers.push_back(handler._vertexBufferMemory);
+//			_matrix.push_back();
 
 			ret._transform = _transform.end();
 			ret._vkBuffers = _vkBuffers.end();

@@ -13,6 +13,11 @@ class vec4
 		T y;
 		T z;
 		T w;
+		
+		vec3(T mx, T my, T mz, T mw) : x(mx), y(my), z(mz), w(mw)
+		{
+			
+		}
 
 		vec4<T> operator+(vec4<T> const& b)
 		{

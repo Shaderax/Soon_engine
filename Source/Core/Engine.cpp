@@ -19,8 +19,8 @@ namespace Soon
 	bool Engine::Init( void )
 	{
 		new OS;
-//		NewOS();
 		OS::GetInstance()->Initialize();
+		NewScene();
 
 		return (true);
 	}
@@ -67,6 +67,11 @@ namespace Soon
 		_currentScene = scene;
 		_scenes.push_back(scene);
 		return *(scene);
+	}
+
+	Scene* Engine::GetCurrentScene( void )
+	{
+		return (_currentScene);
 	}
 }
 
