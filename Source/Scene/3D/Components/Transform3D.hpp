@@ -2,12 +2,13 @@
 
 #include "ECS/Component.hpp"
 #include "ECS/Entity.hpp"
+#include "Core/Math/vec3.hpp"
 
 struct Transform3D : Component
 {
 	Transform3D( Entity& entity )
 	{
-		_scale = vec3(1.0f, 1.0f, 1.0f);;
+		_scale = vec3<float>(1.0f, 1.0f, 1.0f);;
 	}
 	
 	vec3<float>	_pos;

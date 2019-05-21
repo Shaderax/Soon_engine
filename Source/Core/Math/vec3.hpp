@@ -83,7 +83,7 @@ class vec3
 			return (sqrt((x * x) + (y * y) + (z * z)));
 		}
 
-		void	Normalize( void )
+		void	iNormalize( void )
 		{
 			float mag;
 
@@ -93,6 +93,21 @@ class vec3
 			this->x /= mag;
 			this->y /= mag;
 			this->z /= mag;
+		}
+		
+		vec3<T>	Normalize( void )
+		{
+			vec3<T> Result = *this;
+			float mag;
+
+			mag = Result.Magnitude();
+			if (mag == 0.0f)
+				return Result;
+			Result.x /= mag;
+			Result.y /= mag;
+			Result.z /= mag;
+
+			return (Result);
 		}
 
 };

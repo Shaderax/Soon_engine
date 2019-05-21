@@ -2,6 +2,7 @@
 
 #include "Graphics/Vulkan/GraphicsInstance.hpp"
 #include "Scene/3D/Components/Transform3D.hpp"
+#include "Core/Math/mat4.hpp"
 
 namespace Soon
 {
@@ -30,7 +31,7 @@ namespace Soon
 		std::vector< Transform3D* >		_transform;
 		std::vector< VkBuffer >			_vkBuffers;
 		std::vector< VkDeviceMemory >		_vkDevicesMemoryBuffers;
-		std::vector< mat4 >			_matrix;
+		std::vector< mat4<float> >			_matrix;
 
 		bool _changes;
 	};
