@@ -83,7 +83,7 @@ class vec3
 			return (sqrt((x * x) + (y * y) + (z * z)));
 		}
 
-		void	iNormalize( void )
+		void	NormalizeVec( void )
 		{
 			float mag;
 
