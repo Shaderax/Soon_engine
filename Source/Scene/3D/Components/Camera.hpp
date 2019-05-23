@@ -60,7 +60,7 @@ namespace Soon
 			}
 
 		private:
-			Entity	_entity;
+			Entity		_entity;
 			vec3<float>	_target;
 			vec3<float>	_up;
 	};

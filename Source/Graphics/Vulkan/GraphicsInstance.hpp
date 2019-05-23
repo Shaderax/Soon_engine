@@ -3,6 +3,7 @@
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 #include <vector>
+#include "Core/Math/mat4.hpp"
 
 //Swap chain struct
 struct SwapChainSupportDetails
@@ -25,6 +26,13 @@ struct VertexBufferInfo
 	void*		_data;
 };
 
+struct UniformBufferObject
+{
+	mat4<float> model;
+	mat4<float> view;
+	mat4<float> proj;
+};
+
 namespace Soon
 {
 	class GraphicsInstance
@@ -43,6 +51,7 @@ namespace Soon
 			VkFormat						_swapChainImageFormat;
 			VkDebugUtilsMessengerEXT		_debugMessenger;
 			std::vector<VkImageView>		_swapChainImageViews;
+			VkDescriptorSetLayout			_descriptorSetLayout;
 			VkPipelineLayout 				_pipelineLayout;
 			VkPipeline						_graphicsPipeline;
 			VkRenderPass					_renderPass;
@@ -54,8 +63,14 @@ namespace Soon
 			std::vector<VkFence>			_inFlightFences;
 			size_t							_currentFrame;
 			bool 							_framebufferResized;
-			VkBuffer						_vertexBuffer;
-			VkDeviceMemory					_vertexBufferMemory;
+//			VkBuffer						_vertexBuffer;
+//			VkDeviceMemory					_vertexBufferMemory;
+
+			std::vector<VkBuffer>			_uniformBuffers;
+			std::vector<VkDeviceMemory>		_uniformBuffersMemory;
+			VkDescriptorPool				_descriptorPool;
+			std::vector<VkDescriptorSet>	_descriptorSets;
+
 			static GraphicsInstance*		_singleton;
 
 		public:
@@ -115,6 +130,18 @@ namespace Soon
 			uint32_t FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
 
 			void RecreateCommandBuffer( void );
+
+			void CreateDescriptorSetLayout( void );
+
+			void CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory);
+
+			void CreateUniformBuffers( void );
+
+			void UpdateUniformBuffer(uint32_t currentImage);
+
+			void CreateDescriptorPool( void );
+
+			void CreateDescriptorSets( void );
 	};
 
 	void NewGraphicsInstance( void );
