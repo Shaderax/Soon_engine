@@ -798,7 +798,9 @@ namespace Soon
 			{
 				std::cout << "VkBuffer : " << buf << std::endl << "NbVer : " << vecNbVer.at(j) << std::endl;
 				vkCmdBindVertexBuffers(_commandBuffers[i], 0, 1, &buf, offsets);
+
 				vkCmdBindDescriptorSets(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 0, 1, &_descriptorSets[i], 0, nullptr);
+
 				vkCmdDraw(_commandBuffers[i], vecNbVer.at(j), 1, 0, 0);
 				j++;
 			}
