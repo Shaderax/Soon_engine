@@ -8,7 +8,7 @@ namespace Soon
 {
 	struct ComponentRenderer
 	{
-		std::vector< Transform3D* >::iterator		_transform;
+		std::vector< Transform3D* >::iterator	_transform;
 		std::vector< VkBuffer >::iterator		_vkBuffers;
 		std::vector< VkDeviceMemory >::iterator	_vkDevicesMemoryBuffers;
 	};
@@ -18,21 +18,30 @@ namespace Soon
 		static GraphicsRenderer* _instance;
 
 		public:
-		static GraphicsRenderer* GetInstance( void );
-		GraphicsRenderer( void );
-		ComponentRenderer AddToRender( Transform3D& tr, VertexBufferInfo inf);
-		std::vector< VkBuffer > GetvkBuffers( void );
-		std::vector< uint32_t > GetNbVertex( void );
-		bool HasChange( void );
-		void SetChangeFalse( void );
+			GraphicsRenderer( void );
+			static GraphicsRenderer* 	GetInstance( void );
+			ComponentRenderer 			AddToRender( Transform3D& tr, VertexBufferInfo inf);
+			std::vector< VkBuffer >		GetvkBuffers( void );
+			std::vector< uint32_t >		GetNbVertex( void );
+			bool						HasChange( void );
+			void						SetChangeFalse( void );
 
 		private:
-		std::vector< uint32_t >			_nbVertex;
-		std::vector< Transform3D* >		_transform;
-		std::vector< VkBuffer >			_vkBuffers;
-		std::vector< VkDeviceMemory >		_vkDevicesMemoryBuffers;
-		std::vector< mat4<float> >			_matrix;
+			std::vector< uint32_t >			_nbVertex;
+			std::vector< Transform3D* >		_transform;
+			std::vector< VkBuffer >			_vkBuffers;
+			std::vector< VkDeviceMemory >	_vkDevicesMemoryBuffers;
 
-		bool _changes;
+			struct UniformRender
+			{
+				std::vector<VkBuffer>		_Buffer;
+				std::vector<VkDeviceMemory>	_BufferMemory;
+			};
+
+			std::vector< UniformRender > _uniforms;
+
+			bool _changes;
+
+			std::vector< UniformRender > _uniformCamera;
 	};
 }

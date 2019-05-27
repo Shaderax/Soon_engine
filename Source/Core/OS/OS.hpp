@@ -19,8 +19,8 @@ namespace Soon
 			{
 				uint32_t	_width;
 				uint32_t	_height;
-				bool	_fullscreen;
-				bool	_vsync;
+				bool		_fullscreen;
+				bool		_vsync;
 				std::string _name;
 
 				WindowAttribute( int width = 1280, int height = 720, bool fullscreen = false, bool vsync = false, std::string name = "New Project" ) :

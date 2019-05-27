@@ -849,7 +849,9 @@ namespace Soon
 			{
 				vkCmdBindVertexBuffers(_commandBuffers[i], 0, 1, &buf, offsets);
 				std::cout << vecNbVer.at(j) << std::endl;
+
 				vkCmdBindDescriptorSets(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 0, 1, &_descriptorSets[i], 0, nullptr);
+
 				vkCmdDraw(_commandBuffers[i], vecNbVer.at(j), 1, 0, 0);
 				j++;
 			}
@@ -1140,21 +1142,73 @@ namespace Soon
 			CreateBuffer(bufferSize, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, _uniformBuffers[i], _uniformBuffersMemory[i]);
 	}
 
+	UniformRender GraphicsInstance::CreateUniformBuffer( size_t size )
+	{
+		UniformRenderer buf;
+		VkDeviceSize bufferSize = size;
+
+		buf._Buffer.resize(_swapChainImages.size());
+		buf._BufferMemory.resize(_swapChainImages.size());
+
+		for (size_t i = 0; i < _swapChainImages.size(); i++)
+			CreateBuffer(bufferSize, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, buf._Buffers[i], buf._BuffersMemory[i]);
+
+		return (buf);
+	}
+
 	void GraphicsInstance::UpdateUniformBuffer(uint32_t currentImage)
 	{
-		UniformBufferObject ubo = {};
+//		UniformBufferObject ubo = {};
+		void* data;
+
+		//////////// Cam ///////////
+		UniformCamera uc = {};
+
+		uc.view = Engine::GetInstance()->GetCurrentScene()->GetCurrentCamera()->GetViewMatrix();
+		uc.proj = Engine::GetInstance()->GetCurrentScene()->GetCurrentCamera()->GetProjectionMatrix();
+
+		vkMapMemory(_device, _uniformCamera._BufferMemory[currentImage], 0, sizeof(uc), 0, &data);
+		memcpy(data, &ubo, sizeof(uc));
+		vkUnmapMemory(_device, _uniformCamera._BufferMemory[currentImage]);
+
+		/////////// Model //////////
 
 		//		ubo.model = glm::rotate(glm::mat4(1.0f), time * glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 		//		ubo.view = glm::lookAt(glm::vec3(2.0f, 2.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
 		//		ubo.proj = glm::perspective(glm::radians(45.0f), swapChainExtent.width / (float) swapChainExtent.height, 0.1f, 10.0f);
-		ubo.model(3, 1) = -1.5f;
-		ubo.model(3, 2) = 0.5f;
-		ubo.proj(1, 1) *= -1;
+		// For Every Uniform
+		int i = -1;
+		for (auto& uniform : GraphicsRenderer::GetInstance()->GetUniforms())
+		{
+			++i;
 
-		void* data;
-		vkMapMemory(_device, _uniformBuffersMemory[currentImage], 0, sizeof(ubo), 0, &data);
-		memcpy(data, &ubo, sizeof(ubo));
-		vkUnmapMemory(_device, _uniformBuffersMemory[currentImage]);
+			void* data;
+			vkMapMemory(_device, uniform._BufferMemory[currentImage], 0, sizeof(UniformModel), 0, &data);
+
+			mat4<float> matModel;
+
+			Transform3D transform = GraphicsRenderer::GetInstance()->GetTransforms().at(i);
+
+			matModel(0,3) = transform._pos.x;
+			matModel(1,3) = transform._pos.y;
+			matModel(2,3) = transform._pos.z;
+
+			matModel(0,0) = transform._scale.x;
+			matModel(1,1) = transform._scale.y;
+			matModel(2,2) = transform._scale.z;
+
+			memcpy(data, &matModel, sizeof(UniformModel));
+			vkUnmapMemory(_device, uniform._BufferMemory[currentImage]);
+		}
+
+//		ubo.model(3, 1) = -1.5f;
+//		ubo.model(3, 2) = 0.5f;
+//		ubo.proj(1, 1) *= -1;
+
+//		void* data;
+//		vkMapMemory(_device, _uniformBuffersMemory[currentImage], 0, sizeof(ubo), 0, &data);
+//		memcpy(data, &ubo, sizeof(ubo));
+//		vkUnmapMemory(_device, _uniformBuffersMemory[currentImage]);
 	}
 
 	void GraphicsInstance::CreateDescriptorPool( void )
@@ -1187,6 +1241,56 @@ namespace Soon
 			throw std::runtime_error("failed to allocate descriptor sets!");
 
 		for (size_t i = 0; i < _swapChainImages.size(); i++) {
+			VkDescriptorBufferInfo bufferInfo = {};
+			bufferInfo.buffer = _uniformBuffers[i];
+			bufferInfo.offset = 0;
+			bufferInfo.range = sizeof(UniformBufferObject);
+
+			VkWriteDescriptorSet descriptorWrite = {};
+			descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+			descriptorWrite.dstSet = _descriptorSets[i];
+			descriptorWrite.dstBinding = 0;
+			descriptorWrite.dstArrayElement = 0;
+			descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+			descriptorWrite.descriptorCount = 1;
+			descriptorWrite.pBufferInfo = &bufferInfo;
+
+			vkUpdateDescriptorSets(_device, 1, &descriptorWrite, 0, nullptr);
+		}
+	}
+	
+	void GraphicsInstance::CreateDescriptorPoole( void )
+	{
+		VkDescriptorPoolSize poolSize = {};
+		poolSize.type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+		poolSize.descriptorCount = static_cast<uint32_t>(_swapChainImages.size());
+
+		VkDescriptorPoolCreateInfo poolInfo = {};
+		poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
+		poolInfo.poolSizeCount = 1;
+		poolInfo.pPoolSizes = &poolSize;
+		poolInfo.maxSets = static_cast<uint32_t>(_swapChainImages.size());
+
+		if (vkCreateDescriptorPool(_device, &poolInfo, nullptr, &_descriptorPool) != VK_SUCCESS)
+			throw std::runtime_error("failed to create descriptor pool!");
+	}
+	
+	void GraphicsInstance::CreateDescriptorSet( void )
+	{
+		std::vector<VkDescriptorSetLayout> layouts(_swapChainImages.size(), _descriptorSetLayout);
+
+		VkDescriptorSetAllocateInfo allocInfo = {};
+		allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
+		allocInfo.descriptorPool = _descriptorPool;
+		allocInfo.descriptorSetCount = static_cast<uint32_t>(_swapChainImages.size());
+		allocInfo.pSetLayouts = layouts.data();
+
+		_descriptorSets.resize(_swapChainImages.size());
+		if (vkAllocateDescriptorSets(_device, &allocInfo, _descriptorSets.data()) != VK_SUCCESS)
+			throw std::runtime_error("failed to allocate descriptor sets!");
+
+		for (size_t i = 0; i < _swapChainImages.size(); i++)
+		{
 			VkDescriptorBufferInfo bufferInfo = {};
 			bufferInfo.buffer = _uniformBuffers[i];
 			bufferInfo.offset = 0;

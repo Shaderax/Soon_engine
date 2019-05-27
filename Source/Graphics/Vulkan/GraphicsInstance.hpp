@@ -15,8 +15,8 @@ struct SwapChainSupportDetails
 
 struct BufferRenderer
 {
-	VkBuffer                        _vertexBuffer;
-	VkDeviceMemory                  _vertexBufferMemory;
+	VkBuffer                        _Buffer;
+	VkDeviceMemory                  _BufferMemory;
 };
 
 struct VertexBufferInfo
@@ -26,11 +26,15 @@ struct VertexBufferInfo
 	void*		_data;
 };
 
-struct UniformBufferObject
+struct UniformCamera
 {
-	mat4<float> model;
 	mat4<float> view;
 	mat4<float> proj;
+};
+
+struct UniformModel
+{
+	mat4<float> model;
 };
 
 namespace Soon
@@ -136,6 +140,7 @@ namespace Soon
 			void CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory);
 
 			void CreateUniformBuffers( void );
+			BufferRenderer CreateUniformBuffer( size_t size );
 
 			void UpdateUniformBuffer(uint32_t currentImage);
 

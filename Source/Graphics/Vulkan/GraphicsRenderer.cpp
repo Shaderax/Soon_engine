@@ -26,13 +26,20 @@ namespace Soon
 
 			_nbVertex.push_back(inf._nbVertex);
 			_transform.push_back(&tr);
-			_vkBuffers.push_back(handler._vertexBuffer);
-			_vkDevicesMemoryBuffers.push_back(handler._vertexBufferMemory);
-//			_matrix.push_back();
+			_vkBuffers.push_back(handler._Buffer);
+			_vkDevicesMemoryBuffers.push_back(handler._BufferMemory);
 
 			ret._transform = _transform.end();
 			ret._vkBuffers = _vkBuffers.end();
 			ret._vkDevicesMemoryBuffers = _vkDevicesMemoryBuffers.end();
+
+			///////////// UNIFORM /////////////
+
+			UniformRender modelUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformModel));			
+
+			_uniforms.push_back(modelUniform);
+
+			///////////////////////////////////
 
 			_changes = true;
 			return ret;
@@ -56,5 +63,15 @@ namespace Soon
 		void GraphicsRenderer::SetChangeFalse( void )
 		{
 			_changes = false;
+		}
+
+		std::vector< UniformRender > GetUniforms( void )
+		{
+			return (_uniforms);
+		}
+
+		std::vector< Transform3D > GetTransforms( void )
+		{
+			return (_transforms);
 		}
 }
