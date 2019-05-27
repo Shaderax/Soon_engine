@@ -1267,9 +1267,9 @@ namespace Soon
 
 		VkDescriptorPoolCreateInfo poolInfo = {};
 		poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-		poolInfo.poolSizeCount = 1;
+		poolInfo.poolSizeCount = 1; // number of elements in pPoolSizes.
 		poolInfo.pPoolSizes = &poolSize;
-		poolInfo.maxSets = static_cast<uint32_t>(_swapChainImages.size());
+		poolInfo.maxSets = static_cast<uint32_t>(_swapChainImages.size()); // maximum number of descriptor sets that can be allocated from the pool.
 
 		if (vkCreateDescriptorPool(_device, &poolInfo, nullptr, &_descriptorPool) != VK_SUCCESS)
 			throw std::runtime_error("failed to create descriptor pool!");
@@ -1282,7 +1282,7 @@ namespace Soon
 		VkDescriptorSetAllocateInfo allocInfo = {};
 		allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
 		allocInfo.descriptorPool = _descriptorPool;
-		allocInfo.descriptorSetCount = static_cast<uint32_t>(_swapChainImages.size());
+		allocInfo.descriptorSetCount = static_cast<uint32_t>(_swapChainImages.size()); // number of elements in the pDescriptorSets array.
 		allocInfo.pSetLayouts = layouts.data();
 
 		_descriptorSets.resize(_swapChainImages.size());
