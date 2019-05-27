@@ -5,6 +5,7 @@
 #include "ECS/Entity.hpp"
 #include "Core/Math/mat4.hpp"
 #include "Core/Math/vec3.hpp"
+#include <math.h>
 
 namespace Soon
 {
@@ -16,6 +17,13 @@ namespace Soon
 				_entity = entity;
 				_target = vec3<float>(0.0f, 0.0f, 0.0f);
 				_up = vec3<float>(0.0f, 1.0f, 0.0f);
+
+				_fov = 70.0f;
+				_near = 0.05f;
+				_far = 100.0f;
+
+				OS::WindowAttribute win = Engine::GetInstance()->GetWindowAttribute();
+				_aspect = win._width / win._height;
 			}
 
 			void MakeCurrent( void )
@@ -54,6 +62,40 @@ namespace Soon
 				return (view);
 			}
 
+			mat4< float >	GetProjectionMatrix( void )
+			{
+				mat4< float > proj;
+
+				float scale = 1 / tan(_fov / 2);
+
+				proj(0, 0) = scale;
+				proj(1, 1) = scale / _aspect;
+				proj(2, 2) = -((_far + near) / (_far - _near));
+				proj(2, 3) = -((2 * _far * _near) / (_far - _near));
+				proj(3, 2) = -1;
+				proj(3, 3) = 0;
+
+
+//				float scale;
+//				float l;
+//				float r;
+//				float b;
+//				float t;
+//
+//				scale = tan(_fov * 0.5 * (PI / 180)) * _near;
+//				t = scale;
+//				b = -scale;
+//				r = scale * _aspect;
+//				l = -r;
+//				proj(0,0) = (2 * _near) / (r - l);
+//				proj(0,2) = (r + l) / (r - l);
+//				proj(1,1) = (2 * _near) / (t - b);
+//				proj(1,2) = (t + b) / (t - b);
+//				proj(2,2) = -((_far + _near) / (_far - _near));
+//				proj(2,3) = -((2 * _far * _near) / (_far - _near));
+//				proj(3,2) = -1;
+			}
+
 			void SetTarget(vec3<float> target)
 			{
 				_target = target;
@@ -63,5 +105,10 @@ namespace Soon
 			Entity		_entity;
 			vec3<float>	_target;
 			vec3<float>	_up;
+
+			float _fov;
+			float _near;
+			float _far;
+			float _aspect;
 	};
 }
