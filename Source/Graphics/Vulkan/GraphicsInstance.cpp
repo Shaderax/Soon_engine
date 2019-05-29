@@ -974,9 +974,11 @@ namespace Soon
 		CreateRenderPass();
 		CreateGraphicsPipeline();
 		CreateFramebuffers();
-		CreateUniformBuffers();
+		// TODO
+	//	CreateUniformBuffers();
 		CreateDescriptorPool();
-		CreateDescriptorSets();
+		// TODO
+//		CreateDescriptorSets();
 		CreateCommandBuffers();
 		//		RecreateCommandBuffer();
 	}
@@ -998,11 +1000,12 @@ namespace Soon
 
 		vkDestroySwapchainKHR(_device, _swapChain, nullptr);
 
-		for (size_t i = 0; i < _swapChainImages.size(); i++)
-		{
-			vkDestroyBuffer(_device, _uniformBuffers[i], nullptr);
-			vkFreeMemory(_device, _uniformBuffersMemory[i], nullptr);
-		}
+		//TODO
+//		for (size_t i = 0; i < _swapChainImages.size(); i++)
+//		{
+//			vkDestroyBuffer(_device, _uniformBuffers[i], nullptr);
+//			vkFreeMemory(_device, _uniformBuffersMemory[i], nullptr);
+//		}
 
 		vkDestroyDescriptorPool(_device, _descriptorPool, nullptr);
 	}
@@ -1034,26 +1037,26 @@ namespace Soon
 		bufferInfo.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
 		bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 
-		if (vkCreateBuffer(_device, &bufferInfo, nullptr, &(bufRenderer[0]._Buffer)) != VK_SUCCESS)
+		if (vkCreateBuffer(_device, &bufferInfo, nullptr, &(bufRenderer._Buffer[0])) != VK_SUCCESS)
 			throw std::runtime_error("failed to create vertex buffer!");
 
 		VkMemoryRequirements memRequirements;
-		vkGetBufferMemoryRequirements(_device, bufRenderer[0]._Buffer, &memRequirements);
+		vkGetBufferMemoryRequirements(_device, bufRenderer._Buffer[0], &memRequirements);
 
 		VkMemoryAllocateInfo allocInfo = {};
 		allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
 		allocInfo.allocationSize = memRequirements.size;
 		allocInfo.memoryTypeIndex = FindMemoryType(memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
 
-		if (vkAllocateMemory(_device, &allocInfo, nullptr, &(bufRenderer[0]._BufferMemory)) != VK_SUCCESS)
+		if (vkAllocateMemory(_device, &allocInfo, nullptr, &(bufRenderer._BufferMemory[0])) != VK_SUCCESS)
 			throw std::runtime_error("failed to allocate vertex buffer memory!");
 
-		vkBindBufferMemory(_device, bufRenderer[0]._Buffer, bufRenderer[0]._BufferMemory, 0);
+		vkBindBufferMemory(_device, bufRenderer._Buffer[0], bufRenderer._BufferMemory[0], 0);
 
 		void* data;
-		vkMapMemory(_device, bufRenderer[0]._BufferMemory, 0, bufferInfo.size, 0, &data);
+		vkMapMemory(_device, bufRenderer._BufferMemory[0], 0, bufferInfo.size, 0, &data);
 		memcpy(data, inf._data, (size_t)bufferInfo.size);
-		vkUnmapMemory(_device, bufRenderer[0]._BufferMemory);
+		vkUnmapMemory(_device, bufRenderer._BufferMemory[0]);
 
 		return ( bufRenderer );
 	}
@@ -1116,7 +1119,7 @@ namespace Soon
 		VkDescriptorSetLayoutCreateInfo layoutInfo = {};
 		layoutInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
 		layoutInfo.bindingCount = 2;
-		layoutInfo.pBindings = &uboLayoutBinding;
+		layoutInfo.pBindings = &uboLayoutBinding[0];
 
 		if (vkCreateDescriptorSetLayout(_device, &layoutInfo, nullptr, &_descriptorSetLayout) != VK_SUCCESS)
 			throw std::runtime_error("failed to create descriptor set layout!");
@@ -1249,7 +1252,7 @@ namespace Soon
 //		}
 //	}
 
-	BufferRenderer GraphicsInstance::CreateUniformBuffer( size_t size )
+	BufferRenderer GraphicsInstance::CreateUniformBuffers( size_t size )
 	{
 		BufferRenderer buf;
 		VkDeviceSize bufferSize = size;
@@ -1263,7 +1266,7 @@ namespace Soon
 		return (buf);
 	}
 
-	void GraphicsInstance::CreateDescriptorPoole( void )
+	void GraphicsInstance::CreateDescriptorPool( void )
 	{
 		VkDescriptorPoolSize poolSize = {};
 		poolSize.type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
@@ -1279,7 +1282,7 @@ namespace Soon
 			throw std::runtime_error("failed to create descriptor pool!");
 	}
 	
-	UniformSets GraphicsInstance::CreateDescriptorSet( size_t size, uint32_t bind )
+	UniformSets GraphicsInstance::CreateDescriptorSets( size_t size, uint32_t bind )
 	{
 		UniformSets ds;
 
@@ -1293,8 +1296,8 @@ namespace Soon
 		allocInfo.descriptorSetCount = 1 * static_cast<uint32_t>(_swapChainImages.size()); // number of descriptor sets to be allocated from the pool.
 		allocInfo.pSetLayouts = layouts.data();
 
-		ds.descriptorSets.resize(_swapChainImages.size());
-		if (vkAllocateDescriptorSets(_device, &allocInfo, ds.descriptorSets.data()) != VK_SUCCESS)
+		ds._descriptorSets.resize(_swapChainImages.size());
+		if (vkAllocateDescriptorSets(_device, &allocInfo, ds._descriptorSets.data()) != VK_SUCCESS)
 			throw std::runtime_error("failed to allocate descriptor sets!");
 
 		for (size_t i = 0; i < _swapChainImages.size(); i++)
@@ -1306,7 +1309,7 @@ namespace Soon
 
 			VkWriteDescriptorSet descriptorWrite = {};
 			descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-			descriptorWrite.dstSet = ds.descriptorSets[i];
+			descriptorWrite.dstSet = ds._descriptorSets[i];
 			descriptorWrite.dstBinding = bind;
 			descriptorWrite.dstArrayElement = 0;
 			descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
@@ -1321,7 +1324,7 @@ namespace Soon
 
 	UniformSets GraphicsInstance::CreateUniform( size_t size, uint32_t bind )
 	{
-		return (CreateDescriptorSet( size, bind ));
+		return (CreateDescriptorSets( size, bind ));
 	}
 
 	void GraphicsInstance::Initialize( void )

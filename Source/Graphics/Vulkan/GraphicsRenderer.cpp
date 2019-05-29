@@ -22,12 +22,12 @@ namespace Soon
 			ComponentRenderer ret;
 
 			handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(inf);
-			std::cout << "VkBuffer in AddToRender : " << handler._vertexBuffer << std::endl;
+			std::cout << "VkBuffer in AddToRender : " << handler._Buffer[0] << std::endl;
 
 			_nbVertex.push_back(inf._nbVertex);
 			_transform.push_back(&tr);
-			_vkBuffers.push_back(handler._Buffer);
-			_vkDevicesMemoryBuffers.push_back(handler._BufferMemory);
+			_vkBuffers.push_back(handler._Buffer[0]);
+			_vkDevicesMemoryBuffers.push_back(handler._BufferMemory[0]);
 
 			ret._transform = _transform.end();
 			ret._vkBuffers = _vkBuffers.end();
@@ -37,8 +37,8 @@ namespace Soon
 
 			UniformSets modelUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformModel));			
 
-			_uniformsBuffer.push_back(modelUniform._uniformRender);
-			_uniformsDescriptorsSets.push_back(modelUniform._descriptorSets);
+			_uniformsBuffers.push_back(modelUniform._uniformRender);
+			_uniformsDescriptorSets.push_back(modelUniform._descriptorSets);
 
 			///////////////////////////////////
 
@@ -79,5 +79,20 @@ namespace Soon
 		std::vector< BufferRenderer > GraphicsRenderer::GetUniformBuffers( void )
 		{
 			return (_uniformsBuffers);
+		}
+
+		UniformSets GraphicsRenderer::GetUniformsCamera( void )
+		{
+			return (_uniformCamera);
+		}
+
+		std::vector< std::vector<VkDescriptorSet> > GraphicsRenderer::GetUniformsDescriptorSets( void )
+		{
+			return (_uniformsDescriptorSets);
+		}
+
+		std::vector<VkDescriptorSet> GetUniformCameraDescriptorSets( void )
+		{
+			return (_uniformCamera._descriptorSets);
 		}
 }
