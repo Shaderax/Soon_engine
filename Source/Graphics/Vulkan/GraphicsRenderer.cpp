@@ -35,9 +35,10 @@ namespace Soon
 
 			///////////// UNIFORM /////////////
 
-			UniformRender modelUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformModel));			
+			UniformSets modelUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformModel));			
 
-			_uniforms.push_back(modelUniform);
+			_uniformsBuffer.push_back(modelUniform._uniformRender);
+			_uniformsDescriptorsSets.push_back(modelUniform._descriptorSets);
 
 			///////////////////////////////////
 
@@ -65,13 +66,18 @@ namespace Soon
 			_changes = false;
 		}
 
-		std::vector< UniformRender > GetUniforms( void )
-		{
-			return (_uniforms);
-		}
-
-		std::vector< Transform3D > GetTransforms( void )
+		std::vector< Transform3D > GraphicsRenderer::GetTransforms( void )
 		{
 			return (_transforms);
+		}
+
+		void GraphicsRenderer::Initialize( void )
+		{
+			_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), 0);
+		}
+
+		std::vector< BufferRenderer > GraphicsRenderer::GetUniformBuffers( void )
+		{
+			return (_uniformsBuffers);
 		}
 }

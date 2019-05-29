@@ -32,8 +32,8 @@ namespace Soon
 		InitGLFWHints();
 		new GraphicsInstance;
 		new GraphicsRenderer;
-		std::cout << GraphicsInstance::GetInstance() << std::endl;
 		GraphicsInstance::GetInstance()->Initialize();
+		GraphicsRenderer::GetInstance()->Initialize();
 		_window = GraphicsInstance::GetInstance()->GetWindow();
 		_input = new Input;
 	}
