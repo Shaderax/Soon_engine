@@ -145,14 +145,14 @@ namespace Soon
 
 			void CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory);
 
-			void CreateUniformBuffers( void );
-			BufferRenderer CreateUniformBuffer( size_t size );
+//			void CreateUniformBuffers( void );
+			BufferRenderer CreateUniformBuffers( size_t size );
 
 			void UpdateUniformBuffer(uint32_t currentImage);
 
 			void CreateDescriptorPool( void );
 
-			void CreateDescriptorSets( void );
+			UniformSets CreateDescriptorSets( size_t size, uint32_t bind );
 
 			UniformSets CreateUniform( size_t size, uint32_t bind = 1);
 	};

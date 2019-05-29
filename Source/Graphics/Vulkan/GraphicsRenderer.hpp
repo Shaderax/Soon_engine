@@ -27,11 +27,14 @@ namespace Soon
 			bool						HasChange( void );
 			void						SetChangeFalse( void );
 			std::vector< BufferRenderer > GetUniformBuffers( void );
+			std::vector< std::vector<VkDescriptorSet> > GetUniformsDescriptorSets( void );
 			std::vector< Transform3D > GetTransforms( void );
+			UniformSets GetUniformsCamera( void );
+			std::vector<VkDescriptorSet> GetUniformCameraDescriptorSets( void );
 
 		private:
 			std::vector< uint32_t >			_nbVertex;
-			std::vector< Transform3D* >		_transform;
+			std::vector< Transform3D* >		_transforms;
 			std::vector< VkBuffer >			_vkBuffers;
 			std::vector< VkDeviceMemory >	_vkDevicesMemoryBuffers;
 
