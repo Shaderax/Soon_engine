@@ -15,8 +15,8 @@ struct SwapChainSupportDetails
 
 struct BufferRenderer
 {
-	VkBuffer                        _Buffer;
-	VkDeviceMemory                  _BufferMemory;
+	std::vector<VkBuffer>		_Buffer;
+	std::vector<VkDeviceMemory>	_BufferMemory;
 };
 
 struct VertexBufferInfo
@@ -35,6 +35,12 @@ struct UniformCamera
 struct UniformModel
 {
 	mat4<float> model;
+};
+
+struct UniformSets
+{
+	std::vector<VkDescriptorSet>	_descriptorSets;
+	BufferRenderer					_uniformRender;
 };
 
 namespace Soon
@@ -67,13 +73,13 @@ namespace Soon
 			std::vector<VkFence>			_inFlightFences;
 			size_t							_currentFrame;
 			bool 							_framebufferResized;
-//			VkBuffer						_vertexBuffer;
-//			VkDeviceMemory					_vertexBufferMemory;
+			//			VkBuffer						_vertexBuffer;
+			//			VkDeviceMemory					_vertexBufferMemory;
 
-			std::vector<VkBuffer>			_uniformBuffers;
-			std::vector<VkDeviceMemory>		_uniformBuffersMemory;
+//			std::vector<VkBuffer>			_uniformBuffers;
+//			std::vector<VkDeviceMemory>		_uniformBuffersMemory;
 			VkDescriptorPool				_descriptorPool;
-			std::vector<VkDescriptorSet>	_descriptorSets;
+//			std::vector<VkDescriptorSet>	_descriptorSets;
 
 			static GraphicsInstance*		_singleton;
 
@@ -147,6 +153,8 @@ namespace Soon
 			void CreateDescriptorPool( void );
 
 			void CreateDescriptorSets( void );
+
+			UniformSets CreateUniform( size_t size, uint32_t bind = 1);
 	};
 
 	void NewGraphicsInstance( void );

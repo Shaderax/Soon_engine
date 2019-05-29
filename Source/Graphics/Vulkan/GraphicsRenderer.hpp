@@ -20,11 +20,14 @@ namespace Soon
 		public:
 			GraphicsRenderer( void );
 			static GraphicsRenderer* 	GetInstance( void );
+			void 						Initialize( void );
 			ComponentRenderer 			AddToRender( Transform3D& tr, VertexBufferInfo inf);
 			std::vector< VkBuffer >		GetvkBuffers( void );
 			std::vector< uint32_t >		GetNbVertex( void );
 			bool						HasChange( void );
 			void						SetChangeFalse( void );
+			std::vector< BufferRenderer > GetUniformBuffers( void );
+			std::vector< Transform3D > GetTransforms( void );
 
 		private:
 			std::vector< uint32_t >			_nbVertex;
@@ -32,16 +35,12 @@ namespace Soon
 			std::vector< VkBuffer >			_vkBuffers;
 			std::vector< VkDeviceMemory >	_vkDevicesMemoryBuffers;
 
-			struct UniformRender
-			{
-				std::vector<VkBuffer>		_Buffer;
-				std::vector<VkDeviceMemory>	_BufferMemory;
-			};
-
-			std::vector< UniformRender > _uniforms;
+			// UNIFORM
+			std::vector< BufferRenderer > 	_uniformsBuffers;
+			std::vector< std::vector< VkDescriptorSet > >	_uniformsDescriptorSets;
+			UniformSets						_uniformCamera;
 
 			bool _changes;
 
-			std::vector< UniformRender > _uniformCamera;
 	};
 }
