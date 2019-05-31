@@ -12,6 +12,7 @@
 #include <array>
 #include "string.h"
 #include "Core/Engine.hpp"
+#include "Scene/3D/Components/Camera.hpp"
 
 const std::vector<const char*> validationLayers = {
 	"VK_LAYER_LUNARG_standard_validation"
@@ -793,7 +794,7 @@ namespace Soon
 			VkDeviceSize offsets[] = {0};
 			std::vector<VkBuffer> vecBuf = GraphicsRenderer::GetInstance()->GetvkBuffers();
 			std::vector< uint32_t > vecNbVer = GraphicsRenderer::GetInstance()->GetNbVertex();
-			std::vector< VkDescriptorSet > vecDs = GraphicsRenderer::GetInstance()->GetUniforms();
+			std::vector<std::vector< VkDescriptorSet >> vecDs = GraphicsRenderer::GetInstance()->GetUniformsDescriptorSets();
 
 
 			uint32_t j = 0;
@@ -844,10 +845,10 @@ namespace Soon
 			VkDeviceSize offsets[] = {0};
 			std::vector<VkBuffer> vecBuf = GraphicsRenderer::GetInstance()->GetvkBuffers();
 			std::vector< uint32_t > vecNbVer = GraphicsRenderer::GetInstance()->GetNbVertex();
-			std::vector< VkDescriptorSet > vecDs = GraphicsRenderer::GetInstance()->GetUniforms();
+			std::vector<std::vector< VkDescriptorSet >> vecDs = GraphicsRenderer::GetInstance()->GetUniformsDescriptorSets();
 
 			// Bind Cam
-			vkCmdBindDescriptorSets(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 0, 1, &GraphicsRenderer::GetInstance()->GetCameraDescriptor()[i], 0, nullptr);
+			vkCmdBindDescriptorSets(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 0, 1, &(GraphicsRenderer::GetInstance()->GetUniformCameraDescriptorSets()[i]), 0, nullptr);
 
 			uint32_t j = 0;
 			for (auto& buf : GraphicsRenderer::GetInstance()->GetvkBuffers())
@@ -1177,15 +1178,15 @@ namespace Soon
 
 			mat4<float> matModel;
 
-			Transform3D transform = GraphicsRenderer::GetInstance()->GetTransforms().at(i);
+			Transform3D* transform = GraphicsRenderer::GetInstance()->GetTransforms().at(i);
 
-			matModel(0,3) = transform._pos.x;
-			matModel(1,3) = transform._pos.y;
-			matModel(2,3) = transform._pos.z;
+			matModel(0,3) = transform->_pos.x;
+			matModel(1,3) = transform->_pos.y;
+			matModel(2,3) = transform->_pos.z;
 
-			matModel(0,0) = transform._scale.x;
-			matModel(1,1) = transform._scale.y;
-			matModel(2,2) = transform._scale.z;
+			matModel(0,0) = transform->_scale.x;
+			matModel(1,1) = transform->_scale.y;
+			matModel(2,2) = transform->_scale.z;
 
 			memcpy(data, &matModel, sizeof(UniformModel));
 			vkUnmapMemory(_device, uniform._BufferMemory[currentImage]);
@@ -1270,7 +1271,7 @@ namespace Soon
 	{
 		VkDescriptorPoolSize poolSize = {};
 		poolSize.type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-		poolSize.descriptorCount = 2 * static_cast<uint32_t>(_swapChainImages.size());
+		poolSize.descriptorCount = 1 * static_cast<uint32_t>(_swapChainImages.size());
 
 		VkDescriptorPoolCreateInfo poolInfo = {};
 		poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
@@ -1324,6 +1325,8 @@ namespace Soon
 
 	UniformSets GraphicsInstance::CreateUniform( size_t size, uint32_t bind )
 	{
+			static int count_uni = 1;
+			std::cout << "Number of uniform created : " << count_uni++ << std::endl;
 		return (CreateDescriptorSets( size, bind ));
 	}
 
