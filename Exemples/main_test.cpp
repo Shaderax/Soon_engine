@@ -10,11 +10,11 @@ Soon::Engine& engine = Soon::Engine::GetInstance();
 
 int main(int argc, char**argv)
 {
-//	Soon::Object Camera;
-//	Camera.AddComponent<Soon::Camera3D>();
-//	Soon::Object Triangle;
-//	Triangle.AddComponent<Soon::ObjFile>();
-//	Triangle.GetComponent<Soon::ObjFile>().LoadObjFile("../Ressources/objects/Borderlands 2 - Maya/untitled.obj");
+	Soon::Object Camera;
+	Camera.AddComponent<Soon::Camera3D>();
+	Soon::Object Triangle;
+	Triangle.AddComponent<Soon::ObjFile>();
+	Triangle.GetComponent<Soon::ObjFile>().LoadObjFile("../Ressources/objects/Borderlands 2 - Maya/untitled.obj");
 	while (!engine.ShouldEnd())
 	{
 		engine.Update();
