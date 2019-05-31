@@ -28,7 +28,7 @@ namespace Soon
 			void						SetChangeFalse( void );
 			std::vector< BufferRenderer > GetUniformBuffers( void );
 			std::vector< std::vector<VkDescriptorSet> > GetUniformsDescriptorSets( void );
-			std::vector< Transform3D > GetTransforms( void );
+			std::vector< Transform3D* > GetTransforms( void );
 			UniformSets GetUniformsCamera( void );
 			std::vector<VkDescriptorSet> GetUniformCameraDescriptorSets( void );
 

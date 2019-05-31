@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Core/Engine.hpp"
+#include "Core/OS/OS.hpp"
 #include "ECS/Component.hpp"
 #include "ECS/Entity.hpp"
 #include "Core/Math/mat4.hpp"
@@ -22,8 +23,10 @@ namespace Soon
 				_near = 0.05f;
 				_far = 100.0f;
 
-				OS::WindowAttribute win = Engine::GetInstance()->GetWindowAttribute();
+				OS::WindowAttribute win = OS::GetInstance()->GetWindowAttribute();
 				_aspect = win._width / win._height;
+
+				MakeCurrent();
 			}
 
 			void MakeCurrent( void )
@@ -70,7 +73,7 @@ namespace Soon
 
 				proj(0, 0) = scale;
 				proj(1, 1) = scale / _aspect;
-				proj(2, 2) = -((_far + near) / (_far - _near));
+				proj(2, 2) = -((_far + _near) / (_far - _near));
 				proj(2, 3) = -((2 * _far * _near) / (_far - _near));
 				proj(3, 2) = -1;
 				proj(3, 3) = 0;

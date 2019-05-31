@@ -39,7 +39,7 @@ class mat4
 			{
 				x = -1;
 				while (++x < 4)
-					this(y,x) = b(y,x);
+					this->elem[y][x] = b.elem[y][x];
 			}
 			return (*this);
 		}
