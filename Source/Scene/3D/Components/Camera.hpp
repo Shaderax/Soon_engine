@@ -97,6 +97,7 @@ namespace Soon
 //				proj(2,2) = -((_far + _near) / (_far - _near));
 //				proj(2,3) = -((2 * _far * _near) / (_far - _near));
 //				proj(3,2) = -1;
+				return (proj);
 			}
 
 			void SetTarget(vec3<float> target)
