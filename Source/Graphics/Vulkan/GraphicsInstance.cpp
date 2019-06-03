@@ -751,7 +751,7 @@ namespace Soon
 		if (vkCreateCommandPool(_device, &poolInfo, nullptr, &_commandPool) != VK_SUCCESS)
 			throw std::runtime_error("failed to create command pool!");
 	}
-
+	
 	void GraphicsInstance::CreateCommandBuffers( void )
 	{
 		_commandBuffers.resize(_swapChainFramebuffers.size());
@@ -787,32 +787,32 @@ namespace Soon
 
 			vkCmdBeginRenderPass(_commandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
-			vkCmdBindPipeline(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _graphicsPipeline);
+//			vkCmdBindPipeline(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _graphicsPipeline);
 
-			VkDeviceSize offsets[] = {0};
-			std::vector<VkBuffer> vecBuf = GraphicsRenderer::GetInstance()->GetvkBuffers();
-			std::vector< uint32_t > vecNbVer = GraphicsRenderer::GetInstance()->GetNbVertex();
-			std::vector<std::vector< VkDescriptorSet >> vecDs = GraphicsRenderer::GetInstance()->GetUniformsDescriptorSets();
+//			VkDeviceSize offsets[] = {0};
+			//			std::vector<VkBuffer> vecBuf = GraphicsRenderer::GetInstance()->GetvkBuffers();
+			//			std::vector< uint32_t > vecNbVer = GraphicsRenderer::GetInstance()->GetNbVertex();
+			//			std::vector<std::vector< VkDescriptorSet >> vecDs = GraphicsRenderer::GetInstance()->GetUniformsDescriptorSets();
 
-			uint32_t j = 0;
-			for (auto& buf : GraphicsRenderer::GetInstance()->GetvkBuffers())
-			{
-				std::cout << "VkBuffer : " << buf << std::endl << "NbVer : " << vecNbVer.at(j) << std::endl;
-				vkCmdBindVertexBuffers(_commandBuffers[i], 0, 1, &buf, offsets);
-
-				vkCmdBindDescriptorSets(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 1, 1, &vecDs.at(j)[i], 0, nullptr);
-
-				vkCmdDraw(_commandBuffers[i], vecNbVer.at(j), 1, 0, 0);
-				j++;
-			}
+			//			uint32_t j = 0;
+			//			for (auto& buf : GraphicsRenderer::GetInstance()->GetvkBuffers())
+			//			{
+			//				std::cout << "VkBuffer : " << buf << std::endl << "NbVer : " << vecNbVer.at(j) << std::endl;
+			//				vkCmdBindVertexBuffers(_commandBuffers[i], 0, 1, &buf, offsets);
+			//
+			//				vkCmdBindDescriptorSets(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 1, 1, &vecDs.at(j)[i], 0, nullptr);
+			//
+			//				vkCmdDraw(_commandBuffers[i], vecNbVer.at(j), 1, 0, 0);
+			//				j++;
+			//			}
 
 			vkCmdEndRenderPass(_commandBuffers[i]);
 			if (vkEndCommandBuffer(_commandBuffers[i]) != VK_SUCCESS)
 				throw std::runtime_error("failed to record command buffer!");
 		}
 	}
-
-	void GraphicsInstance::RecreateCommandBuffer( void )
+	
+	void GraphicsInstance::FillCommandBuffer( void )
 	{
 		for (size_t i = 0; i < _commandBuffers.size(); i++)
 		{
@@ -820,7 +820,6 @@ namespace Soon
 			beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
 			beginInfo.flags = VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT;
 
-			std::cout << "Prout" << std::endl;
 			if (vkBeginCommandBuffer(_commandBuffers[i], &beginInfo) != VK_SUCCESS)
 				throw std::runtime_error("failed to begin recording command buffer!");
 
@@ -845,7 +844,8 @@ namespace Soon
 			std::vector<std::vector< VkDescriptorSet >> vecDs = GraphicsRenderer::GetInstance()->GetUniformsDescriptorSets();
 
 			// Bind Cam
-			vkCmdBindDescriptorSets(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 0, 1, &(GraphicsRenderer::GetInstance()->GetUniformCameraDescriptorSets()[i]), 0, nullptr);
+			if (!GraphicsRenderer::GetInstance()->GetvkBuffers().empty())
+				vkCmdBindDescriptorSets(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 0, 1, &(GraphicsRenderer::GetInstance()->GetUniformCameraDescriptorSets().at(i)), 0, nullptr);
 
 			uint32_t j = 0;
 			for (auto& buf : GraphicsRenderer::GetInstance()->GetvkBuffers())
@@ -853,7 +853,7 @@ namespace Soon
 				std::cout << "VkBuffer : " << buf << std::endl << "NbVer : " << vecNbVer.at(j) << std::endl;
 				vkCmdBindVertexBuffers(_commandBuffers[i], 0, 1, &buf, offsets);
 
-				vkCmdBindDescriptorSets(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 1, 1, &vecDs.at(j)[i], 0, nullptr);
+				vkCmdBindDescriptorSets(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 1, 1, &vecDs.at(j).at(i), 0, nullptr);
 
 				vkCmdDraw(_commandBuffers[i], vecNbVer.at(j), 1, 0, 0);
 				j++;
@@ -862,7 +862,6 @@ namespace Soon
 			vkCmdEndRenderPass(_commandBuffers[i]);
 			if (vkEndCommandBuffer(_commandBuffers[i]) != VK_SUCCESS)
 				throw std::runtime_error("failed to record command buffer!");
-
 		}
 	}
 
@@ -973,12 +972,12 @@ namespace Soon
 		CreateGraphicsPipeline();
 		CreateFramebuffers();
 		// TODO
-	//	CreateUniformBuffers();
+		//	CreateUniformBuffers();
 		CreateDescriptorPool();
 		// TODO
-//		CreateDescriptorSets();
+		//		CreateDescriptorSets();
 		CreateCommandBuffers();
-		//		RecreateCommandBuffer();
+		FillCommandBuffer();
 	}
 
 	void GraphicsInstance::CleanupSwapChain( void )
@@ -999,11 +998,11 @@ namespace Soon
 		vkDestroySwapchainKHR(_device, _swapChain, nullptr);
 
 		//TODO
-//		for (size_t i = 0; i < _swapChainImages.size(); i++)
-//		{
-//			vkDestroyBuffer(_device, _uniformBuffers[i], nullptr);
-//			vkFreeMemory(_device, _uniformBuffersMemory[i], nullptr);
-//		}
+		//		for (size_t i = 0; i < _swapChainImages.size(); i++)
+		//		{
+		//			vkDestroyBuffer(_device, _uniformBuffers[i], nullptr);
+		//			vkFreeMemory(_device, _uniformBuffersMemory[i], nullptr);
+		//		}
 
 		vkDestroyDescriptorPool(_device, _descriptorPool, nullptr);
 	}
@@ -1131,16 +1130,17 @@ namespace Soon
 		//////////// Cam ///////////
 		UniformCamera uc = {};
 
-		if (Engine::GetInstance().GetCurrentScene()->GetCurrentCamera())
+		if (Engine::GetInstance().GetCurrentScene() && Engine::GetInstance().GetCurrentScene()->GetCurrentCamera())
 		{
-//			uc.view = Engine::GetInstance().GetCurrentScene()->GetCurrentCamera()->GetViewMatrix();
-//			uc.proj = Engine::GetInstance().GetCurrentScene()->GetCurrentCamera()->GetProjectionMatrix();
+			uc.view = Engine::GetInstance().GetCurrentScene()->GetCurrentCamera()->GetViewMatrix();
+			uc.proj = Engine::GetInstance().GetCurrentScene()->GetCurrentCamera()->GetProjectionMatrix();
 		}
 		else
 		{
-		mat4<float> id;
-		uc.view = id;
-		uc.proj = id;
+//			std::cout << "No Current Camera.";
+			mat4<float> id;
+			uc.view = mat4<float>();
+			uc.proj = id;
 		}
 
 		std::vector<VkDeviceMemory> vkdm = GraphicsRenderer::GetInstance()->GetUniformsCamera()._uniformRender._BufferMemory;
@@ -1236,7 +1236,7 @@ namespace Soon
 		if (vkCreateDescriptorPool(_device, &poolInfo, nullptr, &_descriptorPool) != VK_SUCCESS)
 			throw std::runtime_error("failed to create descriptor pool!");
 	}
-	
+
 	// TODO : MULTISET DYNAMIC
 	UniformSets GraphicsInstance::CreateDescriptorSets( size_t size, uint32_t set )
 	{
@@ -1281,8 +1281,8 @@ namespace Soon
 
 	UniformSets GraphicsInstance::CreateUniform( size_t size, uint32_t bind )
 	{
-			static int count_uni = 1;
-			std::cout << "Number of uniform created : " << count_uni++ << std::endl;
+		static int count_uni = 1;
+		std::cout << "Number of uniform created : " << count_uni++ << std::endl;
 		return (CreateDescriptorSets( size, bind ));
 	}
 
@@ -1304,9 +1304,9 @@ namespace Soon
 		CreateFramebuffers(); 
 		CreateCommandPool();
 		//		CreateVertexBuffer();
-//		CreateUniformBuffers();
+		//		CreateUniformBuffers();
 		CreateDescriptorPool();
-//		CreateDescriptorSets();
+		//		CreateDescriptorSets();
 		CreateCommandBuffers();
 		CreateSyncObjects();
 	}

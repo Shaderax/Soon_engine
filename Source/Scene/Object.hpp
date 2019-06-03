@@ -14,7 +14,7 @@ namespace Soon
 			~Object( void );
 		private:
 			Object*					_parent;
-//			std::vector<Object&>	_childs;
+			std::vector<Object>	_childrens;
 
 			Scene*		_scene;
 

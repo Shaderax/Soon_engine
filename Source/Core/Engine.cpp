@@ -42,8 +42,7 @@ namespace Soon
 
 		if (GraphicsRenderer::GetInstance()->HasChange())
 		{
-//			GraphicsInstance::GetInstance()->RecreateSwapChain();
-			GraphicsInstance::GetInstance()->RecreateCommandBuffer();
+			GraphicsInstance::GetInstance()->FillCommandBuffer();
 			GraphicsRenderer::GetInstance()->SetChangeFalse();
 		}
 	}

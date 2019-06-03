@@ -139,7 +139,7 @@ namespace Soon
 
 			uint32_t FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
 
-			void RecreateCommandBuffer( void );
+			void FillCommandBuffer( void );
 
 			void CreateDescriptorSetLayout( void );
 
