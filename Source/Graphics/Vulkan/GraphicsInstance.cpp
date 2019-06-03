@@ -971,11 +971,8 @@ namespace Soon
 		CreateRenderPass();
 		CreateGraphicsPipeline();
 		CreateFramebuffers();
-		// TODO
-		//	CreateUniformBuffers();
 		CreateDescriptorPool();
-		// TODO
-		//		CreateDescriptorSets();
+		GraphicsRenderer::GetInstance()->RecreateAllUniforms();
 		CreateCommandBuffers();
 		FillCommandBuffer();
 	}
@@ -997,12 +994,16 @@ namespace Soon
 
 		vkDestroySwapchainKHR(_device, _swapChain, nullptr);
 
-		//TODO
-		//		for (size_t i = 0; i < _swapChainImages.size(); i++)
-		//		{
-		//			vkDestroyBuffer(_device, _uniformBuffers[i], nullptr);
-		//			vkFreeMemory(_device, _uniformBuffersMemory[i], nullptr);
-		//		}
+		// Uniforms
+		int j = -1;
+		while (++j < GraphicsRenderer::GetInstance()->GetvkBuffers().size())
+		{
+			for (size_t i = 0; i < _swapChainImages.size(); i++)
+			{
+				vkDestroyBuffer(_device, GraphicsRenderer::GetInstance()->GetUniformBuffers().at(j)._Buffer[i], nullptr);
+				vkFreeMemory(_device, GraphicsRenderer::GetInstance()->GetUniformBuffers().at(j)._BufferMemory[i], nullptr);
+			}
+		}
 
 		vkDestroyDescriptorPool(_device, _descriptorPool, nullptr);
 	}
@@ -1134,6 +1135,26 @@ namespace Soon
 		{
 			uc.view = Engine::GetInstance().GetCurrentScene()->GetCurrentCamera()->GetViewMatrix();
 			uc.proj = Engine::GetInstance().GetCurrentScene()->GetCurrentCamera()->GetProjectionMatrix();
+
+			std::cout << "Projection : " << std::endl;
+			int y = -1;
+			int x = -1;
+			while (++y < 4)
+			{
+				x=-1;
+				while (++x < 4)
+					std::cout << uc.proj(y, x) << "\t\t";
+				std::cout << std::endl;;
+			}
+			std::cout << "View : " << std::endl;
+			y = x = -1;
+			while (++y < 4)
+			{
+				x=-1;
+				while (++x < 4)
+					std::cout << uc.view(y, x) << "\t\t";
+				std::cout << std::endl;;
+			}
 		}
 		else
 		{
@@ -1238,9 +1259,8 @@ namespace Soon
 	}
 
 	// TODO : MULTISET DYNAMIC
-	UniformSets GraphicsInstance::CreateDescriptorSets( size_t size, uint32_t set )
+	UniformSets GraphicsInstance::CreateDescriptorSets( size_t size )
 	{
-		std::cout << "SET : " << set << std::endl;
 		UniformSets ds;
 
 		ds._uniformRender = CreateUniformBuffers(size);
@@ -1262,7 +1282,7 @@ namespace Soon
 			VkDescriptorBufferInfo bufferInfo = {};
 			bufferInfo.buffer = ds._uniformRender._Buffer[i];
 			bufferInfo.offset = 0;
-			bufferInfo.range = size; //sizeof(UniformBufferObject);
+			bufferInfo.range = size;
 
 			VkWriteDescriptorSet descriptorWrite = {};
 			descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -1279,11 +1299,11 @@ namespace Soon
 		return (ds);
 	}
 
-	UniformSets GraphicsInstance::CreateUniform( size_t size, uint32_t bind )
+	UniformSets GraphicsInstance::CreateUniform( size_t size )
 	{
 		static int count_uni = 1;
 		std::cout << "Number of uniform created : " << count_uni++ << std::endl;
-		return (CreateDescriptorSets( size, bind ));
+		return (CreateDescriptorSets( size ));
 	}
 
 	void GraphicsInstance::Initialize( void )
@@ -1303,10 +1323,7 @@ namespace Soon
 		CreateGraphicsPipeline();
 		CreateFramebuffers(); 
 		CreateCommandPool();
-		//		CreateVertexBuffer();
-		//		CreateUniformBuffers();
 		CreateDescriptorPool();
-		//		CreateDescriptorSets();
 		CreateCommandBuffers();
 		CreateSyncObjects();
 	}

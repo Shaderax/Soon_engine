@@ -8,7 +8,9 @@ struct Transform3D : Component
 {
 	Transform3D( Entity& entity )
 	{
-		_scale = vec3<float>(1.0f, 1.0f, 1.0f);;
+		_pos = vec3<float>(0.0f, 0.0f, 0.0f);
+		_rot = vec3<float>(0.0f, 0.0f, 0.0f);
+		_scale = vec3<float>(1.0f, 1.0f, 1.0f);
 	}
 	
 	vec3<float>	_pos;

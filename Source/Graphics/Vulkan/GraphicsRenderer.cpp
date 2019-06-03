@@ -13,7 +13,7 @@ namespace Soon
 
 		void GraphicsRenderer::Initialize( void )
 		{
-			_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), 0);
+			_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera));
 		}
 
 		GraphicsRenderer::GraphicsRenderer( void ) : _changes(false)
@@ -49,6 +49,20 @@ namespace Soon
 
 			_changes = true;
 			return ret;
+		}
+
+		void GraphicsRenderer::RecreateAllUniforms( void )
+		{
+			_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera));
+
+			int j = -1;
+			while (++j < _uniformsBuffers.size())
+			{
+				UniformSets modelUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformModel));			
+
+				_uniformsBuffers.at(j) = modelUniform._uniformRender;
+				_uniformsDescriptorSets.at(j) = modelUniform._descriptorSets;
+			}
 		}
 
 		std::vector< VkBuffer > GraphicsRenderer::GetvkBuffers( void )
@@ -94,5 +108,10 @@ namespace Soon
 		std::vector<VkDescriptorSet> GraphicsRenderer::GetUniformCameraDescriptorSets( void )
 		{
 			return (_uniformCamera._descriptorSets);
+		}
+		
+		std::vector< VkDeviceMemory >   GraphicsRenderer::GetVkDeviceMemory( void )
+		{
+			return (_vkDevicesMemoryBuffers);
 		}
 }
