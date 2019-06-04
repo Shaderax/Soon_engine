@@ -49,7 +49,7 @@ namespace Soon
 			}
 			else if ( strcmp( lineHeader, "f" ) == 0 )
 			{
-				uint32_t vertexIndex[4], uvIndex[4], normalIndex[4];
+				uint32_t vertexIndex[4] = {}, uvIndex[4] = {}, normalIndex[4] = {};
 				matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2], &vertexIndex[3], &uvIndex[3], &normalIndex[3]);
 				if (matches < 9)
 					std::cout << "Fail Parser" << std::endl;
