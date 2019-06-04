@@ -6,7 +6,7 @@ template< typename T = float >
 class vec3
 {
 	public :
-		vec3( void ) {};
+		vec3( void ) : x(0), y(0), z(0) {};
 		~vec3( void ) {};
 
 		T x;

@@ -20,6 +20,7 @@ namespace Soon
 			public:
 				System( void );
 				virtual ~System( void );
+				virtual void Update( void );
 
 				bool PassFilters( std::bitset<Soon::ECS::MAX_COMPONENTS>& bitset ) const;
 				void AddEntity( Entity entity );

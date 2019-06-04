@@ -21,12 +21,12 @@ namespace Soon
 
 			~Engine( void );
 
+			Soon::ECS::World&		_world;
 		private:
 			Engine( void );
 
 			Scene*					_currentScene;
 			std::vector< Scene* >	_scenes;
 
-			Soon::ECS::World&		_world;
 	};
 }

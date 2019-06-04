@@ -19,7 +19,7 @@ namespace Soon
 			 void SetCurrentCamera( Camera3D* cam );
 			
 		private:
-			std::vector< std::vector< Object > > Tree;
+			std::vector< Object > Tree;
 			Camera3D*		_camera;
 	};
 }

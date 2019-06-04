@@ -79,4 +79,10 @@ namespace Soon
 
 		return (os);
 	}
+
+	void OS::SetGetWindowSizeAttribute( int width, int height)
+	{
+		_winAttr._width = width;
+		_winAttr._height = height;
+	}
 }

@@ -10,10 +10,10 @@ namespace Soon
 {
 	namespace ECS
 	{
-//		World::World( void ) : World(Soon::ECS::DEFAULT_POOL_SIZE)
-//		{
-//			std::cout << __PRETTY_FUNCTION__ << std::endl;
-//		}
+		//		World::World( void ) : World(Soon::ECS::DEFAULT_POOL_SIZE)
+		//		{
+		//			std::cout << __PRETTY_FUNCTION__ << std::endl;
+		//		}
 
 		World::World( std::uint32_t poolSize ) :
 			_entityPool( poolSize ),
@@ -220,7 +220,13 @@ namespace Soon
 				// remove it from the id pool
 				_entityPool.Remove(entity.GetId());
 			}
+
 			_entityCache.ClearTemp();
+
+			///// TMP SYSTEM UPDATE
+			// loop through all the systems within the world
+			for(auto& sys : _systemPool)
+				sys.second->Update();
 		}
 
 		void World::Clear( void )
