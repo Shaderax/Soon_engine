@@ -19,6 +19,11 @@ namespace Soon
 
 		}
 
+		void System::Update( void )
+		{
+
+		}
+
 		bool System::PassFilters( std::bitset<Soon::ECS::MAX_COMPONENTS>& bitset ) const
 		{
 			for (std::size_t i = 0; i < _requireComponents.size(); ++i)

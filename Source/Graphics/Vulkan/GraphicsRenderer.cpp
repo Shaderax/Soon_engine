@@ -27,7 +27,7 @@ namespace Soon
 			ComponentRenderer ret;
 
 			handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(inf);
-			std::cout << "VkBuffer in AddToRender : " << handler._Buffer[0] << std::endl;
+//			std::cout << "VkBuffer in AddToRender : " << handler._Buffer[0] << std::endl;
 
 			_nbVertex.push_back(inf._nbVertex);
 			_transforms.push_back(&tr);

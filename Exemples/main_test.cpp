@@ -5,6 +5,9 @@
 #include "Scene/Object.hpp"
 #include "Core/Parsers/3DObject.hpp"
 #include "Scene/3D/Components/Camera.hpp"
+#include "Scene/3D/Components/3dObjectControler.hpp"
+#include "Scene/3D/Systems/3dObjectControlerSystem.hpp"
+#include "ECS/World.hpp"
 
 Soon::Engine& engine = Soon::Engine::GetInstance();
 
@@ -28,15 +31,18 @@ int main(int argc, char**argv)
 {
 	double lastTime = glfwGetTime();
 
+	engine._world.AddSystem<ObjectControlerSystem>();
 	Soon::Object Camera;
-	std::cout << "ID Camera Object: " << Camera.GetId() << std::endl;
 	Camera.AddComponent<Soon::Camera3D>();
+	Camera.AddComponent<ObjectControler>();
+
 	Soon::Object Triangle;
 	Triangle.AddComponent<Soon::ObjFile>();
 	Triangle.GetComponent<Soon::ObjFile>().LoadObjFile("../Ressources/objects/Borderlands 2 - Maya/untitled.obj");
-	Camera.GetComponent<Transform3D>()._pos.z = 0.1f;
+
 	while (!engine.ShouldEnd())
 	{
+//		Camera.GetComponent<Transform3D>()._pos.z -= 0.001f;
 		lastTime = ShowFPS(lastTime);
 		engine.Update();
 		engine.DrawFrame();
