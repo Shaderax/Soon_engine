@@ -68,6 +68,7 @@ namespace Soon
 	//			std::cout << "In Add Component : " << GetId() << std::endl;
 				T* component = new T(*this, std::forward<Args>(args) ...);
 				AddComponent(component, GetComponentTypeId<T>());
+				Activate();
 				return *(component);
 			}
 
@@ -82,6 +83,7 @@ namespace Soon
 			void Entity::RemoveComponent( void )
 			{
 				static_assert(std::is_base_of<Component, T>(), "T is not a component, cannot remove T");
+				Activate();
 				RemoveComponent(GetComponentTypeId<T>());
 			}
 

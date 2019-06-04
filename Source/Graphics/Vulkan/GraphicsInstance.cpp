@@ -429,13 +429,13 @@ namespace Soon
 		SwapChainSupportDetails swapChainSupport = QuerySwapChainSupport(_physicalDevice);
 
 		VkSurfaceFormatKHR surfaceFormat = ChooseSwapSurfaceFormat(swapChainSupport.formats);
-		std::cout << "Surface Format" << surfaceFormat.format << std::endl;
-		std::cout << "Surface Color space : " << surfaceFormat.colorSpace << std::endl;
+//		std::cout << "Surface Format" << surfaceFormat.format << std::endl;
+//		std::cout << "Surface Color space : " << surfaceFormat.colorSpace << std::endl;
 		VkPresentModeKHR presentMode = ChooseSwapPresentMode(swapChainSupport.presentModes);
-		std::cout << "Present Mode : " << presentMode << std::endl;
+//		std::cout << "Present Mode : " << presentMode << std::endl;
 		VkExtent2D extent = ChooseSwapExtent(swapChainSupport.capabilities);
-		std::cout << "Extext Wodth : " << extent.width << std::endl;
-		std::cout <<  "Extext Height : " << extent.height << std::endl;
+		std::cout << "Extent Width : " << extent.width << std::endl;
+		std::cout <<  "Extent Height : " << extent.height << std::endl;
 
 		uint32_t imageCount = swapChainSupport.capabilities.minImageCount + 1;
 		if (swapChainSupport.capabilities.maxImageCount > 0 && imageCount > swapChainSupport.capabilities.maxImageCount)
@@ -850,7 +850,7 @@ namespace Soon
 			uint32_t j = 0;
 			for (auto& buf : GraphicsRenderer::GetInstance()->GetvkBuffers())
 			{
-				std::cout << "VkBuffer : " << buf << std::endl << "NbVer : " << vecNbVer.at(j) << std::endl;
+		//		std::cout << "VkBuffer : " << buf << std::endl << "NbVer : " << vecNbVer.at(j) << std::endl;
 				vkCmdBindVertexBuffers(_commandBuffers[i], 0, 1, &buf, offsets);
 
 				vkCmdBindDescriptorSets(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 1, 1, &vecDs.at(j).at(i), 0, nullptr);
@@ -897,6 +897,7 @@ namespace Soon
 
 		uint32_t imageIndex;
 		VkResult result = vkAcquireNextImageKHR(_device, _swapChain, std::numeric_limits<uint64_t>::max(), _imageAvailableSemaphores[_currentFrame], VK_NULL_HANDLE, &imageIndex);
+
 		if (result == VK_ERROR_OUT_OF_DATE_KHR)
 		{
 			RecreateSwapChain();
@@ -1097,6 +1098,8 @@ namespace Soon
 	{
 		auto app = reinterpret_cast<GraphicsInstance*>(glfwGetWindowUserPointer(window));
 		app->_framebufferResized = true;
+		std::cout << width << " " << height << std::endl;
+		OS::GetInstance()->SetGetWindowSizeAttribute(width, height);
 	}
 
 	void GraphicsInstance::CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory)
@@ -1136,25 +1139,25 @@ namespace Soon
 			uc.view = Engine::GetInstance().GetCurrentScene()->GetCurrentCamera()->GetViewMatrix();
 			uc.proj = Engine::GetInstance().GetCurrentScene()->GetCurrentCamera()->GetProjectionMatrix();
 
-			std::cout << "Projection : " << std::endl;
-			int y = -1;
-			int x = -1;
-			while (++y < 4)
-			{
-				x=-1;
-				while (++x < 4)
-					std::cout << uc.proj(y, x) << "\t\t";
-				std::cout << std::endl;;
-			}
-			std::cout << "View : " << std::endl;
-			y = x = -1;
-			while (++y < 4)
-			{
-				x=-1;
-				while (++x < 4)
-					std::cout << uc.view(y, x) << "\t\t";
-				std::cout << std::endl;;
-			}
+//			std::cout << "Projection : " << std::endl;
+//			int y = -1;
+//			int x = -1;
+//			while (++y < 4)
+//			{
+//				x=-1;
+//				while (++x < 4)
+//					std::cout << uc.proj(y, x) << "\t\t";
+//				std::cout << std::endl;;
+//			}
+//			std::cout << "View : " << std::endl;
+//			y = x = -1;
+//			while (++y < 4)
+//			{
+//				x=-1;
+//				while (++x < 4)
+//					std::cout << uc.view(y, x) << "\t\t";
+//				std::cout << std::endl;;
+//			}
 		}
 		else
 		{
@@ -1301,8 +1304,8 @@ namespace Soon
 
 	UniformSets GraphicsInstance::CreateUniform( size_t size )
 	{
-		static int count_uni = 1;
-		std::cout << "Number of uniform created : " << count_uni++ << std::endl;
+//		static int count_uni = 1;
+//		std::cout << "Number of uniform created : " << count_uni++ << std::endl;
 		return (CreateDescriptorSets( size ));
 	}
 

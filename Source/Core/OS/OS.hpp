@@ -37,6 +37,7 @@ namespace Soon
 			void Destroy( void );
 			GLFWwindow* GetWindow( void );
 			OS::WindowAttribute GetWindowAttribute( void );
+			void SetGetWindowSizeAttribute( int width, int height);
 			bool ShouldClose( void );
 			void PollEvent( void );
 			void SwapBuffer( void );
