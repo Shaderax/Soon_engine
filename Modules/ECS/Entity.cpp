@@ -13,7 +13,7 @@ namespace Soon
 		Entity::Entity( void ) :
 			_id(Soon::ECS::World::GetInstance().CreateEntityId())
 		{
-
+			Activate();
 		}
 
 		Entity::Entity( TypeId id ) :
@@ -23,7 +23,8 @@ namespace Soon
 
 		Entity::~Entity( void )
 		{
-
+			// TODO
+//			Kill();
 		}
 
 		TypeId Entity::GetId( void ) const
@@ -53,7 +54,8 @@ namespace Soon
 
 		void Entity::Kill( void )
 		{
-			Soon::ECS::World::GetInstance().KillEntity(*this);
+			std::cout << "COUCOUC" << std::endl;
+		//	Soon::ECS::World::GetInstance().KillEntity(*this);
 		}
 
 		void Entity::AddComponent( Component* component, TypeId componentId)

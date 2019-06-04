@@ -61,7 +61,7 @@ namespace Soon
 			VkFormat						_swapChainImageFormat;
 			VkDebugUtilsMessengerEXT		_debugMessenger;
 			std::vector<VkImageView>		_swapChainImageViews;
-			VkDescriptorSetLayout			_descriptorSetLayout;
+			std::vector<VkDescriptorSetLayout>			_descriptorSetLayout;
 			VkPipelineLayout 				_pipelineLayout;
 			VkPipeline						_graphicsPipeline;
 			VkRenderPass					_renderPass;
@@ -139,22 +139,21 @@ namespace Soon
 
 			uint32_t FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
 
-			void RecreateCommandBuffer( void );
+			void FillCommandBuffer( void );
 
 			void CreateDescriptorSetLayout( void );
 
 			void CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory);
 
-//			void CreateUniformBuffers( void );
 			BufferRenderer CreateUniformBuffers( size_t size );
 
 			void UpdateUniformBuffer(uint32_t currentImage);
 
 			void CreateDescriptorPool( void );
 
-			UniformSets CreateDescriptorSets( size_t size, uint32_t bind );
+			UniformSets CreateDescriptorSets( size_t size );
 
-			UniformSets CreateUniform( size_t size, uint32_t bind = 1);
+			UniformSets CreateUniform( size_t size);
 	};
 
 	void NewGraphicsInstance( void );

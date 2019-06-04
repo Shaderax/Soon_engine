@@ -4,16 +4,16 @@
 
 namespace Soon
 {
-	Input *Input::_singleton = nullptr;
+//	Input *Input::_singleton = nullptr;
 
-	Input* Input::GetSingleton( void )
-	{
-		return (_singleton);
-	}
+//	Input* Input::GetSingleton( void )
+//	{
+//		return (_singleton);
+//	}
 
 	Input::Input( void )
 	{
-		_singleton = this;
+//		_singleton = this;
 	}
 
 	bool Input::GetKeyDown( int key )
