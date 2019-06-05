@@ -36,25 +36,19 @@ int main(int argc, char**argv)
 	Camera.AddComponent<Soon::Camera3D>();
 	Camera.AddComponent<ObjectControler>();
 
-	Soon::Object Triangle;
-	Triangle.AddComponent<Soon::ObjFile>();
-	Triangle.GetComponent<Soon::ObjFile>().LoadObjFile("../Ressources/objects/Borderlands 2 - Maya/untitled.obj");
+	Soon::Object Maya;
+	Maya.AddComponent<Soon::ObjFile>();
+	Maya.GetComponent<Soon::ObjFile>().LoadObjFile("../Ressources/objects/Borderlands 2 - Maya/untitled.obj");
 
+	float inc = 0;
+	Maya.GetComponent<Transform3D>().Rotate(0.0f, 90.0f, 0.0f);
 	while (!engine.ShouldEnd())
 	{
-//		Camera.GetComponent<Transform3D>()._pos.z -= 0.001f;
+//		inc = 0.1f;
+//		Maya.GetComponent<Transform3D>().Rotate(0.0f, inc, 0.0f);
 		lastTime = ShowFPS(lastTime);
 		engine.Update();
 		engine.DrawFrame();
 	}
-	//
-	//	Object& object1 = scene.NewObjectInScene();
-	//
-	//	object1.AddComponent<GravityComponent>();
-	//
-	//	engine._world.AddSystem<GravitySystem>();
-	//
-	//	engine.Update();
-
 	return (0);
 }

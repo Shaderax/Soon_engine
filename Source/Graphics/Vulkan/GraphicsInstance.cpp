@@ -374,7 +374,7 @@ namespace Soon
 			}
 		}
 
-		std::cout << "VK_PRESENT_MODE_LIFO_KHR" << std::endl;
+		std::cout << "VK_PRESENT_MODE_FIFO_KHR" << std::endl;
 		return bestMode;
 	}
 
@@ -1187,13 +1187,15 @@ namespace Soon
 
 			Transform3D* transform = GraphicsRenderer::GetInstance()->GetTransforms().at(i);
 
+			matModel = transform->_rot.GetRotationMatrix();
+
 			matModel(0,3) = transform->_pos.x;
 			matModel(1,3) = transform->_pos.y;
 			matModel(2,3) = transform->_pos.z;
 
-			matModel(0,0) = transform->_scale.x;
-			matModel(1,1) = transform->_scale.y;
-			matModel(2,2) = transform->_scale.z;
+			matModel(0,0) *= transform->_scale.x;
+			matModel(1,1) *= transform->_scale.y;
+			matModel(2,2) *= transform->_scale.z;
 
 			memcpy(data, &matModel, sizeof(UniformModel));
 			vkUnmapMemory(_device, uniform._BufferMemory[currentImage]);
