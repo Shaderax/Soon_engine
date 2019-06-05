@@ -17,6 +17,13 @@ class vec3
 		{
 			
 		}
+		
+		vec3(vec3<T> const& v)
+		{
+			this->x = v.x;
+			this->y = v.y;
+			this->z = v.z;
+		}
 
 		vec3<T> operator+(vec3<T> const& b)
 		{

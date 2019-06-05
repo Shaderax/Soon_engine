@@ -39,6 +39,7 @@ namespace Soon
 				mat4<float> view;
 
 				vec3<float> pos = _entity.GetComponent<Transform3D>()._pos;
+				mat4<float> mm = _entity.GetComponent<Transform3D>()._rot.GetRotationMatrix();
 				_target = pos + vec3<float>(0.0f, 0.0f, 1.0f);
 
 				vec3<float> cameraDirection = (pos - _target).Normalize();
@@ -63,7 +64,7 @@ namespace Soon
 				view.elem[3][1] = -pos.y;
 				view.elem[3][2] = pos.z;
 
-				return (view);
+				return (view * _entity.GetComponent<Transform3D>()._rot.GetRotationMatrix());
 			}
 
 			mat4< float >	GetProjectionMatrix( void )

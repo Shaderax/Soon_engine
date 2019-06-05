@@ -55,9 +55,10 @@ class mat4
 			{
 				x = -1;
 				while (++x < 4)
-					Result(y,x) = this(y,0) * b(0,x) + this(y,1) * b(1,x) +
-						this(y,2) * b(2,x) + this(y,3) * b(3,x);
+					Result(y,x) = this->elem[y][0] * b.elem[0][x] + this->elem[y][1] * b.elem[1][x] +
+						this->elem[y][2] * b.elem[2][x] + this->elem[y][3] * b.elem[3][x];
 			}
+			return (Result);
 		}
 
 		mat4<T>& operator*=(mat4<T> const& b)
@@ -78,6 +79,7 @@ class mat4
 				while (++x < 4)
 					Result(y,x) = this(y,x) - b(y,x);
 			}
+			return (Result);
 		}
 
 		mat4<T>& operator-=(mat4<T> const& b)
@@ -98,6 +100,7 @@ class mat4
 				while (++x < 4)
 					Result(y,x) = this(y,x) + b(y,x);
 			}
+			return Result;
 		}
 
 		mat4<T>& operator+=(mat4<T> const& b)
