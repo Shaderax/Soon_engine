@@ -3,7 +3,7 @@
 //#include "Components/TriangleRenderer.hpp"
 //#include "Components/RecRenderer.hpp"
 #include "Scene/Object.hpp"
-#include "Core/Parsers/3DObject.hpp"
+#include "Scene/3D/Components/Mesh.hpp"
 #include "Scene/3D/Components/Camera.hpp"
 #include "Scene/3D/Components/3dObjectControler.hpp"
 #include "Scene/3D/Systems/3dObjectControlerSystem.hpp"
@@ -37,8 +37,8 @@ int main(int argc, char**argv)
 	Camera.AddComponent<ObjectControler>();
 
 	Soon::Object Maya;
-	Maya.AddComponent<Soon::ObjFile>();
-	Maya.GetComponent<Soon::ObjFile>().LoadObjFile("../Ressources/objects/Borderlands 2 - Maya/untitled.obj");
+	Maya.AddComponent<Soon::Mesh>();
+	Maya.GetComponent<Soon::Mesh>().LoadMesh("../Ressources/objects/Borderlands 2 - Maya/untitled.obj");
 
 	float inc = 0;
 //	Maya.GetComponent<Transform3D>().Rotate(0.0f, 90.0f, 0.0f);

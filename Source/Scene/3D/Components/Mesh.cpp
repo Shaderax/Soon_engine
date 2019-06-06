@@ -3,6 +3,10 @@
 #include "Mesh.hpp"
 #include <cstring>
 
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
 namespace Soon
 {
 	void Mesh::LoadMesh(std::string path)
@@ -12,7 +16,6 @@ namespace Soon
 		std::vector<vec2< float >> temp_uvs;
 		std::vector<vec3< float >> temp_normals;
 		int matches = 0;
-
 
 		FILE * file = fopen(path.c_str(), "r");
 		if( file == NULL )

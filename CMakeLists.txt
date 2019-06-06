@@ -11,6 +11,7 @@ endif()
 include_directories(Source)
 include_directories(Modules)
 include_directories(ThirdParty/glfw/include/)
+include_directories(ThirdParty/assimp_lib/include/)
 include_directories(ThirdParty/)
 
 set (CMAKE_CXX_STANDARD 11)
