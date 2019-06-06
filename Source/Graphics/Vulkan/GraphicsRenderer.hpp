@@ -18,34 +18,37 @@ namespace Soon
 		static GraphicsRenderer* _instance;
 
 		public:
-			GraphicsRenderer( void );
-			static GraphicsRenderer* 	GetInstance( void );
-			void 				Initialize( void );
-			ComponentRenderer 		AddToRender( Transform3D& tr, VertexBufferInfo inf);
-			std::vector< VkBuffer >		GetvkBuffers( void );
-			std::vector< uint32_t >		GetNbVertex( void );
-			bool				HasChange( void );
-			void				SetChangeFalse( void );
-			std::vector< BufferRenderer >	GetUniformBuffers( void );
-			std::vector< std::vector<VkDescriptorSet> > GetUniformsDescriptorSets( void );
-			std::vector< Transform3D* >	GetTransforms( void );
-			UniformSets			GetUniformsCamera( void );
-			std::vector<VkDescriptorSet>	GetUniformCameraDescriptorSets( void );
-			std::vector< VkDeviceMemory >   GetVkDeviceMemory( void );
-			void 				RecreateAllUniforms( void );
+		GraphicsRenderer( void );
+		static GraphicsRenderer* 	GetInstance( void );
+		void 				Initialize( void );
+		ComponentRenderer 		AddToRender( Transform3D& tr, VertexBufferInfo inf);
+		std::vector< VkBuffer >		GetvkBuffers( void );
+		std::vector< uint32_t >		GetNbVertex( void );
+		bool				HasChange( void );
+		void				SetChangeFalse( void );
+		std::vector< BufferRenderer >	GetUniformBuffers( void );
+		std::vector< std::vector<VkDescriptorSet> > GetUniformsDescriptorSets( void );
+		std::vector< Transform3D* >	GetTransforms( void );
+		UniformSets			GetUniformsCamera( void );
+		std::vector<VkDescriptorSet>	GetUniformCameraDescriptorSets( void );
+		std::vector< VkDeviceMemory >   GetVkDeviceMemory( void );
+		void 				RecreateAllUniforms( void );
 
 		private:
-			std::vector< uint32_t >			_nbVertex;
-			std::vector< Transform3D* >		_transforms;
-			std::vector< VkBuffer >			_vkBuffers;
-			std::vector< VkDeviceMemory >	_vkDevicesMemoryBuffers;
+		std::vector< uint32_t >			_nbVertex;
+		std::vector< Transform3D* >		_transforms;
+		std::vector< VkBuffer >			_vkBuffers;
+		std::vector< VkDeviceMemory >	_vkDevicesMemoryBuffers;
 
-			// UNIFORM
-			std::vector< BufferRenderer > 	_uniformsBuffers;
-			std::vector< std::vector< VkDescriptorSet > >	_uniformsDescriptorSets;
-			UniformSets						_uniformCamera;
+		// UNIFORM
+		std::vector< BufferRenderer > 	_uniformsBuffers;
+		std::vector< std::vector< VkDescriptorSet > >	_uniformsDescriptorSets;
+		UniformSets						_uniformCamera;
 
-			bool _changes;
+		// TEXTURE
+		std::vector< BufferRenderer > 	_textureBuffers;
+
+		bool _changes;
 
 	};
 }

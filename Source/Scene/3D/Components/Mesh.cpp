@@ -1,11 +1,11 @@
 #include "Core/Math/vec2.hpp"
 #include "Core/Math/vec3.hpp"
-#include "Core/Parsers/3DObject.hpp"
+#include "Mesh.hpp"
 #include <cstring>
 
 namespace Soon
 {
-	void ObjFile::LoadObjFile(std::string path)
+	void Mesh::LoadMesh(std::string path)
 	{
 		std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;
 		std::vector<vec3< float >> temp_vertices;

@@ -24,6 +24,17 @@ class vec3
 			this->y = v.y;
 			this->z = v.z;
 		}
+		
+		vec3<T> operator*(float const& b)
+		{
+			vec3 Result;
+
+			Result.x = this->x * b;
+			Result.y = this->y * b;
+			Result.z = this->z * b;
+
+			return (Result);
+		}
 
 		vec3<T> operator+(vec3<T> const& b)
 		{
