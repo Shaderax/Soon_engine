@@ -7,3 +7,4 @@ set(SRC
 	)
 
 add_library(Scene ${SRC})
+target_link_libraries(Scene assimp)

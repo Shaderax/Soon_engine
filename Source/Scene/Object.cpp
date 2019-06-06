@@ -14,5 +14,6 @@ namespace Soon
 	
 	Object::~Object( void )
 	{
+		Kill();
 	}
 }
