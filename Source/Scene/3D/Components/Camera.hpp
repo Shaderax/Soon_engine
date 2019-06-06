@@ -19,7 +19,7 @@ namespace Soon
 				_target = vec3<float>(0.0f, 0.0f, 0.0f);
 				_up = vec3<float>(0.0f, 1.0f, 0.0f);
 
-				_fov = 70.0f;
+				_fov = 45.0f;
 				_near = 0.05f;
 				_far = 100.0f;
 
@@ -39,26 +39,26 @@ namespace Soon
 				mat4<float> view;
 
 				vec3<float> pos = _entity.GetComponent<Transform3D>()._pos;
-				mat4<float> mm = _entity.GetComponent<Transform3D>()._rot.GetRotationMatrix();
-				_target = pos + vec3<float>(0.0f, 0.0f, 1.0f);
+//				mat4<float> mm = _entity.GetComponent<Transform3D>()._rot.GetRotationMatrix();
+//				_target = pos + vec3<float>(0.0f, 0.0f, 1.0f);
+//
+//				vec3<float> cameraDirection = (pos - _target).Normalize();
+//
+//				vec3<float> cameraRight = _up.Cross(cameraDirection).Normalize();
+//
+//				vec3<float> cameraUp = cameraDirection.Cross(cameraRight);
 
-				vec3<float> cameraDirection = (pos - _target).Normalize();
-
-				vec3<float> cameraRight = _up.Cross(cameraDirection).Normalize();
-
-				vec3<float> cameraUp = cameraDirection.Cross(cameraRight);
-
-				view.elem[0][0] = cameraRight.x;
-				view.elem[0][1] = cameraRight.y;
-				view.elem[0][2] = cameraRight.z;
-
-				view.elem[1][0] = cameraUp.x;
-				view.elem[1][1] = cameraUp.y;
-				view.elem[1][2] = cameraUp.z;
-
-				view.elem[2][0] = cameraDirection.x;
-				view.elem[2][1] = cameraDirection.y;
-				view.elem[2][2] = cameraDirection.z;
+//				view.elem[0][0] = cameraRight.x;
+//				view.elem[0][1] = cameraRight.y;
+//				view.elem[0][2] = cameraRight.z;
+//
+//				view.elem[1][0] = cameraUp.x;
+//				view.elem[1][1] = cameraUp.y;
+//				view.elem[1][2] = cameraUp.z;
+//
+//				view.elem[2][0] = cameraDirection.x;
+//				view.elem[2][1] = cameraDirection.y;
+//				view.elem[2][2] = cameraDirection.z;
 
 				view.elem[3][0] = -pos.x;
 				view.elem[3][1] = -pos.y;

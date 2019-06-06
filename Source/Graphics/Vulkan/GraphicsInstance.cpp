@@ -14,6 +14,9 @@
 #include "Core/Engine.hpp"
 #include "Scene/3D/Components/Camera.hpp"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb/stb_image.h"
+
 const std::vector<const char*> validationLayers = {
 	"VK_LAYER_LUNARG_standard_validation"
 };
@@ -430,10 +433,10 @@ namespace Soon
 		SwapChainSupportDetails swapChainSupport = QuerySwapChainSupport(_physicalDevice);
 
 		VkSurfaceFormatKHR surfaceFormat = ChooseSwapSurfaceFormat(swapChainSupport.formats);
-//		std::cout << "Surface Format" << surfaceFormat.format << std::endl;
-//		std::cout << "Surface Color space : " << surfaceFormat.colorSpace << std::endl;
+		//		std::cout << "Surface Format" << surfaceFormat.format << std::endl;
+		//		std::cout << "Surface Color space : " << surfaceFormat.colorSpace << std::endl;
 		VkPresentModeKHR presentMode = ChooseSwapPresentMode(swapChainSupport.presentModes);
-//		std::cout << "Present Mode : " << presentMode << std::endl;
+		//		std::cout << "Present Mode : " << presentMode << std::endl;
 		VkExtent2D extent = ChooseSwapExtent(swapChainSupport.capabilities);
 		std::cout << "Extent Width : " << extent.width << std::endl;
 		std::cout <<  "Extent Height : " << extent.height << std::endl;
@@ -752,7 +755,7 @@ namespace Soon
 		if (vkCreateCommandPool(_device, &poolInfo, nullptr, &_commandPool) != VK_SUCCESS)
 			throw std::runtime_error("failed to create command pool!");
 	}
-	
+
 	void GraphicsInstance::CreateCommandBuffers( void )
 	{
 		_commandBuffers.resize(_swapChainFramebuffers.size());
@@ -788,9 +791,9 @@ namespace Soon
 
 			vkCmdBeginRenderPass(_commandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
-//			vkCmdBindPipeline(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _graphicsPipeline);
+			//			vkCmdBindPipeline(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _graphicsPipeline);
 
-//			VkDeviceSize offsets[] = {0};
+			//			VkDeviceSize offsets[] = {0};
 			//			std::vector<VkBuffer> vecBuf = GraphicsRenderer::GetInstance()->GetvkBuffers();
 			//			std::vector< uint32_t > vecNbVer = GraphicsRenderer::GetInstance()->GetNbVertex();
 			//			std::vector<std::vector< VkDescriptorSet >> vecDs = GraphicsRenderer::GetInstance()->GetUniformsDescriptorSets();
@@ -812,7 +815,7 @@ namespace Soon
 				throw std::runtime_error("failed to record command buffer!");
 		}
 	}
-	
+
 	void GraphicsInstance::FillCommandBuffer( void )
 	{
 		for (size_t i = 0; i < _commandBuffers.size(); i++)
@@ -851,7 +854,7 @@ namespace Soon
 			uint32_t j = 0;
 			for (auto& buf : GraphicsRenderer::GetInstance()->GetvkBuffers())
 			{
-		//		std::cout << "VkBuffer : " << buf << std::endl << "NbVer : " << vecNbVer.at(j) << std::endl;
+				//		std::cout << "VkBuffer : " << buf << std::endl << "NbVer : " << vecNbVer.at(j) << std::endl;
 				vkCmdBindVertexBuffers(_commandBuffers[i], 0, 1, &buf, offsets);
 
 				vkCmdBindDescriptorSets(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 1, 1, &vecDs.at(j).at(i), 0, nullptr);
@@ -1103,6 +1106,17 @@ namespace Soon
 		OS::GetInstance()->SetGetWindowSizeAttribute(width, height);
 	}
 
+	void GraphicsInstance::CreateImageTexture( void )
+	{
+		int texWidth, texHeight, texChannels;
+		stbi_uc* pixels = stbi_load("../Ressources/objects/Borderlands 2 - Maya/SirenBody_Bm.tga", &texWidth, &texHeight, &texChannels, STBI_rgb_alpha);
+		VkDeviceSize imageSize = texWidth * texHeight * 4;
+
+		if (!pixels)
+			throw std::runtime_error("failed to load texture image!");
+
+	}
+
 	void GraphicsInstance::CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory)
 	{
 		VkBufferCreateInfo bufferInfo = {};
@@ -1140,29 +1154,29 @@ namespace Soon
 			uc.view = Engine::GetInstance().GetCurrentScene()->GetCurrentCamera()->GetViewMatrix();
 			uc.proj = Engine::GetInstance().GetCurrentScene()->GetCurrentCamera()->GetProjectionMatrix();
 
-//			std::cout << "Projection : " << std::endl;
-//			int y = -1;
-//			int x = -1;
-//			while (++y < 4)
-//			{
-//				x=-1;
-//				while (++x < 4)
-//					std::cout << uc.proj(y, x) << "\t\t";
-//				std::cout << std::endl;;
-//			}
-//			std::cout << "View : " << std::endl;
-//			y = x = -1;
-//			while (++y < 4)
-//			{
-//				x=-1;
-//				while (++x < 4)
-//					std::cout << uc.view(y, x) << "\t\t";
-//				std::cout << std::endl;;
-//			}
+			//			std::cout << "Projection : " << std::endl;
+			//			int y = -1;
+			//			int x = -1;
+			//			while (++y < 4)
+			//			{
+			//				x=-1;
+			//				while (++x < 4)
+			//					std::cout << uc.proj(y, x) << "\t\t";
+			//				std::cout << std::endl;;
+			//			}
+			//			std::cout << "View : " << std::endl;
+			//			y = x = -1;
+			//			while (++y < 4)
+			//			{
+			//				x=-1;
+			//				while (++x < 4)
+			//					std::cout << uc.view(y, x) << "\t\t";
+			//				std::cout << std::endl;;
+			//			}
 		}
 		else
 		{
-//			std::cout << "No Current Camera.";
+			//			std::cout << "No Current Camera.";
 			mat4<float> id;
 			uc.view = mat4<float>();
 			uc.proj = id;
@@ -1307,8 +1321,8 @@ namespace Soon
 
 	UniformSets GraphicsInstance::CreateUniform( size_t size )
 	{
-//		static int count_uni = 1;
-//		std::cout << "Number of uniform created : " << count_uni++ << std::endl;
+		//		static int count_uni = 1;
+		//		std::cout << "Number of uniform created : " << count_uni++ << std::endl;
 		return (CreateDescriptorSets( size ));
 	}
 

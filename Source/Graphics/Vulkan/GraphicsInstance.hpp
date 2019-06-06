@@ -154,6 +154,8 @@ namespace Soon
 			UniformSets CreateDescriptorSets( size_t size );
 
 			UniformSets CreateUniform( size_t size);
+
+			void CreateImageTexture( void );
 	};
 
 	void NewGraphicsInstance( void );

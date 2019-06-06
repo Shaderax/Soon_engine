@@ -41,7 +41,7 @@ int main(int argc, char**argv)
 	Maya.GetComponent<Soon::ObjFile>().LoadObjFile("../Ressources/objects/Borderlands 2 - Maya/untitled.obj");
 
 	float inc = 0;
-	Maya.GetComponent<Transform3D>().Rotate(0.0f, 90.0f, 0.0f);
+//	Maya.GetComponent<Transform3D>().Rotate(0.0f, 90.0f, 0.0f);
 	while (!engine.ShouldEnd())
 	{
 //		inc = 0.1f;

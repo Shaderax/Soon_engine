@@ -7,18 +7,15 @@
 
 namespace Soon
 {
-	class ObjFile : public Component
+	class Mesh : public Component
 	{
 		public:
-			~ObjFile() {};
-			void LoadObjFile(std::string path);
+			~Mesh() {};
+			void LoadMesh(std::string path);
 
-			ObjFile(Entity& entity)
+			Mesh(Entity& entity)
 			{
 				_owner = entity;
-				//			if (1)
-				//				_itRender = GraphicsRenderer::GetInstance()->AddToRender(entity.GetComponent<Transform3D>(), _inf);
-
 			};
 
 			VertexBufferInfo _inf =
