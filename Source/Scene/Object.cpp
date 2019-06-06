@@ -9,7 +9,7 @@ namespace Soon
 		AddComponent<Transform3D>();
 
 		if (Engine::GetInstance().GetCurrentScene())
-			Engine::GetInstance().GetCurrentScene()->AddObject(parent, *this);
+			Engine::GetInstance().GetCurrentScene()->AddObject(parent, this);
 	}
 	
 	Object::~Object( void )

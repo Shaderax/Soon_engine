@@ -12,14 +12,14 @@ namespace Soon
 		public:
 			Scene( void );
 			~Scene( void );
-			void AddObject( Object* parent, Object& obj );
+			void AddObject( Object* parent, Object* obj );
 
 			 bool IsObjectInScene( Object& obj );
 			 Camera3D* GetCurrentCamera( void );
 			 void SetCurrentCamera( Camera3D* cam );
 			
 		private:
-			std::vector< Object > Tree;
+			std::vector< Object* > Root;
 			Camera3D*		_camera;
 	};
 }

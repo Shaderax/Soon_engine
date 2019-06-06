@@ -12,7 +12,7 @@ namespace Soon
 		return (obj._scene == this ? true : false);
 	}
 
-	void Scene::AddObject( Object* parent, Object& obj )
+	void Scene::AddObject( Object* parent, Object* obj )
 	{
 		if (parent)
 		{
@@ -20,12 +20,12 @@ namespace Soon
 				std::cout << "Parent Not in Scene" << std::endl;
 			else
 			{
-				obj._scene = this;
-				obj._parent = parent;
-				//			Tree.push_back(obj);
-				//			Tree.back().push_back(obj._childs);
+				obj->_scene = this;
+				obj->_parent = parent;
 			}
 		}
+		else
+			Root.push_back(obj);
 	}
 
 	Camera3D* Scene::GetCurrentCamera( void )
