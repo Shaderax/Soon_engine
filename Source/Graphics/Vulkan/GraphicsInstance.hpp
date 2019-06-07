@@ -76,10 +76,10 @@ namespace Soon
 			//			VkBuffer						_vertexBuffer;
 			//			VkDeviceMemory					_vertexBufferMemory;
 
-//			std::vector<VkBuffer>			_uniformBuffers;
-//			std::vector<VkDeviceMemory>		_uniformBuffersMemory;
+			//			std::vector<VkBuffer>			_uniformBuffers;
+			//			std::vector<VkDeviceMemory>		_uniformBuffersMemory;
 			VkDescriptorPool				_descriptorPool;
-//			std::vector<VkDescriptorSet>	_descriptorSets;
+			//			std::vector<VkDescriptorSet>	_descriptorSets;
 
 			static GraphicsInstance*		_singleton;
 
@@ -155,8 +155,18 @@ namespace Soon
 
 			UniformSets CreateUniform( size_t size);
 
-			void CreateImageTexture( void );
-	};
+			void CreateImageTexture( std::string );
 
-	void NewGraphicsInstance( void );
+			void CreateImage(uint32_t width, uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory);
+			
+			VkCommandBuffer BeginSingleTimeCommands( void );
+
+			void EndSingleTimeCommands(VkCommandBuffer commandBuffer);
+
+			void TransitionImageLayout(VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);
+			
+			void CopyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height);
+
+			void NewGraphicsInstance( void );
+	};
 }

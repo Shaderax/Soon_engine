@@ -41,6 +41,8 @@ namespace Soon
 		private:
 			Entity				_owner;
 
+			std::vector<Mesh> meshes;
+
 			std::vector< vec3<float> >	_vertex;
 			std::vector< vec2<float> >	_vertexTexture;
 			std::vector< vec3<float> >	_normal;
