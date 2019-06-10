@@ -10,7 +10,8 @@
 #include <algorithm>
 #include <fstream>
 #include <array>
-#include "string.h"
+#include <string.h>
+#include <string>
 #include "Core/Engine.hpp"
 #include "Scene/3D/Components/Camera.hpp"
 
@@ -179,6 +180,10 @@ namespace Soon
 		VkPhysicalDeviceFeatures deviceFeatures;
 		vkGetPhysicalDeviceProperties(device, &deviceProperties);
 
+
+		VkPhysicalDeviceFeatures supportedFeatures;
+		vkGetPhysicalDeviceFeatures(device, &supportedFeatures);
+
 		bool extensionsSupported = CheckDeviceExtensionSupport(device);
 		bool swapChainAdequate = false;
 		if (extensionsSupported)
@@ -187,7 +192,7 @@ namespace Soon
 			swapChainAdequate = !swapChainSupport.formats.empty() && !swapChainSupport.presentModes.empty();
 		}
 
-		if (GetQueueFamilyIndex(device, VK_QUEUE_GRAPHICS_BIT) == -1 || !extensionsSupported || !swapChainAdequate)
+		if (GetQueueFamilyIndex(device, VK_QUEUE_GRAPHICS_BIT) == -1 || !extensionsSupported || !swapChainAdequate || supportedFeatures.samplerAnisotropy)
 			return (score);
 		if (deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU)
 			score += 10;
@@ -320,6 +325,7 @@ namespace Soon
 		queueCreateInfo.pQueuePriorities = &queuePriority;
 
 		VkPhysicalDeviceFeatures deviceFeatures = {};
+		deviceFeatures.samplerAnisotropy = VK_TRUE;
 
 		VkDeviceCreateInfo createInfo = {};
 		createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
@@ -496,26 +502,28 @@ namespace Soon
 	{
 		_swapChainImageViews.resize(_swapChainImages.size());
 
-		for (size_t i = 0; i < _swapChainImages.size(); i++)
-		{
-			VkImageViewCreateInfo createInfo = {};
-			createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-			createInfo.image = _swapChainImages[i];
-			createInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
-			createInfo.format = _swapChainImageFormat;
-			createInfo.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
-			createInfo.components.g = VK_COMPONENT_SWIZZLE_IDENTITY;
-			createInfo.components.b = VK_COMPONENT_SWIZZLE_IDENTITY;
-			createInfo.components.a = VK_COMPONENT_SWIZZLE_IDENTITY;
-			createInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-			createInfo.subresourceRange.baseMipLevel = 0;
-			createInfo.subresourceRange.levelCount = 1;
-			createInfo.subresourceRange.baseArrayLayer = 0;
-			createInfo.subresourceRange.layerCount = 1;
+		for (size_t i = 0; i < swapChainImages.size(); i++)
+			swapChainImageViews[i] = CreateImageView(swapChainImages[i], swapChainImageFormat);
+	}
 
-			if (vkCreateImageView(_device, &createInfo, nullptr, &_swapChainImageViews[i]) != VK_SUCCESS)
-				throw std::runtime_error("failed to create image views!");
-		}
+	VkImageView GraphicsInstance::CreateImageView(VkImage image, VkFormat format)
+	{
+		VkImageViewCreateInfo viewInfo = {};
+		viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
+		viewInfo.image = image;
+		viewInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
+		viewInfo.format = format;
+		viewInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+		viewInfo.subresourceRange.baseMipLevel = 0;
+		viewInfo.subresourceRange.levelCount = 1;
+		viewInfo.subresourceRange.baseArrayLayer = 0;
+		viewInfo.subresourceRange.layerCount = 1;
+
+		VkImageView imageView;
+		if (vkCreateImageView(device, &viewInfo, nullptr, &imageView) != VK_SUCCESS)
+			throw std::runtime_error("failed to create texture image view!");
+
+		return imageView;
 	}
 
 	static std::vector<char> readFile(const std::string& filename)
@@ -1105,7 +1113,42 @@ namespace Soon
 		OS::GetInstance()->SetGetWindowSizeAttribute(width, height);
 	}
 
-	void GraphicsInstance::CreateImageTexture( std::string path )
+	void GraphicsInstance::CreateTextureSampler( void )
+	{
+		VkSampler textureSampler;
+
+		VkSamplerCreateInfo samplerInfo = {};
+		samplerInfo.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
+		samplerInfo.magFilter = VK_FILTER_LINEAR;
+		samplerInfo.minFilter = VK_FILTER_LINEAR;
+		samplerInfo.addressModeU = VK_SAMPLER_ADDRESS_MODE_REPEAT;
+		samplerInfo.addressModeV = VK_SAMPLER_ADDRESS_MODE_REPEAT;
+		samplerInfo.addressModeW = VK_SAMPLER_ADDRESS_MODE_REPEAT;
+		samplerInfo.anisotropyEnable = VK_TRUE;
+		samplerInfo.maxAnisotropy = 16;
+		samplerInfo.borderColor = VK_BORDER_COLOR_INT_OPAQUE_BLACK;
+		samplerInfo.unnormalizedCoordinates = VK_FALSE;
+		samplerInfo.compareEnable = VK_FALSE;
+		samplerInfo.compareOp = VK_COMPARE_OP_ALWAYS;
+		samplerInfo.mipmapMode = VK_SAMPLER_MIPMAP_MODE_LINEAR;
+
+		if (vkCreateSampler(device, &samplerInfo, nullptr, &textureSampler) != VK_SUCCESS)
+			throw std::runtime_error("failed to create texture sampler!");
+
+		// TODO
+		//     vkDestroySampler(device, textureSampler, nullptr);
+		//    vkDestroyImageView(device, textureImageView, nullptr);
+	}
+
+	void CreateTextureImageView( void )
+	{
+		// TODO Cleanup
+		VkImageView textureImageView;
+
+		textureImageView = CreateImageView(textureImage, VK_FORMAT_R8G8B8A8_UNORM);
+	}
+
+	void GraphicsInstance::CreateTextureImage( std::string path )
 	{
 		VkBuffer stagingBuffer;
 		VkDeviceMemory stagingBufferMemory;
