@@ -3,6 +3,7 @@
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 #include <vector>
+#include <string>
 #include "Core/Math/mat4.hpp"
 
 //Swap chain struct
@@ -155,7 +156,7 @@ namespace Soon
 
 			UniformSets CreateUniform( size_t size);
 
-			void CreateImageTexture( std::string );
+			void CreateImageTexture( std::string path );
 
 			void CreateImage(uint32_t width, uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory);
 			
@@ -168,5 +169,6 @@ namespace Soon
 			void CopyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height);
 
 			void NewGraphicsInstance( void );
+
 	};
 }
