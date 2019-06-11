@@ -1,4 +1,4 @@
-#include "Scene/Common/Texture.hpp"
+#include "Scene/Common/Texture2D.hpp"
 
 struct Material
 {
@@ -12,6 +12,6 @@ struct Material
 
 	}
 
-	Texture texture;
+	Texture2D texture;
 	//Shader  shader;
 };

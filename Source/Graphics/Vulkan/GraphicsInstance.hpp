@@ -92,83 +92,52 @@ namespace Soon
 			void Destroy( void );
 			GLFWwindow* GetWindow( void );
 
-			void CreateInstance( void );
-			void PickPhysicalDevice( void );
-			void CreateLogicalDevice( void );
-			void CreateWindow( void );
-			void CreateSurface( void );
-
-			void GetPhysicalDeviceInfo( void );
-			void GetPhysicalDeviceInfo(VkPhysicalDevice device);
-
-			int GetQueueFamilyIndex(VkPhysicalDevice device, VkQueueFlagBits queue);
-			int RateDeviceSuitable(VkPhysicalDevice device);
-
+			void	CreateInstance( void );
+			void	PickPhysicalDevice( void );
+			void	CreateLogicalDevice( void );
+			void	CreateWindow( void );
+			void	CreateSurface( void );
+			void	GetPhysicalDeviceInfo( void );
+			void	GetPhysicalDeviceInfo(VkPhysicalDevice device);
+			int		GetQueueFamilyIndex(VkPhysicalDevice device, VkQueueFlagBits queue);
+			int		RateDeviceSuitable(VkPhysicalDevice device);
 			SwapChainSupportDetails QuerySwapChainSupport(VkPhysicalDevice device);
-
-			void CreateSwapChain( void );
-
-			void SetupDebugMessenger( void );
-
-			void CreateImageViews( void );
-
-			void CreateGraphicsPipeline( void );
-
+			void	CreateSwapChain( void );
+			void 	SetupDebugMessenger( void );
+			void 	CreateImageViews( void );
+			VkImageView CreateImageView(VkImage image, VkFormat format);
+			void 	CreateGraphicsPipeline( void );
 			VkShaderModule CreateShaderModule(const std::vector<char>& code);
-
-			void CreateRenderPass( void );
-
-			void CreateFramebuffers( void );
-
-			void CreateCommandPool( void );
-
-			void CreateCommandBuffers( void );
-
-			void CreateSyncObjects( void );
-
-			void DrawFrame( void );
-
-			void RecreateSwapChain( void );
-
-			void CleanupSwapChain( void );
-
+			void	CreateRenderPass( void );
+			void 	CreateFramebuffers( void );
+			void 	CreateCommandPool( void );
+			void 	CreateCommandBuffers( void );
+			void 	CreateSyncObjects( void );
+			void 	DrawFrame( void );
+			void 	RecreateSwapChain( void );
+			void 	CleanupSwapChain( void );
 			VkExtent2D ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
-
 			static void FramebufferResizeCallback(GLFWwindow *window, int width, int height);
-
 			BufferRenderer CreateVertexBuffer( VertexBufferInfo inf );
-
 			uint32_t FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
-
-			void FillCommandBuffer( void );
-
-			void CreateDescriptorSetLayout( void );
-
-			void CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory);
-
+			void	FillCommandBuffer( void );
+			void 	CreateDescriptorSetLayout( void );
+			void 	CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory);
 			BufferRenderer CreateUniformBuffers( size_t size );
-
-			void UpdateUniformBuffer(uint32_t currentImage);
-
-			void CreateDescriptorPool( void );
-
+			void	UpdateUniformBuffer(uint32_t currentImage);
+			void 	CreateDescriptorPool( void );
 			UniformSets CreateDescriptorSets( size_t size );
-
 			UniformSets CreateUniform( size_t size);
-
-			void CreateImageTexture( std::string path );
-
-			void CreateImage(uint32_t width, uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory);
-			
+			void	CreateTextureImage( std::string path );
+			void 	CreateImage(uint32_t width, uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory);
 			VkCommandBuffer BeginSingleTimeCommands( void );
+			void	EndSingleTimeCommands(VkCommandBuffer commandBuffer);
+			void 	TransitionImageLayout(VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);
+			void 	CopyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height);
+			void	CreateTextureSampler( void );
+			void	CreateTextureImageView( void );
 
-			void EndSingleTimeCommands(VkCommandBuffer commandBuffer);
-
-			void TransitionImageLayout(VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);
-			
-			void CopyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height);
-
-			void NewGraphicsInstance( void );
+			void 	NewGraphicsInstance( void );
 
 	};
 }

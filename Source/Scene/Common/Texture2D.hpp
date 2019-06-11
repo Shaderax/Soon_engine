@@ -1,18 +1,18 @@
 
-struct Texture
+struct Texture2D
 {
-	Texture( void )
+	Texture2D( void )
 	{
 
 	}
 
-	Texture( std::string path )
+	Texture2D( std::string path )
 	{
 //		string filename = string(path);
 //		filename = directory + '/' + filename;
 //
 //		unsigned int textureID;
-//		glGenTextures(1, &textureID);
+//		glGenTexture2Ds(1, &textureID);
 //
 //		int width, height, nrComponents;
 //		unsigned char *data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
@@ -26,9 +26,9 @@ struct Texture
 //			else if (nrComponents == 4)
 //				format = GL_RGBA;
 //
-//			glBindTexture(GL_TEXTURE_2D, textureID);
-//			glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-//			glGenerateMipmap(GL_TEXTURE_2D);
+//			glBind    Texture2D(GL_TEXTURE_2D, textureID);
+//			glTexI    mage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+//			glGene    rateMipmap(GL_TEXTURE_2D);
 //
 //			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 //			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -39,7 +39,7 @@ struct Texture
 //		}
 //		else
 //		{
-//			std::cout << "Texture failed to load at path: " << path << std::endl;
+//			std::cout << "Texture2D failed to load at path: " << path << std::endl;
 //			stbi_image_free(data);
 //		}
 //
@@ -47,9 +47,11 @@ struct Texture
 //
 	}
 
-	~Texture( void )
+	~Texture2D( void )
 	{
 
 	}
+
+	stbi_uc* pixels;
 
 };

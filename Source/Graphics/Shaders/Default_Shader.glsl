@@ -13,11 +13,12 @@ layout(set = 1, binding = 0) uniform UniformModel
 } um;
 
 layout(location = 0) in vec3 inPosition;
+layout(location = 1) in vec2 inTexCoord;
 
 layout(location = 0) out vec3 fragColor;
 
 void main()
 {
 	    gl_Position = uc.proj * uc.view * um.model * vec4(inPosition, 1.0);
-	    fragColor = vec3(1.0f, 0.1f, 1.0f) * inPosition * 10;
+	    fragColor = vec3(1.0f, 1.0f, 1.0f)/* * inPosition * 10*/;
 }
