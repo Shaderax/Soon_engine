@@ -34,7 +34,8 @@ const std::vector<const char*> deviceExtensions =
 const bool enableValidationLayers = true;
 //#endif
 
-bool checkValidationLayerSupport( void ) {
+bool checkValidationLayerSupport( void )
+{
 	uint32_t layerCount;
 	vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
 
@@ -62,7 +63,6 @@ bool checkValidationLayerSupport( void ) {
 			return false;
 		}
 	}
-
 	return true;
 }
 
@@ -192,7 +192,7 @@ namespace Soon
 			swapChainAdequate = !swapChainSupport.formats.empty() && !swapChainSupport.presentModes.empty();
 		}
 
-		if (GetQueueFamilyIndex(device, VK_QUEUE_GRAPHICS_BIT) == -1 || !extensionsSupported || !swapChainAdequate || supportedFeatures.samplerAnisotropy)
+		if (GetQueueFamilyIndex(device, VK_QUEUE_GRAPHICS_BIT) == -1 || !extensionsSupported || !swapChainAdequate/* || supportedFeatures.samplerAnisotropy*/)
 			return (score);
 		if (deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU)
 			score += 10;
@@ -502,8 +502,8 @@ namespace Soon
 	{
 		_swapChainImageViews.resize(_swapChainImages.size());
 
-		for (size_t i = 0; i < swapChainImages.size(); i++)
-			swapChainImageViews[i] = CreateImageView(swapChainImages[i], swapChainImageFormat);
+		for (size_t i = 0; i < _swapChainImages.size(); i++)
+			_swapChainImageViews[i] = CreateImageView(_swapChainImages[i], _swapChainImageFormat);
 	}
 
 	VkImageView GraphicsInstance::CreateImageView(VkImage image, VkFormat format)
@@ -520,7 +520,7 @@ namespace Soon
 		viewInfo.subresourceRange.layerCount = 1;
 
 		VkImageView imageView;
-		if (vkCreateImageView(device, &viewInfo, nullptr, &imageView) != VK_SUCCESS)
+		if (vkCreateImageView(_device, &viewInfo, nullptr, &imageView) != VK_SUCCESS)
 			throw std::runtime_error("failed to create texture image view!");
 
 		return imageView;
@@ -1132,7 +1132,7 @@ namespace Soon
 		samplerInfo.compareOp = VK_COMPARE_OP_ALWAYS;
 		samplerInfo.mipmapMode = VK_SAMPLER_MIPMAP_MODE_LINEAR;
 
-		if (vkCreateSampler(device, &samplerInfo, nullptr, &textureSampler) != VK_SUCCESS)
+		if (vkCreateSampler(_device, &samplerInfo, nullptr, &textureSampler) != VK_SUCCESS)
 			throw std::runtime_error("failed to create texture sampler!");
 
 		// TODO
@@ -1140,10 +1140,11 @@ namespace Soon
 		//    vkDestroyImageView(device, textureImageView, nullptr);
 	}
 
-	void CreateTextureImageView( void )
+	void GraphicsInstance::CreateTextureImageView( void )
 	{
 		// TODO Cleanup
-		VkImageView textureImageView;
+		VkImageView	textureImageView;
+		VkImage		textureImage;
 
 		textureImageView = CreateImageView(textureImage, VK_FORMAT_R8G8B8A8_UNORM);
 	}
@@ -1276,13 +1277,16 @@ namespace Soon
 		VkPipelineStageFlags sourceStage;
 		VkPipelineStageFlags destinationStage;
 
-		if (oldLayout == VK_IMAGE_LAYOUT_UNDEFINED && newLayout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL) {
+		if (oldLayout == VK_IMAGE_LAYOUT_UNDEFINED && newLayout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL)
+		{
 			barrier.srcAccessMask = 0;
 			barrier.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
 
 			sourceStage = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
 			destinationStage = VK_PIPELINE_STAGE_TRANSFER_BIT;
-		} else if (oldLayout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL && newLayout == VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL) {
+		}
+		else if (oldLayout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL && newLayout == VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL)
+		{
 			barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
 			barrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
 

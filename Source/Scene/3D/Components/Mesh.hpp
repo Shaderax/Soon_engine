@@ -7,6 +7,10 @@
 
 #include "Scene/Common/Material.hpp"
 
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
 namespace Soon
 {
 	// Vertex of a 3D Object
@@ -28,6 +32,7 @@ namespace Soon
 
 			};
 
+			void ProcessNode(aiNode *node, const aiScene *scene);
 			void LoadMesh(std::string path);
 
 			VertexBufferInfo _inf =
@@ -43,9 +48,9 @@ namespace Soon
 
 			std::vector<Mesh> meshes;
 
-			std::vector< vec3<float> >	_vertex;
-			std::vector< vec2<float> >	_vertexTexture;
+			std::vector< vec3<float> >	_position;
 			std::vector< vec3<float> >	_normal;
+			std::vector< vec2<float> >	_texCoord;
 
 			Material mat;
 	};
