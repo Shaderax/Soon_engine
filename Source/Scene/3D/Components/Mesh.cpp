@@ -99,12 +99,12 @@ namespace Soon
 	{
 		std::vector<Texture2D> textures;
 
-		std::cout << mat->GetTextureCount(type) << std::endl;
+//		std::cout << mat->GetTextureCount(type) << std::endl;
 		for(unsigned int i = 0; i < mat->GetTextureCount(type); i++)
 		{
 			aiString str;
 			mat->GetTexture(type, i, &str);
-			std::cout << str.C_Str() << std::endl;
+//			std::cout << str.C_Str() << std::endl;
 			// check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
 //			bool skip = false;
 //			for(unsigned int j = 0; j < textures_loaded.size(); j++)
@@ -146,11 +146,15 @@ namespace Soon
 
 			ProcessMesh(objMesh, mesh, scene);
 
-			_inf._nbVertex = _vertices.size() * 3;
-			std::cout << "My Parser : Nb Vertice : " << _inf._nbVertex << std::endl;
-			_inf._size = _vertices.size() * 3 * sizeof(float);
-			_inf._data = _vertices.data();
-//			GraphicsRenderer::GetInstance()->AddToRender(_owner.GetComponent<Transform3D>(), _inf);
+			objMesh._inf._nbVertex = objMesh._vertices.size();
+			std::cout << "My Parser : Nb Vertice : " << objMesh._inf._nbVertex << std::endl;
+			objMesh._inf._vertexSize = sizeof(Vertex) * objMesh._vertices.size();
+			std::cout << "My Parser : vertexSize : " << objMesh._inf._vertexSize << std::endl;
+			objMesh._inf._vertexData = objMesh._vertices.data();
+			objMesh._inf._indexSize = objMesh._indices.size();
+			std::cout << "My Parser : indexSize : " << objMesh._inf._indexSize << std::endl;
+			objMesh._inf._indexData = objMesh._indices.data();
+			GraphicsRenderer::GetInstance()->AddToRender(_owner.GetComponent<Transform3D>(), objMesh._inf);
 		}
 		// then do the same for each of its children
 		for(unsigned int i = 0; i < node->mNumChildren; i++)
@@ -170,7 +174,7 @@ namespace Soon
 			return;
 		}
 
-		std::cout << scene->mNumMeshes << std::endl;
+//		std::cout << scene->mNumMeshes << std::endl;
 
 		_path = path.substr(0, path.find_last_of('/'));
 
