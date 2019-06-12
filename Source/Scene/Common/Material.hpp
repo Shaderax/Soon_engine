@@ -12,6 +12,6 @@ struct Material
 
 	}
 
-	Texture2D texture;
+	Texture2D _texture;
 	//Shader  shader;
 };

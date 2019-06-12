@@ -588,15 +588,25 @@ namespace Soon
 		////// TMP ////////////////
 		VkVertexInputBindingDescription bindingDescription = {};
 		bindingDescription.binding = 0;
-		bindingDescription.stride = sizeof(float) * 3; // stride : size of one pointe
+		bindingDescription.stride = sizeof(Vertex); // stride : size of one pointe
 		bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
 
-		std::array<VkVertexInputAttributeDescription, 1> attributeDescriptions;
+		std::array<VkVertexInputAttributeDescription, 3> attributeDescriptions;
 
 		attributeDescriptions[0].binding = 0;
 		attributeDescriptions[0].location = 0;
 		attributeDescriptions[0].format = VK_FORMAT_R32G32B32_SFLOAT;//VK_FORMAT_R32G32_SFLOAT;
-		attributeDescriptions[0].offset = 0;//offsetof(Vertex, pos);
+		attributeDescriptions[0].offset = offsetof(Vertex, _position);
+
+		attributeDescriptions[1].binding = 0;
+		attributeDescriptions[1].location = 1;
+		attributeDescriptions[1].format = VK_FORMAT_R32G32B32_SFLOAT;//VK_FORMAT_R32G32_SFLOAT;
+		attributeDescriptions[1].offset = offsetof(Vertex, _normal);
+
+		attributeDescriptions[2].binding = 0;
+		attributeDescriptions[2].location = 2;
+		attributeDescriptions[2].format = VK_FORMAT_R32G32_SFLOAT;//VK_FORMAT_R32G32_SFLOAT;
+		attributeDescriptions[2].offset = offsetof(Vertex, _texCoords);
 		/////////////// END /////////////
 		//		auto bindingDescription = Vertex::getBindingDescription();
 		//		auto attributeDescriptions = Vertex::getAttributeDescriptions();
@@ -864,9 +874,12 @@ namespace Soon
 				//		std::cout << "VkBuffer : " << buf << std::endl << "NbVer : " << vecNbVer.at(j) << std::endl;
 				vkCmdBindVertexBuffers(_commandBuffers[i], 0, 1, &buf, offsets);
 
+				vkCmdBindIndexBuffer(_commandBuffers[i], GraphicsRenderer::GetInstance()->GetIndexBuffer(), 0, VK_INDEX_TYPE_UINT32);
+
 				vkCmdBindDescriptorSets(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 1, 1, &vecDs.at(j).at(i), 0, nullptr);
 
-				vkCmdDraw(_commandBuffers[i], vecNbVer.at(j), 1, 0, 0);
+//				vkCmdDraw(_commandBuffers[i], vecNbVer.at(j), 1, 0, 0);
+				vkCmdDrawIndexed(_commandBuffers[i], static_cast<uint32_t>(GraphicsRenderer::GetInstance()->GetIndexBuffer().size()), 1, 0, 0, 0);
 				j++;
 			}
 
@@ -1041,32 +1054,17 @@ namespace Soon
 		bufRenderer._Buffer.resize(1);
 		bufRenderer._BufferMemory.resize(1);
 
-		VkBufferCreateInfo bufferInfo = {};
-		bufferInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
-		bufferInfo.size = inf._size;
-		bufferInfo.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
-		bufferInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
+		VkBuffer stagingBuffer;
+		VkDeviceMemory stagingBufferMemory;
 
-		if (vkCreateBuffer(_device, &bufferInfo, nullptr, &(bufRenderer._Buffer[0])) != VK_SUCCESS)
-			throw std::runtime_error("failed to create vertex buffer!");
-
-		VkMemoryRequirements memRequirements;
-		vkGetBufferMemoryRequirements(_device, bufRenderer._Buffer[0], &memRequirements);
-
-		VkMemoryAllocateInfo allocInfo = {};
-		allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
-		allocInfo.allocationSize = memRequirements.size;
-		allocInfo.memoryTypeIndex = FindMemoryType(memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT);
-
-		if (vkAllocateMemory(_device, &allocInfo, nullptr, &(bufRenderer._BufferMemory[0])) != VK_SUCCESS)
-			throw std::runtime_error("failed to allocate vertex buffer memory!");
-
-		vkBindBufferMemory(_device, bufRenderer._Buffer[0], bufRenderer._BufferMemory[0], 0);
+		CreateBuffer(_inf.size(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, &stagingBuffer, &stagingBufferMemory );
 
 		void* data;
-		vkMapMemory(_device, bufRenderer._BufferMemory[0], 0, bufferInfo.size, 0, &data);
-		memcpy(data, inf._data, (size_t)bufferInfo.size);
-		vkUnmapMemory(_device, bufRenderer._BufferMemory[0]);
+		vkMapMemory(_device, stagingBufferMemory, 0, _inf.size(), 0, &data);
+		memcpy(data, inf._data, (size_t)_inf.size());
+		vkUnmapMemory(_device, stagingBufferMemory);
+
+		CreateBuffer(_inf.size(), VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, &bufRenderer._Buffer, &bufRenderer._BufferMemory );
 
 		return ( bufRenderer );
 	}
@@ -1357,6 +1355,62 @@ namespace Soon
 		vkBindBufferMemory(_device, buffer, bufferMemory, 0);
 	}
 
+	void GraphicsInstance::CreateIndexBuffer( std::vector<unsigned int> indices )
+	{
+		VkDeviceSize bufferSize = sizeof(indices[0]) * indices.size();
+
+		VkBuffer stagingBuffer;
+		VkDeviceMemory stagingBufferMemory;
+
+		CreateBuffer(bufferSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, stagingBuffer, stagingBufferMemory);
+
+		void* data;
+		vkMapMemory(_device, stagingBufferMemory, 0, bufferSize, 0, &data);
+		memcpy(data, indices.data(), (size_t)bufferSize);
+		vkUnmapMemory(_device, stagingBufferMemory);
+
+		CreateBuffer(bufferSize, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, indexBuffer, indexBufferMemory);
+
+		CopyBuffer(stagingBuffer, indexBuffer, bufferSize);
+
+		vkDestroyBuffer(device, stagingBuffer, nullptr);
+		vkFreeMemory(device, stagingBufferMemory, nullptr);
+	}
+
+	void GraphicsInstance::CopyBuffer( VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size )
+	{
+		VkCommandBufferAllocateInfo allocInfo = {};
+		allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
+		allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
+		allocInfo.commandPool = _commandPool;
+		allocInfo.commandBufferCount = 1;
+
+		VkCommandBuffer commandBuffer;
+		vkAllocateCommandBuffers(_device, &allocInfo, &commandBuffer);
+
+		VkCommandBufferBeginInfo beginInfo = {};
+		beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+		beginInfo.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
+
+		vkBeginCommandBuffer(commandBuffer, &beginInfo);
+
+		VkBufferCopy copyRegion = {};
+		copyRegion.size = size;
+		vkCmdCopyBuffer(commandBuffer, srcBuffer, dstBuffer, 1, &copyRegion);
+
+		vkEndCommandBuffer(commandBuffer);
+
+		VkSubmitInfo submitInfo = {};
+		submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+		submitInfo.commandBufferCount = 1;
+		submitInfo.pCommandBuffers = &commandBuffer;
+
+		vkQueueSubmit(_graphicsQueue, 1, &submitInfo, VK_NULL_HANDLE);
+		vkQueueWaitIdle(_graphicsQueue);
+
+		vkFreeCommandBuffers(_device, _commandPool, 1, &commandBuffer);
+	}
+
 	void GraphicsInstance::UpdateUniformBuffer(uint32_t currentImage)
 	{
 		void* data;
@@ -1477,11 +1531,11 @@ namespace Soon
 
 	void GraphicsInstance::CreateDescriptorPool( void )
 	{
-		VkDescriptorPoolSize poolSize[2] = {};
+		VkDescriptorPoolSize poolSize[1] = {};
 		poolSize[0].type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-		poolSize[0].descriptorCount = 2 * static_cast<uint32_t>(_swapChainImages.size());
-		poolSize[1].type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC;
-		poolSize[1].descriptorCount = 1 * static_cast<uint32_t>(_swapChainImages.size());
+		poolSize[0].descriptorCount = 10 * static_cast<uint32_t>(_swapChainImages.size());
+		//		poolSize[1].type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC;
+		//		poolSize[1].descriptorCount = 1 * static_cast<uint32_t>(_swapChainImages.size());
 
 		VkDescriptorPoolCreateInfo poolInfo = {};
 		poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
