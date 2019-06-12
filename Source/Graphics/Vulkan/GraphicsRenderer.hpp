@@ -33,20 +33,24 @@ namespace Soon
 		std::vector<VkDescriptorSet>	GetUniformCameraDescriptorSets( void );
 		std::vector< VkDeviceMemory >   GetVkDeviceMemory( void );
 		void 				RecreateAllUniforms( void );
+		std::vector< BufferRenderer >   GetIndexBuffers( void );
+
 
 		private:
 		std::vector< uint32_t >			_nbVertex;
 		std::vector< Transform3D* >		_transforms;
-		std::vector< VkBuffer >			_vkBuffers;
-		std::vector< VkDeviceMemory >	_vkDevicesMemoryBuffers;
+		std::vector< VkBuffer >			_gpuBuffers;
+		std::vector< VkDeviceMemory >		_gpuMemoryBuffers;
+		std::vector< BufferRenderer >		_stagingBuffers;
+		std::vector< BufferRenderer >		_indexBuffers;
 
 		// UNIFORM
 		std::vector< BufferRenderer > 	_uniformsBuffers;
 		std::vector< std::vector< VkDescriptorSet > >	_uniformsDescriptorSets;
 		UniformSets						_uniformCamera;
 
-		// TEXTURE
-		std::vector< BufferRenderer > 	_textureBuffers;
+//		// TEXTURE
+//		std::vector< BufferRenderer > 	_textureBuffers;
 
 		bool _changes;
 

@@ -23,20 +23,21 @@ namespace Soon
 
 		ComponentRenderer GraphicsRenderer::AddToRender( Transform3D& tr, VertexBufferInfo inf)
 		{
-			BufferRenderer handler;
+			std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(inf);
 			ComponentRenderer ret;
 
-			handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(inf);
-//			std::cout << "VkBuffer in AddToRender : " << handler._Buffer[0] << std::endl;
+			_stagingBuffers.push_back(handler[0]);
+			_gpuBuffers.push_back(handler[1]._Buffer[0]);
+			_gpuMemoryBuffers.push_back(handler[1]._BufferMemory[0]);
+
+			_indexBuffers.emplace_back(GraphicsInstance::GetInstance()->CreateIndexBuffer(inf));
 
 			_nbVertex.push_back(inf._nbVertex);
 			_transforms.push_back(&tr);
-			_vkBuffers.push_back(handler._Buffer[0]);
-			_vkDevicesMemoryBuffers.push_back(handler._BufferMemory[0]);
 
 			ret._transform = _transforms.end();
-			ret._vkBuffers = _vkBuffers.end();
-			ret._vkDevicesMemoryBuffers = _vkDevicesMemoryBuffers.end();
+			ret._vkBuffers = _gpuBuffers.end();
+			ret._vkDevicesMemoryBuffers = _gpuMemoryBuffers.end();
 
 			///////////// UNIFORM /////////////
 
@@ -67,7 +68,7 @@ namespace Soon
 
 		std::vector< VkBuffer > GraphicsRenderer::GetvkBuffers( void )
 		{
-			return (_vkBuffers);
+			return (_gpuBuffers);
 		}
 
 		std::vector< uint32_t > GraphicsRenderer::GetNbVertex( void )
@@ -112,6 +113,11 @@ namespace Soon
 		
 		std::vector< VkDeviceMemory >   GraphicsRenderer::GetVkDeviceMemory( void )
 		{
-			return (_vkDevicesMemoryBuffers);
+			return (_gpuMemoryBuffers);
+		}
+
+		std::vector< BufferRenderer >   GraphicsRenderer::GetIndexBuffers( void )
+		{
+			return (_indexBuffers);
 		}
 }

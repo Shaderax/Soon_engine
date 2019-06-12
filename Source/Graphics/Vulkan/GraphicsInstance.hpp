@@ -33,8 +33,10 @@ struct BufferRenderer
 struct VertexBufferInfo
 {
 	uint32_t	_nbVertex;
-	size_t		_size;
-	void*		_data;
+	size_t		_vertexSize;
+	void*		_vertexData;
+	size_t		_indexSize;
+	void*		_indexData;
 };
 
 struct UniformCamera
@@ -84,13 +86,7 @@ namespace Soon
 			std::vector<VkFence>			_inFlightFences;
 			size_t							_currentFrame;
 			bool 							_framebufferResized;
-			//			VkBuffer						_vertexBuffer;
-			//			VkDeviceMemory					_vertexBufferMemory;
-
-			//			std::vector<VkBuffer>			_uniformBuffers;
-			//			std::vector<VkDeviceMemory>		_uniformBuffersMemory;
 			VkDescriptorPool				_descriptorPool;
-			//			std::vector<VkDescriptorSet>	_descriptorSets;
 
 			static GraphicsInstance*		_singleton;
 
@@ -128,7 +124,7 @@ namespace Soon
 			void 	CleanupSwapChain( void );
 			VkExtent2D ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
 			static void FramebufferResizeCallback(GLFWwindow *window, int width, int height);
-			BufferRenderer CreateVertexBuffer( VertexBufferInfo inf );
+			std::vector< BufferRenderer > CreateVertexBuffer( VertexBufferInfo inf );
 			uint32_t FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
 			void	FillCommandBuffer( void );
 			void 	CreateDescriptorSetLayout( void );
@@ -146,6 +142,10 @@ namespace Soon
 			void 	CopyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height);
 			void	CreateTextureSampler( void );
 			void	CreateTextureImageView( void );
+			BufferRenderer CreateIndexBuffer( VertexBufferInfo inf );
+			void CopyBuffer( VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size );
+
+
 
 			void 	NewGraphicsInstance( void );
 
