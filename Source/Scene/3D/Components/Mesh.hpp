@@ -20,20 +20,17 @@ namespace Soon
 			Mesh(Entity& entity)
 			{
 				_owner = entity;
-			};
-
-			Mesh(Entity& entity, std::vector<vec3<float>> vertex, std::vector<vec3<float>> vertexTexture, std::vector<vec3<float>> normal)
-			{
-				_owner = entity;
-			};
+			}
 
 			~Mesh()
 			{
 
-			};
+			}
 
 			void ProcessNode(aiNode *node, const aiScene *scene);
 			void LoadMesh(std::string path);
+			void ProcessMesh(Mesh& objMesh, aiMesh *mesh, const aiScene *scene);
+			std::vector<Texture2D> LoadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
 
 			VertexBufferInfo _inf =
 			{
@@ -43,15 +40,14 @@ namespace Soon
 			};
 
 			ComponentRenderer _itRender;
+
+			std::vector< Vertex >		_vertices;
+			std::vector<unsigned int>	_indices;
+			std::string					_path;
+
 		private:
 			Entity				_owner;
-
-			std::vector<Mesh> meshes;
-
-			std::vector< vec3<float> >	_position;
-			std::vector< vec3<float> >	_normal;
-			std::vector< vec2<float> >	_texCoord;
-
-			Material mat;
+			Material			_mat;
 	};
+	      std::vector<Texture2D> LoadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
 }

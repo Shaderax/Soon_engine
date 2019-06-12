@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 #include "Core/Math/mat4.hpp"
+#include "Core/Math/vec2.hpp"
+#include "Core/Math/vec3.hpp"
 
 //Swap chain struct
 struct SwapChainSupportDetails
@@ -13,6 +15,14 @@ struct SwapChainSupportDetails
 	std::vector<VkSurfaceFormatKHR> formats;
 	std::vector<VkPresentModeKHR> presentModes;
 };
+
+struct Vertex
+{
+	vec3<float> _position;
+	vec3<float> _normal;
+	vec2<float> _texCoords;
+};
+
 
 struct BufferRenderer
 {
