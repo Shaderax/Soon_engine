@@ -1,6 +1,7 @@
 #pragma once
 
 #include <math.h>
+#include <iostream>
 
 template< typename T = float >
 class vec2
@@ -75,6 +76,11 @@ class vec2
 				return ;
 			this->x /= mag;
 			this->y /= mag;
+		}
+
+		void show( void )
+		{
+			std::cout << x << " " << y << std::endl;
 		}
 
 };

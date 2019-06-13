@@ -871,15 +871,15 @@ namespace Soon
 			uint32_t j = 0;
 			for (auto& buf : GraphicsRenderer::GetInstance()->GetvkBuffers())
 			{
-				//		std::cout << "VkBuffer : " << buf << std::endl << "NbVer : " << vecNbVer.at(j) << std::endl;
+//				std::cout << "VkBuffer : " << buf << std::endl << "NbVer : " << vecNbVer.at(j) << std::endl;
 				vkCmdBindVertexBuffers(_commandBuffers[i], 0, 1, &buf, offsets);
 
 				vkCmdBindIndexBuffer(_commandBuffers[i], GraphicsRenderer::GetInstance()->GetIndexBuffers().at(j)._Buffer[0], 0, VK_INDEX_TYPE_UINT32);
 
 				vkCmdBindDescriptorSets(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 1, 1, &vecDs.at(j).at(i), 0, nullptr);
 
-//				vkCmdDraw(_commandBuffers[i], vecNbVer.at(j), 1, 0, 0);
-				vkCmdDrawIndexed(_commandBuffers[i], static_cast<uint32_t>(GraphicsRenderer::GetInstance()->GetIndexBuffers().size()), 1, 0, 0, 0);
+				//				vkCmdDraw(_commandBuffers[i], vecNbVer.at(j), 1, 0, 0);
+				vkCmdDrawIndexed(_commandBuffers[i], static_cast<uint32_t>(GraphicsRenderer::GetInstance()->GetIndexSize().at(j)), 1, 0, 0, 0);
 				j++;
 			}
 
@@ -1059,7 +1059,7 @@ namespace Soon
 		bufRenderer[1]._Buffer.resize(1);
 		bufRenderer[1]._BufferMemory.resize(1);
 
-		CreateBuffer(inf._vertexSize, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, bufRenderer[0]._Buffer[0], bufRenderer[0]._BufferMemory[0]);
+		CreateBuffer(inf._vertexSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, bufRenderer[0]._Buffer[0], bufRenderer[0]._BufferMemory[0]);
 
 		void* data;
 		vkMapMemory(_device, bufRenderer[0]._BufferMemory[0], 0, inf._vertexSize, 0, &data);
@@ -1067,6 +1067,11 @@ namespace Soon
 		vkUnmapMemory(_device, bufRenderer[0]._BufferMemory[0]);
 
 		CreateBuffer(inf._vertexSize, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, bufRenderer[1]._Buffer[0], bufRenderer[1]._BufferMemory[0] );
+
+		CopyBuffer(bufRenderer[0]._Buffer[0], bufRenderer[1]._Buffer[0], inf._vertexSize);
+
+		//		vkDestroyBuffer(_device, stagingBuffer, nullptr);
+		//		vkFreeMemory(_device, stagingBufferMemory, nullptr);
 
 		return ( bufRenderer );
 	}
@@ -1361,7 +1366,7 @@ namespace Soon
 	BufferRenderer GraphicsInstance::CreateIndexBuffer( VertexBufferInfo inf )
 	{
 		BufferRenderer bufRenderer;
-		VkDeviceSize bufferSize = sizeof(unsigned int) * inf._indexSize;
+		VkDeviceSize bufferSize = sizeof(uint32_t) * inf._indexSize;
 		std::cout << "INDEX BUFFER CREATION : " << bufferSize << std::endl;
 
 		bufRenderer._Buffer.resize(1);
@@ -1383,6 +1388,8 @@ namespace Soon
 
 		vkDestroyBuffer(_device, stagingBuffer, nullptr);
 		vkFreeMemory(_device, stagingBufferMemory, nullptr);
+
+		return (bufRenderer);
 	}
 
 	void GraphicsInstance::CopyBuffer( VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size )
