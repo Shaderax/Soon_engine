@@ -1164,18 +1164,8 @@ namespace Soon
 		VkBuffer stagingBuffer;
 		VkDeviceMemory stagingBufferMemory;
 
-		//		VkImage textureImage;
-		//		VkDeviceMemory textureImageMemory;
-
-		//		int texWidth, texHeight, texChannels;
-
-		//		stbi_uc* pixels = stbi_load(path.c_str(), &texWidth, &texHeight, &texChannels, STBI_rgb_alpha);
-		//		VkDeviceSize imageSize = texWidth * texHeight * 4;
 		std::cout << "ImageSize BUFFER CREATION : " << imageSize <<  std::endl;
 		std::cout << "width " << texture->_width <<  " " << "Height : " << texture->_height << std::endl;
-
-		//		if (!pixels)
-		//			throw std::runtime_error("failed to load texture image!");
 
 		CreateBuffer(imageSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, stagingBuffer, stagingBufferMemory);
 
@@ -1183,8 +1173,6 @@ namespace Soon
 		vkMapMemory(_device, stagingBufferMemory, 0, imageSize, 0, &data);
 		memcpy(data, texture->_data, static_cast<size_t>(imageSize));
 		vkUnmapMemory(_device, stagingBufferMemory);
-
-		//		stbi_image_free(pixels);
 
 		CreateImage(texture->_width, texture->_height, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, ir._textureImage, ir._textureImageMemory);
 

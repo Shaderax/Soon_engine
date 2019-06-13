@@ -182,8 +182,6 @@ namespace Soon
 			return;
 		}
 
-//		std::cout << scene->mNumMeshes << std::endl;
-
 		_path = path.substr(0, path.find_last_of('/'));
 
 		ProcessNode(scene->mRootNode, scene);

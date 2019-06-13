@@ -51,6 +51,7 @@ namespace Soon
 
 			std::cout << inf._material->_texture._width << " " << inf._material->_texture._height << std::endl;
 			_imagesRenderer.push_back(GraphicsInstance::GetInstance()->CreateTextureImage(&(inf._material->_texture)));
+			std::cout << "PIHIYV" << std::endl;
 			VkSampler textureSampler = GraphicsInstance::GetInstance()->CreateTextureSampler();
 			VkImageView imageView = GraphicsInstance::GetInstance()->CreateImageView(_imagesRenderer.back()._textureImage, VK_FORMAT_R8G8B8A8_UNORM);
 			UniformSets imageUniform = GraphicsInstance::GetInstance()->CreateImageDescriptorSets(imageView, textureSampler);
