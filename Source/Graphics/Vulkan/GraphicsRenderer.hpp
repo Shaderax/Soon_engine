@@ -34,6 +34,7 @@ namespace Soon
 		std::vector< VkDeviceMemory >   GetVkDeviceMemory( void );
 		void 				RecreateAllUniforms( void );
 		std::vector< BufferRenderer >   GetIndexBuffers( void );
+		std::vector<uint32_t>   GetIndexSize( void );
 
 
 		private:
@@ -43,6 +44,7 @@ namespace Soon
 		std::vector< VkDeviceMemory >		_gpuMemoryBuffers;
 		std::vector< BufferRenderer >		_stagingBuffers;
 		std::vector< BufferRenderer >		_indexBuffers;
+		std::vector< uint32_t >		_indexSize;
 
 		// UNIFORM
 		std::vector< BufferRenderer > 	_uniformsBuffers;

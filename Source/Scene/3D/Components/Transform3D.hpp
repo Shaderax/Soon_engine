@@ -16,7 +16,6 @@ struct Transform3D : Component
 
 	void Translate(vec3<float> dir)
 	{
-	//	_pos += dir;
 		mat4<float> mat = _rot.GetRotationMatrix();
 
 		vec3<float> x(mat(0, 0), mat(0, 1), mat(0, 2));

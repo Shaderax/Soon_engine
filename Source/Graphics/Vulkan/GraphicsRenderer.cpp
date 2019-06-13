@@ -30,9 +30,10 @@ namespace Soon
 			_gpuBuffers.push_back(handler[1]._Buffer[0]);
 			_gpuMemoryBuffers.push_back(handler[1]._BufferMemory[0]);
 
-			_indexBuffers.emplace_back(GraphicsInstance::GetInstance()->CreateIndexBuffer(inf));
+			_indexBuffers.push_back(GraphicsInstance::GetInstance()->CreateIndexBuffer(inf));
 
 			_nbVertex.push_back(inf._nbVertex);
+			_indexSize.push_back(inf._indexSize);
 			_transforms.push_back(&tr);
 
 			ret._transform = _transforms.end();
@@ -119,5 +120,10 @@ namespace Soon
 		std::vector< BufferRenderer >   GraphicsRenderer::GetIndexBuffers( void )
 		{
 			return (_indexBuffers);
+		}
+
+		std::vector<uint32_t>			GraphicsRenderer::GetIndexSize( void )
+		{
+			return (_indexSize);
 		}
 }

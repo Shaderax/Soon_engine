@@ -1,6 +1,7 @@
 #pragma once
 
 #include <math.h>
+#include <iostream>
 
 template< typename T = float >
 class vec3
@@ -128,4 +129,8 @@ class vec3
 			return (Result);
 		}
 
+		void show( void )
+		{
+			std::cout << x << " " << y << " " << z << std::endl;
+		}
 };
