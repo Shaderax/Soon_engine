@@ -25,12 +25,13 @@ struct Texture2D
 
 	}
 
-	Texture2D( std::string path )
+	Texture2D( std::string path ) : _width(0), _height(0)
 	{
 		int format;
 		_data = stbi_load(path.c_str(), &_width, &_height, &format, 0);
 		if (_data)
 		{
+		std::cout << _width << " " << _height << std::endl;
 			std::cout << "Open Texture : " << path << std::endl;
 			if (format == 0)
 				_format = TEXTURE_FORMAT::UNDEFINED;
