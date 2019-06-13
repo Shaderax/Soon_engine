@@ -47,7 +47,14 @@ namespace Soon
 			_uniformsBuffers.push_back(modelUniform._uniformRender);
 			_uniformsDescriptorSets.push_back(modelUniform._descriptorSets);
 
-			///////////////////////////////////
+			///////////// TEXTURE ////////////
+
+			_imagesRenderer.push_back(GraphicsInstance::GetInstance()->CreateTextureImage(&inf._material->_texture));
+			VkSampler textureSampler = GraphicsInstance::GetInstance()->CreateTextureSampler();
+			VkImageView imageView = GraphicsInstance::GetInstance()->CreateImageView(_imagesRenderer.back()._textureImage, VK_FORMAT_R8G8B8A8_UNORM);
+			UniformSets imageUniform = GraphicsInstance::GetInstance()->CreateImageDescriptorSets(imageView, textureSampler);
+			_uniformsImagesDescriptorSets.push_back(imageUniform._descriptorSets);
+
 
 			_changes = true;
 			return ret;
@@ -61,7 +68,6 @@ namespace Soon
 			while (++j < _uniformsBuffers.size())
 			{
 				UniformSets modelUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformModel));			
-
 				_uniformsBuffers.at(j) = modelUniform._uniformRender;
 				_uniformsDescriptorSets.at(j) = modelUniform._descriptorSets;
 			}
@@ -125,5 +131,10 @@ namespace Soon
 		std::vector<uint32_t>			GraphicsRenderer::GetIndexSize( void )
 		{
 			return (_indexSize);
+		}
+
+		std::vector< std::vector<VkDescriptorSet> > GraphicsRenderer::GetUniformsImagesDescriptorSets( void )
+		{
+			return (_uniformsImagesDescriptorSets);
 		}
 }
