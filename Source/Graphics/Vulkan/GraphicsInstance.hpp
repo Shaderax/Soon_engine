@@ -7,6 +7,7 @@
 #include "Core/Math/mat4.hpp"
 #include "Core/Math/vec2.hpp"
 #include "Core/Math/vec3.hpp"
+#include "Scene/Common/Material.hpp"
 
 //Swap chain struct
 struct SwapChainSupportDetails
@@ -30,6 +31,12 @@ struct BufferRenderer
 	std::vector<VkDeviceMemory>	_BufferMemory;
 };
 
+struct ImageRenderer
+{
+	VkImage			_textureImage;
+	VkDeviceMemory	_textureImageMemory;
+};
+
 struct VertexBufferInfo
 {
 	uint32_t	_nbVertex;
@@ -37,6 +44,7 @@ struct VertexBufferInfo
 	void*		_vertexData;
 	size_t		_indexSize;
 	void*		_indexData;
+	Material*	_material;
 };
 
 struct UniformCamera
@@ -132,15 +140,16 @@ namespace Soon
 			BufferRenderer CreateUniformBuffers( size_t size );
 			void	UpdateUniformBuffer(uint32_t currentImage);
 			void 	CreateDescriptorPool( void );
-			UniformSets CreateDescriptorSets( size_t size );
+			UniformSets CreateDescriptorSets( size_t size);
+			UniformSets CreateImageDescriptorSets( VkImageView textureImageView, VkSampler textureSampler );
 			UniformSets CreateUniform( size_t size);
-			void	CreateTextureImage( std::string path );
+			ImageRenderer	CreateTextureImage( Texture2D* texture );
 			void 	CreateImage(uint32_t width, uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory);
 			VkCommandBuffer BeginSingleTimeCommands( void );
 			void	EndSingleTimeCommands(VkCommandBuffer commandBuffer);
 			void 	TransitionImageLayout(VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);
 			void 	CopyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height);
-			void	CreateTextureSampler( void );
+			VkSampler	CreateTextureSampler( void );
 			void	CreateTextureImageView( void );
 			BufferRenderer CreateIndexBuffer( VertexBufferInfo inf );
 			void CopyBuffer( VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size );

@@ -17,9 +17,11 @@ layout(location = 1) in vec3 inNormal;
 layout(location = 2) in vec2 inTexCoord;
 
 layout(location = 0) out vec3 fragColor;
+layout(location = 1) out vec2 fragTexCoord;
 
 void main()
 {
 	    gl_Position = uc.proj * uc.view * um.model * vec4(inPosition, 1.0);
 	    fragColor = vec3(1.0f, 1.0f, 1.0f)/* * inPosition * 10*/;
+		fragTexCoord = inTexCoord;
 }

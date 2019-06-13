@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Scene/Common/Texture2D.hpp"
 
 struct Material

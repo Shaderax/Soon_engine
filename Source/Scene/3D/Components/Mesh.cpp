@@ -161,6 +161,7 @@ namespace Soon
 			objMesh._inf._indexSize = objMesh._indices.size();
 			std::cout << "My Parser : indexSize : " << objMesh._inf._indexSize << std::endl;
 			objMesh._inf._indexData = objMesh._indices.data();
+			objMesh._inf._material = &objMesh._mat;
 			GraphicsRenderer::GetInstance()->AddToRender(_owner.GetComponent<Transform3D>(), objMesh._inf);
 		}
 		// then do the same for each of its children

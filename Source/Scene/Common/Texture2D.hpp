@@ -1,3 +1,4 @@
+#pragma once
 //#include <assimp/Importer.hpp>
 //#include <assimp/scene.h>
 //#include <assimp/postprocess.h>
@@ -30,6 +31,7 @@ struct Texture2D
 		_data = stbi_load(path.c_str(), &_width, &_height, &format, 0);
 		if (_data)
 		{
+			std::cout << "Open Texture : " << path << std::endl;
 			if (format == 0)
 				_format = TEXTURE_FORMAT::UNDEFINED;
 			else if (format == 1)

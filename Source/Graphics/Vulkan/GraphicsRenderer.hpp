@@ -35,6 +35,7 @@ namespace Soon
 		void 				RecreateAllUniforms( void );
 		std::vector< BufferRenderer >   GetIndexBuffers( void );
 		std::vector<uint32_t>   GetIndexSize( void );
+		std::vector< std::vector<VkDescriptorSet> > GetUniformsImagesDescriptorSets( void );
 
 
 		private:
@@ -44,7 +45,10 @@ namespace Soon
 		std::vector< VkDeviceMemory >		_gpuMemoryBuffers;
 		std::vector< BufferRenderer >		_stagingBuffers;
 		std::vector< BufferRenderer >		_indexBuffers;
-		std::vector< uint32_t >		_indexSize;
+		std::vector< uint32_t >				_indexSize;
+		std::vector< ImageRenderer >		_imagesRenderer;
+		std::vector< std::vector< VkDescriptorSet > >	_uniformsImagesDescriptorSets;
+
 
 		// UNIFORM
 		std::vector< BufferRenderer > 	_uniformsBuffers;
