@@ -1171,7 +1171,8 @@ namespace Soon
 
 		//		stbi_uc* pixels = stbi_load(path.c_str(), &texWidth, &texHeight, &texChannels, STBI_rgb_alpha);
 		//		VkDeviceSize imageSize = texWidth * texHeight * 4;
-		std::cout << "ImageSize BUFFER CREATION : " << imageSize << std::endl;
+		std::cout << "ImageSize BUFFER CREATION : " << imageSize <<  std::endl;
+		std::cout << "width " << texture->_width <<  " " << "Height : " << texture->_height << std::endl;
 
 		//		if (!pixels)
 		//			throw std::runtime_error("failed to load texture image!");
