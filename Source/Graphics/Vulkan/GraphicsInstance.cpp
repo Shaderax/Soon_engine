@@ -1040,10 +1040,10 @@ namespace Soon
 		CreateImageViews();
 		CreateRenderPass();
 		CreateGraphicsPipeline();
-		CreateCommandBuffers();
 		CreateDepthResources();
 		CreateFramebuffers();
 		CreateDescriptorPool();
+		CreateCommandBuffers();
 		GraphicsRenderer::GetInstance()->RecreateAllUniforms();
 		FillCommandBuffer();
 	}
@@ -1677,9 +1677,9 @@ namespace Soon
 		return (ds);
 	}
 
-	UniformSets GraphicsInstance::CreateImageDescriptorSets( VkImageView textureImageView, VkSampler textureSampler )
+	std::vector<VkDescriptorSet> GraphicsInstance::CreateImageDescriptorSets( VkImageView textureImageView, VkSampler textureSampler )
 	{
-		UniformSets ds;
+		std::vector<VkDescriptorSet> ds;
 
 		std::vector<VkDescriptorSetLayout> layouts(_swapChainImages.size(), _descriptorSetLayout[2]);
 
@@ -1689,8 +1689,8 @@ namespace Soon
 		allocInfo.descriptorSetCount = 1 * static_cast<uint32_t>(_swapChainImages.size()); // number of descriptor sets to be allocated from the pool.
 		allocInfo.pSetLayouts = layouts.data();
 
-		ds._descriptorSets.resize(_swapChainImages.size());
-		if (vkAllocateDescriptorSets(_device, &allocInfo, ds._descriptorSets.data()) != VK_SUCCESS)
+		ds.resize(_swapChainImages.size());
+		if (vkAllocateDescriptorSets(_device, &allocInfo, ds.data()) != VK_SUCCESS)
 			throw std::runtime_error("failed to allocate descriptor sets!");
 
 		for (size_t i = 0; i < _swapChainImages.size(); i++)
@@ -1702,7 +1702,7 @@ namespace Soon
 
 			VkWriteDescriptorSet descriptorWrite = {};
 			descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-			descriptorWrite.dstSet = ds._descriptorSets[i];
+			descriptorWrite.dstSet = ds[i];
 			descriptorWrite.dstBinding = 0;
 			descriptorWrite.dstArrayElement = 0;
 			descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;

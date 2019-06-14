@@ -49,14 +49,16 @@ namespace Soon
 
 			///////////// TEXTURE ////////////
 
+			Image img;
+
 			std::cout << inf._material->_texture._width << " " << inf._material->_texture._height << std::endl;
 			_imagesRenderer.push_back(GraphicsInstance::GetInstance()->CreateTextureImage(&(inf._material->_texture)));
-			std::cout << "PIHIYV" << std::endl;
-			VkSampler textureSampler = GraphicsInstance::GetInstance()->CreateTextureSampler();
-			VkImageView imageView = GraphicsInstance::GetInstance()->CreateImageView(_imagesRenderer.back()._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT);
-			UniformSets imageUniform = GraphicsInstance::GetInstance()->CreateImageDescriptorSets(imageView, textureSampler);
-			_uniformsImagesDescriptorSets.push_back(imageUniform._descriptorSets);
+			img._textureSampler = GraphicsInstance::GetInstance()->CreateTextureSampler();
+			img._imageView = GraphicsInstance::GetInstance()->CreateImageView(_imagesRenderer.back()._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT);
+			_images.push_back(img);
 
+			std::vector<VkDescriptorSet> imageUniform = GraphicsInstance::GetInstance()->CreateImageDescriptorSets(img._imageView, img._textureSampler);
+			_uniformsImagesDescriptorSets.push_back(imageUniform);
 
 			_changes = true;
 			return ret;
@@ -73,6 +75,13 @@ namespace Soon
 				_uniformsBuffers.at(j) = modelUniform._uniformRender;
 				_uniformsDescriptorSets.at(j) = modelUniform._descriptorSets;
 			}
+			j = -1;
+			while (++j < _uniformsImagesDescriptorSets.size())
+			{
+				std::vector<VkDescriptorSet> imageUniform = GraphicsInstance::GetInstance()->CreateImageDescriptorSets(_images.at(j)._imageView, _images.at(j)._textureSampler);
+				_uniformsImagesDescriptorSets.at(j) = imageUniform;
+			}
+
 		}
 
 		std::vector< VkBuffer > GraphicsRenderer::GetvkBuffers( void )

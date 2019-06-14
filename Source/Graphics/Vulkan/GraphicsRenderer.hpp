@@ -4,6 +4,12 @@
 #include "Scene/3D/Components/Transform3D.hpp"
 #include "Core/Math/mat4.hpp"
 
+struct Image
+{
+	VkSampler _textureSampler;
+	VkImageView _imageView;
+};
+
 namespace Soon
 {
 	struct ComponentRenderer
@@ -46,9 +52,10 @@ namespace Soon
 		std::vector< BufferRenderer >		_stagingBuffers;
 		std::vector< BufferRenderer >		_indexBuffers;
 		std::vector< uint32_t >				_indexSize;
+
 		std::vector< ImageRenderer >		_imagesRenderer;
 		std::vector< std::vector< VkDescriptorSet > >	_uniformsImagesDescriptorSets;
-
+		std::vector< Image >			_images;
 
 		// UNIFORM
 		std::vector< BufferRenderer > 	_uniformsBuffers;
