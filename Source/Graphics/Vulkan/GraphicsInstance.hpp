@@ -145,7 +145,7 @@ namespace Soon
 			void	UpdateUniformBuffer(uint32_t currentImage);
 			void 	CreateDescriptorPool( void );
 			UniformSets CreateDescriptorSets( size_t size);
-			UniformSets CreateImageDescriptorSets( VkImageView textureImageView, VkSampler textureSampler );
+			std::vector<VkDescriptorSet> CreateImageDescriptorSets( VkImageView textureImageView, VkSampler textureSampler );
 			UniformSets CreateUniform( size_t size);
 			ImageRenderer	CreateTextureImage( Texture2D* texture );
 			void 	CreateImage(uint32_t width, uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory);
