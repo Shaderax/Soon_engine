@@ -28,7 +28,7 @@ struct Texture2D
 	Texture2D( std::string path ) : _width(0), _height(0), _data(nullptr)
 	{
 		int format;
-		_data = stbi_load(path.c_str(), &_width, &_height, &format, 0);
+		_data = stbi_load(path.c_str(), &_width, &_height, &format, STBI_rgb_alpha);
 		if (_data)
 		{
 			std::cout << _width << " " << _height << std::endl;

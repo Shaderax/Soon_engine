@@ -53,7 +53,7 @@ namespace Soon
 			_imagesRenderer.push_back(GraphicsInstance::GetInstance()->CreateTextureImage(&(inf._material->_texture)));
 			std::cout << "PIHIYV" << std::endl;
 			VkSampler textureSampler = GraphicsInstance::GetInstance()->CreateTextureSampler();
-			VkImageView imageView = GraphicsInstance::GetInstance()->CreateImageView(_imagesRenderer.back()._textureImage, VK_FORMAT_R8G8B8A8_UNORM);
+			VkImageView imageView = GraphicsInstance::GetInstance()->CreateImageView(_imagesRenderer.back()._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT);
 			UniformSets imageUniform = GraphicsInstance::GetInstance()->CreateImageDescriptorSets(imageView, textureSampler);
 			_uniformsImagesDescriptorSets.push_back(imageUniform._descriptorSets);
 

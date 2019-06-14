@@ -71,6 +71,8 @@ namespace Soon
 		// specular: texture_specularN
 		// normal: texture_normalN
 
+		if (material)
+		{
 		// 1. diffuse maps
 		std::vector<Texture2D> diffuseMaps = LoadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
 		textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
@@ -78,8 +80,12 @@ namespace Soon
 		std::vector<Texture2D> specularMaps = LoadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
 		textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 
+		}
+
 		if (!textures.empty())
 			objMesh._mat._texture = textures.at(0);
+		else
+			objMesh._mat._texture = Texture2D("../Ressources/texture/texture_oui.bmp");
 
 		// 3. normal maps
 //		std::vector<Texture2D> normalMaps = LoadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
@@ -95,7 +101,7 @@ namespace Soon
 	
 	std::vector<Texture2D> Mesh::LoadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName)
 	{
-		std::vector<Texture2D> textures;
+		std::vector<Texture2D> textures(0);
 
 //		std::cout << mat->GetTextureCount(type) << std::endl;
 		for(unsigned int i = 0; i < mat->GetTextureCount(type); i++)

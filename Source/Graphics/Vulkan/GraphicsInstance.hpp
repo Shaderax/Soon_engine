@@ -96,6 +96,10 @@ namespace Soon
 			bool 							_framebufferResized;
 			VkDescriptorPool				_descriptorPool;
 
+			VkImage							_depthImage;
+			VkDeviceMemory					_depthImageMemory;
+			VkImageView						_depthImageView;
+
 			static GraphicsInstance*		_singleton;
 
 		public:
@@ -119,7 +123,7 @@ namespace Soon
 			void	CreateSwapChain( void );
 			void 	SetupDebugMessenger( void );
 			void 	CreateImageViews( void );
-			VkImageView CreateImageView(VkImage image, VkFormat format);
+			VkImageView CreateImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags );
 			void 	CreateGraphicsPipeline( void );
 			VkShaderModule CreateShaderModule(const std::vector<char>& code);
 			void	CreateRenderPass( void );
@@ -153,6 +157,10 @@ namespace Soon
 			void	CreateTextureImageView( void );
 			BufferRenderer CreateIndexBuffer( VertexBufferInfo inf );
 			void CopyBuffer( VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size );
+			VkFormat FindDepthFormat( void );
+			VkFormat FindSupportedFormat(const std::vector<VkFormat>& candidates, VkImageTiling tiling, VkFormatFeatureFlags features);
+			void CreateDepthResources( void );
+			bool HasStencilComponent(VkFormat format);
 
 
 
