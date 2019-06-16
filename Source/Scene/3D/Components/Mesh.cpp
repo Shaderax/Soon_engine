@@ -74,18 +74,21 @@ namespace Soon
 		if (material)
 		{
 			// 1. diffuse maps
-			std::vector<Texture2D> diffuseMaps = LoadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
-			textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-			// 2. specular maps
-			std::vector<Texture2D> specularMaps = LoadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
-			textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+			///// TEST 3K /////
+			objMesh._mat = LoadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+			
+//			std::vector<Texture2D> diffuseMaps = LoadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+//			textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+//			// 2. specular maps
+//			std::vector<Texture2D> specularMaps = LoadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+//			textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 
 		}
 
-		if (!textures.empty())
-			objMesh._mat._texture = textures.at(0);
-		else
-			objMesh._mat._texture = Texture2D("../Ressources/texture/texture_oui.bmp");
+//		if (!textures.empty())
+//			objMesh._mat._texture = textures.at(0);
+//		else
+//			objMesh._mat._texture = Texture2D("../Ressources/texture/texture_oui.bmp");
 
 		// 3. normal maps
 		//		std::vector<Texture2D> normalMaps = LoadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
@@ -100,25 +103,37 @@ namespace Soon
 	}
 	#include "assimp/material.h"
 
-	std::vector<Texture2D> Mesh::LoadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName)
+	Material Mesh::LoadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName)
 	{
-		std::vector<Texture2D> textures(0);
-
+		Material material;
+//		std::vector<Texture2D> textures(0);
 
 		///// TEST ////
 		aiColor3D diff;
 		aiColor3D ambient;
 		aiColor3D spec;
-		float shini;
+		float shini = 0;
 		mat->Get(AI_MATKEY_COLOR_DIFFUSE, diff);
-		std::cout << diff.r << std::endl;
-		std::cout << diff.g << std::endl;
-		std::cout << diff.b << std::endl;
+		std::cout << "Diffuse : " << diff.r << std::endl;
+		std::cout << "Diffuse : " << diff.g << std::endl;
+		std::cout << "Diffuse : " << diff.b << std::endl;
 		mat->Get(AI_MATKEY_COLOR_AMBIENT, ambient);
+		std::cout << "Ambient : " << ambient.r << std::endl;
+		std::cout << "Ambient : " << ambient.g << std::endl;
+		std::cout << "Ambient : " << ambient.b << std::endl;
 		mat->Get(AI_MATKEY_COLOR_SPECULAR, spec);
-		mat->Get(AI_MATKEY_SHININESS, shini);
+		std::cout << "Specular : " << spec.r << std::endl;
+		std::cout << "Specular : " << spec.g << std::endl;
+		std::cout << "Specular : " << spec.b << std::endl;
+		mat->Get(AI_MATKEY_SHININESS_STRENGTH, shini);
+		std::cout << "Shininess : " << shini << std::endl;
 
-		//		std::cout << mat->GetTextureCount(type) << std::endl;
+		material._ambient = vec3<float>(ambient.r, ambient.g, ambient.b);
+		material._diffuse = vec3<float>(diff.r, diff.g, diff.b);
+		material._specular = vec3<float>(spec.r, spec.g, spec.b);
+		material._shininess = shini;
+
+		std::cout << "mat->GetTextureCount(type) : " << mat->GetTextureCount(type) << std::endl;
 		for(unsigned int i = 0; i < mat->GetTextureCount(type); i++)
 		{
 			aiString str;
@@ -141,15 +156,18 @@ namespace Soon
 			int pos = filename.find_last_of('/');
 			if (std::string::npos == pos)
 				pos = 0;
-			Texture2D texture(_path + "/" + filename.substr(pos, filename.length()));
+			material._texture = Texture2D(_path + "/" + filename.substr(pos, filename.length()));
 			//				texture.id = TextureFromFile(str.C_Str(), this->directory);
 			//				texture.type = typeName;
 			//				texture.path = str.C_Str();
-			textures.push_back(texture);
+
+//			textures.push_back(texture);
+
 			//				textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
 			//			}
 		}
-		return textures;
+//		return textures;
+		return material;
 	}
 
 	void Mesh::ProcessNode(aiNode *node, const aiScene *scene)
