@@ -5,7 +5,7 @@
 
 struct Material
 {
-	Material( void )
+	Material( void ) : _shininess(0)
 	{
 
 	}
@@ -15,10 +15,21 @@ struct Material
 
 	}
 
+	Material& operator=(const Material& other)
+	{
+    		if (this == &other)
+			return *this;
+		_ambient = other._ambient;
+		_diffuse = other._diffuse;
+		_specular = other._specular;
+		_shininess = other._shininess;
+		_texture = other._texture;
+	}
+
+
 	Texture2D _texture;
 	vec3<float> _ambient;
 	vec3<float> _diffuse;
 	vec3<float> _specular;
 	float		_shininess;
-	//Shader  shader;
 };

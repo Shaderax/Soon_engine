@@ -30,7 +30,7 @@ namespace Soon
 			void ProcessNode(aiNode *node, const aiScene *scene);
 			void LoadMesh(std::string path);
 			void ProcessMesh(Mesh& objMesh, aiMesh *mesh, const aiScene *scene);
-			std::vector<Texture2D> LoadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
+			Material LoadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
 
 			VertexBufferInfo _inf =
 			{
@@ -49,5 +49,4 @@ namespace Soon
 		private:
 			Entity				_owner;
 	};
-	      std::vector<Texture2D> LoadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
 }
