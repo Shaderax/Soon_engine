@@ -1621,9 +1621,9 @@ namespace Soon
 	{
 		VkDescriptorPoolSize poolSize[2] = {};
 		poolSize[0].type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-		poolSize[0].descriptorCount = 10 * static_cast<uint32_t>(_swapChainImages.size());
+		poolSize[0].descriptorCount = 200 * static_cast<uint32_t>(_swapChainImages.size());
 		poolSize[1].type = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-		poolSize[1].descriptorCount = 10 * static_cast<uint32_t>(_swapChainImages.size());
+		poolSize[1].descriptorCount = 200 * static_cast<uint32_t>(_swapChainImages.size());
 
 		VkDescriptorPoolCreateInfo poolInfo = {};
 		poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;

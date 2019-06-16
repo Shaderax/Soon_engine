@@ -39,12 +39,13 @@ int main(int argc, char**argv)
 
 	Soon::Object Maya;
 	Maya.AddComponent<Soon::Mesh>();
-//	Maya.GetComponent<Soon::Mesh>().LoadMesh("../Ressources/objects/Borderlands 2 - Maya/untitled.obj");
-	Maya.GetComponent<Soon::Mesh>().LoadMesh("../Ressources/objects/Borderlands 2 - Maya/maya.obj");
+	Maya.GetComponent<Soon::Mesh>().LoadMesh("../Ressources/objects/Borderlands 2 - Maya/untitled.obj");
+//	Maya.GetComponent<Soon::Mesh>().LoadMesh("../Ressources/objects/Borderlands 2 - Maya/maya.obj");
 //	Maya.GetComponent<Soon::Mesh>().LoadMesh("../Ressources/objects/Test/test.obj");
 //	Maya.GetComponent<Soon::Mesh>().LoadMesh("../Ressources/objects/Test/cat.obj");
 //	Maya.GetComponent<Soon::Mesh>().LoadMesh("../Ressources/objects/Test/nanosuit.obj");
 //	Maya.GetComponent<Soon::Mesh>().LoadMesh("../Ressources/objects/Test/chalet.obj");
+//	Maya.GetComponent<Soon::Mesh>().LoadMesh("../Ressources/objects/Test/IronMan.obj");
 
 //	float inc = 0;
 //	Maya.GetComponent<Transform3D>().Rotate(0.0f, 90.0f, 0.0f);

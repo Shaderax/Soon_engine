@@ -106,11 +106,17 @@ namespace Soon
 
 
 		///// TEST ////
-		aiColor3D* diff = nullptr;
+		aiColor3D diff;
+		aiColor3D ambient;
+		aiColor3D spec;
+		float shini;
 		mat->Get(AI_MATKEY_COLOR_DIFFUSE, diff);
-		std::cout << diff->r << std::endl;
-		std::cout << diff->g << std::endl;
-		std::cout << diff->b << std::endl;
+		std::cout << diff.r << std::endl;
+		std::cout << diff.g << std::endl;
+		std::cout << diff.b << std::endl;
+		mat->Get(AI_MATKEY_COLOR_AMBIENT, ambient);
+		mat->Get(AI_MATKEY_COLOR_SPECULAR, spec);
+		mat->Get(AI_MATKEY_SHININESS, shini);
 
 		//		std::cout << mat->GetTextureCount(type) << std::endl;
 		for(unsigned int i = 0; i < mat->GetTextureCount(type); i++)
