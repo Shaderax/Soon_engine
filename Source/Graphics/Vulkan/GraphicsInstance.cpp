@@ -1525,9 +1525,8 @@ namespace Soon
 		else
 		{
 			//			std::cout << "No Current Camera.";
-			mat4<float> id;
 			uc.view = mat4<float>();
-			uc.proj = id;
+			uc.proj = mat4<float>();
 		}
 
 		std::vector<VkDeviceMemory> vkdm = GraphicsRenderer::GetInstance()->GetUniformsCamera()._uniformRender._BufferMemory;

@@ -16,8 +16,8 @@ namespace Soon
 	{
 		std::cout << "Enter" << std::endl;
 		// data to fill
-//		std::vector<Vertex> vertices;
-//		std::vector<unsigned int> indices;
+		//		std::vector<Vertex> vertices;
+		//		std::vector<unsigned int> indices;
 		std::vector<Texture2D> textures;
 
 		// Walk through each of the mesh's vertices
@@ -52,15 +52,15 @@ namespace Soon
 		// now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
 		for(unsigned int i = 0; i < mesh->mNumFaces; i++)
 		{
-//			std::cout << "Face : " << i << std::endl;
+			//			std::cout << "Face : " << i << std::endl;
 			aiFace face = mesh->mFaces[i];
 			// retrieve all indices of the face and store them in the indices vector
 			for(unsigned int j = 0; j < face.mNumIndices; j++)
 			{
-//				std::cout << "Indices : " << face.mIndices[j] << std::endl;
+				//				std::cout << "Indices : " << face.mIndices[j] << std::endl;
 				objMesh._indices.push_back(face.mIndices[j]);
 			}
-//			std::cout << std::endl;
+			//			std::cout << std::endl;
 		}
 		// process materials
 		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];    
@@ -73,12 +73,12 @@ namespace Soon
 
 		if (material)
 		{
-		// 1. diffuse maps
-		std::vector<Texture2D> diffuseMaps = LoadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
-		textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-		// 2. specular maps
-		std::vector<Texture2D> specularMaps = LoadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
-		textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+			// 1. diffuse maps
+			std::vector<Texture2D> diffuseMaps = LoadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+			textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+			// 2. specular maps
+			std::vector<Texture2D> specularMaps = LoadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+			textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 
 		}
 
@@ -88,51 +88,60 @@ namespace Soon
 			objMesh._mat._texture = Texture2D("../Ressources/texture/texture_oui.bmp");
 
 		// 3. normal maps
-//		std::vector<Texture2D> normalMaps = LoadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
-//		objMesh._textures.insert(objMesh._textures.end(), normalMaps.begin(), normalMaps.end());
-//		// 4. height maps
-//		std::std::vector<Texture> heightMaps = LoadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
-//		textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
+		//		std::vector<Texture2D> normalMaps = LoadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
+		//		objMesh._textures.insert(objMesh._textures.end(), normalMaps.begin(), normalMaps.end());
+		//		// 4. height maps
+		//		std::std::vector<Texture> heightMaps = LoadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
+		//		textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 
-  		// return a mesh object created from the extracted mesh data
-//		return Mesh(_owner, vertices, indices, textures);
+		// return a mesh object created from the extracted mesh data
+		//		return Mesh(_owner, vertices, indices, textures);
 		std::cout << "Exit" << std::endl;
 	}
-	
+	#include "assimp/material.h"
+
 	std::vector<Texture2D> Mesh::LoadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName)
 	{
 		std::vector<Texture2D> textures(0);
 
-//		std::cout << mat->GetTextureCount(type) << std::endl;
+
+		///// TEST ////
+		aiColor3D* diff = nullptr;
+		mat->Get(AI_MATKEY_COLOR_DIFFUSE, diff);
+		std::cout << diff->r << std::endl;
+		std::cout << diff->g << std::endl;
+		std::cout << diff->b << std::endl;
+
+		//		std::cout << mat->GetTextureCount(type) << std::endl;
 		for(unsigned int i = 0; i < mat->GetTextureCount(type); i++)
 		{
 			aiString str;
 			mat->GetTexture(type, i, &str);
-//			std::cout << str.C_Str() << std::endl;
+			//			std::cout << str.C_Str() << std::endl;
 			// check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
-//			bool skip = false;
-//			for(unsigned int j = 0; j < textures_loaded.size(); j++)
-//			{
-//				if(std::strcmp(textures_loaded[j].path.data(), str.C_Str()) == 0)
-//				{
-//					textures.push_back(textures_loaded[j]);
-//					skip = true; // a texture with the same filepath has already been loaded, continue to next one. (optimization)
-//					break;
-//				}
-//			}
-//			if(!skip)
-//			{   // if texture hasn't been loaded already, load it
-				std::string filename(str.C_Str());
-				int pos = filename.find_last_of('/');
-				if (std::string::npos == pos)
-					pos = 0;
-				Texture2D texture(_path + "/" + filename.substr(pos, filename.length()));
-//				texture.id = TextureFromFile(str.C_Str(), this->directory);
-//				texture.type = typeName;
-//				texture.path = str.C_Str();
-				textures.push_back(texture);
-//				textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
-//			}
+			//			bool skip = false;
+			//			for(unsigned int j = 0; j < textures_loaded.size(); j++)
+			//			{
+			//				if(std::strcmp(textures_loaded[j].path.data(), str.C_Str()) == 0)
+			//				{
+			//					textures.push_back(textures_loaded[j]);
+			//					skip = true; // a texture with the same filepath has already been loaded, continue to next one. (optimization)
+			//					break;
+			//				}
+			//			}
+			//			if(!skip)
+			//			{   // if texture hasn't been loaded already, load it
+			std::string filename(str.C_Str());
+			int pos = filename.find_last_of('/');
+			if (std::string::npos == pos)
+				pos = 0;
+			Texture2D texture(_path + "/" + filename.substr(pos, filename.length()));
+			//				texture.id = TextureFromFile(str.C_Str(), this->directory);
+			//				texture.type = typeName;
+			//				texture.path = str.C_Str();
+			textures.push_back(texture);
+			//				textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
+			//			}
 		}
 		return textures;
 	}
@@ -150,14 +159,14 @@ namespace Soon
 
 			ProcessMesh(objMesh, mesh, scene);
 
-//			for (Vertex& vertex : objMesh._vertices)
-//			{
-//				std::cout << "Position : " ; vertex._position.show();
-//				std::cout << "Normal : " ; vertex._normal.show();
-//				std::cout << "Text : " ; vertex._texCoords.show();
-//			}
-//			for (uint32_t& indices : objMesh._indices)
-//				std::cout << indices<< std::endl;
+			//			for (Vertex& vertex : objMesh._vertices)
+			//			{
+			//				std::cout << "Position : " ; vertex._position.show();
+			//				std::cout << "Normal : " ; vertex._normal.show();
+			//				std::cout << "Text : " ; vertex._texCoords.show();
+			//			}
+			//			for (uint32_t& indices : objMesh._indices)
+			//				std::cout << indices<< std::endl;
 
 			objMesh._inf._nbVertex = objMesh._vertices.size();
 			std::cout << "My Parser : Nb Vertice : " << objMesh._inf._nbVertex << std::endl;
