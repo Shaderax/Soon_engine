@@ -45,9 +45,9 @@ namespace Soon
 			std::vector<uint32_t>	_indices;
 			std::string					_path;
 
+			Material			_mat;
 		private:
 			Entity				_owner;
-			Material			_mat;
 	};
 	      std::vector<Texture2D> LoadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName);
 }
