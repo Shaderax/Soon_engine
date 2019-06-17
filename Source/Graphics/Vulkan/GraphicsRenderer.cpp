@@ -68,8 +68,6 @@ namespace Soon
 			_uniformsMaterialsDescriptorSets.push_back(matUniform._descriptorSets);
 			_vecMaterials.push_back(inf._material);
 
-			std::cout << GetMaterials().at(0)->_ambient.x << std::endl;
-
 			/////////////////
 
 			_changes = true;
@@ -78,7 +76,6 @@ namespace Soon
 		
 		void GraphicsRenderer::AddLightToRender( Transform3D& tr, DirectionalLight* dl)
 		{
-			std::cout << "EZ : " << GetMaterials().at(0)->_ambient.x << std::endl;
 			UniformSets lightUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformLight), DescriptorTypeLayout::LIGHT);
 
 			_uniformsLights.push_back(lightUniform._uniformRender);

@@ -14,7 +14,6 @@ namespace Soon
 {
 	void Mesh::ProcessMesh(Mesh& objMesh, aiMesh *mesh, const aiScene *scene)
 	{
-		std::cout << "Enter" << std::endl;
 		// data to fill
 		//		std::vector<Vertex> vertices;
 		//		std::vector<unsigned int> indices;
@@ -99,7 +98,6 @@ namespace Soon
 
 		// return a mesh object created from the extracted mesh data
 		//		return Mesh(_owner, vertices, indices, textures);
-		std::cout << "Exit" << std::endl;
 	}
 	#include "assimp/material.h"
 
@@ -183,19 +181,10 @@ namespace Soon
 			aiMesh *mesh = scene->mMeshes[node->mMeshes[i]]; 
 
 			Object* obj = new Object(_owner.GetComponent<ObjectOwner>()._owner);
-			Mesh objMesh = obj->AddComponent<Soon::Mesh>();
+			Mesh& objMesh = obj->AddComponent<Soon::Mesh>();
 			objMesh._path = _path;
 
 			ProcessMesh(objMesh, mesh, scene);
-
-			//			for (Vertex& vertex : objMesh._vertices)
-			//			{
-			//				std::cout << "Position : " ; vertex._position.show();
-			//				std::cout << "Normal : " ; vertex._normal.show();
-			//				std::cout << "Text : " ; vertex._texCoords.show();
-			//			}
-			//			for (uint32_t& indices : objMesh._indices)
-			//				std::cout << indices<< std::endl;
 
 			objMesh._inf._nbVertex = objMesh._vertices.size();
 			std::cout << "My Parser : Nb Vertice : " << objMesh._inf._nbVertex << std::endl;

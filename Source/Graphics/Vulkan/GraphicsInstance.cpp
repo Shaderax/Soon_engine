@@ -876,7 +876,6 @@ namespace Soon
 
 	void GraphicsInstance::FillCommandBuffer( void )
 	{
-		std::cout << "Before" << std::endl;
 		std::vector<VkBuffer> vecBuf =			GraphicsRenderer::GetInstance()->GetvkBuffers();
 		std::vector< uint32_t > vecNbVer =		GraphicsRenderer::GetInstance()->GetNbVertex();
 		std::vector<std::vector< VkDescriptorSet >> vecDs =			GraphicsRenderer::GetInstance()->GetUniformsDescriptorSets();
@@ -918,8 +917,7 @@ namespace Soon
 			if (!GraphicsRenderer::GetInstance()->GetvkBuffers().empty())
 				vkCmdBindDescriptorSets(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 0, 1, &(GraphicsRenderer::GetInstance()->GetUniformCameraDescriptorSets().at(i)), 0, nullptr);
 
-			vkCmdBindDescriptorSets(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 4, 1, &uniformLights.at(0).at(i), 0, nullptr);
-				std::cout << "YEY" << std::endl;
+			vkCmdBindDescriptorSets(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 4, 1, &(uniformLights.at(0).at(i)), 0, nullptr);
 
 			uint32_t j = 0;
 			for (auto& buf : GraphicsRenderer::GetInstance()->GetvkBuffers())
@@ -943,7 +941,6 @@ namespace Soon
 			if (vkEndCommandBuffer(_commandBuffers[i]) != VK_SUCCESS)
 				throw std::runtime_error("failed to record command buffer!");
 		}
-		std::cout << "After" << std::endl;
 	}
 
 #define MAX_FRAMES_IN_FLIGHT 2
@@ -1584,13 +1581,13 @@ namespace Soon
 		{
 			++i;
 
-			Material* mt = GraphicsRenderer::GetInstance()->GetMaterials().at(i);
-//			std::cout << mt->_ambient.x << std::endl;
+			char* mt = (char*)GraphicsRenderer::GetInstance()->GetMaterials().at(i);
 			vkMapMemory(_device, uniformMaterial._BufferMemory[currentImage], 0, sizeof(UniformMaterial), 0, &data);
-//			vec3<float>* ko = (vec3<float>*)(mt + sizeof(Texture2D));
-//			std::cout << ko->x << std::endl;
-//			std::cout << ko->y << std::endl;
-//			std::cout << ko->z << std::endl;
+//			std::cout << "Add of : " << mt + sizeof(Texture2D) - mt << std::endl;
+//			vec3<float> ko = static_cast<vec3<float>>(mt + sizeof(Texture2D));
+//			std::cout << ko.x << std::endl;
+//			std::cout << ko.y << std::endl;
+//			std::cout << ko.z << std::endl;
 			memcpy(data, mt + sizeof(Texture2D), sizeof(UniformMaterial));
 			vkUnmapMemory(_device, uniformMaterial._BufferMemory[currentImage]);
 		}
@@ -1602,7 +1599,7 @@ namespace Soon
 			++i;
 
 			vkMapMemory(_device, uniformLight._BufferMemory[currentImage], 0, sizeof(UniformLight), 0, &data);
-			memcpy(data, static_cast<void*>(GraphicsRenderer::GetInstance()->GetLights().at(i)), sizeof(UniformLight));
+			memcpy(data, GraphicsRenderer::GetInstance()->GetLights().at(i), sizeof(UniformLight));
 			vkUnmapMemory(_device, uniformLight._BufferMemory[currentImage]);
 		}
 	}
