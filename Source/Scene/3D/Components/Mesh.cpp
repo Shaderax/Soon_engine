@@ -113,19 +113,24 @@ namespace Soon
 		aiColor3D ambient;
 		aiColor3D spec;
 		float shini = 0;
-		mat->Get(AI_MATKEY_COLOR_DIFFUSE, diff);
+		aiReturn ret;
+		ret = mat->Get(AI_MATKEY_COLOR_DIFFUSE, diff);
+		std::cout << (ret == AI_SUCCESS ? "AI_SUCCESS" : "AI_FAILURE") << std::endl;
 		std::cout << "Diffuse : " << diff.r << std::endl;
 		std::cout << "Diffuse : " << diff.g << std::endl;
 		std::cout << "Diffuse : " << diff.b << std::endl;
-		mat->Get(AI_MATKEY_COLOR_AMBIENT, ambient);
+		ret = mat->Get(AI_MATKEY_COLOR_AMBIENT, ambient);
+		std::cout << (ret == AI_SUCCESS ? "AI_SUCCESS" : "AI_FAILURE") << std::endl;
 		std::cout << "Ambient : " << ambient.r << std::endl;
 		std::cout << "Ambient : " << ambient.g << std::endl;
 		std::cout << "Ambient : " << ambient.b << std::endl;
-		mat->Get(AI_MATKEY_COLOR_SPECULAR, spec);
+		ret = mat->Get(AI_MATKEY_COLOR_SPECULAR, spec);
+		std::cout << (ret == AI_SUCCESS ? "AI_SUCCESS" : "AI_FAILURE") << std::endl;
 		std::cout << "Specular : " << spec.r << std::endl;
 		std::cout << "Specular : " << spec.g << std::endl;
 		std::cout << "Specular : " << spec.b << std::endl;
-		mat->Get(AI_MATKEY_SHININESS_STRENGTH, shini);
+		ret = mat->Get(AI_MATKEY_SHININESS_STRENGTH, shini);
+		std::cout << (ret == AI_SUCCESS ? "AI_SUCCESS" : "AI_FAILURE") << std::endl;
 		std::cout << "Shininess : " << shini << std::endl;
 
 		material._ambient = vec3<float>(ambient.r, ambient.g, ambient.b);
@@ -200,7 +205,7 @@ namespace Soon
 			objMesh._inf._indexSize = objMesh._indices.size();
 			std::cout << "My Parser : indexSize : " << objMesh._inf._indexSize << std::endl;
 			objMesh._inf._indexData = objMesh._indices.data();
-			objMesh._inf._material = &objMesh._mat;
+			objMesh._inf._material = &(objMesh._mat);
 			GraphicsRenderer::GetInstance()->AddToRender(_owner.GetComponent<Transform3D>(), objMesh._inf);
 		}
 		// then do the same for each of its children

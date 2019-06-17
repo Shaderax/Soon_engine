@@ -60,6 +60,17 @@ struct Texture2D
 
 	}
 
+	Texture2D& operator=(const Texture2D& b)
+	{
+		if (this == &b)
+			return *this;
+		this->_data = b._data;
+		this->_width = b._width;
+		this->_height = b._height;
+		this->_format = b._format;
+		return *this;
+	}
+
 	unsigned char*		_data;
 	int			_width;
 	int			_height;
