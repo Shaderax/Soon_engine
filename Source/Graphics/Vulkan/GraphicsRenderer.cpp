@@ -13,7 +13,7 @@ namespace Soon
 
 		void GraphicsRenderer::Initialize( void )
 		{
-			_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera));
+			_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), DescriptorTypeLayout::CAMERA);
 		}
 
 		GraphicsRenderer::GraphicsRenderer( void ) : _changes(false)
@@ -42,7 +42,7 @@ namespace Soon
 
 			///////////// UNIFORM /////////////
 
-			UniformSets modelUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformModel));			
+			UniformSets modelUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformModel), DescriptorTypeLayout::MODEL);
 
 			_uniformsBuffers.push_back(modelUniform._uniformRender);
 			_uniformsDescriptorSets.push_back(modelUniform._descriptorSets);
@@ -60,18 +60,41 @@ namespace Soon
 			std::vector<VkDescriptorSet> imageUniform = GraphicsInstance::GetInstance()->CreateImageDescriptorSets(img._imageView, img._textureSampler);
 			_uniformsImagesDescriptorSets.push_back(imageUniform);
 
+			/////////// MATERIAL //////////////
+
+			UniformSets matUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformMaterial), DescriptorTypeLayout::MATERIAL);
+
+			_uniformsMaterials.push_back(matUniform._uniformRender);
+			_uniformsMaterialsDescriptorSets.push_back(matUniform._descriptorSets);
+			_vecMaterials.push_back(inf._material);
+
+			std::cout << GetMaterials().at(0)->_ambient.x << std::endl;
+
+			/////////////////
+
 			_changes = true;
 			return ret;
+		}
+		
+		void GraphicsRenderer::AddLightToRender( Transform3D& tr, DirectionalLight* dl)
+		{
+			std::cout << "EZ : " << GetMaterials().at(0)->_ambient.x << std::endl;
+			UniformSets lightUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformLight), DescriptorTypeLayout::LIGHT);
+
+			_uniformsLights.push_back(lightUniform._uniformRender);
+			_uniformsLightsDescriptorSets.push_back(lightUniform._descriptorSets);
+
+			_vecLights.push_back(dl);
 		}
 
 		void GraphicsRenderer::RecreateAllUniforms( void )
 		{
-			_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera));
+			_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), DescriptorTypeLayout::CAMERA);
 
 			int j = -1;
 			while (++j < _uniformsBuffers.size())
 			{
-				UniformSets modelUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformModel));			
+				UniformSets modelUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformModel), DescriptorTypeLayout::MODEL);
 				_uniformsBuffers.at(j) = modelUniform._uniformRender;
 				_uniformsDescriptorSets.at(j) = modelUniform._descriptorSets;
 			}
@@ -82,6 +105,23 @@ namespace Soon
 				_uniformsImagesDescriptorSets.at(j) = imageUniform;
 			}
 
+			/// RECREATE MATERIALS
+			j = -1;
+			while (++j < _uniformsMaterialsDescriptorSets.size())
+			{
+				UniformSets matUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformMaterial), DescriptorTypeLayout::MATERIAL);
+				_uniformsMaterials.at(j) = matUniform._uniformRender;
+				_uniformsMaterialsDescriptorSets.at(j) = matUniform._descriptorSets;
+			}
+
+			///// RECREATE LIGHTS
+			j = -1;
+			while (++j < _vecLights.size())
+			{
+				UniformSets lightUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformLight), DescriptorTypeLayout::LIGHT);
+				_uniformsLights.at(j) = lightUniform._uniformRender;
+				_uniformsLightsDescriptorSets.at(j) = lightUniform._descriptorSets;
+			}
 		}
 
 		std::vector< VkBuffer > GraphicsRenderer::GetvkBuffers( void )
@@ -147,5 +187,35 @@ namespace Soon
 		std::vector< std::vector<VkDescriptorSet> > GraphicsRenderer::GetUniformsImagesDescriptorSets( void )
 		{
 			return (_uniformsImagesDescriptorSets);
+		}
+
+		std::vector< std::vector<VkDescriptorSet> > GraphicsRenderer::GetUniformsMaterialsDescriptorSets( void )
+		{
+			return _uniformsMaterialsDescriptorSets;
+		}
+
+		std::vector< BufferRenderer > GraphicsRenderer::GetUniformsMaterials( void )
+		{
+			return _uniformsMaterials;
+		}
+
+		std::vector< Material * > GraphicsRenderer::GetMaterials( void )
+		{
+			return (_vecMaterials);
+		}
+
+		std::vector< std::vector<VkDescriptorSet> > GraphicsRenderer::GetUniformsLightsDescriptorSets( void )
+		{
+			return _uniformsLightsDescriptorSets;
+		}
+
+		std::vector< BufferRenderer > GraphicsRenderer::GetUniformsLights( void )
+		{
+			return _uniformsLights;
+		}
+
+		std::vector< DirectionalLight * > GraphicsRenderer::GetLights( void )
+		{
+			return (_vecLights);
 		}
 }

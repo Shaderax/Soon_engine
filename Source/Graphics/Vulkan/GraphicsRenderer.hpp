@@ -12,6 +12,8 @@ struct Image
 
 namespace Soon
 {
+	class DirectionalLight;
+
 	struct ComponentRenderer
 	{
 		std::vector< Transform3D* >::iterator	_transform;
@@ -43,6 +45,14 @@ namespace Soon
 		std::vector<uint32_t>   GetIndexSize( void );
 		std::vector< std::vector<VkDescriptorSet> > GetUniformsImagesDescriptorSets( void );
 
+		std::vector< std::vector<VkDescriptorSet> > GetUniformsMaterialsDescriptorSets( void );
+		std::vector< BufferRenderer > GetUniformsMaterials( void );
+		std::vector< Material * > GetMaterials( void );
+		std::vector< std::vector<VkDescriptorSet> > GetUniformsLightsDescriptorSets( void );
+		std::vector< BufferRenderer > GetUniformsLights( void );
+		std::vector< DirectionalLight * > GetLights( void );
+
+		void AddLightToRender( Transform3D& tr, DirectionalLight* dl);
 
 		private:
 		std::vector< uint32_t >			_nbVertex;
@@ -60,10 +70,19 @@ namespace Soon
 		// UNIFORM
 		std::vector< BufferRenderer > 	_uniformsBuffers;
 		std::vector< std::vector< VkDescriptorSet > >	_uniformsDescriptorSets;
+
+		//// UNIFORM CAMERA
 		UniformSets						_uniformCamera;
 
-//		// TEXTURE
-//		std::vector< BufferRenderer > 	_textureBuffers;
+		// UNIFORM MATERIAL
+		std::vector<Material*>			_vecMaterials;
+		std::vector< BufferRenderer > 	_uniformsMaterials;
+		std::vector< std::vector< VkDescriptorSet > >	_uniformsMaterialsDescriptorSets;
+
+		// UNIFORM LIGHT
+		std::vector<DirectionalLight*>		_vecLights;
+		std::vector< BufferRenderer > 	_uniformsLights;
+		std::vector< std::vector< VkDescriptorSet > >	_uniformsLightsDescriptorSets;
 
 		bool _changes;
 

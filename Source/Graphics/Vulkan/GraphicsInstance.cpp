@@ -662,11 +662,11 @@ namespace Soon
 		depthStencil.depthWriteEnable = VK_TRUE;
 		depthStencil.depthCompareOp = VK_COMPARE_OP_LESS;
 		depthStencil.depthBoundsTestEnable = VK_FALSE;
-//		depthStencil.minDepthBounds = 0.0f; // Optional
-//		depthStencil.maxDepthBounds = 1.0f; // Optional
+		//		depthStencil.minDepthBounds = 0.0f; // Optional
+		//		depthStencil.maxDepthBounds = 1.0f; // Optional
 		depthStencil.stencilTestEnable = VK_FALSE;
-//		depthStencil.front = {}; // Optional
-//		depthStencil.back = {}; // Optional
+		//		depthStencil.front = {}; // Optional
+		//		depthStencil.back = {}; // Optional
 
 		VkPipelineColorBlendAttachmentState colorBlendAttachment = {};
 		colorBlendAttachment.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
@@ -686,7 +686,7 @@ namespace Soon
 		/////////// PIPELINE LAYOUT ////////////
 		VkPipelineLayoutCreateInfo pipelineLayoutInfo = {};
 		pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-		pipelineLayoutInfo.setLayoutCount = 3;
+		pipelineLayoutInfo.setLayoutCount = 5;
 		pipelineLayoutInfo.pSetLayouts = &(_descriptorSetLayout.data()[0]);
 		//		pipelineLayoutInfo.pushConstantRangeCount = 0;
 
@@ -876,6 +876,16 @@ namespace Soon
 
 	void GraphicsInstance::FillCommandBuffer( void )
 	{
+		std::cout << "Before" << std::endl;
+		std::vector<VkBuffer> vecBuf =			GraphicsRenderer::GetInstance()->GetvkBuffers();
+		std::vector< uint32_t > vecNbVer =		GraphicsRenderer::GetInstance()->GetNbVertex();
+		std::vector<std::vector< VkDescriptorSet >> vecDs =			GraphicsRenderer::GetInstance()->GetUniformsDescriptorSets();
+		std::vector<std::vector< VkDescriptorSet >> uniformImage =	GraphicsRenderer::GetInstance()->GetUniformsImagesDescriptorSets();
+		// MATERIALS
+			std::vector<std::vector< VkDescriptorSet >> uniformMaterials =	GraphicsRenderer::GetInstance()->GetUniformsMaterialsDescriptorSets();
+		// LIGHTS
+			std::vector<std::vector< VkDescriptorSet >> uniformLights =	GraphicsRenderer::GetInstance()->GetUniformsLightsDescriptorSets();
+
 		for (size_t i = 0; i < _commandBuffers.size(); i++)
 		{
 			VkCommandBufferBeginInfo beginInfo = {};
@@ -903,14 +913,13 @@ namespace Soon
 			vkCmdBindPipeline(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _graphicsPipeline);
 
 			VkDeviceSize offsets[] = {0};
-			std::vector<VkBuffer> vecBuf = GraphicsRenderer::GetInstance()->GetvkBuffers();
-			std::vector< uint32_t > vecNbVer = GraphicsRenderer::GetInstance()->GetNbVertex();
-			std::vector<std::vector< VkDescriptorSet >> vecDs = GraphicsRenderer::GetInstance()->GetUniformsDescriptorSets();
-			std::vector<std::vector< VkDescriptorSet >> uniformImage = GraphicsRenderer::GetInstance()->GetUniformsImagesDescriptorSets();
 
 			// Bind Cam
 			if (!GraphicsRenderer::GetInstance()->GetvkBuffers().empty())
 				vkCmdBindDescriptorSets(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 0, 1, &(GraphicsRenderer::GetInstance()->GetUniformCameraDescriptorSets().at(i)), 0, nullptr);
+
+			vkCmdBindDescriptorSets(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 4, 1, &uniformLights.at(0).at(i), 0, nullptr);
+				std::cout << "YEY" << std::endl;
 
 			uint32_t j = 0;
 			for (auto& buf : GraphicsRenderer::GetInstance()->GetvkBuffers())
@@ -923,6 +932,8 @@ namespace Soon
 				vkCmdBindDescriptorSets(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 1, 1, &vecDs.at(j).at(i), 0, nullptr);
 				vkCmdBindDescriptorSets(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 2, 1, &uniformImage.at(j).at(i), 0, nullptr);
 
+				vkCmdBindDescriptorSets(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 3, 1, &uniformMaterials.at(j).at(i), 0, nullptr);
+
 				//				vkCmdDraw(_commandBuffers[i], vecNbVer.at(j), 1, 0, 0);
 				vkCmdDrawIndexed(_commandBuffers[i], static_cast<uint32_t>(GraphicsRenderer::GetInstance()->GetIndexSize().at(j)), 1, 0, 0, 0);
 				j++;
@@ -932,6 +943,7 @@ namespace Soon
 			if (vkEndCommandBuffer(_commandBuffers[i]) != VK_SUCCESS)
 				throw std::runtime_error("failed to record command buffer!");
 		}
+		std::cout << "After" << std::endl;
 	}
 
 #define MAX_FRAMES_IN_FLIGHT 2
@@ -1536,6 +1548,10 @@ namespace Soon
 
 		/////////// Model //////////
 
+
+		////////////// NEED TO MERGE MATERIAL AND MODEL
+
+
 		// For Every Uniform
 		int i = -1;
 		for (auto& uniform : GraphicsRenderer::GetInstance()->GetUniformBuffers())
@@ -1561,12 +1577,40 @@ namespace Soon
 			memcpy(data, &matModel, sizeof(UniformModel));
 			vkUnmapMemory(_device, uniform._BufferMemory[currentImage]);
 		}
+
+		///// MATERIALS
+		i = -1;
+		for (auto& uniformMaterial : GraphicsRenderer::GetInstance()->GetUniformsMaterials())
+		{
+			++i;
+
+			Material* mt = GraphicsRenderer::GetInstance()->GetMaterials().at(i);
+//			std::cout << mt->_ambient.x << std::endl;
+			vkMapMemory(_device, uniformMaterial._BufferMemory[currentImage], 0, sizeof(UniformMaterial), 0, &data);
+//			vec3<float>* ko = (vec3<float>*)(mt + sizeof(Texture2D));
+//			std::cout << ko->x << std::endl;
+//			std::cout << ko->y << std::endl;
+//			std::cout << ko->z << std::endl;
+			memcpy(data, mt + sizeof(Texture2D), sizeof(UniformMaterial));
+			vkUnmapMemory(_device, uniformMaterial._BufferMemory[currentImage]);
+		}
+
+		///////// LIGHTs
+		i = -1;
+		for (auto& uniformLight : GraphicsRenderer::GetInstance()->GetUniformsLights())
+		{
+			++i;
+
+			vkMapMemory(_device, uniformLight._BufferMemory[currentImage], 0, sizeof(UniformLight), 0, &data);
+			memcpy(data, static_cast<void*>(GraphicsRenderer::GetInstance()->GetLights().at(i)), sizeof(UniformLight));
+			vkUnmapMemory(_device, uniformLight._BufferMemory[currentImage]);
+		}
 	}
 
 	// TODO
 	void GraphicsInstance::CreateDescriptorSetLayout( void )
 	{
-		VkDescriptorSetLayoutBinding uboLayoutBinding[3] = {};
+		VkDescriptorSetLayoutBinding uboLayoutBinding[5] = {};
 		////// BINDING 0 : CAM //////////
 		uboLayoutBinding[0].binding = 0;
 		uboLayoutBinding[0].descriptorCount = 1;
@@ -1585,13 +1629,25 @@ namespace Soon
 		uboLayoutBinding[2].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
 		uboLayoutBinding[2].pImmutableSamplers = nullptr;
 		uboLayoutBinding[2].stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
+		///////// MATERIALS /////////////
+		uboLayoutBinding[3].binding = 0;
+		uboLayoutBinding[3].descriptorCount = 1;
+		uboLayoutBinding[3].descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+		uboLayoutBinding[3].pImmutableSamplers = nullptr;
+		uboLayoutBinding[3].stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
+		///////////// LIGHTS ////////////
+		uboLayoutBinding[4].binding = 0;
+		uboLayoutBinding[4].descriptorCount = 1;
+		uboLayoutBinding[4].descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+		uboLayoutBinding[4].pImmutableSamplers = nullptr;
+		uboLayoutBinding[4].stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
 
 		VkDescriptorSetLayoutCreateInfo layoutInfo = {};
 		layoutInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
 		layoutInfo.bindingCount = 1;
 		layoutInfo.pBindings = &uboLayoutBinding[0];
 
-		_descriptorSetLayout.resize(3);
+		_descriptorSetLayout.resize(5);
 		if (vkCreateDescriptorSetLayout(_device, &layoutInfo, nullptr, &(_descriptorSetLayout[0])) != VK_SUCCESS)
 			throw std::runtime_error("failed to create descriptor set layout!");
 		layoutInfo.pBindings = &uboLayoutBinding[1];
@@ -1599,6 +1655,12 @@ namespace Soon
 			throw std::runtime_error("failed to create descriptor set layout!");
 		layoutInfo.pBindings = &uboLayoutBinding[2];
 		if (vkCreateDescriptorSetLayout(_device, &layoutInfo, nullptr, &(_descriptorSetLayout[2])) != VK_SUCCESS)
+			throw std::runtime_error("failed to create descriptor set layout!");
+		layoutInfo.pBindings = &uboLayoutBinding[3];
+		if (vkCreateDescriptorSetLayout(_device, &layoutInfo, nullptr, &(_descriptorSetLayout[3])) != VK_SUCCESS)
+			throw std::runtime_error("failed to create descriptor set layout!");
+		layoutInfo.pBindings = &uboLayoutBinding[4];
+		if (vkCreateDescriptorSetLayout(_device, &layoutInfo, nullptr, &(_descriptorSetLayout[4])) != VK_SUCCESS)
 			throw std::runtime_error("failed to create descriptor set layout!");
 	}
 
@@ -1636,13 +1698,13 @@ namespace Soon
 	}
 
 	// TODO : MULTISET DYNAMIC
-	UniformSets GraphicsInstance::CreateDescriptorSets( size_t size )
+	UniformSets GraphicsInstance::CreateDescriptorSets( size_t size, DescriptorTypeLayout dlayout )
 	{
 		UniformSets ds;
 
 		ds._uniformRender = CreateUniformBuffers(size);
 
-		std::vector<VkDescriptorSetLayout> layouts(_swapChainImages.size(), _descriptorSetLayout[0]);
+		std::vector<VkDescriptorSetLayout> layouts(_swapChainImages.size(), _descriptorSetLayout[dlayout]);
 
 		VkDescriptorSetAllocateInfo allocInfo = {};
 		allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
@@ -1714,9 +1776,9 @@ namespace Soon
 		return (ds);
 	}
 
-	UniformSets GraphicsInstance::CreateUniform( size_t size )
+	UniformSets GraphicsInstance::CreateUniform( size_t size, DescriptorTypeLayout dlayout )
 	{
-		return (CreateDescriptorSets( size ));
+		return (CreateDescriptorSets( size, dlayout ));
 	}
 
 	///////////// DEPTH BUFFER / STENCIL BUFFER ///////////////

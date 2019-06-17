@@ -5,7 +5,7 @@
 
 struct Material
 {
-	Material( void ) : _shininess(0)
+	Material( void ) : _shininess(0.0f)
 	{
 
 	}
@@ -17,13 +17,14 @@ struct Material
 
 	Material& operator=(const Material& other)
 	{
-    		if (this == &other)
+    	if (this == &other)
 			return *this;
 		_ambient = other._ambient;
 		_diffuse = other._diffuse;
 		_specular = other._specular;
 		_shininess = other._shininess;
 		_texture = other._texture;
+		return (*this);
 	}
 
 
