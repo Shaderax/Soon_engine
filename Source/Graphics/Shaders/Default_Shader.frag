@@ -26,10 +26,9 @@ layout(location = 0) out vec4 outColor;
 void main()
 {
 
-	float ambientStrength = 1.0;
-//    vec3 ambient = ambientStrength/* * ul._lightColor*/;
+	float ambientStrength = 0.5;
 
-	vec3 result = ambientStrength * um._ambient;
+	vec3 result = ambientStrength * um._specular;
 
     outColor = vec4(result, 1.0f) * texture(texSampler, fragTexCoord);
 }
