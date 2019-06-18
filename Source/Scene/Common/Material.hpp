@@ -29,8 +29,8 @@ struct Material
 
 
 	Texture2D _texture;
-	vec3<float> _ambient;
-	vec3<float> _diffuse;
-	vec3<float> _specular;
-	float		_shininess;
+	alignas(16)	vec3<float> _ambient;
+	alignas(16)	vec3<float> _diffuse;
+	alignas(16)	vec3<float> _specular;
+	alignas(4)	float		_shininess;
 };

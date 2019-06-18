@@ -74,7 +74,7 @@ namespace Soon
 		{
 			// 1. diffuse maps
 			///// TEST 3K /////
-			objMesh._mat = LoadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+			LoadMaterialTextures(&objMesh._mat, material, aiTextureType_DIFFUSE, "texture_diffuse");
 			
 //			std::vector<Texture2D> diffuseMaps = LoadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
 //			textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
@@ -101,9 +101,8 @@ namespace Soon
 	}
 	#include "assimp/material.h"
 
-	Material Mesh::LoadMaterialTextures(aiMaterial *mat, aiTextureType type, std::string typeName)
+	void Mesh::LoadMaterialTextures(Material* material, aiMaterial *mat, aiTextureType type, std::string typeName)
 	{
-		Material material;
 //		std::vector<Texture2D> textures(0);
 
 		///// TEST ////
@@ -131,10 +130,10 @@ namespace Soon
 		std::cout << (ret == AI_SUCCESS ? "AI_SUCCESS" : "AI_FAILURE") << std::endl;
 		std::cout << "Shininess : " << shini << std::endl;
 
-		material._ambient = vec3<float>(ambient.r, ambient.g, ambient.b);
-		material._diffuse = vec3<float>(diff.r, diff.g, diff.b);
-		material._specular = vec3<float>(spec.r, spec.g, spec.b);
-		material._shininess = shini;
+		material->_ambient = vec3<float>(ambient.r, ambient.g, ambient.b);
+		material->_diffuse = vec3<float>(diff.r, diff.g, diff.b);
+		material->_specular = vec3<float>(spec.r, spec.g, spec.b);
+		material->_shininess = shini;
 
 		std::cout << "mat->GetTextureCount(type) : " << mat->GetTextureCount(type) << std::endl;
 		for(unsigned int i = 0; i < mat->GetTextureCount(type); i++)
@@ -159,7 +158,7 @@ namespace Soon
 			int pos = filename.find_last_of('/');
 			if (std::string::npos == pos)
 				pos = 0;
-			material._texture = Texture2D(_path + "/" + filename.substr(pos, filename.length()));
+			material->_texture = Texture2D(_path + "/" + filename.substr(pos, filename.length()));
 			//				texture.id = TextureFromFile(str.C_Str(), this->directory);
 			//				texture.type = typeName;
 			//				texture.path = str.C_Str();
@@ -170,7 +169,6 @@ namespace Soon
 			//			}
 		}
 //		return textures;
-		return material;
 	}
 
 	void Mesh::ProcessNode(aiNode *node, const aiScene *scene)

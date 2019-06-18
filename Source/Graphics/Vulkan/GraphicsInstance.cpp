@@ -14,6 +14,7 @@
 #include <string>
 #include "Core/Engine.hpp"
 #include "Scene/3D/Components/Camera.hpp"
+#include "Scene/3D/Components/DirectionalLight.hpp"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
@@ -1501,7 +1502,7 @@ namespace Soon
 
 	void GraphicsInstance::UpdateUniformBuffer(uint32_t currentImage)
 	{
-		void* data;
+		void* data = nullptr;
 
 		//////////// Cam ///////////
 		UniformCamera uc = {};
@@ -1539,8 +1540,8 @@ namespace Soon
 		}
 
 		std::vector<VkDeviceMemory> vkdm = GraphicsRenderer::GetInstance()->GetUniformsCamera()._uniformRender._BufferMemory;
-		vkMapMemory(_device, vkdm[currentImage], 0, sizeof(uc), 0, &data);
-		memcpy(data, &uc, sizeof(uc));
+		vkMapMemory(_device, vkdm[currentImage], 0, sizeof(UniformCamera), 0, &data);
+		memcpy(data, &uc, sizeof(UniformCamera));
 		vkUnmapMemory(_device, vkdm[currentImage]);
 
 		/////////// Model //////////
@@ -1548,6 +1549,7 @@ namespace Soon
 
 		////////////// NEED TO MERGE MATERIAL AND MODEL
 
+		data = nullptr;
 
 		// For Every Uniform
 		int i = -1;
@@ -1574,6 +1576,7 @@ namespace Soon
 			memcpy(data, &matModel, sizeof(UniformModel));
 			vkUnmapMemory(_device, uniform._BufferMemory[currentImage]);
 		}
+		data = nullptr;
 
 		///// MATERIALS
 		i = -1;
@@ -1581,16 +1584,33 @@ namespace Soon
 		{
 			++i;
 
-			char* mt = (char*)GraphicsRenderer::GetInstance()->GetMaterials().at(i);
+			Material* mt = GraphicsRenderer::GetInstance()->GetMaterials().at(i);
+//			mt->_ambient.x = 0.0f;
+//			mt->_ambient.y = 0.0f;
+//			mt->_ambient.z = 0.0f;
+//			mt->_diffuse.x = 0.0f;
+//			mt->_diffuse.y = 1.0f;
+//			mt->_diffuse.z = 0.0f;
+//			mt->_specular.x = 0.0f;
+//			mt->_specular.y = 0.0f;
+//			mt->_specular.z = 0.0f;
+//			std::cout << "Sizof(UniformMaterial) : " << sizeof(UniformMaterial) << std::endl;
+//			std::cout << "Sizof(Material) : " << sizeof(Material) << std::endl;
+//			std::cout << "Sizof(Txt) : " << sizeof(Texture2D) << std::endl;
+//			std::cout << "Specular : " << mt->_specular.x << std::endl;
+//			std::cout << "Specular : " << mt->_specular.y << std::endl;
+//			std::cout << "Specular : " << mt->_specular.z << std::endl;
+
 			vkMapMemory(_device, uniformMaterial._BufferMemory[currentImage], 0, sizeof(UniformMaterial), 0, &data);
-//			std::cout << "Add of : " << mt + sizeof(Texture2D) - mt << std::endl;
-//			vec3<float> ko = static_cast<vec3<float>>(mt + sizeof(Texture2D));
-//			std::cout << ko.x << std::endl;
-//			std::cout << ko.y << std::endl;
-//			std::cout << ko.z << std::endl;
-			memcpy(data, mt + sizeof(Texture2D), sizeof(UniformMaterial));
+			memcpy(data, &(mt->_ambient), sizeof(UniformMaterial));
 			vkUnmapMemory(_device, uniformMaterial._BufferMemory[currentImage]);
+
+//			UniformMaterial* mat = (UniformMaterial*)data;
+//			std::cout << "Speculare : " << mat->_specular.x << std::endl;
+//			std::cout << "Speculare : " << mat->_specular.y << std::endl;
+//			std::cout << "Speculare : " << mat->_specular.z << std::endl;
 		}
+		data = nullptr;
 
 		///////// LIGHTs
 		i = -1;
@@ -1599,7 +1619,7 @@ namespace Soon
 			++i;
 
 			vkMapMemory(_device, uniformLight._BufferMemory[currentImage], 0, sizeof(UniformLight), 0, &data);
-			memcpy(data, GraphicsRenderer::GetInstance()->GetLights().at(i), sizeof(UniformLight));
+			memcpy(data, &(GraphicsRenderer::GetInstance()->GetLights().at(i)->_direction), sizeof(UniformLight));
 			vkUnmapMemory(_device, uniformLight._BufferMemory[currentImage]);
 		}
 	}
