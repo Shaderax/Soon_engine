@@ -57,28 +57,28 @@ struct VertexBufferInfo
 
 struct UniformCamera
 {
-	mat4<float> view;
-	mat4<float> proj;
+	alignas(16) mat4<float> view;
+	alignas(16) mat4<float> proj;
 };
 
 struct UniformModel
 {
-	mat4<float> model;
+	alignas(16) mat4<float> model;
 };
 
 struct UniformMaterial
 {
-	vec3<float>    _ambient;
-	vec3<float>    _diffuse;
-	vec3<float>    _specular;
-	float   _shininess;
+	alignas(16)	vec3<float>		_ambient;
+	alignas(16)	vec3<float>		_diffuse;
+	alignas(16)	vec3<float>		_specular;
+	alignas(4)	float			_shininess;
 };
 
 struct UniformLight
 {
-	vec3<float> _direction;
-	vec3<float> _lightColor;
-	float _intensity;
+	alignas(16) vec3<float> _direction;
+	alignas(16) vec3<float> _lightColor;
+	alignas(4) float _intensity;
 };
 
 struct UniformSets
