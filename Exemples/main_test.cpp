@@ -53,8 +53,6 @@ int main(int argc, char**argv)
 
 	while (!engine.ShouldEnd())
 	{
-//		Sun.GetComponent<Soon::DirectionalLight>()._direction.z += 0.001f;
-//		Sun.GetComponent<Soon::DirectionalLight>()._direction.y += 0.001f;
 		lastTime = ShowFPS(lastTime);
 		engine.Update();
 		engine.DrawFrame();

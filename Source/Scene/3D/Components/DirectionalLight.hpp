@@ -8,7 +8,7 @@ namespace Soon
 {
 	struct DirectionalLight : public Component
 	{
-		DirectionalLight( Entity& entity ) : _direction(0.0f, -1.0f, 0.0f),  _lightColor(1.0f, 1.0f, 1.0f), _intensity(0.1f)
+		DirectionalLight( Entity& entity ) : _direction(0.0f, 1.0f, 0.0f),  _lightColor(1.0f, 1.0f, 1.0f), _intensity(0.1f)
 		{
 			GraphicsRenderer::GetInstance()->AddLightToRender(entity.GetComponent<Transform3D>(), this);
 		}
