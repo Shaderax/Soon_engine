@@ -93,6 +93,11 @@ namespace Soon
 			_vecLights.push_back(dl);
 		}
 
+//		void GraphicsRenderer::AddParticlesSystemToRender( Transform3D& tr, ParticlesSystem* ps )
+//		{
+//			
+//		}
+
 		void GraphicsRenderer::RecreateAllUniforms( void )
 		{
 			_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), DescriptorTypeLayout::CAMERA);

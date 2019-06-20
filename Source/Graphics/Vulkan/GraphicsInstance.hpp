@@ -184,8 +184,7 @@ namespace Soon
 			VkFormat FindSupportedFormat(const std::vector<VkFormat>& candidates, VkImageTiling tiling, VkFormatFeatureFlags features);
 			void CreateDepthResources( void );
 			bool HasStencilComponent(VkFormat format);
-
-
+			VkDevice GetDevice( void );
 
 			void 	NewGraphicsInstance( void );
 

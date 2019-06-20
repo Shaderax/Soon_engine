@@ -1,0 +1,2 @@
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar qc libScene.a  CMakeFiles/Scene.dir/Scene.cpp.o CMakeFiles/Scene.dir/Object.cpp.o CMakeFiles/Scene.dir/3D/Components/Mesh.cpp.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib libScene.a

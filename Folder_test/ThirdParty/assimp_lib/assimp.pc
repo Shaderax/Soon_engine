@@ -1,0 +1,11 @@
+prefix=/Users/nrouzeva/.brew
+exec_prefix=/Users/nrouzeva/.brew/
+libdir=/Users/nrouzeva/.brew/lib
+includedir=/Users/nrouzeva/.brew/include
+
+Name: Soon
+Description: Import various well-known 3D model formats in an uniform manner.
+Version: 4.1.0
+Libs: -L${libdir} -lassimp
+Libs.private:  -lz
+Cflags: -I${includedir}

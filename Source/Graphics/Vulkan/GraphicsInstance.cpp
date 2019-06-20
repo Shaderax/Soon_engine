@@ -561,6 +561,166 @@ namespace Soon
 		return shaderModule;
 	}
 
+//	VkQueue GraphicsInstance::CreateGraphicsPipeline( VkPipelineLayout pipelineLayout, VkVertexInputBindingDescription bindingDescription, std::vector<VkDescriptorSetLayout> descriptorSetLayout, std::string pathVert = "../Source/Graphics/Shaders/vert.spv", std::string pathFrag = "../Source/Graphics/Shaders/frag.spv")
+//	{
+//		VkPipeline                      graphicsPipeline;
+//
+//		auto vertShaderCode = readFile(pathVert);
+//		auto fragShaderCode = readFile(pathFrag);
+//
+//		VkShaderModule vertShaderModule = CreateShaderModule(vertShaderCode);
+//		VkShaderModule fragShaderModule = CreateShaderModule(fragShaderCode);
+//
+//		VkPipelineShaderStageCreateInfo vertShaderStageInfo = {};
+//		vertShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+//		vertShaderStageInfo.stage = VK_SHADER_STAGE_VERTEX_BIT;
+//		vertShaderStageInfo.module = vertShaderModule;
+//		vertShaderStageInfo.pName = "main";
+//
+//		VkPipelineShaderStageCreateInfo fragShaderStageInfo = {};
+//		fragShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+//		fragShaderStageInfo.stage = VK_SHADER_STAGE_FRAGMENT_BIT;
+//		fragShaderStageInfo.module = fragShaderModule;
+//		fragShaderStageInfo.pName = "main";
+//
+//		VkPipelineShaderStageCreateInfo shaderStages[] = {vertShaderStageInfo, fragShaderStageInfo};
+//
+//		//
+//		VkPipelineVertexInputStateCreateInfo vertexInputInfo = {};
+//		vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
+//
+//		////// TMP ////////////////
+//	//	VkVertexInputBindingDescription bindingDescription = {};
+//	//	bindingDescription.binding = 0;
+//	//	bindingDescription.stride = sizeof(Vertex); // stride : size of one pointe
+//	//	bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+//
+//	//	std::array<VkVertexInputAttributeDescription, 3> attributeDescriptions;
+//
+//	//	attributeDescriptions[0].binding = 0;
+//	//	attributeDescriptions[0].location = 0;
+//	//	attributeDescriptions[0].format = VK_FORMAT_R32G32B32_SFLOAT;//VK_FORMAT_R32G32_SFLOAT;
+//	//	attributeDescriptions[0].offset = offsetof(Vertex, _position);
+//
+//	//	attributeDescriptions[1].binding = 0;
+//	//	attributeDescriptions[1].location = 1;
+//	//	attributeDescriptions[1].format = VK_FORMAT_R32G32B32_SFLOAT;//VK_FORMAT_R32G32_SFLOAT;
+//	//	attributeDescriptions[1].offset = offsetof(Vertex, _normal);
+//
+//	//	attributeDescriptions[2].binding = 0;
+//	//	attributeDescriptions[2].location = 2;
+//	//	attributeDescriptions[2].format = VK_FORMAT_R32G32_SFLOAT;//VK_FORMAT_R32G32_SFLOAT;
+//	//	attributeDescriptions[2].offset = offsetof(Vertex, _texCoords);
+//		/////////////// END /////////////
+//		//		auto bindingDescription = Vertex::getBindingDescription();
+//		//		auto attributeDescriptions = Vertex::getAttributeDescriptions();
+//
+//		vertexInputInfo.vertexBindingDescriptionCount = 1;
+//		vertexInputInfo.vertexAttributeDescriptionCount = static_cast<uint32_t>(attributeDescriptions.size());
+//		vertexInputInfo.pVertexBindingDescriptions = &bindingDescription;
+//		vertexInputInfo.pVertexAttributeDescriptions = attributeDescriptions.data();
+//
+//		VkPipelineInputAssemblyStateCreateInfo inputAssembly = {};
+//		inputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
+//		inputAssembly.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+//		inputAssembly.primitiveRestartEnable = VK_FALSE;
+//
+//		VkViewport viewport = {};
+//		viewport.x = 0.0f;
+//		viewport.y = 0.0f;
+//		viewport.width = (float) _swapChainExtent.width;
+//		viewport.height = (float) _swapChainExtent.height;
+//		viewport.minDepth = 0.0f;
+//		viewport.maxDepth = 1.0f;
+//
+//		VkRect2D scissor = {};
+//		scissor.offset = {0, 0};
+//		scissor.extent = _swapChainExtent;
+//
+//		VkPipelineViewportStateCreateInfo viewportState = {};
+//		viewportState.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
+//		viewportState.viewportCount = 1;
+//		viewportState.pViewports = &viewport;
+//		viewportState.scissorCount = 1;
+//		viewportState.pScissors = &scissor;
+//
+//		VkPipelineRasterizationStateCreateInfo rasterizer = {};
+//		rasterizer.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
+//		rasterizer.depthClampEnable = VK_FALSE;
+//		rasterizer.rasterizerDiscardEnable = VK_FALSE;
+//		rasterizer.polygonMode = VK_POLYGON_MODE_FILL;
+//		rasterizer.lineWidth = 1.0f;
+//		rasterizer.cullMode = VK_CULL_MODE_BACK_BIT;
+//		rasterizer.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;// VK_FRONT_FACE_CLOCKWISE;
+//		rasterizer.depthBiasEnable = VK_FALSE;
+//
+//		VkPipelineMultisampleStateCreateInfo multisampling = {};
+//		multisampling.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
+//		multisampling.sampleShadingEnable = VK_FALSE;
+//		multisampling.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
+//
+//		VkPipelineDepthStencilStateCreateInfo depthStencil = {};
+//		depthStencil.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
+//		depthStencil.depthTestEnable = VK_TRUE;
+//		depthStencil.depthWriteEnable = VK_TRUE;
+//		depthStencil.depthCompareOp = VK_COMPARE_OP_LESS;
+//		depthStencil.depthBoundsTestEnable = VK_FALSE;
+//		//		depthStencil.minDepthBounds = 0.0f; // Optional
+//		//		depthStencil.maxDepthBounds = 1.0f; // Optional
+//		depthStencil.stencilTestEnable = VK_FALSE;
+//		//		depthStencil.front = {}; // Optional
+//		//		depthStencil.back = {}; // Optional
+//
+//		VkPipelineColorBlendAttachmentState colorBlendAttachment = {};
+//		colorBlendAttachment.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
+//		colorBlendAttachment.blendEnable = VK_FALSE;
+//
+//		VkPipelineColorBlendStateCreateInfo colorBlending = {};
+//		colorBlending.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
+//		colorBlending.logicOpEnable = VK_FALSE;
+//		colorBlending.logicOp = VK_LOGIC_OP_COPY;
+//		colorBlending.attachmentCount = 1;
+//		colorBlending.pAttachments = &colorBlendAttachment;
+//		colorBlending.blendConstants[0] = 0.0f;
+//		colorBlending.blendConstants[1] = 0.0f;
+//		colorBlending.blendConstants[2] = 0.0f;
+//		colorBlending.blendConstants[3] = 0.0f;
+//
+//		/////////// PIPELINE LAYOUT ////////////
+//		VkPipelineLayoutCreateInfo pipelineLayoutInfo = {};
+//		pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
+//		pipelineLayoutInfo.setLayoutCount = descriptorSetLayout.size();
+//		pipelineLayoutInfo.pSetLayouts = &(descriptorSetLayout.data()[0]);
+//		//		pipelineLayoutInfo.pushConstantRangeCount = 0;
+//
+//		if (vkCreatePipelineLayout(_device, &pipelineLayoutInfo, nullptr, &pipelineLayout) != VK_SUCCESS)
+//			throw std::runtime_error("failed to create pipeline layout!");
+//
+//		VkGraphicsPipelineCreateInfo pipelineInfo = {};
+//		pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
+//		pipelineInfo.stageCount = 2;
+//		pipelineInfo.pStages = shaderStages;
+//		pipelineInfo.pVertexInputState = &vertexInputInfo;
+//		pipelineInfo.pInputAssemblyState = &inputAssembly;
+//		pipelineInfo.pViewportState = &viewportState;
+//		pipelineInfo.pRasterizationState = &rasterizer;
+//		pipelineInfo.pMultisampleState = &multisampling;
+//		pipelineInfo.pColorBlendState = &colorBlending;
+//		pipelineInfo.pDepthStencilState = &depthStencil;
+//		pipelineInfo.layout = pipelineLayout;
+//		pipelineInfo.renderPass = _renderPass;
+//		pipelineInfo.subpass = 0;
+//		pipelineInfo.basePipelineHandle = VK_NULL_HANDLE;
+//
+//		if (vkCreateGraphicsPipelines(_device, VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &graphicsPipeline) != VK_SUCCESS)
+//			throw std::runtime_error("failed to create graphics pipeline!");
+//
+//		vkDestroyShaderModule(_device, fragShaderModule, nullptr);
+//		vkDestroyShaderModule(_device, vertShaderModule, nullptr);
+//
+//		return (graphicsPipeline);
+//	}
+
 	void GraphicsInstance::CreateGraphicsPipeline( void )
 	{
 		auto vertShaderCode = readFile("../Source/Graphics/Shaders/vert.spv");
@@ -813,6 +973,51 @@ namespace Soon
 			throw std::runtime_error("failed to create command pool!");
 	}
 
+//	std::vector<VkCommandBuffer> GraphicsInstance::CreateCommandBuffers( void )
+//	{
+//		std::vector<VkCommandBuffer>    _commandBuffers
+//
+//		_commandBuffers.resize(_swapChainFramebuffers.size());
+//
+//		VkCommandBufferAllocateInfo allocInfo = {};
+//		allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
+//		allocInfo.commandPool = _commandPool;
+//		allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
+//		allocInfo.commandBufferCount = (uint32_t) _commandBuffers.size();
+//
+//		if (vkAllocateCommandBuffers(_device, &allocInfo, _commandBuffers.data()) != VK_SUCCESS)
+//			throw std::runtime_error("failed to allocate command buffers!");
+//
+//		for (size_t i = 0; i < _commandBuffers.size(); i++)
+//		{
+//			VkCommandBufferBeginInfo beginInfo = {};
+//			beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+//			beginInfo.flags = VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT;
+//			//
+//			if (vkBeginCommandBuffer(_commandBuffers[i], &beginInfo) != VK_SUCCESS)
+//				throw std::runtime_error("failed to begin recording command buffer!");
+//
+//			VkRenderPassBeginInfo renderPassInfo = {};
+//			renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+//			renderPassInfo.renderPass = _renderPass;
+//			renderPassInfo.framebuffer = _swapChainFramebuffers[i];
+//			renderPassInfo.renderArea.offset = {0, 0};
+//			renderPassInfo.renderArea.extent = _swapChainExtent;
+//
+//			std::array<VkClearValue, 2> clearValues = {};
+//			clearValues[0].color = {0.0f, 0.0f, 0.0f, 1.0f};
+//			clearValues[1].depthStencil = {1.0f, 0};
+//			renderPassInfo.clearValueCount = static_cast<uint32_t>(clearValues.size());
+//			renderPassInfo.pClearValues = clearValues.data();
+//
+//			vkCmdBeginRenderPass(_commandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+//
+//			vkCmdEndRenderPass(_commandBuffers[i]);
+//			if (vkEndCommandBuffer(_commandBuffers[i]) != VK_SUCCESS)
+//				throw std::runtime_error("failed to record command buffer!");
+//		}
+//	}
+
 	void GraphicsInstance::CreateCommandBuffers( void )
 	{
 		_commandBuffers.resize(_swapChainFramebuffers.size());
@@ -850,25 +1055,6 @@ namespace Soon
 
 			vkCmdBeginRenderPass(_commandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
-			//			vkCmdBindPipeline(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _graphicsPipeline);
-
-			//			VkDeviceSize offsets[] = {0};
-			//			std::vector<VkBuffer> vecBuf = GraphicsRenderer::GetInstance()->GetvkBuffers();
-			//			std::vector< uint32_t > vecNbVer = GraphicsRenderer::GetInstance()->GetNbVertex();
-			//			std::vector<std::vector< VkDescriptorSet >> vecDs = GraphicsRenderer::GetInstance()->GetUniformsDescriptorSets();
-
-			//			uint32_t j = 0;
-			//			for (auto& buf : GraphicsRenderer::GetInstance()->GetvkBuffers())
-			//			{
-			//				std::cout << "VkBuffer : " << buf << std::endl << "NbVer : " << vecNbVer.at(j) << std::endl;
-			//				vkCmdBindVertexBuffers(_commandBuffers[i], 0, 1, &buf, offsets);
-			//
-			//				vkCmdBindDescriptorSets(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 1, 1, &vecDs.at(j)[i], 0, nullptr);
-			//
-			//				vkCmdDraw(_commandBuffers[i], vecNbVer.at(j), 1, 0, 0);
-			//				j++;
-			//			}
-
 			vkCmdEndRenderPass(_commandBuffers[i]);
 			if (vkEndCommandBuffer(_commandBuffers[i]) != VK_SUCCESS)
 				throw std::runtime_error("failed to record command buffer!");
@@ -882,9 +1068,9 @@ namespace Soon
 		std::vector<std::vector< VkDescriptorSet >> vecDs =			GraphicsRenderer::GetInstance()->GetUniformsDescriptorSets();
 		std::vector<std::vector< VkDescriptorSet >> uniformImage =	GraphicsRenderer::GetInstance()->GetUniformsImagesDescriptorSets();
 		// MATERIALS
-			std::vector<std::vector< VkDescriptorSet >> uniformMaterials =	GraphicsRenderer::GetInstance()->GetUniformsMaterialsDescriptorSets();
+		std::vector<std::vector< VkDescriptorSet >> uniformMaterials =	GraphicsRenderer::GetInstance()->GetUniformsMaterialsDescriptorSets();
 		// LIGHTS
-			std::vector<std::vector< VkDescriptorSet >> uniformLights =	GraphicsRenderer::GetInstance()->GetUniformsLightsDescriptorSets();
+		std::vector<std::vector< VkDescriptorSet >> uniformLights =	GraphicsRenderer::GetInstance()->GetUniformsLightsDescriptorSets();
 
 		for (size_t i = 0; i < _commandBuffers.size(); i++)
 		{
@@ -985,6 +1171,7 @@ namespace Soon
 		else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR)
 			throw std::runtime_error("failed to acquire swap chain image!");
 
+		//GraphicsRenderer::GetInstance()->UpdateAllData(imageIndex);
 		UpdateUniformBuffer(imageIndex);
 
 		VkSubmitInfo submitInfo = {};
@@ -1585,30 +1772,30 @@ namespace Soon
 			++i;
 
 			Material* mt = GraphicsRenderer::GetInstance()->GetMaterials().at(i);
-//			mt->_ambient.x = 0.0f;
-//			mt->_ambient.y = 0.0f;
-//			mt->_ambient.z = 0.0f;
-//			mt->_diffuse.x = 0.0f;
-//			mt->_diffuse.y = 1.0f;
-//			mt->_diffuse.z = 0.0f;
-//			mt->_specular.x = 0.0f;
-//			mt->_specular.y = 0.0f;
-//			mt->_specular.z = 0.0f;
-//			std::cout << "Sizof(UniformMaterial) : " << sizeof(UniformMaterial) << std::endl;
-//			std::cout << "Sizof(Material) : " << sizeof(Material) << std::endl;
-//			std::cout << "Sizof(Txt) : " << sizeof(Texture2D) << std::endl;
-//			std::cout << "Specular : " << mt->_specular.x << std::endl;
-//			std::cout << "Specular : " << mt->_specular.y << std::endl;
-//			std::cout << "Specular : " << mt->_specular.z << std::endl;
+			//			mt->_ambient.x = 0.0f;
+			//			mt->_ambient.y = 0.0f;
+			//			mt->_ambient.z = 0.0f;
+			//			mt->_diffuse.x = 0.0f;
+			//			mt->_diffuse.y = 1.0f;
+			//			mt->_diffuse.z = 0.0f;
+			//			mt->_specular.x = 0.0f;
+			//			mt->_specular.y = 0.0f;
+			//			mt->_specular.z = 0.0f;
+			//			std::cout << "Sizof(UniformMaterial) : " << sizeof(UniformMaterial) << std::endl;
+			//			std::cout << "Sizof(Material) : " << sizeof(Material) << std::endl;
+			//			std::cout << "Sizof(Txt) : " << sizeof(Texture2D) << std::endl;
+			//			std::cout << "Specular : " << mt->_specular.x << std::endl;
+			//			std::cout << "Specular : " << mt->_specular.y << std::endl;
+			//			std::cout << "Specular : " << mt->_specular.z << std::endl;
 
 			vkMapMemory(_device, uniformMaterial._BufferMemory[currentImage], 0, sizeof(UniformMaterial), 0, &data);
 			memcpy(data, &(mt->_ambient), sizeof(UniformMaterial));
 			vkUnmapMemory(_device, uniformMaterial._BufferMemory[currentImage]);
 
-//			UniformMaterial* mat = (UniformMaterial*)data;
-//			std::cout << "Speculare : " << mat->_specular.x << std::endl;
-//			std::cout << "Speculare : " << mat->_specular.y << std::endl;
-//			std::cout << "Speculare : " << mat->_specular.z << std::endl;
+			//			UniformMaterial* mat = (UniformMaterial*)data;
+			//			std::cout << "Speculare : " << mat->_specular.x << std::endl;
+			//			std::cout << "Speculare : " << mat->_specular.y << std::endl;
+			//			std::cout << "Speculare : " << mat->_specular.z << std::endl;
 		}
 		data = nullptr;
 
@@ -1623,6 +1810,26 @@ namespace Soon
 			vkUnmapMemory(_device, uniformLight._BufferMemory[currentImage]);
 		}
 	}
+
+//	// TODO
+//	std::vector<VkDescriptorSetLayout> GraphicsInstance::CreateDescriptorSetLayout( std::array<VkDescriptorSetLayoutBinding> uboLayoutBinding)
+//	{
+//		std::vector<VkDescriptorSetLayout>		descriptorSetLayout;
+//
+//		VkDescriptorSetLayoutCreateInfo layoutInfo = {};
+//		layoutInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
+//		layoutInfo.bindingCount = 1;
+////		layoutInfo.pBindings = &uboLayoutBinding[0];
+//
+//		descriptorSetLayout.resize(uboLayoutBinding.size());
+//		for (int j = -1 ; j < descriptorSetLayout.size() ; ++j)
+//		{
+//			layoutInfo.pBindings = &uboLayoutBinding[j];
+//			if (vkCreateDescriptorSetLayout(_device, &layoutInfo, nullptr, &(descriptorSetLayout[j])) != VK_SUCCESS)
+//				throw std::runtime_error("failed to create descriptor set layout!");
+//		}
+//		return (descriptorSetLayout);
+//	}
 
 	// TODO
 	void GraphicsInstance::CreateDescriptorSetLayout( void )
@@ -1840,6 +2047,13 @@ namespace Soon
 		TransitionImageLayout(_depthImage, depthFormat, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
 	}
 
+	//////////// GETTER ////////////
+
+	VkDevice GraphicsInstance::GetDevice( void )
+	{
+		return (_device);
+	}
+
 	////////// INIT ////////////
 
 	void GraphicsInstance::Initialize( void )
@@ -1855,13 +2069,16 @@ namespace Soon
 		CreateSwapChain();
 		CreateImageViews();
 		CreateRenderPass();
-		CreateDescriptorSetLayout();
-		CreateGraphicsPipeline();
+
 		CreateCommandPool();
+
 		CreateDepthResources();
 		CreateFramebuffers(); 
 		CreateDescriptorPool();
-		CreateCommandBuffers();
 		CreateSyncObjects();
+		
+		CreateDescriptorSetLayout();
+		CreateGraphicsPipeline();
+		CreateCommandBuffers();
 	}
 }

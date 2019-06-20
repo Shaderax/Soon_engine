@@ -34,6 +34,7 @@ int main(int argc, char**argv)
 	double lastTime = glfwGetTime();
 
 	engine._world.AddSystem<ObjectControlerSystem>();
+
 	Soon::Object Camera;
 	Camera.AddComponent<Soon::Camera3D>();
 	Camera.AddComponent<ObjectControler>();

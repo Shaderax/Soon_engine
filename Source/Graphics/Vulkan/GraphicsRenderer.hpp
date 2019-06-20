@@ -12,6 +12,55 @@ struct Image
 
 namespace Soon
 {
+
+//	class BasePipeline
+//	{
+//		virtual UpdateData( int currentImg);
+//	};
+//
+//	class DefaultVertexPipeline : BasePipeline
+//	{
+//		std::vector< uint32_t >			_nbVertex;
+//		std::vector< Transform3D* >		_transforms;
+//		std::vector< VkBuffer >			_gpuBuffers;
+//		std::vector< VkDeviceMemory >		_gpuMemoryBuffers;
+//		std::vector< BufferRenderer >		_stagingBuffers;
+//		std::vector< BufferRenderer >		_indexBuffers;
+//		std::vector< uint32_t >				_indexSize;
+//
+//		std::vector< ImageRenderer >		_imagesRenderer;
+//		std::vector< std::vector< VkDescriptorSet > >	_uniformsImagesDescriptorSets;
+//		std::vector< Image >			_images;
+//
+//		// UNIFORM
+//		std::vector< BufferRenderer > 	_uniformsBuffers;
+//		std::vector< std::vector< VkDescriptorSet > >	_uniformsDescriptorSets;
+//
+//		//// UNIFORM CAMERA
+//		UniformSets						_uniformCamera;
+//
+//		// UNIFORM MATERIAL
+//		std::vector<Material*>			_vecMaterials;
+//		std::vector< BufferRenderer > 	_uniformsMaterials;
+//		std::vector< std::vector< VkDescriptorSet > >	_uniformsMaterialsDescriptorSets;
+//
+//		// UNIFORM LIGHT
+//		std::vector<DirectionalLight*>		_vecLights;
+//		std::vector< BufferRenderer > 	_uniformsLights;
+//		std::vector< std::vector< VkDescriptorSet > >	_uniformsLightsDescriptorSets;
+//
+//		UpdateData( int currentImg );
+//	};
+//
+//	class DefaultParticlesSystemPipeline : BasePipeline
+//	{
+//		std::vector< Transform3D* >		_transforms;
+//		std::vector< VkBuffer >			_gpuBuffers;
+//		std::vector< VkDeviceMemory >	_gpuMemoryBuffers;
+//		UpdateData( int currentImg );
+//	};
+//	std::vector<BasePipeline*> _pipelineVector;
+
 	class DirectionalLight;
 
 	struct ComponentRenderer
