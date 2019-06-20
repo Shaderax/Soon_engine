@@ -561,6 +561,7 @@ namespace Soon
 		return shaderModule;
 	}
 
+<<<<<<< HEAD
 //	VkQueue GraphicsInstance::CreateGraphicsPipeline( VkPipelineLayout pipelineLayout, VkVertexInputBindingDescription bindingDescription, std::vector<VkDescriptorSetLayout> descriptorSetLayout, std::string pathVert = "../Source/Graphics/Shaders/vert.spv", std::string pathFrag = "../Source/Graphics/Shaders/frag.spv")
 //	{
 //		VkPipeline                      graphicsPipeline;
@@ -721,6 +722,8 @@ namespace Soon
 //		return (graphicsPipeline);
 //	}
 
+=======
+>>>>>>> 8cd2dd80167695b463cb4f4e26d8867742b453a1
 	void GraphicsInstance::CreateGraphicsPipeline( void )
 	{
 		auto vertShaderCode = readFile("../Source/Graphics/Shaders/vert.spv");
@@ -973,6 +976,7 @@ namespace Soon
 			throw std::runtime_error("failed to create command pool!");
 	}
 
+<<<<<<< HEAD
 //	std::vector<VkCommandBuffer> GraphicsInstance::CreateCommandBuffers( void )
 //	{
 //		std::vector<VkCommandBuffer>    _commandBuffers
@@ -1018,6 +1022,8 @@ namespace Soon
 //		}
 //	}
 
+=======
+>>>>>>> 8cd2dd80167695b463cb4f4e26d8867742b453a1
 	void GraphicsInstance::CreateCommandBuffers( void )
 	{
 		_commandBuffers.resize(_swapChainFramebuffers.size());
@@ -1055,6 +1061,28 @@ namespace Soon
 
 			vkCmdBeginRenderPass(_commandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
+<<<<<<< HEAD
+=======
+			//			vkCmdBindPipeline(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _graphicsPipeline);
+
+			//			VkDeviceSize offsets[] = {0};
+			//			std::vector<VkBuffer> vecBuf = GraphicsRenderer::GetInstance()->GetvkBuffers();
+			//			std::vector< uint32_t > vecNbVer = GraphicsRenderer::GetInstance()->GetNbVertex();
+			//			std::vector<std::vector< VkDescriptorSet >> vecDs = GraphicsRenderer::GetInstance()->GetUniformsDescriptorSets();
+
+			//			uint32_t j = 0;
+			//			for (auto& buf : GraphicsRenderer::GetInstance()->GetvkBuffers())
+			//			{
+			//				std::cout << "VkBuffer : " << buf << std::endl << "NbVer : " << vecNbVer.at(j) << std::endl;
+			//				vkCmdBindVertexBuffers(_commandBuffers[i], 0, 1, &buf, offsets);
+			//
+			//				vkCmdBindDescriptorSets(_commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 1, 1, &vecDs.at(j)[i], 0, nullptr);
+			//
+			//				vkCmdDraw(_commandBuffers[i], vecNbVer.at(j), 1, 0, 0);
+			//				j++;
+			//			}
+
+>>>>>>> 8cd2dd80167695b463cb4f4e26d8867742b453a1
 			vkCmdEndRenderPass(_commandBuffers[i]);
 			if (vkEndCommandBuffer(_commandBuffers[i]) != VK_SUCCESS)
 				throw std::runtime_error("failed to record command buffer!");
@@ -1068,9 +1096,15 @@ namespace Soon
 		std::vector<std::vector< VkDescriptorSet >> vecDs =			GraphicsRenderer::GetInstance()->GetUniformsDescriptorSets();
 		std::vector<std::vector< VkDescriptorSet >> uniformImage =	GraphicsRenderer::GetInstance()->GetUniformsImagesDescriptorSets();
 		// MATERIALS
+<<<<<<< HEAD
 		std::vector<std::vector< VkDescriptorSet >> uniformMaterials =	GraphicsRenderer::GetInstance()->GetUniformsMaterialsDescriptorSets();
 		// LIGHTS
 		std::vector<std::vector< VkDescriptorSet >> uniformLights =	GraphicsRenderer::GetInstance()->GetUniformsLightsDescriptorSets();
+=======
+			std::vector<std::vector< VkDescriptorSet >> uniformMaterials =	GraphicsRenderer::GetInstance()->GetUniformsMaterialsDescriptorSets();
+		// LIGHTS
+			std::vector<std::vector< VkDescriptorSet >> uniformLights =	GraphicsRenderer::GetInstance()->GetUniformsLightsDescriptorSets();
+>>>>>>> 8cd2dd80167695b463cb4f4e26d8867742b453a1
 
 		for (size_t i = 0; i < _commandBuffers.size(); i++)
 		{
@@ -1171,7 +1205,10 @@ namespace Soon
 		else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR)
 			throw std::runtime_error("failed to acquire swap chain image!");
 
+<<<<<<< HEAD
 		//GraphicsRenderer::GetInstance()->UpdateAllData(imageIndex);
+=======
+>>>>>>> 8cd2dd80167695b463cb4f4e26d8867742b453a1
 		UpdateUniformBuffer(imageIndex);
 
 		VkSubmitInfo submitInfo = {};
@@ -1772,6 +1809,7 @@ namespace Soon
 			++i;
 
 			Material* mt = GraphicsRenderer::GetInstance()->GetMaterials().at(i);
+<<<<<<< HEAD
 			//			mt->_ambient.x = 0.0f;
 			//			mt->_ambient.y = 0.0f;
 			//			mt->_ambient.z = 0.0f;
@@ -1787,15 +1825,39 @@ namespace Soon
 			//			std::cout << "Specular : " << mt->_specular.x << std::endl;
 			//			std::cout << "Specular : " << mt->_specular.y << std::endl;
 			//			std::cout << "Specular : " << mt->_specular.z << std::endl;
+=======
+//			mt->_ambient.x = 0.0f;
+//			mt->_ambient.y = 0.0f;
+//			mt->_ambient.z = 0.0f;
+//			mt->_diffuse.x = 0.0f;
+//			mt->_diffuse.y = 1.0f;
+//			mt->_diffuse.z = 0.0f;
+//			mt->_specular.x = 0.0f;
+//			mt->_specular.y = 0.0f;
+//			mt->_specular.z = 0.0f;
+//			std::cout << "Sizof(UniformMaterial) : " << sizeof(UniformMaterial) << std::endl;
+//			std::cout << "Sizof(Material) : " << sizeof(Material) << std::endl;
+//			std::cout << "Sizof(Txt) : " << sizeof(Texture2D) << std::endl;
+//			std::cout << "Specular : " << mt->_specular.x << std::endl;
+//			std::cout << "Specular : " << mt->_specular.y << std::endl;
+//			std::cout << "Specular : " << mt->_specular.z << std::endl;
+>>>>>>> 8cd2dd80167695b463cb4f4e26d8867742b453a1
 
 			vkMapMemory(_device, uniformMaterial._BufferMemory[currentImage], 0, sizeof(UniformMaterial), 0, &data);
 			memcpy(data, &(mt->_ambient), sizeof(UniformMaterial));
 			vkUnmapMemory(_device, uniformMaterial._BufferMemory[currentImage]);
 
+<<<<<<< HEAD
 			//			UniformMaterial* mat = (UniformMaterial*)data;
 			//			std::cout << "Speculare : " << mat->_specular.x << std::endl;
 			//			std::cout << "Speculare : " << mat->_specular.y << std::endl;
 			//			std::cout << "Speculare : " << mat->_specular.z << std::endl;
+=======
+//			UniformMaterial* mat = (UniformMaterial*)data;
+//			std::cout << "Speculare : " << mat->_specular.x << std::endl;
+//			std::cout << "Speculare : " << mat->_specular.y << std::endl;
+//			std::cout << "Speculare : " << mat->_specular.z << std::endl;
+>>>>>>> 8cd2dd80167695b463cb4f4e26d8867742b453a1
 		}
 		data = nullptr;
 
@@ -1811,6 +1873,7 @@ namespace Soon
 		}
 	}
 
+<<<<<<< HEAD
 //	// TODO
 //	std::vector<VkDescriptorSetLayout> GraphicsInstance::CreateDescriptorSetLayout( std::array<VkDescriptorSetLayoutBinding> uboLayoutBinding)
 //	{
@@ -1831,6 +1894,8 @@ namespace Soon
 //		return (descriptorSetLayout);
 //	}
 
+=======
+>>>>>>> 8cd2dd80167695b463cb4f4e26d8867742b453a1
 	// TODO
 	void GraphicsInstance::CreateDescriptorSetLayout( void )
 	{

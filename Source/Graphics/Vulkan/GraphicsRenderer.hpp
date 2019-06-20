@@ -12,7 +12,6 @@ struct Image
 
 namespace Soon
 {
-
 //	class BasePipeline
 //	{
 //		virtual UpdateData( int currentImg);
