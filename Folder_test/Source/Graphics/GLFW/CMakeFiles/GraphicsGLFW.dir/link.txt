@@ -1,2 +1,0 @@
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar qc libGraphicsGLFW.a  CMakeFiles/GraphicsGLFW.dir/Init.cpp.o CMakeFiles/GraphicsGLFW.dir/Hints.cpp.o CMakeFiles/GraphicsGLFW.dir/Callback.cpp.o
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib libGraphicsGLFW.a

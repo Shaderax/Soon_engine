@@ -1,2 +1,0 @@
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar qc libGraphicsVulkan.a  CMakeFiles/GraphicsVulkan.dir/GraphicsInstance.cpp.o CMakeFiles/GraphicsVulkan.dir/GraphicsRenderer.cpp.o
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib libGraphicsVulkan.a
