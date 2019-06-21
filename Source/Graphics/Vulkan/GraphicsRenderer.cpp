@@ -67,15 +67,6 @@ namespace Soon
 			_uniformsMaterials.push_back(matUniform._uniformRender);
 			_uniformsMaterialsDescriptorSets.push_back(matUniform._descriptorSets);
 			_vecMaterials.push_back(inf._material);
-//			std::cout << "Diffuse : " << _vecMaterials.back()->_diffuse.x << std::endl;
-//			std::cout << "Diffuse : " << _vecMaterials.back()->_diffuse.y << std::endl;
-//			std::cout << "Diffuse : " << _vecMaterials.back()->_diffuse.z << std::endl;
-//			std::cout << "Ambient : " << _vecMaterials.back()->_ambient.x << std::endl;
-//			std::cout << "Ambient : " << _vecMaterials.back()->_ambient.y << std::endl;
-//			std::cout << "Ambient : " << _vecMaterials.back()->_ambient.z << std::endl;
-//			std::cout << "Specular : " << _vecMaterials.back()->_specular.x << std::endl;
-//			std::cout << "Specular : " << _vecMaterials.back()->_specular.y << std::endl;
-//			std::cout << "Specular : " << _vecMaterials.back()->_specular.z << std::endl;
 
 			/////////////////
 

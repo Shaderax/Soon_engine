@@ -105,9 +105,9 @@ namespace Soon
 			VkFormat						_swapChainImageFormat;
 			VkDebugUtilsMessengerEXT		_debugMessenger;
 			std::vector<VkImageView>		_swapChainImageViews;
-			std::vector<VkDescriptorSetLayout>			_descriptorSetLayout;
-			VkPipelineLayout 				_pipelineLayout;
-			VkPipeline						_graphicsPipeline;
+//			std::vector<VkDescriptorSetLayout>			_descriptorSetLayout;
+//			VkPipelineLayout 				_pipelineLayout;
+//			VkPipeline						_graphicsPipeline;
 			VkRenderPass					_renderPass;
 			std::vector<VkFramebuffer> 		_swapChainFramebuffers;
 			VkCommandPool 					_commandPool;
