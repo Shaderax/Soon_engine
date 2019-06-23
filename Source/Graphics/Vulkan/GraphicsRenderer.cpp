@@ -11,9 +11,17 @@ namespace Soon
 			return (_instance);
 		}
 
+		template<typename T>
+		void GraphicsRenderer::AddPipeline( void )
+		{
+			T* pipeline = new T;
+			_pipelines.push_back(pipeline);
+		}
+
 		void GraphicsRenderer::Initialize( void )
 		{
-			_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), DescriptorTypeLayout::CAMERA);
+			AddPipeline<DefaultPipeline>();
+//			_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), DescriptorTypeLayout::CAMERA);
 		}
 
 		GraphicsRenderer::GraphicsRenderer( void ) : _changes(false)
@@ -21,7 +29,7 @@ namespace Soon
 			_instance = this;
 		}
 
-		ComponentRenderer GraphicsRenderer::AddToRender( Transform3D& tr, VertexBufferInfo inf)
+		ComponentRenderer GraphicsRenderer::AddVertexToRender( Transform3D& tr, VertexBufferInfo inf)
 		{
 			std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(inf);
 			ComponentRenderer ret;
@@ -126,98 +134,98 @@ namespace Soon
 			}
 		}
 
-		std::vector< VkBuffer > GraphicsRenderer::GetvkBuffers( void )
-		{
-			return (_gpuBuffers);
-		}
-
-		std::vector< uint32_t > GraphicsRenderer::GetNbVertex( void )
-		{
-			return (_nbVertex);
-		}
-
-		bool GraphicsRenderer::HasChange( void )
-		{
-			return (_changes);
-		}
-
-		void GraphicsRenderer::SetChangeFalse( void )
-		{
-			_changes = false;
-		}
-
-		std::vector< Transform3D* > GraphicsRenderer::GetTransforms( void )
-		{
-			return (_transforms);
-		}
-
-		std::vector< BufferRenderer > GraphicsRenderer::GetUniformBuffers( void )
-		{
-			return (_uniformsBuffers);
-		}
-
-		UniformSets GraphicsRenderer::GetUniformsCamera( void )
-		{
-			return (_uniformCamera);
-		}
-
-		std::vector< std::vector<VkDescriptorSet> > GraphicsRenderer::GetUniformsDescriptorSets( void )
-		{
-			return (_uniformsDescriptorSets);
-		}
-
-		std::vector<VkDescriptorSet> GraphicsRenderer::GetUniformCameraDescriptorSets( void )
-		{
-			return (_uniformCamera._descriptorSets);
-		}
-		
-		std::vector< VkDeviceMemory >   GraphicsRenderer::GetVkDeviceMemory( void )
-		{
-			return (_gpuMemoryBuffers);
-		}
-
-		std::vector< BufferRenderer >   GraphicsRenderer::GetIndexBuffers( void )
-		{
-			return (_indexBuffers);
-		}
-
-		std::vector<uint32_t>			GraphicsRenderer::GetIndexSize( void )
-		{
-			return (_indexSize);
-		}
-
-		std::vector< std::vector<VkDescriptorSet> > GraphicsRenderer::GetUniformsImagesDescriptorSets( void )
-		{
-			return (_uniformsImagesDescriptorSets);
-		}
-
-		std::vector< std::vector<VkDescriptorSet> > GraphicsRenderer::GetUniformsMaterialsDescriptorSets( void )
-		{
-			return _uniformsMaterialsDescriptorSets;
-		}
-
-		std::vector< BufferRenderer > GraphicsRenderer::GetUniformsMaterials( void )
-		{
-			return _uniformsMaterials;
-		}
-
-		std::vector< Material * > GraphicsRenderer::GetMaterials( void )
-		{
-			return (_vecMaterials);
-		}
-
-		std::vector< std::vector<VkDescriptorSet> > GraphicsRenderer::GetUniformsLightsDescriptorSets( void )
-		{
-			return _uniformsLightsDescriptorSets;
-		}
-
-		std::vector< BufferRenderer > GraphicsRenderer::GetUniformsLights( void )
-		{
-			return _uniformsLights;
-		}
-
-		std::vector< DirectionalLight * > GraphicsRenderer::GetLights( void )
-		{
-			return (_vecLights);
-		}
+//		std::vector< VkBuffer > GraphicsRenderer::GetvkBuffers( void )
+//		{
+//			return (_gpuBuffers);
+//		}
+//
+//		std::vector< uint32_t > GraphicsRenderer::GetNbVertex( void )
+//		{
+//			return (_nbVertex);
+//		}
+//
+//		bool GraphicsRenderer::HasChange( void )
+//		{
+//			return (_changes);
+//		}
+//
+//		void GraphicsRenderer::SetChangeFalse( void )
+//		{
+//			_changes = false;
+//		}
+//
+//		std::vector< Transform3D* > GraphicsRenderer::GetTransforms( void )
+//		{
+//			return (_transforms);
+//		}
+//
+//		std::vector< BufferRenderer > GraphicsRenderer::GetUniformBuffers( void )
+//		{
+//			return (_uniformsBuffers);
+//		}
+//
+//		UniformSets GraphicsRenderer::GetUniformsCamera( void )
+//		{
+//			return (_uniformCamera);
+//		}
+//
+//		std::vector< std::vector<VkDescriptorSet> > GraphicsRenderer::GetUniformsDescriptorSets( void )
+//		{
+//			return (_uniformsDescriptorSets);
+//		}
+//
+//		std::vector<VkDescriptorSet> GraphicsRenderer::GetUniformCameraDescriptorSets( void )
+//		{
+//			return (_uniformCamera._descriptorSets);
+//		}
+//		
+//		std::vector< VkDeviceMemory >   GraphicsRenderer::GetVkDeviceMemory( void )
+//		{
+//			return (_gpuMemoryBuffers);
+//		}
+//
+//		std::vector< BufferRenderer >   GraphicsRenderer::GetIndexBuffers( void )
+//		{
+//			return (_indexBuffers);
+//		}
+//
+//		std::vector<uint32_t>			GraphicsRenderer::GetIndexSize( void )
+//		{
+//			return (_indexSize);
+//		}
+//
+//		std::vector< std::vector<VkDescriptorSet> > GraphicsRenderer::GetUniformsImagesDescriptorSets( void )
+//		{
+//			return (_uniformsImagesDescriptorSets);
+//		}
+//
+//		std::vector< std::vector<VkDescriptorSet> > GraphicsRenderer::GetUniformsMaterialsDescriptorSets( void )
+//		{
+//			return _uniformsMaterialsDescriptorSets;
+//		}
+//
+//		std::vector< BufferRenderer > GraphicsRenderer::GetUniformsMaterials( void )
+//		{
+//			return _uniformsMaterials;
+//		}
+//
+//		std::vector< Material * > GraphicsRenderer::GetMaterials( void )
+//		{
+//			return (_vecMaterials);
+//		}
+//
+//		std::vector< std::vector<VkDescriptorSet> > GraphicsRenderer::GetUniformsLightsDescriptorSets( void )
+//		{
+//			return _uniformsLightsDescriptorSets;
+//		}
+//
+//		std::vector< BufferRenderer > GraphicsRenderer::GetUniformsLights( void )
+//		{
+//			return _uniformsLights;
+//		}
+//
+//		std::vector< DirectionalLight * > GraphicsRenderer::GetLights( void )
+//		{
+//			return (_vecLights);
+//		}
 };

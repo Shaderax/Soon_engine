@@ -147,6 +147,13 @@ namespace Soon
 			void 	SetupDebugMessenger( void );
 			void 	CreateImageViews( void );
 			VkImageView CreateImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags );
+			std::vector<VkDescriptorSetLayout> GraphicsInstance::CreateDescriptorSetLayout( std::array<VkDescriptorSetLayoutBinding> uboLayoutBinding );
+			VkPipeline GraphicsInstance::CreateGraphicsPipeline(
+				VkPipelineLayout						pipelineLayout,
+				VkVertexInputBindingDescription					bindingDescription,
+				std::array<VkVertexInputAttributeDescription>			attributeDescriptions,
+				std::string 							pathVert = "../Source/Graphics/Shaders/vert.spv",
+				std::string							pathFrag = "../Source/Graphics/Shaders/frag.spv");
 			void 	CreateGraphicsPipeline( void );
 			VkShaderModule CreateShaderModule(const std::vector<char>& code);
 			void	CreateRenderPass( void );
@@ -162,7 +169,6 @@ namespace Soon
 			std::vector< BufferRenderer > CreateVertexBuffer( VertexBufferInfo inf );
 			uint32_t FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
 			void	FillCommandBuffer( void );
-			void 	CreateDescriptorSetLayout( void );
 			void 	CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory);
 			BufferRenderer CreateUniformBuffers( size_t size );
 			void	UpdateUniformBuffer(uint32_t currentImage);

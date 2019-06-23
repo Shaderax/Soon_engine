@@ -564,7 +564,6 @@ namespace Soon
 			VkPipelineLayout								pipelineLayout,
 			VkVertexInputBindingDescription					bindingDescription,
 			std::array<VkVertexInputAttributeDescription>	attributeDescriptions,
-			std::vector<VkDescriptorSetLayout>				descriptorSetLayout,
 			std::string 									pathVert = "../Source/Graphics/Shaders/vert.spv",
 			std::string										pathFrag = "../Source/Graphics/Shaders/frag.spv")
 	{
@@ -669,15 +668,7 @@ namespace Soon
 		colorBlending.blendConstants[3] = 0.0f;
 
 		/////////// PIPELINE LAYOUT ////////////
-		VkPipelineLayoutCreateInfo pipelineLayoutInfo = {};
-		pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-		pipelineLayoutInfo.setLayoutCount = descriptorSetLayout.size();
-		pipelineLayoutInfo.pSetLayouts = &(descriptorSetLayout.data()[0]);
-		//		pipelineLayoutInfo.pushConstantRangeCount = 0;
-
-		if (vkCreatePipelineLayout(_device, &pipelineLayoutInfo, nullptr, &pipelineLayout) != VK_SUCCESS)
-			throw std::runtime_error("failed to create pipeline layout!");
-
+		//
 		VkGraphicsPipelineCreateInfo pipelineInfo = {};
 		pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
 		pipelineInfo.stageCount = 2;
@@ -701,6 +692,22 @@ namespace Soon
 		vkDestroyShaderModule(_device, vertShaderModule, nullptr);
 
 		return (graphicsPipeline);
+	}
+
+	VkPipelineLayout CreatePipelineLayout( std::vector<VkDescriptorSetLayout> descriptorSetLayout )
+	{
+		VkPipelineLayout pipelineLayout;
+
+		VkPipelineLayoutCreateInfo pipelineLayoutInfo = {};
+		pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
+		pipelineLayoutInfo.setLayoutCount = descriptorSetLayout.size();
+		pipelineLayoutInfo.pSetLayouts = &(descriptorSetLayout.data()[0]);
+		//		pipelineLayoutInfo.pushConstantRangeCount = 0;
+
+		if (vkCreatePipelineLayout(_device, &pipelineLayoutInfo, nullptr, &pipelineLayout) != VK_SUCCESS)
+			throw std::runtime_error("failed to create pipeline layout!");
+
+		return pipelineLayout;
 	}
 
 	void GraphicsInstance::CreateRenderPass( void )
@@ -1492,13 +1499,13 @@ namespace Soon
 	}
 
 	// TODO : MULTISET DYNAMIC
-	UniformSets GraphicsInstance::CreateDescriptorSets( size_t size, DescriptorTypeLayout dlayout )
+	UniformSets GraphicsInstance::CreateDescriptorSets( size_t size, std::array<VkDescriptorSetLayoutBinding> layoutArray, int dlayout )
 	{
 		UniformSets ds;
 
 		ds._uniformRender = CreateUniformBuffers(size);
 
-		std::vector<VkDescriptorSetLayout> layouts(_swapChainImages.size(), _descriptorSetLayout[dlayout]);
+		std::vector<VkDescriptorSetLayout> layouts(_swapChainImages.size(), layoutArray[dlayout]);
 
 		VkDescriptorSetAllocateInfo allocInfo = {};
 		allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
@@ -1570,9 +1577,9 @@ namespace Soon
 		return (ds);
 	}
 
-	UniformSets GraphicsInstance::CreateUniform( size_t size, DescriptorTypeLayout dlayout )
+	UniformSets GraphicsInstance::CreateUniform( size_t size, std::array<VkDescriptorSetLayoutBinding> layoutArray, int dlayout )
 	{
-		return (CreateDescriptorSets( size, dlayout ));
+		return (CreateDescriptorSets( size, layoutArray, dlayout ));
 	}
 
 	///////////// DEPTH BUFFER / STENCIL BUFFER ///////////////
