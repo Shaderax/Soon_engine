@@ -9,6 +9,9 @@ class BasePipeline
 	std::vector<VkDescriptorSetLayout>		_descriptorSetLayout;
 	VkPipelineLayout 				_pipelineLayout;
 	VkPipeline					_graphicsPipeline;
+
+	struct Properties
+	{
+		
+	} _properties;
 };
-
-

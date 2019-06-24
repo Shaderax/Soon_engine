@@ -9,12 +9,14 @@ class DefaultPipeline : public BasePipeline
 	{
 		_descriptorSetLayout = GraphicsInstance::GetInstance()->CreateDescriptorSetLayout( GetLayoutBinding() );
 		_pipelineLayout = GraphicsInstance::GetInstance()->CreatePipelineLayout(_descriptorSetLayout);
-                _pipeline = GraphicsInstance::GetInstance()->CreateGraphicsPipeline(
+		_pipeline = GraphicsInstance::GetInstance()->CreateGraphicsPipeline(
 			_pipelineLayout,
 			GetBindingDescription(),
 			GetAttributeDescriptions()
 			"../Source/Graphics/Shaders/DefaultPipeline.vert",
 			"../Source/Graphics/Shaders/DefaultPipeline.frag");
+
+		_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), _descriptorSetLayout, 0);
 	}
 
 	void UpdateData( int currentImage )
@@ -78,4 +80,8 @@ class DefaultPipeline : public BasePipeline
 
 		return (attributeDescriptions);
 	}
+
+	struct Properties
+	{
+	} _properties;
 };

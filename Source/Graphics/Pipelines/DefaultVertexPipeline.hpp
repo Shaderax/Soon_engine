@@ -2,6 +2,15 @@
 
 class DefaultVertexPipeline : BasePipeline
 {
+	struct Properties
+	{
+		Texture2D _texture;
+		alignas(16) vec3<float> _ambient;
+		alignas(16) vec3<float> _diffuse;
+		alignas(16) vec3<float> _specular;
+		alignas(4)  float       _shininess;
+	} _properties;
+
 	std::vector< uint32_t >				_nbVertex;
 	std::vector< Transform3D* >			_transforms;
 	std::vector< VkBuffer >				_gpuBuffers;

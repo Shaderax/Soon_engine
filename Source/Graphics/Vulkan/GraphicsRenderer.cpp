@@ -21,7 +21,6 @@ namespace Soon
 		void GraphicsRenderer::Initialize( void )
 		{
 			AddPipeline<DefaultPipeline>();
-//			_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), DescriptorTypeLayout::CAMERA);
 		}
 
 		GraphicsRenderer::GraphicsRenderer( void ) : _changes(false)
@@ -144,16 +143,16 @@ namespace Soon
 //			return (_nbVertex);
 //		}
 //
-//		bool GraphicsRenderer::HasChange( void )
-//		{
-//			return (_changes);
-//		}
-//
-//		void GraphicsRenderer::SetChangeFalse( void )
-//		{
-//			_changes = false;
-//		}
-//
+		bool GraphicsRenderer::HasChange( void )
+		{
+			return (_changes);
+		}
+
+		void GraphicsRenderer::SetChangeFalse( void )
+		{
+			_changes = false;
+		}
+
 //		std::vector< Transform3D* > GraphicsRenderer::GetTransforms( void )
 //		{
 //			return (_transforms);
