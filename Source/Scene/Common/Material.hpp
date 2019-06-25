@@ -2,6 +2,7 @@
 
 #include "Scene/Common/Texture2D.hpp"
 #include "Core/Math/vec3.hpp"
+#include "Graphics/Pipelines/BasePipeline.hpp"
 
 struct Material
 {

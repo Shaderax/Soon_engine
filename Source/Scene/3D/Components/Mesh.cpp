@@ -10,6 +10,8 @@
 
 #include "Scene/Common/ObjectOwner.hpp"
 
+#include "Graphics/Pipelines/DefaultVertexPipeline.hpp"
+
 namespace Soon
 {
 	void Mesh::ProcessMesh(Mesh& objMesh, aiMesh *mesh, const aiScene *scene)
@@ -130,10 +132,12 @@ namespace Soon
 		std::cout << (ret == AI_SUCCESS ? "AI_SUCCESS" : "AI_FAILURE") << std::endl;
 		std::cout << "Shininess : " << shini << std::endl;
 
-		material->_ambient = vec3<float>(ambient.r, ambient.g, ambient.b);
-		material->_diffuse = vec3<float>(diff.r, diff.g, diff.b);
-		material->_specular = vec3<float>(spec.r, spec.g, spec.b);
-		material->_shininess = shini;
+
+		DefaultVertexPipeline::Properties* prop = new DefaultVertexPipeline::Properties;
+		prop->_ambient = vec3<float>(ambient.r, ambient.g, ambient.b);
+		prop->_diffuse = vec3<float>(diff.r, diff.g, diff.b);
+		prop->_specular = vec3<float>(spec.r, spec.g, spec.b);
+		prop->_shininess = shini;
 
 		std::cout << "mat->GetTextureCount(type) : " << mat->GetTextureCount(type) << std::endl;
 		for(unsigned int i = 0; i < mat->GetTextureCount(type); i++)
@@ -158,7 +162,7 @@ namespace Soon
 			int pos = filename.find_last_of('/');
 			if (std::string::npos == pos)
 				pos = 0;
-			material->_texture = Texture2D(_path + "/" + filename.substr(pos, filename.length()));
+			prop->_texture = Texture2D(_path + "/" + filename.substr(pos, filename.length()));
 			//				texture.id = TextureFromFile(str.C_Str(), this->directory);
 			//				texture.type = typeName;
 			//				texture.path = str.C_Str();
@@ -168,6 +172,7 @@ namespace Soon
 			//				textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
 			//			}
 		}
+		material->_properties = reinterpret_cast<BasePipeline::Properties*>(prop);
 //		return textures;
 	}
 
@@ -193,7 +198,7 @@ namespace Soon
 			std::cout << "My Parser : indexSize : " << objMesh._inf._indexSize << std::endl;
 			objMesh._inf._indexData = objMesh._indices.data();
 			objMesh._inf._material = &(objMesh._mat);
-			GraphicsRenderer::GetInstance()->AddToRender(_owner.GetComponent<Transform3D>(), objMesh._inf);
+			GraphicsRenderer::GetInstance()->AddVertexToRender(_owner.GetComponent<Transform3D>(), objMesh._inf);
 		}
 		// then do the same for each of its children
 		for(unsigned int i = 0; i < node->mNumChildren; i++)

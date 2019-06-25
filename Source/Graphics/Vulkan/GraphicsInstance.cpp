@@ -563,9 +563,9 @@ namespace Soon
 	VkPipeline GraphicsInstance::CreateGraphicsPipeline(
 			VkPipelineLayout								pipelineLayout,
 			VkVertexInputBindingDescription					bindingDescription,
-			std::array<VkVertexInputAttributeDescription>	attributeDescriptions,
-			std::string 									pathVert = "../Source/Graphics/Shaders/vert.spv",
-			std::string										pathFrag = "../Source/Graphics/Shaders/frag.spv")
+			std::vector<VkVertexInputAttributeDescription>	attributeDescriptions,
+			std::string 									pathVert,
+			std::string										pathFrag)
 	{
 		VkPipeline                      graphicsPipeline;
 
@@ -694,14 +694,14 @@ namespace Soon
 		return (graphicsPipeline);
 	}
 
-	VkPipelineLayout CreatePipelineLayout( std::vector<VkDescriptorSetLayout> descriptorSetLayout )
+	VkPipelineLayout GraphicsInstance::CreatePipelineLayout( std::vector<VkDescriptorSetLayout> descriptorSetLayout )
 	{
 		VkPipelineLayout pipelineLayout;
 
 		VkPipelineLayoutCreateInfo pipelineLayoutInfo = {};
 		pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
 		pipelineLayoutInfo.setLayoutCount = descriptorSetLayout.size();
-		pipelineLayoutInfo.pSetLayouts = &(descriptorSetLayout.data()[0]);
+		pipelineLayoutInfo.pSetLayouts = (descriptorSetLayout.data());
 		//		pipelineLayoutInfo.pushConstantRangeCount = 0;
 
 		if (vkCreatePipelineLayout(_device, &pipelineLayoutInfo, nullptr, &pipelineLayout) != VK_SUCCESS)
@@ -875,7 +875,7 @@ namespace Soon
 
 			vkCmdBeginRenderPass(_commandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
-			GraphicsRenderer::GetInstance()->BindPipelines(_commandBuffers[i]);
+			GraphicsRenderer::GetInstance()->PipelinesBindCaller(_commandBuffers[i], i);
 
 			vkCmdEndRenderPass(_commandBuffers[i]);
 			if (vkEndCommandBuffer(_commandBuffers[i]) != VK_SUCCESS)
@@ -924,7 +924,7 @@ namespace Soon
 		else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR)
 			throw std::runtime_error("failed to acquire swap chain image!");
 
-		//GraphicsRenderer::GetInstance()->UpdateAllData(imageIndex);
+		GraphicsRenderer::GetInstance()->UpdateAllDatas(imageIndex);
 
 		VkSubmitInfo submitInfo = {};
 		submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
@@ -1447,7 +1447,7 @@ namespace Soon
 		vkFreeCommandBuffers(_device, _commandPool, 1, &commandBuffer);
 	}
 
-	std::vector<VkDescriptorSetLayout> GraphicsInstance::CreateDescriptorSetLayout( std::array<VkDescriptorSetLayoutBinding> uboLayoutBinding )
+	std::vector<VkDescriptorSetLayout> GraphicsInstance::CreateDescriptorSetLayout( std::vector<VkDescriptorSetLayoutBinding> uboLayoutBinding )
 	{
 		std::vector<VkDescriptorSetLayout>		descriptorSetLayout;
 
@@ -1456,7 +1456,7 @@ namespace Soon
 		layoutInfo.bindingCount = 1;
 
 		descriptorSetLayout.resize(uboLayoutBinding.size());
-		for (int j = -1 ; j < descriptorSetLayout.size() ; ++j)
+		for (int j = 0 ; j < descriptorSetLayout.size() ; j++)
 		{
 			layoutInfo.pBindings = &uboLayoutBinding[j];
 			if (vkCreateDescriptorSetLayout(_device, &layoutInfo, nullptr, &(descriptorSetLayout[j])) != VK_SUCCESS)
@@ -1499,13 +1499,13 @@ namespace Soon
 	}
 
 	// TODO : MULTISET DYNAMIC
-	UniformSets GraphicsInstance::CreateDescriptorSets( size_t size, std::array<VkDescriptorSetLayoutBinding> layoutArray, int dlayout )
+	UniformSets GraphicsInstance::CreateDescriptorSets( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout )
 	{
 		UniformSets ds;
 
 		ds._uniformRender = CreateUniformBuffers(size);
 
-		std::vector<VkDescriptorSetLayout> layouts(_swapChainImages.size(), layoutArray[dlayout]);
+		std::vector<VkDescriptorSetLayout> layouts(_swapChainImages.size(), layoutArray.at(dlayout));
 
 		VkDescriptorSetAllocateInfo allocInfo = {};
 		allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
@@ -1539,11 +1539,11 @@ namespace Soon
 		return (ds);
 	}
 
-	std::vector<VkDescriptorSet> GraphicsInstance::CreateImageDescriptorSets( VkImageView textureImageView, VkSampler textureSampler )
+	std::vector<VkDescriptorSet> GraphicsInstance::CreateImageDescriptorSets( VkImageView textureImageView, VkSampler textureSampler, VkDescriptorSetLayout descriptorSetLayout )
 	{
 		std::vector<VkDescriptorSet> ds;
 
-		std::vector<VkDescriptorSetLayout> layouts(_swapChainImages.size(), _descriptorSetLayout[2]);
+		std::vector<VkDescriptorSetLayout> layouts(_swapChainImages.size(), descriptorSetLayout);
 
 		VkDescriptorSetAllocateInfo allocInfo = {};
 		allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
@@ -1577,7 +1577,7 @@ namespace Soon
 		return (ds);
 	}
 
-	UniformSets GraphicsInstance::CreateUniform( size_t size, std::array<VkDescriptorSetLayoutBinding> layoutArray, int dlayout )
+	UniformSets GraphicsInstance::CreateUniform( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout )
 	{
 		return (CreateDescriptorSets( size, layoutArray, dlayout ));
 	}

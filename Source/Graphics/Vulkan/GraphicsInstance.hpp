@@ -147,13 +147,13 @@ namespace Soon
 			void 	SetupDebugMessenger( void );
 			void 	CreateImageViews( void );
 			VkImageView CreateImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags );
-			std::vector<VkDescriptorSetLayout> GraphicsInstance::CreateDescriptorSetLayout( std::array<VkDescriptorSetLayoutBinding> uboLayoutBinding );
-			VkPipeline GraphicsInstance::CreateGraphicsPipeline(
+			std::vector<VkDescriptorSetLayout> CreateDescriptorSetLayout( std::vector<VkDescriptorSetLayoutBinding> uboLayoutBinding );
+			VkPipeline CreateGraphicsPipeline(
 				VkPipelineLayout						pipelineLayout,
 				VkVertexInputBindingDescription					bindingDescription,
-				std::array<VkVertexInputAttributeDescription>			attributeDescriptions,
-				std::string 							pathVert = "../Source/Graphics/Shaders/vert.spv",
-				std::string							pathFrag = "../Source/Graphics/Shaders/frag.spv");
+				std::vector<VkVertexInputAttributeDescription>			attributeDescriptions,
+				std::string 							pathVert,
+				std::string							pathFrag);
 			void 	CreateGraphicsPipeline( void );
 			VkShaderModule CreateShaderModule(const std::vector<char>& code);
 			void	CreateRenderPass( void );
@@ -173,9 +173,7 @@ namespace Soon
 			BufferRenderer CreateUniformBuffers( size_t size );
 			void	UpdateUniformBuffer(uint32_t currentImage);
 			void 	CreateDescriptorPool( void );
-			UniformSets CreateDescriptorSets( size_t size, DescriptorTypeLayout dlayout);
-			std::vector<VkDescriptorSet> CreateImageDescriptorSets( VkImageView textureImageView, VkSampler textureSampler );
-			UniformSets CreateUniform( size_t size, DescriptorTypeLayout dlayout );
+			std::vector<VkDescriptorSet> CreateImageDescriptorSets( VkImageView textureImageView, VkSampler textureSampler, VkDescriptorSetLayout descriptorSetLayout );
 			ImageRenderer	CreateTextureImage( Texture2D* texture );
 			void 	CreateImage(uint32_t width, uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory);
 			VkCommandBuffer BeginSingleTimeCommands( void );
@@ -191,6 +189,10 @@ namespace Soon
 			void CreateDepthResources( void );
 			bool HasStencilComponent(VkFormat format);
 			VkDevice GetDevice( void );
+
+			VkPipelineLayout CreatePipelineLayout( std::vector<VkDescriptorSetLayout> descriptorSetLayout );
+			UniformSets CreateUniform( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout );
+			UniformSets CreateDescriptorSets( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout);
 
 			void 	NewGraphicsInstance( void );
 
