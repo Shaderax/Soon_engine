@@ -6,26 +6,22 @@ struct Particle
 	vec3 velocity;
 };
 
-layout(binding = 0, set = 1) buffer Particles
-{
-	Particle particles[ ];
-};
-
-layout (binding = 1, set = 1) uniform UniformCamera
+layout (binding = 0, set = 0) uniform UniformCamera
 {
 	mat4 view;
 	mat4 proj;
 } uc;
+
+layout(binding = 0, set = 1) buffer Particles
+{
+	Particle particles[ ];
+};
 
 layout (local_size_x = 128) in;
 
 void main() 
 {
 	uint index = gl_GlobalInvocationID.x;
-	if (index >= ubo.particle_count)
-	{
-		return;
-	}	
 
 	particles[index].xyzm.xyz += particles[index].v.xyz * ubo.t_delta;
 }

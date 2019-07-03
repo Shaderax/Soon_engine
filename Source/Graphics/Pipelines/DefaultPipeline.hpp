@@ -3,6 +3,8 @@
 #include "Core/Engine.hpp"
 #include "Scene/3D/Components/Camera.hpp"
 
+#include <cstring>
+
 namespace Soon
 {
 	class DefaultPipeline : public BasePipeline

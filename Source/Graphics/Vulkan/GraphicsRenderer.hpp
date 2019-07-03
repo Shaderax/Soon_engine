@@ -16,23 +16,26 @@ struct Image
 namespace Soon
 {
 	class DirectionalLight;
+	class ParticlesSystem;
 
 	class GraphicsRenderer
 	{
-		static constexpr const std::uint32_t MAX_PIPELINES = 64;
+		static constexpr const std::uint32_t MAX_PIPELINES = 32;
 		static GraphicsRenderer* _instance;
 
 		public:
 		GraphicsRenderer( void );
 		static GraphicsRenderer* 	GetInstance( void );
 		void 				Initialize( void );
-		void 				AddVertexToRender( Transform3D& tr, VertexBufferInfo inf);
-		void AddLightToRender( Transform3D& tr, DirectionalLight* dl);
 		bool				HasChange( void );
 		void				SetChangeFalse( void );
 		void 				RecreateAllUniforms( void );
 		void 				PipelinesBindCaller( VkCommandBuffer commandBuffer, uint32_t index );
 		void				UpdateAllDatas( uint32_t imageIndex );
+
+		void 				AddVertexToRender( Transform3D& tr, VertexBufferInfo inf);
+		void				AddLightToRender( Transform3D& tr, DirectionalLight* dl);
+		void				AddParticlesSystemToRender( Transform3D& tr, ParticlesSystem *ps );
 
 		template<typename T>
 		void AddPipeline( void );
@@ -57,7 +60,7 @@ namespace Soon
 //		std::vector< DirectionalLight * > GetLights( void );
 
 		private:
-		std::array<BasePipeline*, MAX_PIPELINES>		_pipelines;
+		std::array<BasePipeline*, MAX_PIPELINES>		_pipelines{};
 		bool _changes;
 		bool _isDefault;
 		std::bitset<MAX_PIPELINES>					_createdPipeline;

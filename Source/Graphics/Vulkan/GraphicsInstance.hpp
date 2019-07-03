@@ -126,6 +126,12 @@ namespace Soon
 			static GraphicsInstance*		_singleton;
 
 		public:
+			class enum ShaderType
+			{
+				VERTEX_FRAGMENT,
+				COMPUTE
+			};
+
 			static GraphicsInstance* GetInstance( void );
 			GraphicsInstance( void );
 			~GraphicsInstance( void );
@@ -152,8 +158,9 @@ namespace Soon
 				VkPipelineLayout						pipelineLayout,
 				VkVertexInputBindingDescription					bindingDescription,
 				std::vector<VkVertexInputAttributeDescription>			attributeDescriptions,
-				std::string 							pathVert,
-				std::string							pathFrag);
+				ShaderType							sType,
+				std::string 							FirstPath,
+				std::string							SecondPath);
 			void 	CreateGraphicsPipeline( void );
 			VkShaderModule CreateShaderModule(const std::vector<char>& code);
 			void	CreateRenderPass( void );

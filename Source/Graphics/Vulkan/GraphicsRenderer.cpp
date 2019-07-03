@@ -3,6 +3,7 @@
 #include "Scene/3D/Components/Transform3D.hpp"
 #include "Graphics/Pipelines/DefaultPipeline.hpp"
 #include "Graphics/Pipelines/DefaultVertexPipeline.hpp"
+#include "Graphics/Pipelines/DefaultParticlesSystem.hpp"
 #include <typeinfo>
 #include "ECS/ClassTypeId.hpp"
 
@@ -15,6 +16,8 @@ namespace Soon
 			return (_instance);
 		}
 
+		// TODO 
+		// Max pipelines reach
 		template<typename T>
 		void GraphicsRenderer::AddPipeline( void )
 		{
@@ -24,6 +27,7 @@ namespace Soon
 			{
 				_createdPipeline[ClassTypeId<BasePipeline>::GetId<DefaultPipeline>()] = false;
 				delete _pipelines[ClassTypeId<BasePipeline>::GetId<DefaultPipeline>()];
+
 				_pipelines[ClassTypeId<BasePipeline>::GetId<DefaultPipeline>()] = nullptr;
 				_isDefault = false;
 			}
@@ -58,31 +62,40 @@ namespace Soon
 		{
 			DefaultVertexPipeline* pip = reinterpret_cast<DefaultVertexPipeline*>(_pipelines[ClassTypeId<BasePipeline>::GetId<DefaultVertexPipeline>()]);
 			pip->AddLightToRender(tr, dl);
+			
+			_changes = true;
 		}
 
-//		void GraphicsRenderer::AddParticlesSystemToRender( Transform3D& tr, ParticlesSystem* ps )
-//		{
-//			
-//		}
+		void GraphicsRenderer::AddParticlesSystemToRender( Transform3D& tr, ParticlesSystem* ps )
+		{
+			if (!_createdPipeline[ClassTypeId<BasePipeline>::GetId<DefaultParticlesSystemPipeline>()])
+				AddPipeline<DefaultParticlesSystemPipeline>();
+			DefaultParticlesSystemPipeline* pip = reinterpret_cast<DefaultParticlesSystemPipeline*>(_pipelines[ClassTypeId<BasePipeline>::GetId<DefaultParticlesSystemPipeline>()]);
+			pip->AddToRender(tr, ps);
+			
+			_changes = true;
+		}
 
 		void GraphicsRenderer::RecreateAllUniforms( void )
 		{
 			for (BasePipeline* bp : _pipelines)
-				bp->RecreateUniforms();
+				if (bp)
+					bp->RecreateUniforms();
 		}
 
 		void GraphicsRenderer::UpdateAllDatas( uint32_t imageIndex )
 		{
 			for (BasePipeline* bp : _pipelines)
-				bp->UpdateData(imageIndex);
+				if (bp)
+					bp->UpdateData(imageIndex);
 		}
 
 		void GraphicsRenderer::PipelinesBindCaller( VkCommandBuffer commandBuffer, uint32_t index )
 		{
 			for (BasePipeline* bp : _pipelines)
 			{
-				std::cout << "OGOOGIGIYGUGUGUGUUGUGUUGUGU" << std::endl;
-				bp->BindCaller(commandBuffer, index );
+				if (bp)
+					bp->BindCaller(commandBuffer, index );
 			}
 		}
 

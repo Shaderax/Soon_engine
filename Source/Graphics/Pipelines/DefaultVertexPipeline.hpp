@@ -3,6 +3,9 @@
 #include "Scene/3D/Components/Camera.hpp"
 #include "Scene/3D/Components/DirectionalLight.hpp"
 
+#include <cstring>
+
+
 namespace Soon
 {
 	struct DefaultVertexPipeline : BasePipeline
