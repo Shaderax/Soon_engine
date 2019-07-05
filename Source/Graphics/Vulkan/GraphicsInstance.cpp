@@ -14,7 +14,6 @@
 #include <string>
 #include "Core/Engine.hpp"
 #include "Scene/3D/Components/Camera.hpp"
-#include "Scene/3D/Components/DirectionalLight.hpp"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
@@ -707,21 +706,21 @@ namespace Soon
 	{
 		VkPipeline                      computePipeline;
 
-		auto vertShaderCode = readFile(pathCompute);
+		auto computeShaderCode = readFile(pathCompute);
 
 		VkShaderModule computeShaderModule = CreateShaderModule(computeShaderCode);
 
-		VkPipelineShaderStageCreateInfo vertShaderStageInfo = {};
-		vertShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
-		vertShaderStageInfo.stage = VK_SHADER_STAGE_COMPUTE_BIT;
-		vertShaderStageInfo.module = computeShaderModule;
-		vertShaderStageInfo.pName = "main";
+		VkPipelineShaderStageCreateInfo computeShaderStageInfo = {};
+		computeShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+		computeShaderStageInfo.stage = VK_SHADER_STAGE_COMPUTE_BIT;
+		computeShaderStageInfo.module = computeShaderModule;
+		computeShaderStageInfo.pName = "main";
 
-		VkPipelineShaderStageCreateInfo shaderStages[] = {computeShaderStageInfo};
+//		VkPipelineShaderStageCreateInfo shaderStages[] = {computeShaderStageInfo};
 
 		VkComputePipelineCreateInfo	computePipelineInfos = {};
 		computePipelineInfos.sType = VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO;
-		computePipelineInfos.stage = shaderStages;
+		computePipelineInfos.stage = computeShaderStageInfo;
 		computePipelineInfos.layout = pipelineLayout;
 
 		if (vkCreateComputePipelines(_device, VK_NULL_HANDLE, 1, &computePipelineInfos, nullptr, &computePipeline) != VK_SUCCESS)

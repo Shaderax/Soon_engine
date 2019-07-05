@@ -37,6 +37,7 @@ namespace Soon
 		void				AddLightToRender( Transform3D& tr, DirectionalLight* dl);
 		void				AddParticlesSystemToRender( Transform3D& tr, ParticlesSystem *ps );
 
+
 		template<typename T>
 		void AddPipeline( void );
 

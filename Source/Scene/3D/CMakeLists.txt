@@ -1,8 +1,7 @@
 cmake_minimum_required (VERSION 3.10)
 
 set(SRC 
-	Scene.cpp
-	Object.cpp
+	./Components/ParticlesSystem.cpp
 	)
 
-add_library(Scene ${SRC})
+add_library(3D ${SRC})

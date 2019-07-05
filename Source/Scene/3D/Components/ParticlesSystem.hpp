@@ -1,23 +1,17 @@
 #pragma once
 
 #include "ECS/Component.hpp"
-#include "Core/Math/vec3.hpp"
+#include "ECS/Entity.hpp"
 
-#include "Scene/3D/Components/Transform3D.hpp"
-#include "Graphics/Vulkan/GraphicsRenderer.hpp"
-
-struct ParticlesSystem : public Component
+namespace Soon
 {
-	ParticlesSystem( Entity& entity ) : _size(10)
+	struct ParticlesSystem : public Component
 	{
-		GraphicsRenderer::GetInstance()->AddParticlesToRender(entity.GetComponent<Transform3D>(), this);
-	}
+		public:
+			ParticlesSystem( Entity& entity );
 
-	~ParticlesSystem( void )
-	{
+			~ParticlesSystem( void );
 
-	}
-
-	uint32_t _size;
-
-};
+			uint32_t _size;
+	};
+}

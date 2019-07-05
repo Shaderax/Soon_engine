@@ -126,7 +126,7 @@ namespace Soon
 			static GraphicsInstance*		_singleton;
 
 		public:
-			class enum ShaderType
+			enum class ShaderType
 			{
 				VERTEX_FRAGMENT,
 				COMPUTE
@@ -161,7 +161,9 @@ namespace Soon
 				ShaderType							sType,
 				std::string 							FirstPath,
 				std::string							SecondPath);
-			void 	CreateGraphicsPipeline( void );
+			VkPipeline CreateComputePipeline(
+				VkPipelineLayout                                                pipelineLayout,
+				std::string                                                     pathCompute);
 			VkShaderModule CreateShaderModule(const std::vector<char>& code);
 			void	CreateRenderPass( void );
 			void 	CreateFramebuffers( void );

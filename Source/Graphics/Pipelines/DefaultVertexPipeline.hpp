@@ -18,6 +18,7 @@ namespace Soon
 					_pipelineLayout,
 					GetBindingDescription(),
 					GetAttributeDescriptions(),
+					GraphicsInstance::ShaderType::VERTEX_FRAGMENT,
 					"../Source/Graphics/Shaders/Default_Shader.vert.spv",
 					"../Source/Graphics/Shaders/Default_Shader.frag.spv");
 
