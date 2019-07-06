@@ -20,6 +20,15 @@ namespace Soon
 			VkPipelineLayout _computePipelineLayout;
 			std::vector<VkDescriptorSetLayout>	_computeDescriptorSetLayout;
 
+			std::vector< Transform3D* >			_transforms;
+			std::vector< VkBuffer >				_gpuBuffers;
+			std::vector< VkDeviceMemory >		_gpuMemoryBuffers;
+			std::vector< BufferRenderer >		_stagingBuffers;
+			std::vector< uint32_t >			_pSize;
+
+			//// UNIFORM CAMERA
+			UniformSets						_uniformCamera;
+
 			DefaultParticlesSystemPipeline( void )
 			{
 				_descriptorSetLayout = GraphicsInstance::GetInstance()->CreateDescriptorSetLayout( GetLayoutBinding() );
@@ -48,15 +57,6 @@ namespace Soon
 				//			alignas(16) vec3<float> _specular;
 				//			alignas(4)  float       _shininess;
 			};
-
-			std::vector< Transform3D* >			_transforms;
-			std::vector< VkBuffer >				_gpuBuffers;
-			std::vector< VkDeviceMemory >		_gpuMemoryBuffers;
-			std::vector< BufferRenderer >		_stagingBuffers;
-			std::vector< uint32_t >			_pSize;
-
-			//// UNIFORM CAMERA
-			UniformSets						_uniformCamera;
 
 			void UpdateData( int currentImage )
 			{
@@ -88,9 +88,7 @@ namespace Soon
 			{
 				uint32_t j = 0;
 				// Compute //
-				vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _computePipeline);
-					// Bind Cam
-				vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _computePipelineLayout, 0, 1, &(_uniformCamera._descriptorSets.at(index)), 0, nullptr);
+				vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_COMPUTE, _computePipeline);
 				for (auto& buf : _gpuBuffers)
 				{
 					vkCmdDispatch(commandBuffer, _pSize.at(j), 1, 1);
