@@ -1094,10 +1094,10 @@ namespace Soon
 		throw std::runtime_error("failed to find suitable memory type!");
 	}
 
-	std::vector<BufferRenderer> GraphicsInstance::CreateVertexBuffer( VertexBufferInfo inf )
+	std::vector<BufferRenderer> GraphicsInstance::CreateVertexBuffer( uint32_t size, void* ptrData )
 	{
 		std::vector<BufferRenderer>					bufRenderer;
-		std::cout << "Vertex BUFFER CREATION : " << inf._vertexSize << std::endl;
+		std::cout << "Vertex BUFFER CREATION : " << size << std::endl;
 
 		bufRenderer.resize(2);
 
@@ -1106,16 +1106,19 @@ namespace Soon
 		bufRenderer[1]._Buffer.resize(1);
 		bufRenderer[1]._BufferMemory.resize(1);
 
-		CreateBuffer(inf._vertexSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, bufRenderer[0]._Buffer[0], bufRenderer[0]._BufferMemory[0]);
+		CreateBuffer(size/*inf._vertexSize*/, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, bufRenderer[0]._Buffer[0], bufRenderer[0]._BufferMemory[0]);
 
-		void* data;
-		vkMapMemory(_device, bufRenderer[0]._BufferMemory[0], 0, inf._vertexSize, 0, &data);
-		memcpy(data, inf._vertexData, (size_t)inf._vertexSize);
-		vkUnmapMemory(_device, bufRenderer[0]._BufferMemory[0]);
+		if (ptrData)
+		{
+			void* data;
+			vkMapMemory(_device, bufRenderer[0]._BufferMemory[0], 0, size, 0, &data);
+			memcpy(data, ptrData, (size_t)size);
+			vkUnmapMemory(_device, bufRenderer[0]._BufferMemory[0]);
+		}
 
-		CreateBuffer(inf._vertexSize, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, bufRenderer[1]._Buffer[0], bufRenderer[1]._BufferMemory[0] );
+		CreateBuffer(size, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, bufRenderer[1]._Buffer[0], bufRenderer[1]._BufferMemory[0] );
 
-		CopyBuffer(bufRenderer[0]._Buffer[0], bufRenderer[1]._Buffer[0], inf._vertexSize);
+		CopyBuffer(bufRenderer[0]._Buffer[0], bufRenderer[1]._Buffer[0], size);
 
 		//		vkDestroyBuffer(_device, stagingBuffer, nullptr);
 		//		vkFreeMemory(_device, stagingBufferMemory, nullptr);
@@ -1542,85 +1545,6 @@ namespace Soon
 			throw std::runtime_error("failed to create descriptor pool!");
 	}
 
-	// TODO : MULTISET DYNAMIC
-	UniformSets GraphicsInstance::CreateDescriptorSets( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout )
-	{
-		UniformSets ds;
-
-		ds._uniformRender = CreateUniformBuffers(size);
-
-		std::vector<VkDescriptorSetLayout> layouts(_swapChainImages.size(), layoutArray.at(dlayout));
-
-		VkDescriptorSetAllocateInfo allocInfo = {};
-		allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-		allocInfo.descriptorPool = _descriptorPool;
-		allocInfo.descriptorSetCount = 1 * static_cast<uint32_t>(_swapChainImages.size()); // number of descriptor sets to be allocated from the pool.
-		allocInfo.pSetLayouts = layouts.data();
-
-		ds._descriptorSets.resize(_swapChainImages.size());
-		if (vkAllocateDescriptorSets(_device, &allocInfo, ds._descriptorSets.data()) != VK_SUCCESS)
-			throw std::runtime_error("failed to allocate descriptor sets!");
-
-		for (size_t i = 0; i < _swapChainImages.size(); i++)
-		{
-			VkDescriptorBufferInfo bufferInfo = {};
-			bufferInfo.buffer = ds._uniformRender._Buffer[i];
-			bufferInfo.offset = 0;
-			bufferInfo.range = size;
-
-			VkWriteDescriptorSet descriptorWrite = {};
-			descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-			descriptorWrite.dstSet = ds._descriptorSets[i];
-			descriptorWrite.dstBinding = 0;
-			descriptorWrite.dstArrayElement = 0;
-			descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-			descriptorWrite.descriptorCount = 1;
-			descriptorWrite.pBufferInfo = &bufferInfo;
-
-			vkUpdateDescriptorSets(_device, 1, &descriptorWrite, 0, nullptr);
-		}
-
-		return (ds);
-	}
-
-	UniformSets GraphicsInstance::CreateDescriptorSets( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout, std::vector< VkBuffer > gpuBuffers)
-	{
-		UniformSets ds;
-
-		std::vector<VkDescriptorSetLayout> layouts(_swapChainImages.size(), layoutArray.at(dlayout));
-
-		VkDescriptorSetAllocateInfo allocInfo = {};
-		allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-		allocInfo.descriptorPool = _descriptorPool;
-		allocInfo.descriptorSetCount = 1 * static_cast<uint32_t>(_swapChainImages.size()); // number of descriptor sets to be allocated from the pool.
-		allocInfo.pSetLayouts = layouts.data();
-
-		ds._descriptorSets.resize(_swapChainImages.size());
-		if (vkAllocateDescriptorSets(_device, &allocInfo, ds._descriptorSets.data()) != VK_SUCCESS)
-			throw std::runtime_error("failed to allocate descriptor sets!");
-
-		for (size_t i = 0; i < _swapChainImages.size(); i++)
-		{
-			VkDescriptorBufferInfo bufferInfo = {};
-			bufferInfo.buffer = gpuBuffers.at(0);
-			bufferInfo.offset = 0;
-			bufferInfo.range = size;
-
-			VkWriteDescriptorSet descriptorWrite = {};
-			descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-			descriptorWrite.dstSet = ds._descriptorSets[i];
-			descriptorWrite.dstBinding = 0;
-			descriptorWrite.dstArrayElement = 0;
-			descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
-			descriptorWrite.descriptorCount = 1;
-			descriptorWrite.pBufferInfo = &bufferInfo;
-
-			vkUpdateDescriptorSets(_device, 1, &descriptorWrite, 0, nullptr);
-		}
-
-		return (ds);
-	}
-
 	std::vector<VkDescriptorSet> GraphicsInstance::CreateImageDescriptorSets( VkImageView textureImageView, VkSampler textureSampler, VkDescriptorSetLayout descriptorSetLayout )
 	{
 		std::vector<VkDescriptorSet> ds;
@@ -1659,14 +1583,53 @@ namespace Soon
 		return (ds);
 	}
 
-	UniformSets GraphicsInstance::CreateUniform( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout )
+	// TODO : MULTISET DYNAMIC
+	std::vector<VkDescriptorSet> GraphicsInstance::CreateDescriptorSets( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout, std::vector< VkBuffer > gpuBuffers)
 	{
-		return (CreateDescriptorSets( size, layoutArray, dlayout ));
+		std::vector<VkDescriptorSet> descriptorSets;
+		std::vector<VkDescriptorSetLayout> layouts(_swapChainImages.size(), layoutArray.at(dlayout));
+
+		VkDescriptorSetAllocateInfo allocInfo = {};
+		allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
+		allocInfo.descriptorPool = _descriptorPool;
+		allocInfo.descriptorSetCount = 1 * static_cast<uint32_t>(_swapChainImages.size()); // number of descriptor sets to be allocated from the pool.
+		allocInfo.pSetLayouts = layouts.data();
+
+		descriptorSets.resize(_swapChainImages.size());
+		if (vkAllocateDescriptorSets(_device, &allocInfo, descriptorSets.data()) != VK_SUCCESS)
+			throw std::runtime_error("failed to allocate descriptor sets!");
+
+		for (size_t i = 0; i < _swapChainImages.size(); i++)
+		{
+			VkDescriptorBufferInfo bufferInfo = {};
+			bufferInfo.buffer = gpuBuffers[i];
+			bufferInfo.offset = 0;
+			bufferInfo.range = size;
+
+			VkWriteDescriptorSet descriptorWrite = {};
+			descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+			descriptorWrite.dstSet = descriptorSets[i];
+			descriptorWrite.dstBinding = 0;
+			descriptorWrite.dstArrayElement = 0;
+			descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+			descriptorWrite.descriptorCount = 1;
+			descriptorWrite.pBufferInfo = &bufferInfo;
+
+			vkUpdateDescriptorSets(_device, 1, &descriptorWrite, 0, nullptr);
+		}
+
+		return (descriptorSets);
 	}
 
-	UniformSets GraphicsInstance::CreateUniform( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout, std::vector< VkBuffer > gpuBuffers)
+	UniformSets GraphicsInstance::CreateUniform( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout )
 	{
-		return (CreateDescriptorSets( size, layoutArray, dlayout, gpuBuffers ));
+		UniformSets ds;
+
+		ds._uniformRender = CreateUniformBuffers(size);
+
+		ds._descriptorSets = CreateDescriptorSets( size, layoutArray, dlayout, ds._uniformRender._Buffer );
+
+		return (ds);
 	}
 
 	///////////// DEPTH BUFFER / STENCIL BUFFER ///////////////

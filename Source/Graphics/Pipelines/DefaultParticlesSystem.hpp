@@ -29,7 +29,7 @@ namespace Soon
 			//// UNIFORM CAMERA
 			UniformSets						_uniformCamera;
 
-			UniformSets						_bufferParticles;
+			std::vector< std::vector< VkDescriptorSet > >		_particlesDescriptorSets;
 
 			DefaultParticlesSystemPipeline( void )
 			{
@@ -93,7 +93,7 @@ namespace Soon
 				vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_COMPUTE, _computePipeline);
 				for (auto& buf : _gpuBuffers)
 				{
-					vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_COMPUTE, _computePipelineLayout, 0, 1, &(_bufferParticles._descriptorSets.at(index)), 0, nullptr);
+					vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_COMPUTE, _computePipelineLayout, 0, 1, &(_particlesDescriptorSets.at(j).at(index)), 0, nullptr);
 					vkCmdDispatch(commandBuffer, _pSize.at(j), 1, 1);
 					j++;
 				}
@@ -175,27 +175,8 @@ namespace Soon
 				std::vector<BufferRenderer>                                     bufRenderer;
 				VkDevice device = GraphicsInstance::GetInstance()->GetDevice();
 
-				bufRenderer.resize(2);
 
-				bufRenderer[0]._Buffer.resize(1);
-				bufRenderer[0]._BufferMemory.resize(1);
-				bufRenderer[1]._Buffer.resize(1);
-				bufRenderer[1]._BufferMemory.resize(1);
-
-				GraphicsInstance::GetInstance()->CreateBuffer(ps->_size * sizeof(Particle), VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, bufRenderer[0]._Buffer[0], bufRenderer[0]._BufferMemory[0]);
-
-				//							void* data;
-				//							vkMapMemory(device, bufRenderer[0]._BufferMemory[0], 0, ps->_size * sizeof(Particle), 0, &data);
-				//							memcpy(data, inf._vertexData, (size_t)inf._vertexSize);
-				//							vkUnmapMemory(device, bufRenderer[0]._BufferMemory[0]);
-
-				GraphicsInstance::GetInstance()->CreateBuffer(ps->_size * sizeof(Particle), VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, bufRenderer[1]._Buffer[0], bufRenderer[1]._BufferMemory[0] );
-
-				GraphicsInstance::GetInstance()->CopyBuffer(bufRenderer[0]._Buffer[0], bufRenderer[1]._Buffer[0], ps->_size * sizeof(Particle));
-
-				//              vkDestroyBuffer(_device, stagingBuffer, nullptr);
-				//              vkFreeMemory(_device, stagingBufferMemory, nullptr);
-
+				bufRenderer = GraphicsInstance::GetInstance()->CreateVertexBuffer(ps->_size * sizeof(Particle), nullptr);
 
 				_pSize.push_back(ps->_size);
 				_transforms.push_back(&tr);
@@ -203,8 +184,7 @@ namespace Soon
 				_gpuMemoryBuffers.push_back(bufRenderer[1]._BufferMemory[0]);
 				_stagingBuffers.push_back(bufRenderer[0]);
 
-				_bufferParticles = GraphicsInstance::GetInstance()->CreateUniform(ps->_size * sizeof(Particle), _descriptorSetLayout, 1, bufRenderer[1]._Buffer);
-
+				_particlesDescriptorSets.push_back(GraphicsInstance::GetInstance()->CreateDescriptorSets(ps->_size * sizeof(Particle), _descriptorSetLayout, 1, bufRenderer[1]._Buffer));
 			}
 
 			void RecreateUniforms( void )

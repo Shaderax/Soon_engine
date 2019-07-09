@@ -247,7 +247,7 @@ namespace Soon
 
 		void AddToRender( Transform3D& tr, VertexBufferInfo inf )
 		{
-			std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(inf);
+			std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(inf._vertexSize, inf._vertexData);
 			//      ComponentRenderer ret;
 
 			_stagingBuffers.push_back(handler[0]);
@@ -302,23 +302,23 @@ namespace Soon
 		{
 			_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), _descriptorSetLayout, 0);
 
-			int j = -1;
-			while (++j < _uniformsBuffers.size())
+			std::size_t j = 0;
+			while (j++ < _uniformsBuffers.size())
 			{
 				UniformSets modelUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformModel), _descriptorSetLayout, 1);
 				_uniformsBuffers.at(j) = modelUniform._uniformRender;
 				_uniformsDescriptorSets.at(j) = modelUniform._descriptorSets;
 			}
-			j = -1;
-			while (++j < _uniformsImagesDescriptorSets.size())
+			j = 0;
+			while (j++ < _uniformsImagesDescriptorSets.size())
 			{
 				std::vector<VkDescriptorSet> imageUniform = GraphicsInstance::GetInstance()->CreateImageDescriptorSets(_images.at(j)._imageView, _images.at(j)._textureSampler, _descriptorSetLayout[2]);
 				_uniformsImagesDescriptorSets.at(j) = imageUniform;
 			}
 
 			/// RECREATE MATERIALS
-			j = -1;
-			while (++j < _uniformsMaterialsDescriptorSets.size())
+			j = 0;
+			while (j++ < _uniformsMaterialsDescriptorSets.size())
 			{
 				UniformSets matUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformMaterial), _descriptorSetLayout, 3);
 				_uniformsMaterials.at(j) = matUniform._uniformRender;
@@ -326,8 +326,8 @@ namespace Soon
 			}
 
 			///// RECREATE LIGHTS
-			j = -1;
-			while (++j < _vecLights.size())
+			j = 0;
+			while (j++ < _vecLights.size())
 			{
 				UniformSets lightUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformLight), _descriptorSetLayout, 4);
 				_uniformsLights.at(j) = lightUniform._uniformRender;
