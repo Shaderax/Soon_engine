@@ -21,19 +21,22 @@ namespace Soon
 		template<typename T>
 		void GraphicsRenderer::AddPipeline( void )
 		{
-			if (typeid(T) == typeid(DefaultPipeline) && _pipelines.size() == 0)
+			if (typeid(T) == typeid(DefaultPipeline) && _graphicPipelines.size() == 0)
 				_isDefault = true;
-			else if (typeid(T) != typeid(DefaultPipeline) && _pipelines.size() == 1 && _isDefault == true)
+			else if (typeid(T) != typeid(DefaultPipeline) && _graphicPipelines.size() == 1 && _isDefault == true)
 			{
 				_createdPipeline[ClassTypeId<BasePipeline>::GetId<DefaultPipeline>()] = false;
-				delete _pipelines[ClassTypeId<BasePipeline>::GetId<DefaultPipeline>()];
+				delete _graphicPipelines[ClassTypeId<BasePipeline>::GetId<DefaultPipeline>()];
 
-				_pipelines[ClassTypeId<BasePipeline>::GetId<DefaultPipeline>()] = nullptr;
+				_graphicPipelines[ClassTypeId<BasePipeline>::GetId<DefaultPipeline>()] = nullptr;
 				_isDefault = false;
 			}
 
 			T* pipeline = new T;
-			_pipelines[ClassTypeId<BasePipeline>::GetId<T>()] = pipeline;
+			if (typeid(T) == typeid(DefaultParticlesSystemPipeline))
+				_computePipelines[ClassTypeId<BasePipeline>::GetId<T>()] = pipeline;
+			else
+				_graphicPipelines[ClassTypeId<BasePipeline>::GetId<T>()] = pipeline;
 			_createdPipeline[ClassTypeId<BasePipeline>::GetId<T>()] = true;
 			_changes = true;
 		}
@@ -52,7 +55,7 @@ namespace Soon
 		{
 			if (!_createdPipeline[ClassTypeId<BasePipeline>::GetId<DefaultVertexPipeline>()])
 				AddPipeline<DefaultVertexPipeline>();
-			DefaultVertexPipeline* pip = reinterpret_cast<DefaultVertexPipeline*>(_pipelines[ClassTypeId<BasePipeline>::GetId<DefaultVertexPipeline>()]);
+			DefaultVertexPipeline* pip = reinterpret_cast<DefaultVertexPipeline*>(_graphicPipelines[ClassTypeId<BasePipeline>::GetId<DefaultVertexPipeline>()]);
 			pip->AddToRender(tr, inf);
 			
 			_changes = true;
@@ -60,7 +63,7 @@ namespace Soon
 		
 		void GraphicsRenderer::AddLightToRender( Transform3D& tr, DirectionalLight* dl)
 		{
-			DefaultVertexPipeline* pip = reinterpret_cast<DefaultVertexPipeline*>(_pipelines[ClassTypeId<BasePipeline>::GetId<DefaultVertexPipeline>()]);
+			DefaultVertexPipeline* pip = reinterpret_cast<DefaultVertexPipeline*>(_graphicPipelines[ClassTypeId<BasePipeline>::GetId<DefaultVertexPipeline>()]);
 			pip->AddLightToRender(tr, dl);
 			
 			_changes = true;
@@ -70,7 +73,7 @@ namespace Soon
 		{
 			if (!_createdPipeline[ClassTypeId<BasePipeline>::GetId<DefaultParticlesSystemPipeline>()])
 				AddPipeline<DefaultParticlesSystemPipeline>();
-			DefaultParticlesSystemPipeline* pip = reinterpret_cast<DefaultParticlesSystemPipeline*>(_pipelines[ClassTypeId<BasePipeline>::GetId<DefaultParticlesSystemPipeline>()]);
+			DefaultParticlesSystemPipeline* pip = reinterpret_cast<DefaultParticlesSystemPipeline*>(_computePipelines[ClassTypeId<BasePipeline>::GetId<DefaultParticlesSystemPipeline>()]);
 			pip->AddToRender(tr, ps);
 			
 			_changes = true;
@@ -78,21 +81,36 @@ namespace Soon
 
 		void GraphicsRenderer::RecreateAllUniforms( void )
 		{
-			for (BasePipeline* bp : _pipelines)
+			for (BasePipeline* bp : _graphicPipelines)
+				if (bp)
+					bp->RecreateUniforms();
+			for (BasePipeline* bp : _computePipelines)
 				if (bp)
 					bp->RecreateUniforms();
 		}
 
 		void GraphicsRenderer::UpdateAllDatas( uint32_t imageIndex )
 		{
-			for (BasePipeline* bp : _pipelines)
+			for (BasePipeline* bp : _graphicPipelines)
+				if (bp)
+					bp->UpdateData(imageIndex);
+			for (BasePipeline* bp : _computePipelines)
 				if (bp)
 					bp->UpdateData(imageIndex);
 		}
 
-		void GraphicsRenderer::PipelinesBindCaller( VkCommandBuffer commandBuffer, uint32_t index )
+		void GraphicsRenderer::GraphicPipelinesBindCaller( VkCommandBuffer commandBuffer, uint32_t index )
 		{
-			for (BasePipeline* bp : _pipelines)
+			for (BasePipeline* bp : _graphicPipelines)
+			{
+				if (bp)
+					bp->BindCaller(commandBuffer, index );
+			}
+		}
+
+		void GraphicsRenderer::ComputePipelinesBindCaller( VkCommandBuffer commandBuffer, uint32_t index )
+		{
+			for (BasePipeline* bp : _computePipelines)
 			{
 				if (bp)
 					bp->BindCaller(commandBuffer, index );

@@ -914,9 +914,12 @@ namespace Soon
 
 			vkCmdBeginRenderPass(_commandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
-			GraphicsRenderer::GetInstance()->PipelinesBindCaller(_commandBuffers[i], i);
+			GraphicsRenderer::GetInstance()->GraphicPipelinesBindCaller(_commandBuffers[i], i);
 
 			vkCmdEndRenderPass(_commandBuffers[i]);
+
+			GraphicsRenderer::GetInstance()->ComputePipelinesBindCaller(_commandBuffers[i], i);
+
 			if (vkEndCommandBuffer(_commandBuffers[i]) != VK_SUCCESS)
 				throw std::runtime_error("failed to record command buffer!");
 		}
@@ -1521,17 +1524,19 @@ namespace Soon
 
 	void GraphicsInstance::CreateDescriptorPool( void )
 	{
-		VkDescriptorPoolSize poolSize[2] = {};
+		VkDescriptorPoolSize poolSize[3] = {};
 		poolSize[0].type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
 		poolSize[0].descriptorCount = 200 * static_cast<uint32_t>(_swapChainImages.size());
 		poolSize[1].type = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
 		poolSize[1].descriptorCount = 200 * static_cast<uint32_t>(_swapChainImages.size());
+		poolSize[2].type = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+		poolSize[2].descriptorCount = 200 * static_cast<uint32_t>(_swapChainImages.size());
 
 		VkDescriptorPoolCreateInfo poolInfo = {};
 		poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-		poolInfo.poolSizeCount = 2; // number of elements in pPoolSizes.
+		poolInfo.poolSizeCount = 3; // number of elements in pPoolSizes.
 		poolInfo.pPoolSizes = &poolSize[0];
-		poolInfo.maxSets = poolSize[0].descriptorCount + poolSize[1].descriptorCount;
+		poolInfo.maxSets = poolSize[0].descriptorCount + poolSize[1].descriptorCount + poolSize[2].descriptorCount;
 
 		if (vkCreateDescriptorPool(_device, &poolInfo, nullptr, &_descriptorPool) != VK_SUCCESS)
 			throw std::runtime_error("failed to create descriptor pool!");
@@ -1569,6 +1574,44 @@ namespace Soon
 			descriptorWrite.dstBinding = 0;
 			descriptorWrite.dstArrayElement = 0;
 			descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+			descriptorWrite.descriptorCount = 1;
+			descriptorWrite.pBufferInfo = &bufferInfo;
+
+			vkUpdateDescriptorSets(_device, 1, &descriptorWrite, 0, nullptr);
+		}
+
+		return (ds);
+	}
+
+	UniformSets GraphicsInstance::CreateDescriptorSets( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout, std::vector< VkBuffer > gpuBuffers)
+	{
+		UniformSets ds;
+
+		std::vector<VkDescriptorSetLayout> layouts(_swapChainImages.size(), layoutArray.at(dlayout));
+
+		VkDescriptorSetAllocateInfo allocInfo = {};
+		allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
+		allocInfo.descriptorPool = _descriptorPool;
+		allocInfo.descriptorSetCount = 1 * static_cast<uint32_t>(_swapChainImages.size()); // number of descriptor sets to be allocated from the pool.
+		allocInfo.pSetLayouts = layouts.data();
+
+		ds._descriptorSets.resize(_swapChainImages.size());
+		if (vkAllocateDescriptorSets(_device, &allocInfo, ds._descriptorSets.data()) != VK_SUCCESS)
+			throw std::runtime_error("failed to allocate descriptor sets!");
+
+		for (size_t i = 0; i < _swapChainImages.size(); i++)
+		{
+			VkDescriptorBufferInfo bufferInfo = {};
+			bufferInfo.buffer = gpuBuffers.at(0);
+			bufferInfo.offset = 0;
+			bufferInfo.range = size;
+
+			VkWriteDescriptorSet descriptorWrite = {};
+			descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+			descriptorWrite.dstSet = ds._descriptorSets[i];
+			descriptorWrite.dstBinding = 0;
+			descriptorWrite.dstArrayElement = 0;
+			descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 			descriptorWrite.descriptorCount = 1;
 			descriptorWrite.pBufferInfo = &bufferInfo;
 
@@ -1619,6 +1662,11 @@ namespace Soon
 	UniformSets GraphicsInstance::CreateUniform( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout )
 	{
 		return (CreateDescriptorSets( size, layoutArray, dlayout ));
+	}
+
+	UniformSets GraphicsInstance::CreateUniform( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout, std::vector< VkBuffer > gpuBuffers)
+	{
+		return (CreateDescriptorSets( size, layoutArray, dlayout, gpuBuffers ));
 	}
 
 	///////////// DEPTH BUFFER / STENCIL BUFFER ///////////////

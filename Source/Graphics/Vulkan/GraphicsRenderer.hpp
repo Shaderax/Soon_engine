@@ -30,7 +30,8 @@ namespace Soon
 		bool				HasChange( void );
 		void				SetChangeFalse( void );
 		void 				RecreateAllUniforms( void );
-		void 				PipelinesBindCaller( VkCommandBuffer commandBuffer, uint32_t index );
+		void 				GraphicPipelinesBindCaller( VkCommandBuffer commandBuffer, uint32_t index );
+		void 				ComputePipelinesBindCaller( VkCommandBuffer commandBuffer, uint32_t index );
 		void				UpdateAllDatas( uint32_t imageIndex );
 
 		void 				AddVertexToRender( Transform3D& tr, VertexBufferInfo inf);
@@ -61,7 +62,8 @@ namespace Soon
 //		std::vector< DirectionalLight * > GetLights( void );
 
 		private:
-		std::array<BasePipeline*, MAX_PIPELINES>		_pipelines{};
+		std::array<BasePipeline*, MAX_PIPELINES / 2>		_graphicPipelines{};
+		std::array<BasePipeline*, MAX_PIPELINES / 2>		_computePipelines{};
 		bool _changes;
 		bool _isDefault;
 		std::bitset<MAX_PIPELINES>					_createdPipeline;

@@ -201,7 +201,9 @@ namespace Soon
 
 			VkPipelineLayout CreatePipelineLayout( std::vector<VkDescriptorSetLayout> descriptorSetLayout );
 			UniformSets CreateUniform( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout );
+			UniformSets CreateUniform( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout, std::vector< VkBuffer > gpuBuffers);
 			UniformSets CreateDescriptorSets( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout);
+			UniformSets CreateDescriptorSets( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout, std::vector< VkBuffer > gpuBuffers);
 
 			void 	NewGraphicsInstance( void );
 
