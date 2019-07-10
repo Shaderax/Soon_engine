@@ -39,8 +39,10 @@ namespace Soon
 		void				AddParticlesSystemToRender( Transform3D& tr, ParticlesSystem *ps );
 
 
+		// TODO 
+		// Max pipelines reach
 		template<typename T>
-		void AddPipeline( void );
+		void GraphicsRenderer::AddPipeline( )
 
 //		std::vector< VkBuffer >		GetvkBuffers( void );
 //		std::vector< uint32_t >		GetNbVertex( void );

@@ -4,6 +4,7 @@
 #include "Graphics/Pipelines/DefaultPipeline.hpp"
 #include "Graphics/Pipelines/DefaultVertexPipeline.hpp"
 #include "Graphics/Pipelines/DefaultParticlesSystem.hpp"
+#include "Graphics/Pipelines/DefaultComputeParticlesSystem.hpp"
 #include <typeinfo>
 #include "ECS/ClassTypeId.hpp"
 
@@ -16,10 +17,8 @@ namespace Soon
 			return (_instance);
 		}
 
-		// TODO 
-		// Max pipelines reach
 		template<typename T>
-		void GraphicsRenderer::AddPipeline( void )
+		void GraphicsRenderer::AddPipeline( )
 		{
 			if (typeid(T) == typeid(DefaultPipeline) && _graphicPipelines.size() == 0)
 				_isDefault = true;
@@ -32,14 +31,21 @@ namespace Soon
 				_isDefault = false;
 			}
 
-			T* pipeline = new T;
-			if (typeid(T) == typeid(DefaultParticlesSystemPipeline))
+			T* pipeline;
+			if (typeid(T) == typeid(DefaultComputeParticlesSystemPipeline))
+			{
+				pipeline = new T(args...);
 				_computePipelines[ClassTypeId<BasePipeline>::GetId<T>()] = pipeline;
+			}
 			else
+			{
+				pipeline = new T(args...);
 				_graphicPipelines[ClassTypeId<BasePipeline>::GetId<T>()] = pipeline;
+			}
 			_createdPipeline[ClassTypeId<BasePipeline>::GetId<T>()] = true;
 			_changes = true;
 		}
+
 
 		void GraphicsRenderer::Initialize( void )
 		{
@@ -72,9 +78,14 @@ namespace Soon
 		void GraphicsRenderer::AddParticlesSystemToRender( Transform3D& tr, ParticlesSystem* ps )
 		{
 			if (!_createdPipeline[ClassTypeId<BasePipeline>::GetId<DefaultParticlesSystemPipeline>()])
+			{
 				AddPipeline<DefaultParticlesSystemPipeline>();
+				AddPipeline<DefaultComputeParticlesSystemPipeline>(_graphicPipelines[ClassTypeId<BasePipeline>::GetId<DefaultParticlesSystemPipeline>()]);
+			}
 			DefaultParticlesSystemPipeline* pip = reinterpret_cast<DefaultParticlesSystemPipeline*>(_computePipelines[ClassTypeId<BasePipeline>::GetId<DefaultParticlesSystemPipeline>()]);
+			DefaultComputeParticlesSystemPipeline* cpsp = reinterpret_cast<DefaultComputeParticlesSystemPipeline*>(_computePipelines[ClassTypeId<BasePipeline>::GetId<DefaultComputeParticlesSystemPipeline>()]);
 			pip->AddToRender(tr, ps);
+			cpsp->AddToRender(tr, ps);
 			
 			_changes = true;
 		}
@@ -101,6 +112,7 @@ namespace Soon
 
 		void GraphicsRenderer::GraphicPipelinesBindCaller( VkCommandBuffer commandBuffer, uint32_t index )
 		{
+			std::cout << "Graphic Bind Caller" << std::endl;
 			for (BasePipeline* bp : _graphicPipelines)
 			{
 				if (bp)
@@ -110,6 +122,7 @@ namespace Soon
 
 		void GraphicsRenderer::ComputePipelinesBindCaller( VkCommandBuffer commandBuffer, uint32_t index )
 		{
+			std::cout << "Compute Bind Caller" << std::endl;
 			for (BasePipeline* bp : _computePipelines)
 			{
 				if (bp)

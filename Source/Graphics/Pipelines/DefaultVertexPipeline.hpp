@@ -171,7 +171,7 @@ namespace Soon
 				vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 3, 1, &_uniformsMaterialsDescriptorSets.at(j).at(index), 0  , nullptr);
 
 				vkCmdDrawIndexed(commandBuffer, _indexSize.at(j), 1, 0, 0, 0);
-				j++;
+				++j;
 			}
 		}
 
@@ -247,7 +247,7 @@ namespace Soon
 
 		void AddToRender( Transform3D& tr, VertexBufferInfo inf )
 		{
-			std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(inf._vertexSize, inf._vertexData);
+			std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(inf._vertexSize, inf._vertexData, false);
 			//      ComponentRenderer ret;
 
 			_stagingBuffers.push_back(handler[0]);

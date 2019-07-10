@@ -175,7 +175,7 @@ namespace Soon
 			void 	CleanupSwapChain( void );
 			VkExtent2D ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
 			static void FramebufferResizeCallback(GLFWwindow *window, int width, int height);
-			std::vector<BufferRenderer> CreateVertexBuffer( uint32_t size, void* ptrData );
+			std::vector<BufferRenderer> CreateVertexBuffer( uint32_t size, void* ptrData, bool storageBit );
 			uint32_t FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
 			void	FillCommandBuffer( void );
 			void 	CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory);
@@ -201,7 +201,7 @@ namespace Soon
 
 			VkPipelineLayout CreatePipelineLayout( std::vector<VkDescriptorSetLayout> descriptorSetLayout );
 			UniformSets CreateUniform( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout );
-			std::vector<VkDescriptorSet> CreateDescriptorSets( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout, std::vector< VkBuffer > gpuBuffers);
+			std::vector<VkDescriptorSet> CreateDescriptorSets( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout, VkBuffer gpuBuffers,  VkDescriptorType dType);
 
 			void 	NewGraphicsInstance( void );
 

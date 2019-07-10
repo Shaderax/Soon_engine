@@ -1,5 +1,3 @@
-#pragma once
-
 #include "Graphics/Pipelines/BasePipeline.hpp"
 #include "Core/Engine.hpp"
 #include "Scene/3D/Components/Camera.hpp"
@@ -18,24 +16,20 @@ namespace Soon
 				vec3<float> _velocity;
 			};
 
+			VkPipeline _computePipeline;
+			VkPipelineLayout _computePipelineLayout;
+			std::vector<VkDescriptorSetLayout>	_computeDescriptorSetLayout;
+
 			std::vector< Transform3D* >			_transforms;
 			std::vector< VkBuffer >				_gpuBuffers;
 			std::vector< VkDeviceMemory >		_gpuMemoryBuffers;
 			std::vector< BufferRenderer >		_stagingBuffers;
 			std::vector< uint32_t >			_pSize;
 
-			std::vector< VkBuffer >&		GetGpuBuffers( void )
-			{
-				return (_gpuBuffers);
-			}
-			
-			std::vector< uint32_t >&		GetPSize( void )
-			{
-				return (_pSize);
-			}
-
 			//// UNIFORM CAMERA
 			UniformSets						_uniformCamera;
+
+			std::vector< std::vector< VkDescriptorSet > >		_particlesDescriptorSets;
 
 			DefaultParticlesSystemPipeline( void )
 			{
@@ -48,6 +42,12 @@ namespace Soon
 						GraphicsInstance::ShaderType::COMPUTE,
 						"../Source/Graphics/Shaders/DefaultParticles.vert.spv",
 						"../Source/Graphics/Shaders/DefaultParticles.frag.spv");
+
+				_computeDescriptorSetLayout = GraphicsInstance::GetInstance()->CreateDescriptorSetLayout( GetComputeLayoutBinding() );
+				_computePipelineLayout = GraphicsInstance::GetInstance()->CreatePipelineLayout(_computeDescriptorSetLayout);
+				_computePipeline = GraphicsInstance::GetInstance()->CreateComputePipeline(
+						_computePipelineLayout,
+						"../Source/Graphics/Shaders/DefaultParticles.comp.spv");
 				_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), _descriptorSetLayout, 0);
 			}
 
@@ -89,6 +89,14 @@ namespace Soon
 			void BindCaller( VkCommandBuffer commandBuffer, uint32_t index )
 			{
 				uint32_t j = 0;
+				// Compute //
+				vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_COMPUTE, _computePipeline);
+				for (auto& buf : _gpuBuffers)
+				{
+					vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_COMPUTE, _computePipelineLayout, 0, 1, &(_particlesDescriptorSets.at(j).at(index)), 0, nullptr);
+					vkCmdDispatch(commandBuffer, _pSize.at(j), 1, 1);
+					j++;
+				}
 				// Graphic //
 				vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _graphicPipeline);
 					// Bind Cam
@@ -126,6 +134,20 @@ namespace Soon
 				return (uboLayoutBinding);
 			}
 
+			std::vector<VkDescriptorSetLayoutBinding> GetComputeLayoutBinding( void )
+			{
+				std::vector<VkDescriptorSetLayoutBinding> uboLayoutBinding(1);
+
+				///////////// PARTICLES ////////////
+				uboLayoutBinding[0].binding = 0;
+				uboLayoutBinding[0].descriptorCount = 1;
+				uboLayoutBinding[0].descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+				uboLayoutBinding[0].pImmutableSamplers = nullptr;
+				uboLayoutBinding[0].stageFlags = VK_SHADER_STAGE_COMPUTE_BIT;
+
+				return (uboLayoutBinding);
+			}
+
 			VkVertexInputBindingDescription GetBindingDescription( void )
 			{
 				VkVertexInputBindingDescription bindingDescription = {};
@@ -151,6 +173,8 @@ namespace Soon
 			void AddToRender( Transform3D& tr, ParticlesSystem* ps )
 			{
 				std::vector<BufferRenderer>                                     bufRenderer;
+				VkDevice device = GraphicsInstance::GetInstance()->GetDevice();
+
 
 				bufRenderer = GraphicsInstance::GetInstance()->CreateVertexBuffer(ps->_size * sizeof(Particle), nullptr, true);
 
@@ -159,11 +183,21 @@ namespace Soon
 				_gpuBuffers.push_back(bufRenderer[1]._Buffer[0]);
 				_gpuMemoryBuffers.push_back(bufRenderer[1]._BufferMemory[0]);
 				_stagingBuffers.push_back(bufRenderer[0]);
+
+				std::cout << "Create Particle System Descriptor Set" << std::endl;
+				_particlesDescriptorSets.push_back(GraphicsInstance::GetInstance()->CreateDescriptorSets(ps->_size * sizeof(Particle), _computeDescriptorSetLayout, 0, bufRenderer[1]._Buffer[0], VK_DESCRIPTOR_TYPE_STORAGE_BUFFER));
+				std::cout << "END : Create Particle System Descriptor Set" << std::endl;
 			}
 
 			void RecreateUniforms( void )
 			{
+				uint32_t j = 0;
 				_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), _descriptorSetLayout, 0);
+				for (auto& pDs : _particlesDescriptorSets)
+				{
+					pDs = GraphicsInstance::GetInstance()->CreateDescriptorSets(_pSize.at(j) * sizeof(Particle), _computeDescriptorSetLayout, 0, _gpuBuffers.at(j), VK_DESCRIPTOR_TYPE_STORAGE_BUFFER);
+					++j;
+				}
 			}
 	};
 }

@@ -1094,7 +1094,7 @@ namespace Soon
 		throw std::runtime_error("failed to find suitable memory type!");
 	}
 
-	std::vector<BufferRenderer> GraphicsInstance::CreateVertexBuffer( uint32_t size, void* ptrData )
+	std::vector<BufferRenderer> GraphicsInstance::CreateVertexBuffer( uint32_t size, void* ptrData, bool storageBit )
 	{
 		std::vector<BufferRenderer>					bufRenderer;
 		std::cout << "Vertex BUFFER CREATION : " << size << std::endl;
@@ -1116,7 +1116,10 @@ namespace Soon
 			vkUnmapMemory(_device, bufRenderer[0]._BufferMemory[0]);
 		}
 
-		CreateBuffer(size, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, bufRenderer[1]._Buffer[0], bufRenderer[1]._BufferMemory[0] );
+		if (storageBit)
+			CreateBuffer(size, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, bufRenderer[1]._Buffer[0], bufRenderer[1]._BufferMemory[0] );
+		else
+			CreateBuffer(size, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, bufRenderer[1]._Buffer[0], bufRenderer[1]._BufferMemory[0] );
 
 		CopyBuffer(bufRenderer[0]._Buffer[0], bufRenderer[1]._Buffer[0], size);
 
@@ -1584,7 +1587,7 @@ namespace Soon
 	}
 
 	// TODO : MULTISET DYNAMIC
-	std::vector<VkDescriptorSet> GraphicsInstance::CreateDescriptorSets( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout, std::vector< VkBuffer > gpuBuffers)
+	std::vector<VkDescriptorSet> GraphicsInstance::CreateDescriptorSets( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout, VkBuffer gpuBuffers, VkDescriptorType dType)
 	{
 		std::vector<VkDescriptorSet> descriptorSets;
 		std::vector<VkDescriptorSetLayout> layouts(_swapChainImages.size(), layoutArray.at(dlayout));
@@ -1602,7 +1605,7 @@ namespace Soon
 		for (size_t i = 0; i < _swapChainImages.size(); i++)
 		{
 			VkDescriptorBufferInfo bufferInfo = {};
-			bufferInfo.buffer = gpuBuffers[i];
+			bufferInfo.buffer = gpuBuffers;
 			bufferInfo.offset = 0;
 			bufferInfo.range = size;
 
@@ -1611,7 +1614,7 @@ namespace Soon
 			descriptorWrite.dstSet = descriptorSets[i];
 			descriptorWrite.dstBinding = 0;
 			descriptorWrite.dstArrayElement = 0;
-			descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+			descriptorWrite.descriptorType = dType;
 			descriptorWrite.descriptorCount = 1;
 			descriptorWrite.pBufferInfo = &bufferInfo;
 
@@ -1627,7 +1630,7 @@ namespace Soon
 
 		ds._uniformRender = CreateUniformBuffers(size);
 
-		ds._descriptorSets = CreateDescriptorSets( size, layoutArray, dlayout, ds._uniformRender._Buffer );
+		ds._descriptorSets = CreateDescriptorSets( size, layoutArray, dlayout, ds._uniformRender._Buffer[0], VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER );
 
 		return (ds);
 	}
