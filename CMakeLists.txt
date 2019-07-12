@@ -33,7 +33,7 @@ include_directories(ThirdParty/)
 
 project(Soon)
 
-add_compile_options(-Wall -Wextra)
+add_compile_options(-Wall -Wextra -g3)
 
 add_subdirectory(Source)
 add_subdirectory(Modules)

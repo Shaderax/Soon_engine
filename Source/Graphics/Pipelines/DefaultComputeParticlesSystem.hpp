@@ -74,7 +74,7 @@ namespace Soon
 			void AddToRender( Transform3D& tr, ParticlesSystem* ps)
 			{
 				std::cout << "Create Particle System Descriptor Set" << std::endl;
-				_particlesDescriptorSets.push_back(GraphicsInstance::GetInstance()->CreateDescriptorSets(ps->_size * sizeof(Particle), _descriptorSetLayout, 0, (*_gpuBuffers).back(), VK_DESCRIPTOR_TYPE_STORAGE_BUFFER));
+				_particlesDescriptorSets.push_back(GraphicsInstance::GetInstance()->CreateDescriptorSets(ps->_size * sizeof(Particle), _descriptorSetLayout, 0, &((*_gpuBuffers).back()), VK_DESCRIPTOR_TYPE_STORAGE_BUFFER));
 				std::cout << "END : Create Particle System Descriptor Set" << std::endl;
 			}
 
@@ -83,9 +83,11 @@ namespace Soon
 				uint32_t j = 0;
 				for (auto& pDs : _particlesDescriptorSets)
 				{
-					pDs = GraphicsInstance::GetInstance()->CreateDescriptorSets((*_pSize).at(j) * sizeof(Particle), _descriptorSetLayout, 0, (*_gpuBuffers).at(j), VK_DESCRIPTOR_TYPE_STORAGE_BUFFER);
+					pDs = GraphicsInstance::GetInstance()->CreateDescriptorSets((*_pSize).at(j) * sizeof(Particle), _descriptorSetLayout, 0, &((*_gpuBuffers).at(j)), VK_DESCRIPTOR_TYPE_STORAGE_BUFFER);
 					++j;
 				}
 			}
+	VkVertexInputBindingDescription GetBindingDescription( void ) {}
+	std::vector<VkVertexInputAttributeDescription> GetAttributeDescriptions( void ) {}
 	};
 }

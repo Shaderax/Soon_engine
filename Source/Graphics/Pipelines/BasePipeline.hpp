@@ -1,5 +1,11 @@
 #pragma once
 
+enum PipelineType
+{
+	GRAPHIC = 0,
+	COMPUTE = 1
+};
+
 struct BasePipeline
 {
 	BasePipeline()
@@ -9,10 +15,10 @@ struct BasePipeline
 
 	virtual ~BasePipeline() {}
 	virtual std::vector<VkDescriptorSetLayoutBinding> GetLayoutBinding( void ) = 0;
-	virtual VkVertexInputBindingDescription GetBindingDescription( void );
+	virtual VkVertexInputBindingDescription GetBindingDescription( void ) = 0;
 	virtual void UpdateData( int currentImg ) = 0;
 	virtual void BindCaller( VkCommandBuffer commandBuffer, uint32_t index ) = 0;
-	virtual std::vector<VkVertexInputAttributeDescription> GetAttributeDescriptions( void );
+	virtual std::vector<VkVertexInputAttributeDescription> GetAttributeDescriptions( void ) = 0;
 	virtual void RecreateUniforms( void ) = 0;
 
 	std::vector<VkDescriptorSetLayout>		_descriptorSetLayout;
@@ -23,4 +29,7 @@ struct BasePipeline
 	{
 		
 	};
+
+	PipelineType _type = PipelineType::GRAPHIC;
+
 };

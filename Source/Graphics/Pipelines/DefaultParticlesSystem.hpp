@@ -152,8 +152,19 @@ namespace Soon
 			{
 				std::vector<BufferRenderer>                                     bufRenderer;
 
-				bufRenderer = GraphicsInstance::GetInstance()->CreateVertexBuffer(ps->_size * sizeof(Particle), nullptr, true);
+				Particle* p = new Particle[ps->_size];
 
+				for (int j = 0; j < ps->_size ; j++)
+				{
+					p[j]._position = vec3<float>(0.0f, 0.0f, 0.0f);
+					p[j]._velocity =  vec3<float>(0.0f, 0.0f, 0.0f);
+				}
+
+				bufRenderer = GraphicsInstance::GetInstance()->CreateVertexBuffer(ps->_size * sizeof(Particle), p, true);
+
+				delete[] p;
+
+				std::cout << this << std::endl;
 				_pSize.push_back(ps->_size);
 				_transforms.push_back(&tr);
 				_gpuBuffers.push_back(bufRenderer[1]._Buffer[0]);

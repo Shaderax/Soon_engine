@@ -17,12 +17,12 @@ namespace Soon
 			return (_instance);
 		}
 
-		template<typename T>
-		void GraphicsRenderer::AddPipeline( )
+		template<typename T, typename ... Args>
+		void GraphicsRenderer::AddPipeline( Args ... args )
 		{
 			if (typeid(T) == typeid(DefaultPipeline) && _graphicPipelines.size() == 0)
 				_isDefault = true;
-			else if (typeid(T) != typeid(DefaultPipeline) && _graphicPipelines.size() == 1 && _isDefault == true)
+			if (typeid(T) != typeid(DefaultPipeline) && _graphicPipelines.size() == 1 && _isDefault == true)
 			{
 				_createdPipeline[ClassTypeId<BasePipeline>::GetId<DefaultPipeline>()] = false;
 				delete _graphicPipelines[ClassTypeId<BasePipeline>::GetId<DefaultPipeline>()];
@@ -34,22 +34,22 @@ namespace Soon
 			T* pipeline;
 			if (typeid(T) == typeid(DefaultComputeParticlesSystemPipeline))
 			{
-				pipeline = new T(args...);
+				pipeline = new T(std::forward<Args>(args) ...);
 				_computePipelines[ClassTypeId<BasePipeline>::GetId<T>()] = pipeline;
 			}
 			else
 			{
-				pipeline = new T(args...);
+				pipeline = new T(std::forward<Args>(args) ...);
 				_graphicPipelines[ClassTypeId<BasePipeline>::GetId<T>()] = pipeline;
 			}
+
 			_createdPipeline[ClassTypeId<BasePipeline>::GetId<T>()] = true;
 			_changes = true;
 		}
 
-
 		void GraphicsRenderer::Initialize( void )
 		{
-			AddPipeline<DefaultPipeline>();
+//			AddPipeline<DefaultPipeline>();
 		}
 
 		GraphicsRenderer::GraphicsRenderer( void ) : _changes(false), _isDefault(false)
@@ -80,9 +80,9 @@ namespace Soon
 			if (!_createdPipeline[ClassTypeId<BasePipeline>::GetId<DefaultParticlesSystemPipeline>()])
 			{
 				AddPipeline<DefaultParticlesSystemPipeline>();
-				AddPipeline<DefaultComputeParticlesSystemPipeline>(_graphicPipelines[ClassTypeId<BasePipeline>::GetId<DefaultParticlesSystemPipeline>()]);
+				AddPipeline<DefaultComputeParticlesSystemPipeline>(reinterpret_cast<DefaultParticlesSystemPipeline*>(_graphicPipelines[ClassTypeId<BasePipeline>::GetId<DefaultParticlesSystemPipeline>()]));
 			}
-			DefaultParticlesSystemPipeline* pip = reinterpret_cast<DefaultParticlesSystemPipeline*>(_computePipelines[ClassTypeId<BasePipeline>::GetId<DefaultParticlesSystemPipeline>()]);
+			DefaultParticlesSystemPipeline* pip = reinterpret_cast<DefaultParticlesSystemPipeline*>(_graphicPipelines[ClassTypeId<BasePipeline>::GetId<DefaultParticlesSystemPipeline>()]);
 			DefaultComputeParticlesSystemPipeline* cpsp = reinterpret_cast<DefaultComputeParticlesSystemPipeline*>(_computePipelines[ClassTypeId<BasePipeline>::GetId<DefaultComputeParticlesSystemPipeline>()]);
 			pip->AddToRender(tr, ps);
 			cpsp->AddToRender(tr, ps);
@@ -112,22 +112,28 @@ namespace Soon
 
 		void GraphicsRenderer::GraphicPipelinesBindCaller( VkCommandBuffer commandBuffer, uint32_t index )
 		{
-			std::cout << "Graphic Bind Caller" << std::endl;
 			for (BasePipeline* bp : _graphicPipelines)
 			{
-				if (bp)
+				if (bp != nullptr)
+				{
+					std::cout << "Graphic Bind Caller" << std::endl;
 					bp->BindCaller(commandBuffer, index );
+				}
 			}
+			std::cout << std::endl;
 		}
 
 		void GraphicsRenderer::ComputePipelinesBindCaller( VkCommandBuffer commandBuffer, uint32_t index )
 		{
-			std::cout << "Compute Bind Caller" << std::endl;
 			for (BasePipeline* bp : _computePipelines)
 			{
 				if (bp)
+				{
+					std::cout << "Compute Bind Caller" << std::endl;
 					bp->BindCaller(commandBuffer, index );
+				}
 			}
+			std::cout << std::endl;
 		}
 
 		bool GraphicsRenderer::HasChange( void )

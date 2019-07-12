@@ -41,8 +41,8 @@ namespace Soon
 
 		// TODO 
 		// Max pipelines reach
-		template<typename T>
-		void GraphicsRenderer::AddPipeline( )
+		template<typename T, typename ... Args>
+		void AddPipeline( Args ... args );
 
 //		std::vector< VkBuffer >		GetvkBuffers( void );
 //		std::vector< uint32_t >		GetNbVertex( void );

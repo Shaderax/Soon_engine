@@ -1532,11 +1532,11 @@ namespace Soon
 	{
 		VkDescriptorPoolSize poolSize[3] = {};
 		poolSize[0].type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-		poolSize[0].descriptorCount = 200 * static_cast<uint32_t>(_swapChainImages.size());
+		poolSize[0].descriptorCount = 50 * static_cast<uint32_t>(_swapChainImages.size());
 		poolSize[1].type = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-		poolSize[1].descriptorCount = 200 * static_cast<uint32_t>(_swapChainImages.size());
+		poolSize[1].descriptorCount = 50 * static_cast<uint32_t>(_swapChainImages.size());
 		poolSize[2].type = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
-		poolSize[2].descriptorCount = 200 * static_cast<uint32_t>(_swapChainImages.size());
+		poolSize[2].descriptorCount = 10 * static_cast<uint32_t>(_swapChainImages.size());
 
 		VkDescriptorPoolCreateInfo poolInfo = {};
 		poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
@@ -1587,7 +1587,7 @@ namespace Soon
 	}
 
 	// TODO : MULTISET DYNAMIC
-	std::vector<VkDescriptorSet> GraphicsInstance::CreateDescriptorSets( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout, VkBuffer gpuBuffers, VkDescriptorType dType)
+	std::vector<VkDescriptorSet> GraphicsInstance::CreateDescriptorSets( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout, VkBuffer* gpuBuffers, VkDescriptorType dType)
 	{
 		std::vector<VkDescriptorSet> descriptorSets;
 		std::vector<VkDescriptorSetLayout> layouts(_swapChainImages.size(), layoutArray.at(dlayout));
@@ -1605,7 +1605,10 @@ namespace Soon
 		for (size_t i = 0; i < _swapChainImages.size(); i++)
 		{
 			VkDescriptorBufferInfo bufferInfo = {};
-			bufferInfo.buffer = gpuBuffers;
+			if (dType == VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER)
+				bufferInfo.buffer = gpuBuffers[i];
+			else if (dType == VK_DESCRIPTOR_TYPE_STORAGE_BUFFER)
+				bufferInfo.buffer = gpuBuffers[0];
 			bufferInfo.offset = 0;
 			bufferInfo.range = size;
 
@@ -1630,7 +1633,7 @@ namespace Soon
 
 		ds._uniformRender = CreateUniformBuffers(size);
 
-		ds._descriptorSets = CreateDescriptorSets( size, layoutArray, dlayout, ds._uniformRender._Buffer[0], VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER );
+		ds._descriptorSets = CreateDescriptorSets( size, layoutArray, dlayout, ds._uniformRender._Buffer.data(), VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER );
 
 		return (ds);
 	}
