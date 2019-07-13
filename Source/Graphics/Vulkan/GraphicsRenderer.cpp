@@ -49,7 +49,7 @@ namespace Soon
 
 		void GraphicsRenderer::Initialize( void )
 		{
-//			AddPipeline<DefaultPipeline>();
+			AddPipeline<DefaultPipeline>();
 		}
 
 		GraphicsRenderer::GraphicsRenderer( void ) : _changes(false), _isDefault(false)
