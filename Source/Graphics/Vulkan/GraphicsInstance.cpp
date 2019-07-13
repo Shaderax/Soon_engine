@@ -328,7 +328,7 @@ namespace Soon
 		deviceFeatures.samplerAnisotropy = VK_TRUE;
 
 		//TODO
-		//deviceFeatures.fillModeNonSolid = true;
+		deviceFeatures.fillModeNonSolid = true;
 
 		VkDeviceCreateInfo createInfo = {};
 		createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
