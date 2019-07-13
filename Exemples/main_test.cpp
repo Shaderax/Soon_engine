@@ -56,6 +56,7 @@ int main(int argc, char**argv)
 //	Soon::Object Sun;
 //	Sun.AddComponent<Soon::DirectionalLight>();
 
+
 	while (!engine.ShouldEnd())
 	{
 		lastTime = ShowFPS(lastTime);

@@ -41,6 +41,7 @@ namespace Soon
 
 //			ComponentRenderer _itRender;
 
+
 			std::vector< Vertex >		_vertices;
 			std::vector<uint32_t>		_indices;
 			std::string					_path;

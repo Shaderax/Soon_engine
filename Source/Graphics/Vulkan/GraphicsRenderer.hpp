@@ -70,7 +70,5 @@ namespace Soon
 		bool _changes;
 		bool _isDefault;
 		std::bitset<MAX_PIPELINES>					_createdPipeline;
-
-		
 	};
 }

@@ -24,7 +24,7 @@ struct Texture2D
 	int			_width;
 	int			_height;
 	TEXTURE_FORMAT		_format;
-
+  
 	Texture2D( void )
 	{
 

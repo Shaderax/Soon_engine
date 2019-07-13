@@ -326,8 +326,9 @@ namespace Soon
 
 		VkPhysicalDeviceFeatures deviceFeatures = {};
 		deviceFeatures.samplerAnisotropy = VK_TRUE;
+
 		//TODO
-		deviceFeatures.fillModeNonSolid = true;
+		//deviceFeatures.fillModeNonSolid = true;
 
 		VkDeviceCreateInfo createInfo = {};
 		createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
@@ -555,9 +556,10 @@ namespace Soon
 		createInfo.pCode = reinterpret_cast<const uint32_t*>(code.data());
 
 		VkShaderModule shaderModule;
+
 		if (vkCreateShaderModule(_device, &createInfo, nullptr, &shaderModule) != VK_SUCCESS)
 			throw std::runtime_error("failed to create shader module!");
-
+    
 		return shaderModule;
 	}
 
@@ -605,10 +607,12 @@ namespace Soon
 
 		VkPipelineInputAssemblyStateCreateInfo inputAssembly = {};
 		inputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
+
 		if (sType == GraphicsInstance::ShaderType::VERTEX_FRAGMENT)
 			inputAssembly.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
 		else
 			inputAssembly.topology = VK_PRIMITIVE_TOPOLOGY_POINT_LIST;
+    
 		inputAssembly.primitiveRestartEnable = VK_FALSE;
 
 		VkViewport viewport = {};
@@ -634,6 +638,7 @@ namespace Soon
 		rasterizer.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
 		rasterizer.depthClampEnable = VK_FALSE;
 		rasterizer.rasterizerDiscardEnable = VK_FALSE;
+
 		if (sType == GraphicsInstance::ShaderType::VERTEX_FRAGMENT)
 			rasterizer.polygonMode = VK_POLYGON_MODE_FILL;
 		else
@@ -676,7 +681,7 @@ namespace Soon
 		colorBlending.blendConstants[3] = 0.0f;
 
 		/////////// PIPELINE LAYOUT ////////////
-		//
+
 		VkGraphicsPipelineCreateInfo pipelineInfo = {};
 		pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
 		pipelineInfo.stageCount = 2;
@@ -881,7 +886,7 @@ namespace Soon
 			renderPassInfo.pClearValues = clearValues.data();
 
 			vkCmdBeginRenderPass(_commandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
-
+      
 			vkCmdEndRenderPass(_commandBuffers[i]);
 			if (vkEndCommandBuffer(_commandBuffers[i]) != VK_SUCCESS)
 				throw std::runtime_error("failed to record command buffer!");
@@ -1030,10 +1035,12 @@ namespace Soon
 		CreateSwapChain();
 		CreateImageViews();
 		CreateRenderPass();
+
 		CreateDepthResources();
 		CreateFramebuffers();
 		CreateDescriptorPool();
 		CreateCommandBuffers();
+
 		GraphicsRenderer::GetInstance()->RecreateAllPipelines();
 		GraphicsRenderer::GetInstance()->RecreateAllUniforms();
 		FillCommandBuffer();
@@ -1054,6 +1061,7 @@ namespace Soon
 		// GraphicsRenderer::GetInstance()->DestroyAllGraphicsPipeline();
 //		vkDestroyPipeline(_device, _graphicsPipeline, nullptr);
 //		vkDestroyPipelineLayout(_device, _pipelineLayout, nullptr);
+
 		vkDestroyRenderPass(_device, _renderPass, nullptr);
 
 		for (auto imageView : _swapChainImageViews) {
@@ -1140,6 +1148,7 @@ namespace Soon
 	void GraphicsInstance::Destroy( void )
 	{
 		CleanupSwapChain();
+
 		// TODO
 		//
 		//for (auto& dsl : _descriptorSetLayout)

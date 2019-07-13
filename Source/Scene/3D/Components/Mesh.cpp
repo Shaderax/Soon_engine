@@ -132,7 +132,6 @@ namespace Soon
 		std::cout << (ret == AI_SUCCESS ? "AI_SUCCESS" : "AI_FAILURE") << std::endl;
 		std::cout << "Shininess : " << shini << std::endl;
 
-
 		DefaultVertexPipeline::Properties* prop = new DefaultVertexPipeline::Properties;
 		prop->_ambient = vec3<float>(ambient.r, ambient.g, ambient.b);
 		prop->_diffuse = vec3<float>(diff.r, diff.g, diff.b);
