@@ -1,73 +1,42 @@
-Class System -> render 
-Class Component
-
-Je cree un GameObject Player, je lui ajoute un component sprite renderer, 
-
-J'ai un system renderer qui as une liste de GameObject.
--> Pour chaque ca render ?
-
-Sprite = GameObject with Sprite renderer Component
-
-Sprite renderer = Component
-
-Un buffer pour chaque shader
-
-class Render
+class BaseGr
 {
-	public:
-		struct Rendering_element
-		{
-			struct renderCompoennt
-			{
-				int VBO;
-				int VAO;
-			};
+	virtual UpdateData( int CurrentImage ); 
+};
 
-			Transform* tr;
-			std::vector<renderCompoennt> wsh;
-		};
+class ComputeShader : BaseGr
+{
+	Update();
+};
 
-	private:
-		std::vector< Rendering_element > elem;
+class DefaultShader : BaseGr
+{
+	std::vector< uint32_t >         _nbVertex;
+	Update();
+};
+
+Class Renderer
+{
+	std:vector<BaseGr*> _vectorGraphicPipeline;
+};
+
+int main()
+{
+	Son::Object Maya;
+	Maya.AddComponent<Soon::Mesh>();
+	Maya.GetComponent<Soon::Mesh>().LoadMesh("ICI");
+
+	Soon::Object Particles;
+	Particles.AddComponent<Soon::SystemParticles>();
+
+//	for (auto& pipeline : Renderer::_vectorGraphicPipeline)
+//	{
+//		pipeline.UpdateData();
+//	}
 }
 
-si il fait tous les uniform en premier, non car on fill l'uniform qui appartient au bind, on perd au bind.
-Besoin de fill les mat de pos rot et scale a chaque frame, 
+Mais UpdateData a besoin du _device du Graphicsinstance, alors ... .
+Soit je fais un GetDevice();
+Soit les pipelines sont stoke dans la class GraphicsInstance;
 
-Recup Transform au lieu de pos rot sca; = 36 octect
-
-Si un component isRendable()
--> ca le met dans mon vector de vector,
--> a chaque tour de frame ca parcours mon vector par entity
--> puis par component, ici il n'y a onc que des vbo de components actif
--> et donc ca recup les vbo et vao et au passage ca a besoin du transform et donc ya un ptr sur le transform du game object
-//-> en recup le transform ca recup les address des component suivant de l'entity; // CE QUI EST INUTILE faudrait les Transform suivant
-en recup transform ca recup on ne sais ps quoi au passage car c'est un ptr;
-
--> faudrait qu'au recup du transform il recup aussi les transform suivant.
-
--> faudrait que les Transforms soit contigue au mieux, mais nan
-
--> un component a un draw function, elle contient la struct vulkan pour en faire un vao et un vbo
--> son vao et vbo est fait a sa creation.
-
-DONC : Le but auj est de rajouter a ma classe component un GetDrawInfo() ce qui me donne la struct vulkan pour gen les vao/vbo de mon object, 
-
--> il me faudrait un allocateur pour mes components comme ca ils sont contigue en memoire
--> Le truc etant que mes component ont une taille qui differe et il pourrait etre free; et ya pas de taille max
-
-Donc : tu dois faire que quand tu cree l'objet triangle ca fini par l'afficher.
-
-//****
-GameObject Player;
-
-Player.AddComponent<TriangleRenderer>();
-***********////////
-Il faut creer un vao/vbo a la creation du component puis ce qu'il s'applique au component.
-
-chaque component a une ptr vers le vector qui detiens les datas
-
-le pb etant inaginons qu'on supp le component apres faut le retrouver et le supp.
-
-Ptr ittor in component vers vector.
-donc a sa creation (component) ca push back dans mon vector render et recup l'iteratr sur ce vector. et ca fait un get component transform de l'entity pour le mettre dans transform.
+Puis-Je avoir Un truc de creation de layout dynamic ?
+Faiut lancer CreateDescriptorSetLayout avec une struct en param.

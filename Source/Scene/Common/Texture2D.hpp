@@ -11,21 +11,26 @@ enum TEXTURE_FORMAT
 	GA,
 	RGB,
 	RGBA
-	//     N=#comp     components
-	//     //       1           grey
-	//     //       2           grey, alpha
-	//     //       3           red, green, blue
-	//     //       4           red, green, blue, alpha
+		//     N=#comp     components
+		//     //       1           grey
+		//     //       2           grey, alpha
+		//     //       3           red, green, blue
+		//     //       4           red, green, blue, alpha
 };
 
 struct Texture2D
 {
+	unsigned char*		_data;
+	int			_width;
+	int			_height;
+	TEXTURE_FORMAT		_format;
+  
 	Texture2D( void )
 	{
 
 	}
 
-	Texture2D( std::string path ) : _width(0), _height(0), _data(nullptr)
+	Texture2D( std::string path ) : _data(nullptr), _width(0), _height(0)
 	{
 		int format;
 		_data = stbi_load(path.c_str(), &_width, &_height, &format, STBI_rgb_alpha);
@@ -43,7 +48,7 @@ struct Texture2D
 				_format = TEXTURE_FORMAT::RGB;
 			else if (format == 4)
 				_format = TEXTURE_FORMAT::RGBA;
-//			stbi_image_free(data);
+			//			stbi_image_free(data);
 		}
 		else
 		{
@@ -70,10 +75,4 @@ struct Texture2D
 		this->_format = b._format;
 		return *this;
 	}
-
-	unsigned char*		_data;
-	int			_width;
-	int			_height;
-	TEXTURE_FORMAT		_format;
-
 };

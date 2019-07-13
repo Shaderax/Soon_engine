@@ -1,6 +1,12 @@
 #include "Graphics/Vulkan/GraphicsRenderer.hpp"
 #include "Graphics/Vulkan/GraphicsInstance.hpp"
 #include "Scene/3D/Components/Transform3D.hpp"
+#include "Graphics/Pipelines/DefaultPipeline.hpp"
+#include "Graphics/Pipelines/DefaultVertexPipeline.hpp"
+#include "Graphics/Pipelines/DefaultParticlesSystem.hpp"
+#include "Graphics/Pipelines/DefaultComputeParticlesSystem.hpp"
+#include <typeinfo>
+#include "ECS/ClassTypeId.hpp"
 
 namespace Soon
 {
@@ -11,133 +17,133 @@ namespace Soon
 			return (_instance);
 		}
 
-		void GraphicsRenderer::Initialize( void )
+		template<typename T, typename ... Args>
+		void GraphicsRenderer::AddPipeline( Args ... args )
 		{
-			_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), DescriptorTypeLayout::CAMERA);
+			if (typeid(T) == typeid(DefaultPipeline) && _graphicPipelines.size() == 0)
+				_isDefault = true;
+			if (typeid(T) != typeid(DefaultPipeline) && _graphicPipelines.size() == 1 && _isDefault == true)
+			{
+				_createdPipeline[ClassTypeId<BasePipeline>::GetId<DefaultPipeline>()] = false;
+				delete _graphicPipelines[ClassTypeId<BasePipeline>::GetId<DefaultPipeline>()];
+
+				_graphicPipelines[ClassTypeId<BasePipeline>::GetId<DefaultPipeline>()] = nullptr;
+				_isDefault = false;
+			}
+
+			T* pipeline;
+			if (typeid(T) == typeid(DefaultComputeParticlesSystemPipeline))
+			{
+				pipeline = new T(std::forward<Args>(args) ...);
+				_computePipelines[ClassTypeId<BasePipeline>::GetId<T>()] = pipeline;
+			}
+			else
+			{
+				pipeline = new T(std::forward<Args>(args) ...);
+				_graphicPipelines[ClassTypeId<BasePipeline>::GetId<T>()] = pipeline;
+			}
+
+			_createdPipeline[ClassTypeId<BasePipeline>::GetId<T>()] = true;
+			_changes = true;
 		}
 
-		GraphicsRenderer::GraphicsRenderer( void ) : _changes(false)
+		void GraphicsRenderer::Initialize( void )
+		{
+//			AddPipeline<DefaultPipeline>();
+		}
+
+		GraphicsRenderer::GraphicsRenderer( void ) : _changes(false), _isDefault(false)
 		{
 			_instance = this;
 		}
 
-		ComponentRenderer GraphicsRenderer::AddToRender( Transform3D& tr, VertexBufferInfo inf)
+		void GraphicsRenderer::AddVertexToRender( Transform3D& tr, VertexBufferInfo inf)
 		{
-			std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(inf);
-			ComponentRenderer ret;
-
-			_stagingBuffers.push_back(handler[0]);
-			_gpuBuffers.push_back(handler[1]._Buffer[0]);
-			_gpuMemoryBuffers.push_back(handler[1]._BufferMemory[0]);
-
-			_indexBuffers.push_back(GraphicsInstance::GetInstance()->CreateIndexBuffer(inf));
-
-			_nbVertex.push_back(inf._nbVertex);
-			_indexSize.push_back(inf._indexSize);
-			_transforms.push_back(&tr);
-
-			ret._transform = _transforms.end();
-			ret._vkBuffers = _gpuBuffers.end();
-			ret._vkDevicesMemoryBuffers = _gpuMemoryBuffers.end();
-
-			///////////// UNIFORM /////////////
-
-			UniformSets modelUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformModel), DescriptorTypeLayout::MODEL);
-
-			_uniformsBuffers.push_back(modelUniform._uniformRender);
-			_uniformsDescriptorSets.push_back(modelUniform._descriptorSets);
-
-			///////////// TEXTURE ////////////
-
-			Image img;
-
-			std::cout << inf._material->_texture._width << " " << inf._material->_texture._height << std::endl;
-			_imagesRenderer.push_back(GraphicsInstance::GetInstance()->CreateTextureImage(&(inf._material->_texture)));
-			img._textureSampler = GraphicsInstance::GetInstance()->CreateTextureSampler();
-			img._imageView = GraphicsInstance::GetInstance()->CreateImageView(_imagesRenderer.back()._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT);
-			_images.push_back(img);
-
-			std::vector<VkDescriptorSet> imageUniform = GraphicsInstance::GetInstance()->CreateImageDescriptorSets(img._imageView, img._textureSampler);
-			_uniformsImagesDescriptorSets.push_back(imageUniform);
-
-			/////////// MATERIAL //////////////
-
-			UniformSets matUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformMaterial), DescriptorTypeLayout::MATERIAL);
-
-			_uniformsMaterials.push_back(matUniform._uniformRender);
-			_uniformsMaterialsDescriptorSets.push_back(matUniform._descriptorSets);
-			_vecMaterials.push_back(inf._material);
-//			std::cout << "Diffuse : " << _vecMaterials.back()->_diffuse.x << std::endl;
-//			std::cout << "Diffuse : " << _vecMaterials.back()->_diffuse.y << std::endl;
-//			std::cout << "Diffuse : " << _vecMaterials.back()->_diffuse.z << std::endl;
-//			std::cout << "Ambient : " << _vecMaterials.back()->_ambient.x << std::endl;
-//			std::cout << "Ambient : " << _vecMaterials.back()->_ambient.y << std::endl;
-//			std::cout << "Ambient : " << _vecMaterials.back()->_ambient.z << std::endl;
-//			std::cout << "Specular : " << _vecMaterials.back()->_specular.x << std::endl;
-//			std::cout << "Specular : " << _vecMaterials.back()->_specular.y << std::endl;
-//			std::cout << "Specular : " << _vecMaterials.back()->_specular.z << std::endl;
-
-			/////////////////
-
+			if (!_createdPipeline[ClassTypeId<BasePipeline>::GetId<DefaultVertexPipeline>()])
+				AddPipeline<DefaultVertexPipeline>();
+			DefaultVertexPipeline* pip = reinterpret_cast<DefaultVertexPipeline*>(_graphicPipelines[ClassTypeId<BasePipeline>::GetId<DefaultVertexPipeline>()]);
+			pip->AddToRender(tr, inf);
+			
 			_changes = true;
-			return ret;
 		}
 		
 		void GraphicsRenderer::AddLightToRender( Transform3D& tr, DirectionalLight* dl)
 		{
-			UniformSets lightUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformLight), DescriptorTypeLayout::LIGHT);
+			DefaultVertexPipeline* pip = reinterpret_cast<DefaultVertexPipeline*>(_graphicPipelines[ClassTypeId<BasePipeline>::GetId<DefaultVertexPipeline>()]);
+			pip->AddLightToRender(tr, dl);
+			
+			_changes = true;
+		}
 
-			_uniformsLights.push_back(lightUniform._uniformRender);
-			_uniformsLightsDescriptorSets.push_back(lightUniform._descriptorSets);
-
-			_vecLights.push_back(dl);
+		void GraphicsRenderer::AddParticlesSystemToRender( Transform3D& tr, ParticlesSystem* ps )
+		{
+			if (!_createdPipeline[ClassTypeId<BasePipeline>::GetId<DefaultParticlesSystemPipeline>()])
+			{
+				AddPipeline<DefaultParticlesSystemPipeline>();
+				AddPipeline<DefaultComputeParticlesSystemPipeline>(reinterpret_cast<DefaultParticlesSystemPipeline*>(_graphicPipelines[ClassTypeId<BasePipeline>::GetId<DefaultParticlesSystemPipeline>()]));
+			}
+			DefaultParticlesSystemPipeline* pip = reinterpret_cast<DefaultParticlesSystemPipeline*>(_graphicPipelines[ClassTypeId<BasePipeline>::GetId<DefaultParticlesSystemPipeline>()]);
+			DefaultComputeParticlesSystemPipeline* cpsp = reinterpret_cast<DefaultComputeParticlesSystemPipeline*>(_computePipelines[ClassTypeId<BasePipeline>::GetId<DefaultComputeParticlesSystemPipeline>()]);
+			pip->AddToRender(tr, ps);
+			cpsp->AddToRender(tr, ps);
+			
+			_changes = true;
 		}
 
 		void GraphicsRenderer::RecreateAllUniforms( void )
 		{
-			_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), DescriptorTypeLayout::CAMERA);
-
-			int j = -1;
-			while (++j < _uniformsBuffers.size())
-			{
-				UniformSets modelUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformModel), DescriptorTypeLayout::MODEL);
-				_uniformsBuffers.at(j) = modelUniform._uniformRender;
-				_uniformsDescriptorSets.at(j) = modelUniform._descriptorSets;
-			}
-			j = -1;
-			while (++j < _uniformsImagesDescriptorSets.size())
-			{
-				std::vector<VkDescriptorSet> imageUniform = GraphicsInstance::GetInstance()->CreateImageDescriptorSets(_images.at(j)._imageView, _images.at(j)._textureSampler);
-				_uniformsImagesDescriptorSets.at(j) = imageUniform;
-			}
-
-			/// RECREATE MATERIALS
-			j = -1;
-			while (++j < _uniformsMaterialsDescriptorSets.size())
-			{
-				UniformSets matUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformMaterial), DescriptorTypeLayout::MATERIAL);
-				_uniformsMaterials.at(j) = matUniform._uniformRender;
-				_uniformsMaterialsDescriptorSets.at(j) = matUniform._descriptorSets;
-			}
-
-			///// RECREATE LIGHTS
-			j = -1;
-			while (++j < _vecLights.size())
-			{
-				UniformSets lightUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformLight), DescriptorTypeLayout::LIGHT);
-				_uniformsLights.at(j) = lightUniform._uniformRender;
-				_uniformsLightsDescriptorSets.at(j) = lightUniform._descriptorSets;
-			}
+			for (BasePipeline* bp : _graphicPipelines)
+				if (bp)
+					bp->RecreateUniforms();
+			for (BasePipeline* bp : _computePipelines)
+				if (bp)
+					bp->RecreateUniforms();
+		}
+		
+		void GraphicsRenderer::RecreateAllPipelines( void )
+		{
+			for (BasePipeline* bp : _graphicPipelines)
+				if (bp)
+					bp->RecreatePipeline();
+			for (BasePipeline* bp : _computePipelines)
+				if (bp)
+					bp->RecreatePipeline();
 		}
 
-		std::vector< VkBuffer > GraphicsRenderer::GetvkBuffers( void )
+		void GraphicsRenderer::UpdateAllDatas( uint32_t imageIndex )
 		{
-			return (_gpuBuffers);
+			for (BasePipeline* bp : _graphicPipelines)
+				if (bp)
+					bp->UpdateData(imageIndex);
+			for (BasePipeline* bp : _computePipelines)
+				if (bp)
+					bp->UpdateData(imageIndex);
 		}
 
-		std::vector< uint32_t > GraphicsRenderer::GetNbVertex( void )
+		void GraphicsRenderer::GraphicPipelinesBindCaller( VkCommandBuffer commandBuffer, uint32_t index )
 		{
-			return (_nbVertex);
+			for (BasePipeline* bp : _graphicPipelines)
+			{
+				if (bp != nullptr)
+				{
+					std::cout << "Graphic Bind Caller" << std::endl;
+					bp->BindCaller(commandBuffer, index );
+				}
+			}
+			std::cout << std::endl;
+		}
+
+		void GraphicsRenderer::ComputePipelinesBindCaller( VkCommandBuffer commandBuffer, uint32_t index )
+		{
+			for (BasePipeline* bp : _computePipelines)
+			{
+				if (bp)
+				{
+					std::cout << "Compute Bind Caller" << std::endl;
+					bp->BindCaller(commandBuffer, index );
+				}
+			}
+			std::cout << std::endl;
 		}
 
 		bool GraphicsRenderer::HasChange( void )
@@ -148,80 +154,5 @@ namespace Soon
 		void GraphicsRenderer::SetChangeFalse( void )
 		{
 			_changes = false;
-		}
-
-		std::vector< Transform3D* > GraphicsRenderer::GetTransforms( void )
-		{
-			return (_transforms);
-		}
-
-		std::vector< BufferRenderer > GraphicsRenderer::GetUniformBuffers( void )
-		{
-			return (_uniformsBuffers);
-		}
-
-		UniformSets GraphicsRenderer::GetUniformsCamera( void )
-		{
-			return (_uniformCamera);
-		}
-
-		std::vector< std::vector<VkDescriptorSet> > GraphicsRenderer::GetUniformsDescriptorSets( void )
-		{
-			return (_uniformsDescriptorSets);
-		}
-
-		std::vector<VkDescriptorSet> GraphicsRenderer::GetUniformCameraDescriptorSets( void )
-		{
-			return (_uniformCamera._descriptorSets);
-		}
-		
-		std::vector< VkDeviceMemory >   GraphicsRenderer::GetVkDeviceMemory( void )
-		{
-			return (_gpuMemoryBuffers);
-		}
-
-		std::vector< BufferRenderer >   GraphicsRenderer::GetIndexBuffers( void )
-		{
-			return (_indexBuffers);
-		}
-
-		std::vector<uint32_t>			GraphicsRenderer::GetIndexSize( void )
-		{
-			return (_indexSize);
-		}
-
-		std::vector< std::vector<VkDescriptorSet> > GraphicsRenderer::GetUniformsImagesDescriptorSets( void )
-		{
-			return (_uniformsImagesDescriptorSets);
-		}
-
-		std::vector< std::vector<VkDescriptorSet> > GraphicsRenderer::GetUniformsMaterialsDescriptorSets( void )
-		{
-			return _uniformsMaterialsDescriptorSets;
-		}
-
-		std::vector< BufferRenderer > GraphicsRenderer::GetUniformsMaterials( void )
-		{
-			return _uniformsMaterials;
-		}
-
-		std::vector< Material * > GraphicsRenderer::GetMaterials( void )
-		{
-			return (_vecMaterials);
-		}
-
-		std::vector< std::vector<VkDescriptorSet> > GraphicsRenderer::GetUniformsLightsDescriptorSets( void )
-		{
-			return _uniformsLightsDescriptorSets;
-		}
-
-		std::vector< BufferRenderer > GraphicsRenderer::GetUniformsLights( void )
-		{
-			return _uniformsLights;
-		}
-
-		std::vector< DirectionalLight * > GraphicsRenderer::GetLights( void )
-		{
-			return (_vecLights);
 		}
 };

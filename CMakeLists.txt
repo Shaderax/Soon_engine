@@ -1,6 +1,18 @@
 cmake_minimum_required (VERSION 3.10)
 
-execute_process(COMMAND source export.sh)
+#execute_process(COMMAND source export.sh)
+set (CMAKE_CXX_STANDARD 11)
+
+if (UNIX)
+	set(CMAKE_CXX_COMPILER /usr/bin/g++-8)
+	execute_process(COMMAND apt-get install libx11-dev)
+	execute_process(COMMAND apt-get install xorg-dev libglu1-mesa-dev)
+	execute_process(COMMAND apt install libvulkan1 mesa-vulkan-drivers vulkan-utils)
+endif(UNIX)
+
+if (APPLE)
+	set(CMAKE_CXX_COMPILER /Users/nrouzeva/.brew/Cellar/gcc/8.3.0/bin/g++-8)
+endif (APPLE)
 
 option (USE_VULKAN "Use Vulkan" ON) 
 
@@ -19,9 +31,9 @@ include_directories(ThirdParty/glfw/include/)
 include_directories(ThirdParty/assimp_lib/include/)
 include_directories(ThirdParty/)
 
-set (CMAKE_CXX_STANDARD 11)
-
 project(Soon)
+
+add_compile_options(-Wall -Wextra -g3)
 
 add_subdirectory(Source)
 add_subdirectory(Modules)

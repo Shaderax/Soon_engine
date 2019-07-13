@@ -105,9 +105,9 @@ namespace Soon
 			VkFormat						_swapChainImageFormat;
 			VkDebugUtilsMessengerEXT		_debugMessenger;
 			std::vector<VkImageView>		_swapChainImageViews;
-			std::vector<VkDescriptorSetLayout>			_descriptorSetLayout;
-			VkPipelineLayout 				_pipelineLayout;
-			VkPipeline						_graphicsPipeline;
+//			std::vector<VkDescriptorSetLayout>			_descriptorSetLayout;
+//			VkPipelineLayout 				_pipelineLayout;
+//			VkPipeline						_graphicsPipeline;
 			VkRenderPass					_renderPass;
 			std::vector<VkFramebuffer> 		_swapChainFramebuffers;
 			VkCommandPool 					_commandPool;
@@ -126,6 +126,12 @@ namespace Soon
 			static GraphicsInstance*		_singleton;
 
 		public:
+			enum class ShaderType
+			{
+				VERTEX_FRAGMENT,
+				COMPUTE
+			};
+
 			static GraphicsInstance* GetInstance( void );
 			GraphicsInstance( void );
 			~GraphicsInstance( void );
@@ -147,7 +153,17 @@ namespace Soon
 			void 	SetupDebugMessenger( void );
 			void 	CreateImageViews( void );
 			VkImageView CreateImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags );
-			void 	CreateGraphicsPipeline( void );
+			std::vector<VkDescriptorSetLayout> CreateDescriptorSetLayout( std::vector<VkDescriptorSetLayoutBinding> uboLayoutBinding );
+			VkPipeline CreateGraphicsPipeline(
+				VkPipelineLayout						pipelineLayout,
+				VkVertexInputBindingDescription					bindingDescription,
+				std::vector<VkVertexInputAttributeDescription>			attributeDescriptions,
+				ShaderType							sType,
+				std::string 							FirstPath,
+				std::string							SecondPath);
+			VkPipeline CreateComputePipeline(
+				VkPipelineLayout                                                pipelineLayout,
+				std::string                                                     pathCompute);
 			VkShaderModule CreateShaderModule(const std::vector<char>& code);
 			void	CreateRenderPass( void );
 			void 	CreateFramebuffers( void );
@@ -159,17 +175,14 @@ namespace Soon
 			void 	CleanupSwapChain( void );
 			VkExtent2D ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
 			static void FramebufferResizeCallback(GLFWwindow *window, int width, int height);
-			std::vector< BufferRenderer > CreateVertexBuffer( VertexBufferInfo inf );
+			std::vector<BufferRenderer> CreateVertexBuffer( uint32_t size, void* ptrData, bool storageBit );
 			uint32_t FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
 			void	FillCommandBuffer( void );
-			void 	CreateDescriptorSetLayout( void );
 			void 	CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory);
 			BufferRenderer CreateUniformBuffers( size_t size );
 			void	UpdateUniformBuffer(uint32_t currentImage);
 			void 	CreateDescriptorPool( void );
-			UniformSets CreateDescriptorSets( size_t size, DescriptorTypeLayout dlayout);
-			std::vector<VkDescriptorSet> CreateImageDescriptorSets( VkImageView textureImageView, VkSampler textureSampler );
-			UniformSets CreateUniform( size_t size, DescriptorTypeLayout dlayout );
+			std::vector<VkDescriptorSet> CreateImageDescriptorSets( VkImageView textureImageView, VkSampler textureSampler, VkDescriptorSetLayout descriptorSetLayout );
 			ImageRenderer	CreateTextureImage( Texture2D* texture );
 			void 	CreateImage(uint32_t width, uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory);
 			VkCommandBuffer BeginSingleTimeCommands( void );
@@ -184,8 +197,11 @@ namespace Soon
 			VkFormat FindSupportedFormat(const std::vector<VkFormat>& candidates, VkImageTiling tiling, VkFormatFeatureFlags features);
 			void CreateDepthResources( void );
 			bool HasStencilComponent(VkFormat format);
+			VkDevice GetDevice( void );
 
-
+			VkPipelineLayout CreatePipelineLayout( std::vector<VkDescriptorSetLayout> descriptorSetLayout );
+			UniformSets CreateUniform( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout );
+			std::vector<VkDescriptorSet> CreateDescriptorSets( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout, VkBuffer* gpuBuffers,  VkDescriptorType dType);
 
 			void 	NewGraphicsInstance( void );
 
