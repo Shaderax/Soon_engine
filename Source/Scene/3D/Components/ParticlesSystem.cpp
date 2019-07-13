@@ -4,7 +4,7 @@
 
 namespace Soon
 {
-	ParticlesSystem::ParticlesSystem( Entity& entity ) : _size(100000)
+	ParticlesSystem::ParticlesSystem( Entity& entity ) : _size(10000)
 	{
 		GraphicsRenderer::GetInstance()->AddParticlesSystemToRender(entity.GetComponent<Transform3D>(), this);
 	}
