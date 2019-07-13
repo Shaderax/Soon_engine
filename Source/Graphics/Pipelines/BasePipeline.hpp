@@ -20,6 +20,7 @@ struct BasePipeline
 	virtual void BindCaller( VkCommandBuffer commandBuffer, uint32_t index ) = 0;
 	virtual std::vector<VkVertexInputAttributeDescription> GetAttributeDescriptions( void ) = 0;
 	virtual void RecreateUniforms( void ) = 0;
+	virtual void RecreatePipeline( void ) = 0;
 
 	std::vector<VkDescriptorSetLayout>		_descriptorSetLayout;
 	VkPipelineLayout 						_pipelineLayout;

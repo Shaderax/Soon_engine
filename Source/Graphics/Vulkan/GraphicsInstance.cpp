@@ -1030,13 +1030,11 @@ namespace Soon
 		CreateSwapChain();
 		CreateImageViews();
 		CreateRenderPass();
-		// TODO 
-		// GraphicsRenderer::GetInstance()->RecreateAllGraphicsPipelines();
-//		CreateGraphicsPipeline();
 		CreateDepthResources();
 		CreateFramebuffers();
 		CreateDescriptorPool();
 		CreateCommandBuffers();
+		GraphicsRenderer::GetInstance()->RecreateAllPipelines();
 		GraphicsRenderer::GetInstance()->RecreateAllUniforms();
 		FillCommandBuffer();
 	}

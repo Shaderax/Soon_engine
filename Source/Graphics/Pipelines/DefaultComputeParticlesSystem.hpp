@@ -87,6 +87,13 @@ namespace Soon
 					++j;
 				}
 			}
+
+			void RecreatePipeline( void )
+			{
+				_graphicPipeline = GraphicsInstance::GetInstance()->CreateComputePipeline(
+						_pipelineLayout,
+						"../Source/Graphics/Shaders/DefaultParticles.comp.spv");
+			}
 	VkVertexInputBindingDescription GetBindingDescription( void ) {}
 	std::vector<VkVertexInputAttributeDescription> GetAttributeDescriptions( void ) {}
 	};

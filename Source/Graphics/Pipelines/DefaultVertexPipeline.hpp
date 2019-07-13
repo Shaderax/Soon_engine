@@ -303,35 +303,39 @@ namespace Soon
 			_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), _descriptorSetLayout, 0);
 
 			std::size_t j = 0;
-			while (j++ < _uniformsBuffers.size())
+			while (j < _uniformsBuffers.size())
 			{
 				UniformSets modelUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformModel), _descriptorSetLayout, 1);
 				_uniformsBuffers.at(j) = modelUniform._uniformRender;
 				_uniformsDescriptorSets.at(j) = modelUniform._descriptorSets;
+				++j;
 			}
 			j = 0;
-			while (j++ < _uniformsImagesDescriptorSets.size())
+			while (j < _uniformsImagesDescriptorSets.size())
 			{
 				std::vector<VkDescriptorSet> imageUniform = GraphicsInstance::GetInstance()->CreateImageDescriptorSets(_images.at(j)._imageView, _images.at(j)._textureSampler, _descriptorSetLayout[2]);
 				_uniformsImagesDescriptorSets.at(j) = imageUniform;
+				++j;
 			}
 
 			/// RECREATE MATERIALS
 			j = 0;
-			while (j++ < _uniformsMaterialsDescriptorSets.size())
+			while (j < _uniformsMaterialsDescriptorSets.size())
 			{
 				UniformSets matUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformMaterial), _descriptorSetLayout, 3);
 				_uniformsMaterials.at(j) = matUniform._uniformRender;
 				_uniformsMaterialsDescriptorSets.at(j) = matUniform._descriptorSets;
+				++j;
 			}
 
 			///// RECREATE LIGHTS
 			j = 0;
-			while (j++ < _vecLights.size())
+			while (j < _vecLights.size())
 			{
 				UniformSets lightUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformLight), _descriptorSetLayout, 4);
 				_uniformsLights.at(j) = lightUniform._uniformRender;
 				_uniformsLightsDescriptorSets.at(j) = lightUniform._descriptorSets;
+				++j;
 			}
 		}
 		
@@ -345,5 +349,15 @@ namespace Soon
 			_vecLights.push_back(dl);
 		}
 
+		void RecreatePipeline( void )
+		{
+			_graphicPipeline = GraphicsInstance::GetInstance()->CreateGraphicsPipeline(
+					_pipelineLayout,
+					GetBindingDescription(),
+					GetAttributeDescriptions(),
+					GraphicsInstance::ShaderType::VERTEX_FRAGMENT,
+					"../Source/Graphics/Shaders/Default_Shader.vert.spv",
+					"../Source/Graphics/Shaders/Default_Shader.frag.spv");
+		}
 	};
 }

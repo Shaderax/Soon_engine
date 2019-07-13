@@ -99,6 +99,16 @@ namespace Soon
 				if (bp)
 					bp->RecreateUniforms();
 		}
+		
+		void GraphicsRenderer::RecreateAllPipelines( void )
+		{
+			for (BasePipeline* bp : _graphicPipelines)
+				if (bp)
+					bp->RecreatePipeline();
+			for (BasePipeline* bp : _computePipelines)
+				if (bp)
+					bp->RecreatePipeline();
+		}
 
 		void GraphicsRenderer::UpdateAllDatas( uint32_t imageIndex )
 		{

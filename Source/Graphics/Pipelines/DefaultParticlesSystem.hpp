@@ -28,7 +28,7 @@ namespace Soon
 			{
 				return (_gpuBuffers);
 			}
-			
+
 			std::vector< uint32_t >&		GetPSize( void )
 			{
 				return (_pSize);
@@ -91,7 +91,7 @@ namespace Soon
 				uint32_t j = 0;
 				// Graphic //
 				vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _graphicPipeline);
-					// Bind Cam
+				// Bind Cam
 				vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 0, 1, &(_uniformCamera._descriptorSets.at(index)), 0, nullptr);
 
 				VkDeviceSize offsets[] = {0};
@@ -156,8 +156,8 @@ namespace Soon
 
 				for (int j = 0; j < ps->_size ; j++)
 				{
-					p[j]._position = vec3<float>(0.0f, 0.0f, 0.0f);
-					p[j]._velocity =  vec3<float>(0.0f, 0.0f, 0.0f);
+					p[j]._position = vec3<float>((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX);
+					p[j]._velocity =  vec3<float>(((float)rand() / RAND_MAX) * 0.01f, ((float)rand() / RAND_MAX) * 0.01f, ((float)rand() / RAND_MAX) * 0.01f);
 				}
 
 				bufRenderer = GraphicsInstance::GetInstance()->CreateVertexBuffer(ps->_size * sizeof(Particle), p, true);
@@ -175,6 +175,17 @@ namespace Soon
 			void RecreateUniforms( void )
 			{
 				_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), _descriptorSetLayout, 0);
+			}
+
+			void RecreatePipeline( void )
+			{
+				_graphicPipeline = GraphicsInstance::GetInstance()->CreateGraphicsPipeline(
+						_pipelineLayout,
+						GetBindingDescription(),
+						GetAttributeDescriptions(),
+						GraphicsInstance::ShaderType::COMPUTE,
+						"../Source/Graphics/Shaders/DefaultParticles.vert.spv",
+						"../Source/Graphics/Shaders/DefaultParticles.frag.spv");
 			}
 	};
 }

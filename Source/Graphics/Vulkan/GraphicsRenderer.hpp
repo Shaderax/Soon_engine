@@ -30,6 +30,7 @@ namespace Soon
 		bool				HasChange( void );
 		void				SetChangeFalse( void );
 		void 				RecreateAllUniforms( void );
+		void 				RecreateAllPipelines( void );
 		void 				GraphicPipelinesBindCaller( VkCommandBuffer commandBuffer, uint32_t index );
 		void 				ComputePipelinesBindCaller( VkCommandBuffer commandBuffer, uint32_t index );
 		void				UpdateAllDatas( uint32_t imageIndex );
