@@ -1217,10 +1217,10 @@ namespace Soon
 		textureImageView = CreateImageView(textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT);
 	}
 
-	ImageRenderer GraphicsInstance::CreateTextureImage( Texture2D* texture )
+	ImageRenderer GraphicsInstance::CreateTextureImage( Texture* texture )
 	{
 		ImageRenderer ir;
-		uint32_t imageSize = texture->_width * texture->_height * 4;
+		uint32_t imageSize = texture->tType * texture->_width * texture->_height * texture->_format;
 		VkBuffer stagingBuffer;
 		VkDeviceMemory stagingBufferMemory;
 

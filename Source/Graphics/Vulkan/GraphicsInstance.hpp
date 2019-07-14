@@ -18,6 +18,7 @@ enum DescriptorTypeLayout
 	LIGHT = 4
 };
 
+
 //Swap chain struct
 struct SwapChainSupportDetails
 {
@@ -43,6 +44,12 @@ struct ImageRenderer
 {
 	VkImage			_textureImage;
 	VkDeviceMemory	_textureImageMemory;
+};
+
+struct Image
+{
+	VkSampler _textureSampler;
+	VkImageView _imageView;
 };
 
 struct VertexBufferInfo
@@ -183,7 +190,7 @@ namespace Soon
 			void	UpdateUniformBuffer(uint32_t currentImage);
 			void 	CreateDescriptorPool( void );
 			std::vector<VkDescriptorSet> CreateImageDescriptorSets( VkImageView textureImageView, VkSampler textureSampler, VkDescriptorSetLayout descriptorSetLayout );
-			ImageRenderer	CreateTextureImage( Texture2D* texture );
+			ImageRenderer	CreateTextureImage( Texture2D* texture);
 			void 	CreateImage(uint32_t width, uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory);
 			VkCommandBuffer BeginSingleTimeCommands( void );
 			void	EndSingleTimeCommands(VkCommandBuffer commandBuffer);

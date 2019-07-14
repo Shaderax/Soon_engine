@@ -2,6 +2,7 @@
 #include "Graphics/Vulkan/GraphicsInstance.hpp"
 #include "Core/Engine.hpp"
 #include "Scene/3D/Components/Camera.hpp"
+#include "Scene/3D/TextureCubeMap.hpp"
 
 #include <cstring>
 
@@ -12,6 +13,11 @@ namespace Soon
 		public:
 			std::vector< Transform3D* >	_transforms;
 			UniformSets			_uniformCamera;
+			TextureCubeMap			_skybox;
+
+			std::vector< ImageRenderer >			_imagesRenderer;
+			std::vector< std::vector< VkDescriptorSet > >	_uniformsImagesDescriptorSets;
+			std::vector< Image >				_images;
 
 			DefaultPipeline( void )
 			{
@@ -26,6 +32,15 @@ namespace Soon
 						"../Source/Graphics/Shaders/DefaultPipeline.frag.spv");
 
 				_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), _descriptorSetLayout, 0);
+
+				Image img;
+				_imagesRenderer.push_back(GraphicsInstance::GetInstance()->CreateTextureImage(&_skybox));
+				img._textureSampler = GraphicsInstance::GetInstance()->CreateTextureSampler();
+				img._imageView = GraphicsInstance::GetInstance()->CreateImageView(_imagesRenderer.back()._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT);
+				_images.push_back(img);
+
+				std::vector<VkDescriptorSet> imageUniform = GraphicsInstance::GetInstance()->CreateImageDescriptorSets(img._imageView, img._textureSampler, _descriptorSetLayout[2]);
+				_uniformsImagesDescriptorSets.push_back(imageUniform);
 			}
 
 			void AddToRender( void )
@@ -73,13 +88,19 @@ namespace Soon
 
 			std::vector<VkDescriptorSetLayoutBinding> GetLayoutBinding( void )
 			{
-				std::vector<VkDescriptorSetLayoutBinding> uboLayoutBinding(1);
+				std::vector<VkDescriptorSetLayoutBinding> uboLayoutBinding(2);
 
 				uboLayoutBinding[0].binding = 0;
 				uboLayoutBinding[0].descriptorCount = 1;
 				uboLayoutBinding[0].descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
 				uboLayoutBinding[0].pImmutableSamplers = nullptr;
 				uboLayoutBinding[0].stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
+				//////////// IMAGE ///////////////
+				uboLayoutBinding[1].binding = 0;
+				uboLayoutBinding[1].descriptorCount = 1;
+				uboLayoutBinding[1].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+				uboLayoutBinding[1].pImmutableSamplers = nullptr;
+				uboLayoutBinding[1].stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
 
 				return (uboLayoutBinding);
 			}
@@ -88,7 +109,7 @@ namespace Soon
 			{
 				VkVertexInputBindingDescription bindingDescription = {};
 				bindingDescription.binding = 0;
-				bindingDescription.stride = 0;//sizeof(Vertex); // stride : size of one pointe
+				bindingDescription.stride = sizeof(vec3<float>);//sizeof(Vertex); // stride : size of one pointe
 				bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
 
 				return (bindingDescription);
@@ -96,7 +117,12 @@ namespace Soon
 
 			std::vector<VkVertexInputAttributeDescription> GetAttributeDescriptions( void )
 			{
-				std::vector<VkVertexInputAttributeDescription> attributeDescriptions;
+				std::vector<VkVertexInputAttributeDescription> attributeDescriptions(1);
+
+				attributeDescriptions[0].binding = 0;
+				attributeDescriptions[0].location = 0;
+				attributeDescriptions[0].format = VK_FORMAT_R32G32B32_SFLOAT;//VK_FORMAT_R32G32_SFLOAT;
+				attributeDescriptions[0].offset = 0;
 
 				return (attributeDescriptions);
 			}

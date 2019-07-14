@@ -7,12 +7,6 @@
 #include <bitset>
 #include <array>
 
-struct Image
-{
-	VkSampler _textureSampler;
-	VkImageView _imageView;
-};
-
 namespace Soon
 {
 	class DirectionalLight;
