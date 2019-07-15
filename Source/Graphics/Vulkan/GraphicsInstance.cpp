@@ -14,6 +14,7 @@
 #include <string>
 #include "Core/Engine.hpp"
 #include "Scene/3D/Components/Camera.hpp"
+#include "Scene/Common/Texture.hpp"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
@@ -506,21 +507,24 @@ namespace Soon
 		_swapChainImageViews.resize(_swapChainImages.size());
 
 		for (size_t i = 0; i < _swapChainImages.size(); i++)
-			_swapChainImageViews[i] = CreateImageView(_swapChainImages[i], _swapChainImageFormat, VK_IMAGE_ASPECT_COLOR_BIT);
+			_swapChainImageViews[i] = CreateImageView(_swapChainImages[i], _swapChainImageFormat, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D);
 	}
 
-	VkImageView GraphicsInstance::CreateImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags)
+	VkImageView GraphicsInstance::CreateImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags, VkImageViewType viewType)
 	{
 		VkImageViewCreateInfo viewInfo = {};
 		viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
 		viewInfo.image = image;
-		viewInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
+		viewInfo.viewType = viewType;//VK_IMAGE_VIEW_TYPE_2D;
 		viewInfo.format = format;
 		//		viewInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
 		viewInfo.subresourceRange.baseMipLevel = 0;
 		viewInfo.subresourceRange.levelCount = 1;
 		viewInfo.subresourceRange.baseArrayLayer = 0;
-		viewInfo.subresourceRange.layerCount = 1;
+		if (viewType == VK_IMAGE_VIEW_TYPE_2D)
+			viewInfo.subresourceRange.layerCount = 1;
+		else if (viewType == VK_IMAGE_VIEW_TYPE_CUBE)
+			viewInfo.subresourceRange.layerCount = 6;
 		viewInfo.subresourceRange.aspectMask = aspectFlags;
 
 		VkImageView imageView;
@@ -1208,19 +1212,19 @@ namespace Soon
 		return textureSampler;
 	}
 
-	void GraphicsInstance::CreateTextureImageView( void )
-	{
-		// TODO Cleanup
-		VkImageView	textureImageView;
-		VkImage		textureImage;
-
-		textureImageView = CreateImageView(textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT);
-	}
+//	void GraphicsInstance::CreateTextureImageView( void )
+//	{
+//		// TODO Cleanup
+//		VkImageView	textureImageView;
+//		VkImage		textureImage;
+//
+//		textureImageView = CreateImageView(textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT);
+//	}
 
 	ImageRenderer GraphicsInstance::CreateTextureImage( Texture* texture )
 	{
 		ImageRenderer ir;
-		uint32_t imageSize = texture->tType * texture->_width * texture->_height * texture->_format;
+		uint32_t imageSize = texture->_tType * texture->_width * texture->_height * texture->_format;
 		VkBuffer stagingBuffer;
 		VkDeviceMemory stagingBufferMemory;
 
@@ -1234,7 +1238,7 @@ namespace Soon
 		memcpy(data, texture->_data, static_cast<size_t>(imageSize));
 		vkUnmapMemory(_device, stagingBufferMemory);
 
-		CreateImage(texture, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, ir._textureImage, ir._textureImageMemory);
+		CreateImage(texture->_width, texture->_width, texture->_tType, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, ir._textureImage, ir._textureImageMemory);
 
 		TransitionImageLayout(ir._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
 		CopyBufferToImage(stagingBuffer, ir._textureImage, static_cast<uint32_t>(texture->_width), static_cast<uint32_t>(texture->_height));
@@ -1250,24 +1254,28 @@ namespace Soon
 		return (ir);
 	}
 
-	void GraphicsInstance::CreateImage(Texture* texture, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory)
+	void GraphicsInstance::CreateImage(uint32_t width, uint32_t height, TextureType tType, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory)
 	{
 		VkImageCreateInfo imageInfo = {};
 		imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
 		imageInfo.imageType = VK_IMAGE_TYPE_2D;
-		imageInfo.extent.width = texture->_width;
-		imageInfo.extent.height = texture->_height;
+		imageInfo.extent.width = width;
+		imageInfo.extent.height = height;
 		imageInfo.extent.depth = 1;
 		imageInfo.mipLevels = 1;
-		imageInfo.arrayLayers = texture->_tType;
 		imageInfo.format = format;
 		imageInfo.tiling = tiling;
 		imageInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 		imageInfo.usage = usage;
 		imageInfo.samples = VK_SAMPLE_COUNT_1_BIT;
 		imageInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
-		if (texture->_tType == Texture_Type::TEXTURE_CUBE)
+		if (tType == TextureType::TEXTURE_CUBE)
+		{
+			imageInfo.arrayLayers = 6;
 			imageInfo.flags = VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT;
+		}
+		else
+			imageInfo.arrayLayers = 1;
 
 		if (vkCreateImage(_device, &imageInfo, nullptr, &image) != VK_SUCCESS)
 			throw std::runtime_error("failed to create image!");
@@ -1683,8 +1691,8 @@ namespace Soon
 	{
 		VkFormat depthFormat = FindDepthFormat();
 
-		CreateImage(_swapChainExtent.width, _swapChainExtent.height, depthFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, _depthImage, _depthImageMemory);
-		_depthImageView = CreateImageView(_depthImage, depthFormat, VK_IMAGE_ASPECT_DEPTH_BIT);
+		CreateImage(_swapChainExtent.width, _swapChainExtent.height, TextureType::TEXTURE_2D, depthFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, _depthImage, _depthImageMemory);
+		_depthImageView = CreateImageView(_depthImage, depthFormat, VK_IMAGE_ASPECT_DEPTH_BIT, VK_IMAGE_VIEW_TYPE_2D);
 
 		TransitionImageLayout(_depthImage, depthFormat, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
 	}

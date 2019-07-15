@@ -17,6 +17,12 @@ namespace Soon
 	class Mesh : public Component
 	{
 		public:
+
+			Mesh( void )
+			{
+
+			}
+
 			Mesh(Entity& entity)
 			{
 				_owner = entity;

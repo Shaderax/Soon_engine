@@ -4,7 +4,7 @@
 //#include <assimp/postprocess.h>
 #include <stb/stb_image.h>
 
-enum Texture_Format
+enum TextureFormat
 {
 	UNDEFINED = 0,
 	G = 1,
@@ -29,7 +29,7 @@ struct Texture
 	unsigned char*		_data;
 	int			_width;
 	int			_height;
-	Texture_Format		_format;
+	TextureFormat		_format;
 	TextureType		_tType;
   
 	Texture( void ) : _data(nullptr), _width(0), _height(0)
@@ -41,20 +41,22 @@ struct Texture
 	{
 		int format;
 		_data = stbi_load(path.c_str(), &_width, &_height, &format, STBI_rgb_alpha);
+		_format = TextureFormat::RGBA;
 		if (_data)
 		{
 			std::cout << "Open Texture : " << path << std::endl;
 			std::cout << _width << " " << _height << std::endl;
-			if (format == 0)
-				_format = TEXTURE_FORMAT::UNDEFINED;
-			else if (format == 1)
-				_format = TEXTURE_FORMAT::G;
-			else if (format == 2)
-				_format = TEXTURE_FORMAT::GA;
-			else if (format == 3)
-				_format = TEXTURE_FORMAT::RGB;
-			else if (format == 4)
-				_format = TEXTURE_FORMAT::RGBA;
+			std::cout << format << std::endl;
+//			if (format == 0)
+//				_format = TextureFormat::UNDEFINED;
+//			else if (format == 1)
+//				_format = TextureFormat::G;
+//			else if (format == 2)
+//				_format = TextureFormat::GA;
+//			else if (format == 3)
+//				_format = TextureFormat::RGB;
+//			else if (format == 4)
+//				_format = TextureFormat::RGBA;
 			//			stbi_image_free(data);
 		}
 		else

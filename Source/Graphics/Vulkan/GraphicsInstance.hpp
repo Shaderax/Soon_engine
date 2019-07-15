@@ -159,7 +159,7 @@ namespace Soon
 			void	CreateSwapChain( void );
 			void 	SetupDebugMessenger( void );
 			void 	CreateImageViews( void );
-			VkImageView CreateImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags );
+			VkImageView CreateImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags, VkImageViewType viewType = VK_IMAGE_VIEW_TYPE_2D );
 			std::vector<VkDescriptorSetLayout> CreateDescriptorSetLayout( std::vector<VkDescriptorSetLayoutBinding> uboLayoutBinding );
 			VkPipeline CreateGraphicsPipeline(
 				VkPipelineLayout						pipelineLayout,
@@ -190,14 +190,14 @@ namespace Soon
 			void	UpdateUniformBuffer(uint32_t currentImage);
 			void 	CreateDescriptorPool( void );
 			std::vector<VkDescriptorSet> CreateImageDescriptorSets( VkImageView textureImageView, VkSampler textureSampler, VkDescriptorSetLayout descriptorSetLayout );
-			ImageRenderer	CreateTextureImage( Texture2D* texture);
-			void 	CreateImage(uint32_t width, uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory);
+			ImageRenderer	CreateTextureImage( Texture* texture);
+			void 	CreateImage(uint32_t width, uint32_t height, TextureType tType, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory);
 			VkCommandBuffer BeginSingleTimeCommands( void );
 			void	EndSingleTimeCommands(VkCommandBuffer commandBuffer);
 			void 	TransitionImageLayout(VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);
 			void 	CopyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height);
 			VkSampler	CreateTextureSampler( void );
-			void	CreateTextureImageView( void );
+//			void	CreateTextureImageView( void );
 			BufferRenderer CreateIndexBuffer( VertexBufferInfo inf );
 			void CopyBuffer( VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size );
 			VkFormat FindDepthFormat( void );

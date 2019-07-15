@@ -15,8 +15,11 @@ std::array<char*, 6> files =
 
 struct TextureCubeMap : Texture
 {
-	TextureCubeMap( void ) : _tType(Texture_Type::TEXTURE_CUBE)
+	TextureCubeMap( void )
 	{
+		_tType = TextureType::TEXTURE_CUBE;
+		_format = TextureFormat::RGBA;
+
 		int format;
 		unsigned char* tmp;
 		bool first = true;
@@ -29,29 +32,30 @@ struct TextureCubeMap : Texture
 
 			std::cout << "Open Texture : " << files[i] << std::endl;
 			std::cout << _width << " " << _height << std::endl;
+			std::cout << format << std::endl;
 			if (first)
 			{
-				_data = new unsigned char[6 * _width * _height * format];
+				_data = new unsigned char[6 * _width * _height * 4 + 1];
 				first = false;
 			}
-			strncat((char*)(&_data[i * _width * _height * format]), (const char*)tmp, _width * _height * format);
+			strncat((char*)(&_data[i * _width * _height * 4]), (const char*)tmp, _width * _height * 4);
 			stbi_image_free(tmp);
 		}
 
-		if (format == 0)
-			_format = TEXTURE_FORMAT::UNDEFINED;
-		else if (format == 1)
-			_format = TEXTURE_FORMAT::G;
-		else if (format == 2)
-			_format = TEXTURE_FORMAT::GA;
-		else if (format == 3)
-			_format = TEXTURE_FORMAT::RGB;
-		else if (format == 4)
-			_format = TEXTURE_FORMAT::RGBA;
+//		if (format == 0)
+//			_format = TextureFormat::UNDEFINED;
+//		else if (format == 1)
+//			_format = TextureFormat::G;
+//		else if (format == 2)
+//			_format = TextureFormat::GA;
+//		else if (format == 3)
+//			_format = TextureFormat::RGB;
+//		else if (format == 4)
+//			_format = TextureFormat::RGBA;
 	}
 
 	~TextureCubeMap( void )
 	{
-
+		delete[] _data;
 	}
 };

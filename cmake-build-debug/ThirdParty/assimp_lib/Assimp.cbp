@@ -1,0 +1,1855 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Assimp"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\ThirdParty\;CMake Files\ThirdParty\assimp_lib\;CMake Files\ThirdParty\assimp_lib\include\;CMake Files\ThirdParty\assimp_lib\include\assimp\;CMake Files\ThirdParty\assimp_lib\cmake-modules\;CMake Files\ThirdParty\assimp_lib\contrib\;CMake Files\ThirdParty\assimp_lib\contrib\irrXML\;CMake Files\ThirdParty\assimp_lib\code\;CMake Files\ThirdParty\assimp_lib\tools\;CMake Files\ThirdParty\assimp_lib\tools\assimp_cmd\;CMake Files\ThirdParty\glfw\;CMake Files\ThirdParty\glfw\CMake\;CMake Files\ThirdParty\glfw\CMake\modules\;CMake Files\ThirdParty\glfw\src\;CMake Files\ThirdParty\glfw\examples\;CMake Files\ThirdParty\glfw\tests\;CMake Files\ThirdParty\vulkan\;CMake Files\ThirdParty\vulkan\libs\;CMake Files\Modules\;CMake Files\Modules\ECS\;CMake Files\Source\;CMake Files\Source\Core\;CMake Files\Source\Core\OS\;CMake Files\Source\Core\OS\Input\;CMake Files\Source\Graphics\;CMake Files\Source\Graphics\GLFW\;CMake Files\Source\Graphics\Vulkan\;CMake Files\Source\Scene\;CMake Files\Exemples\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="IrrXML">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/contrib/irrXML/libIrrXMLd.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/contrib/irrXML"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add option="-DOPENDDL_NO_USE_CPP11"/>
+					<Add option="-DASSIMP_BUILD_NO_OWN_ZLIB"/>
+					<Add option="-DASSIMP_BUILD_NO_C4D_IMPORTER"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/."/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/contrib/irrXML/Makefile&quot;  VERBOSE=1 IrrXML"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/contrib/irrXML/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/contrib/irrXML/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/contrib/irrXML/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="IrrXML/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/contrib/irrXML/libIrrXMLd.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/contrib/irrXML"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add option="-DOPENDDL_NO_USE_CPP11"/>
+					<Add option="-DASSIMP_BUILD_NO_OWN_ZLIB"/>
+					<Add option="-DASSIMP_BUILD_NO_C4D_IMPORTER"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/."/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/contrib/irrXML/Makefile&quot;  VERBOSE=1 IrrXML/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/contrib/irrXML/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/contrib/irrXML/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/contrib/irrXML/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="assimp">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/code/libassimpd.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/code"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add option="-DOPENDDL_NO_USE_CPP11"/>
+					<Add option="-DASSIMP_BUILD_NO_OWN_ZLIB"/>
+					<Add option="-DASSIMP_BUILD_NO_C4D_IMPORTER"/>
+					<Add option="-DASSIMP_BUILD_DLL_EXPORT"/>
+					<Add option="-DOPENDDLPARSER_BUILD"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/."/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/../contrib/rapidjson/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/../contrib"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/../contrib/unzip"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/irrXML"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/../contrib/openddlparser/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/.."/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/code/Makefile&quot;  VERBOSE=1 assimp"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/code/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/code/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/code/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="assimp/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/code/libassimpd.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/code"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add option="-DOPENDDL_NO_USE_CPP11"/>
+					<Add option="-DASSIMP_BUILD_NO_OWN_ZLIB"/>
+					<Add option="-DASSIMP_BUILD_NO_C4D_IMPORTER"/>
+					<Add option="-DASSIMP_BUILD_DLL_EXPORT"/>
+					<Add option="-DOPENDDLPARSER_BUILD"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/."/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/../contrib/rapidjson/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/../contrib"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/../contrib/unzip"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/irrXML"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/../contrib/openddlparser/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/.."/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/code/Makefile&quot;  VERBOSE=1 assimp/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/code/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/code/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/code/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="assimp_cmd">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/tools/assimp_cmd/assimpd" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/tools/assimp_cmd"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add option="-DOPENDDL_NO_USE_CPP11"/>
+					<Add option="-DASSIMP_BUILD_NO_OWN_ZLIB"/>
+					<Add option="-DASSIMP_BUILD_NO_C4D_IMPORTER"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/."/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/tools/assimp_cmd/Makefile&quot;  VERBOSE=1 assimp_cmd"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/tools/assimp_cmd/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/tools/assimp_cmd/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/tools/assimp_cmd/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="assimp_cmd/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/tools/assimp_cmd/assimpd" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/tools/assimp_cmd"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add option="-DOPENDDL_NO_USE_CPP11"/>
+					<Add option="-DASSIMP_BUILD_NO_OWN_ZLIB"/>
+					<Add option="-DASSIMP_BUILD_NO_C4D_IMPORTER"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/."/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/tools/assimp_cmd/Makefile&quot;  VERBOSE=1 assimp_cmd/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/tools/assimp_cmd/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/tools/assimp_cmd/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/tools/assimp_cmd/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/3DSConverter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/3DSExporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/3DSExporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/3DSHelper.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/3DSLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/3DSLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/3MFXmlTags.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ACLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ACLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/AMFImporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/AMFImporter.hpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/AMFImporter_Geometry.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/AMFImporter_Macro.hpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/AMFImporter_Material.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/AMFImporter_Node.hpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/AMFImporter_Postprocess.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ASELoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ASELoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ASEParser.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ASEParser.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/AssbinExporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/AssbinExporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/AssbinLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/AssbinLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/Assimp.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/AssimpCExport.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/AssxmlExporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/AssxmlExporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/B3DImporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/B3DImporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/BVHLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/BVHLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/BaseImporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/BaseImporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/BaseProcess.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/BaseProcess.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/Bitmap.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/Bitmap.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/BlenderBMesh.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/BlenderBMesh.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/BlenderDNA.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/BlenderDNA.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/BlenderDNA.inl">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/BlenderIntermediate.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/BlenderLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/BlenderLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/BlenderModifier.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/BlenderModifier.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/BlenderScene.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/BlenderScene.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/BlenderSceneGen.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/BlenderTessellator.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/BlenderTessellator.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/BlobIOSystem.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ByteSwapper.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/CInterfaceIOWrapper.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/CInterfaceIOWrapper.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/COBLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/COBLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/COBScene.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/CSMLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/CSMLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/CalcTangentsProcess.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/CalcTangentsProcess.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ColladaExporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ColladaExporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ColladaHelper.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ColladaLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ColladaLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ColladaParser.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ColladaParser.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ComputeUVMappingProcess.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ComputeUVMappingProcess.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ConvertToLHProcess.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ConvertToLHProcess.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/CreateAnimMesh.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/CreateAnimMesh.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/D3MFExporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/D3MFExporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/D3MFImporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/D3MFImporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/D3MFOpcPackage.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/D3MFOpcPackage.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/DXFHelper.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/DXFLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/DXFLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/DeboneProcess.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/DeboneProcess.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/DefaultIOStream.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/DefaultIOSystem.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/DefaultLogger.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/DefaultProgressHandler.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/Exporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXAnimation.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXBinaryTokenizer.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXCompileConfig.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXConverter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXConverter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXDeformer.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXDocument.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXDocument.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXDocumentUtil.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXDocumentUtil.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXImportSettings.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXImporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXImporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXMaterial.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXMeshGeometry.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXMeshGeometry.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXModel.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXNodeAttribute.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXParser.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXParser.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXProperties.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXProperties.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXTokenizer.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXTokenizer.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXUtil.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FBXUtil.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FIReader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FIReader.hpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FileLogStream.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FindDegenerates.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FindDegenerates.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FindInstancesProcess.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FindInstancesProcess.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FindInvalidDataProcess.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FindInvalidDataProcess.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FixNormalsStep.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/FixNormalsStep.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/GenFaceNormalsProcess.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/GenFaceNormalsProcess.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/GenVertexNormalsProcess.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/GenVertexNormalsProcess.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/GenericProperty.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/HMPFileData.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/HMPLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/HMPLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/HalfLifeFileData.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/Hash.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/IFCBoolean.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/IFCCurve.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/IFCGeometry.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/IFCLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/IFCLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/IFCMaterial.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/IFCOpenings.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/IFCProfile.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/IFCReaderGen.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/IFCReaderGen1.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/IFCReaderGen2.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/IFCUtil.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/IFCUtil.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/IFF.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/IOStreamBuffer.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/IRRLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/IRRLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/IRRMeshLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/IRRMeshLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/IRRShared.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/IRRShared.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/Importer.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/Importer.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ImporterRegistry.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ImproveCacheLocality.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ImproveCacheLocality.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/JoinVerticesProcess.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/JoinVerticesProcess.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/LWOAnimation.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/LWOAnimation.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/LWOBLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/LWOFileData.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/LWOLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/LWOLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/LWOMaterial.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/LWSLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/LWSLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/LimitBoneWeightsProcess.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/LimitBoneWeightsProcess.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/LineSplitter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/LogAux.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MD2FileData.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MD2Loader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MD2Loader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MD2NormalTable.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MD3FileData.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MD3Loader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MD3Loader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MD5Loader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MD5Loader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MD5Parser.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MD5Parser.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MDCFileData.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MDCLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MDCLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MDCNormalTable.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MDLDefaultColorMap.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MDLFileData.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MDLLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MDLLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MDLMaterialLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MMDCpp14.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MMDImporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MMDImporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MMDPmdParser.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MMDPmxParser.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MMDPmxParser.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MMDVmdParser.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MS3DLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MS3DLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MakeVerboseFormat.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MakeVerboseFormat.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MaterialSystem.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MaterialSystem.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/MemoryIOWrapper.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/NDOLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/NDOLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/NFFLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/NFFLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/OFFLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/OFFLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ObjExporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ObjExporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ObjFileData.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ObjFileImporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ObjFileImporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ObjFileMtlImporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ObjFileMtlImporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ObjFileParser.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ObjFileParser.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ObjTools.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/OgreBinarySerializer.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/OgreBinarySerializer.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/OgreImporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/OgreImporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/OgreMaterial.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/OgreParsingUtils.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/OgreStructs.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/OgreStructs.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/OgreXmlSerializer.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/OgreXmlSerializer.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/OpenGEXExporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/OpenGEXExporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/OpenGEXImporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/OpenGEXImporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/OpenGEXStructs.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/OptimizeGraph.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/OptimizeGraph.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/OptimizeMeshes.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/OptimizeMeshes.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ParsingUtils.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/PlyExporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/PlyExporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/PlyLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/PlyLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/PlyParser.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/PlyParser.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/PolyTools.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/PostStepRegistry.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/PretransformVertices.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/PretransformVertices.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ProcessHelper.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ProcessHelper.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/Profiler.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/Q3BSPFileData.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/Q3BSPFileImporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/Q3BSPFileImporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/Q3BSPFileParser.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/Q3BSPFileParser.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/Q3BSPZipArchive.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/Q3BSPZipArchive.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/Q3DLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/Q3DLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/RawLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/RawLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/RemoveComments.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/RemoveComments.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/RemoveRedundantMaterials.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/RemoveRedundantMaterials.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/RemoveVCProcess.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/RemoveVCProcess.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/SGSpatialSort.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/SGSpatialSort.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/SIBImporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/SIBImporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/SMDLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/SMDLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/STEPFile.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/STEPFileEncoding.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/STEPFileEncoding.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/STEPFileReader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/STEPFileReader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/STLExporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/STLExporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/STLLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/STLLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ScaleProcess.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ScaleProcess.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/SceneCombiner.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ScenePreprocessor.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ScenePreprocessor.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ScenePrivate.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/SkeletonMeshBuilder.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/SkeletonMeshBuilder.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/SmoothingGroups.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/SortByPTypeProcess.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/SortByPTypeProcess.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/SpatialSort.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/SpatialSort.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/SplitByBoneCountProcess.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/SplitByBoneCountProcess.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/SplitLargeMeshes.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/SplitLargeMeshes.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/StandardShapes.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/StandardShapes.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/StdOStreamLogStream.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/StepExporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/StepExporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/StreamReader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/StreamWriter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/StringComparison.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/StringUtils.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/Subdivision.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/Subdivision.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/TargetAnimation.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/TargetAnimation.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/TerragenLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/TerragenLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/TextureTransform.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/TextureTransform.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/TinyFormatter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/TriangulateProcess.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/TriangulateProcess.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/UnrealLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/UnrealLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ValidateDataStructure.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/ValidateDataStructure.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/Version.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/Vertex.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/VertexTriangleAdjacency.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/VertexTriangleAdjacency.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/Win32DebugLogStream.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/X3DExporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/X3DExporter.hpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/X3DImporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/X3DImporter.hpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/X3DImporter_Geometry2D.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/X3DImporter_Geometry3D.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/X3DImporter_Group.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/X3DImporter_Light.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/X3DImporter_Macro.hpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/X3DImporter_Metadata.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/X3DImporter_Networking.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/X3DImporter_Node.hpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/X3DImporter_Postprocess.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/X3DImporter_Rendering.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/X3DImporter_Shape.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/X3DImporter_Texturing.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/X3DVocabulary.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/XFileExporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/XFileExporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/XFileHelper.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/XFileImporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/XFileImporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/XFileParser.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/XFileParser.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/XGLLoader.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/XGLLoader.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/XMLTools.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/fast_atof.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/glTF2Asset.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/glTF2Asset.inl">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/glTF2AssetWriter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/glTF2AssetWriter.inl">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/glTF2Exporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/glTF2Exporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/glTF2Importer.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/glTF2Importer.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/glTFAsset.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/glTFAsset.inl">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/glTFAssetWriter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/glTFAssetWriter.inl">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/glTFExporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/glTFExporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/glTFImporter.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/glTFImporter.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/irrXMLWrapper.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/qnan.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/scene.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/clipper/clipper.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/clipper/clipper.hpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/irrXML/CXMLReaderImpl.h">
+			<Option target="IrrXML"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/irrXML/heapsort.h">
+			<Option target="IrrXML"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/irrXML/irrArray.h">
+			<Option target="IrrXML"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/irrXML/irrString.h">
+			<Option target="IrrXML"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/irrXML/irrTypes.h">
+			<Option target="IrrXML"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/irrXML/irrXML.cpp">
+			<Option target="IrrXML"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/irrXML/irrXML.h">
+			<Option target="IrrXML"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/openddlparser/code/DDLNode.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/openddlparser/code/OpenDDLCommon.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/openddlparser/code/OpenDDLExport.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/openddlparser/code/OpenDDLParser.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/openddlparser/code/OpenDDLStream.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/openddlparser/code/Value.cpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/openddlparser/include/openddlparser/DDLNode.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/openddlparser/include/openddlparser/OpenDDLCommon.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/openddlparser/include/openddlparser/OpenDDLExport.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/openddlparser/include/openddlparser/OpenDDLParser.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/openddlparser/include/openddlparser/OpenDDLParserUtils.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/openddlparser/include/openddlparser/OpenDDLStream.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/openddlparser/include/openddlparser/Value.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/poly2tri/poly2tri/common/shapes.cc">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/poly2tri/poly2tri/common/shapes.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/poly2tri/poly2tri/common/utils.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/poly2tri/poly2tri/sweep/advancing_front.cc">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/poly2tri/poly2tri/sweep/advancing_front.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/poly2tri/poly2tri/sweep/cdt.cc">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/poly2tri/poly2tri/sweep/cdt.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/poly2tri/poly2tri/sweep/sweep.cc">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/poly2tri/poly2tri/sweep/sweep.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/poly2tri/poly2tri/sweep/sweep_context.cc">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/poly2tri/poly2tri/sweep/sweep_context.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/unzip/crypt.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/unzip/ioapi.c">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/unzip/ioapi.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/unzip/unzip.c">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/unzip/unzip.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/zip/src/miniz.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/zip/src/zip.c">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/zip/src/zip.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/Compiler/poppack1.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/Compiler/pstdint.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/Compiler/pushpack1.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/DefaultIOStream.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/DefaultIOSystem.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/DefaultLogger.hpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/Defines.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/Exporter.hpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/IOStream.hpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/IOSystem.hpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/Importer.hpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/LogStream.hpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/Logger.hpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/NullLogger.hpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/ProgressHandler.hpp">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/SceneCombiner.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/ai_assert.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/anim.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/camera.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/cexport.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/cfileio.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/cimport.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/color4.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/color4.inl">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/defs.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/importerdesc.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/light.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/material.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/material.inl">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/matrix3x3.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/matrix3x3.inl">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/matrix4x4.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/matrix4x4.inl">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/mesh.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/metadata.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/postprocess.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/quaternion.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/quaternion.inl">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/scene.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/texture.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/types.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/vector2.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/vector2.inl">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/vector3.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/vector3.inl">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/version.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/tools/assimp_cmd/CompareDump.cpp">
+			<Option target="assimp_cmd"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/tools/assimp_cmd/Export.cpp">
+			<Option target="assimp_cmd"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/tools/assimp_cmd/ImageExtractor.cpp">
+			<Option target="assimp_cmd"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/tools/assimp_cmd/Info.cpp">
+			<Option target="assimp_cmd"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/tools/assimp_cmd/Main.cpp">
+			<Option target="assimp_cmd"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/tools/assimp_cmd/Main.h">
+			<Option target="assimp_cmd"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/tools/assimp_cmd/WriteDumb.cpp">
+			<Option target="assimp_cmd"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/tools/assimp_cmd/assimp_cmd.rc">
+			<Option target="assimp_cmd"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/tools/assimp_cmd/resource.h">
+			<Option target="assimp_cmd"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/assimp_lib/include/assimp/config.h">
+			<Option target="assimp"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ThirdParty\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/assimp-config-version.cmake.in">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/assimp-config.cmake.in">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/assimp.pc.in">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/revision.h.in">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/config.h.in">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\include\assimp\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/cmake-modules/FindDevIL.cmake">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\cmake-modules\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/cmake-modules/FindDirectX.cmake">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\cmake-modules\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/cmake-modules/FindPkgMacros.cmake">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\cmake-modules\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/cmake-modules/FindRT.cmake">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\cmake-modules\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/cmake-modules/FindZLIB.cmake">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\cmake-modules\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/cmake-modules/PrecompiledHeader.cmake">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\cmake-modules\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\contrib\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/irrXML/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\contrib\irrXML\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\code\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/tools/assimp_cmd/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\tools\assimp_cmd\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ThirdParty\glfw\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/cmake_uninstall.cmake.in">
+			<Option virtualFolder="CMake Files\ThirdParty\glfw\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/CMake/MacOSXBundleInfo.plist.in">
+			<Option virtualFolder="CMake Files\ThirdParty\glfw\CMake\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/CMake/modules/FindVulkan.cmake">
+			<Option virtualFolder="CMake Files\ThirdParty\glfw\CMake\modules\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ThirdParty\glfw\src\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/glfw3.pc.in">
+			<Option virtualFolder="CMake Files\ThirdParty\glfw\src\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/glfw3Config.cmake.in">
+			<Option virtualFolder="CMake Files\ThirdParty\glfw\src\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/glfw_config.h.in">
+			<Option virtualFolder="CMake Files\ThirdParty\glfw\src\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/examples/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ThirdParty\glfw\examples\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/tests/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ThirdParty\glfw\tests\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/vulkan/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ThirdParty\vulkan\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/vulkan/libs/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ThirdParty\vulkan\libs\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Modules\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules/ECS/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Modules\ECS\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Source\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source/Core/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Source\Core\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source/Core/OS/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Source\Core\OS\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source/Core/OS/Input/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Source\Core\OS\Input\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source/Graphics/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Source\Graphics\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source/Graphics/GLFW/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Source\Graphics\GLFW\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source/Graphics/Vulkan/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Source\Graphics\Vulkan\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source/Scene/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Source\Scene\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Exemples/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Exemples\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

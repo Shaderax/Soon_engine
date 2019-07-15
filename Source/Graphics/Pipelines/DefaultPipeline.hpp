@@ -2,7 +2,8 @@
 #include "Graphics/Vulkan/GraphicsInstance.hpp"
 #include "Core/Engine.hpp"
 #include "Scene/3D/Components/Camera.hpp"
-#include "Scene/3D/TextureCubeMap.hpp"
+#include "Scene/Common/TextureCubeMap.hpp"
+#include "Scene/3D/Components/Mesh.hpp"
 
 #include <cstring>
 
@@ -33,13 +34,32 @@ namespace Soon
 
 				_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), _descriptorSetLayout, 0);
 
+				///////////////
+
+				Mesh skybox;
+
+				skybox.LoadMesh();
+
+				std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(inf._vertexSize, inf._vertexData, false);
+
+
+
+
+
+
+
+
+
+
+				/////////////
+
 				Image img;
 				_imagesRenderer.push_back(GraphicsInstance::GetInstance()->CreateTextureImage(&_skybox));
 				img._textureSampler = GraphicsInstance::GetInstance()->CreateTextureSampler();
-				img._imageView = GraphicsInstance::GetInstance()->CreateImageView(_imagesRenderer.back()._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT);
+				img._imageView = GraphicsInstance::GetInstance()->CreateImageView(_imagesRenderer.back()._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_CUBE);
 				_images.push_back(img);
 
-				std::vector<VkDescriptorSet> imageUniform = GraphicsInstance::GetInstance()->CreateImageDescriptorSets(img._imageView, img._textureSampler, _descriptorSetLayout[2]);
+				std::vector<VkDescriptorSet> imageUniform = GraphicsInstance::GetInstance()->CreateImageDescriptorSets(img._imageView, img._textureSampler, _descriptorSetLayout[1]);
 				_uniformsImagesDescriptorSets.push_back(imageUniform);
 			}
 
