@@ -36,20 +36,11 @@ namespace Soon
 
 				///////////////
 
-			//	Mesh skybox;
+				Mesh skybox;
 
-			//	skybox.LoadMesh();
+				skybox.LoadMesh("../Ressources/objects/Basics/Cube.obj");
 
-			//	std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(inf._vertexSize, inf._vertexData, false);
-
-
-
-
-
-
-
-
-
+				std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(skybox.inf._vertexSize, skybox.inf._vertexData, false);
 
 				/////////////
 

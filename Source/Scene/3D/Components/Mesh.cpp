@@ -208,8 +208,9 @@ namespace Soon
 
 	void Mesh::EnableRender( void )
 	{
-		GraphicsRenderer::GetInstance()->AddVertexToRender(_owner.GetComponent<Transform3D>(), objMesh._inf);
-		for (_owner.GetComponent<ObjectOwner>()._owner)
+		GraphicsRenderer::GetInstance()->AddVertexToRender(_owner.GetComponent<Transform3D>(), _inf);
+		for (Object& obj : _owner.GetComponent<ObjectOwner>()._owner->_childrens)
+			obj.EnableRender();
 	}
 
 	void Mesh::DisableRender( void )
