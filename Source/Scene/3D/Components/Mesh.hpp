@@ -37,6 +37,8 @@ namespace Soon
 			void LoadMesh(std::string path);
 			void ProcessMesh(Mesh& objMesh, aiMesh *mesh, const aiScene *scene);
 			void LoadMaterialTextures(Material* material, aiMaterial *mat, aiTextureType type, std::string typeName);
+			void EnableRender( void );
+			void DisableRender( void );
 
 			VertexBufferInfo _inf =
 			{
@@ -46,7 +48,6 @@ namespace Soon
 			};
 
 //			ComponentRenderer _itRender;
-
 
 			std::vector< Vertex >		_vertices;
 			std::vector<uint32_t>		_indices;

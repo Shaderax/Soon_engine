@@ -40,9 +40,9 @@ namespace Soon
 			if(mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
 			{
 				vec2<float> vec;
-				// a vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't 
+				// a vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't
 				// use models where a vertex can have multiple texture coordinates so we always take the first set (0).
-				vec.x = mesh->mTextureCoords[0][i].x; 
+				vec.x = mesh->mTextureCoords[0][i].x;
 				vec.y = mesh->mTextureCoords[0][i].y;
 				vertex._texCoords = vec;
 			}
@@ -64,9 +64,9 @@ namespace Soon
 			//			std::cout << std::endl;
 		}
 		// process materials
-		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];    
+		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 		// we assume a convention for sampler names in the shaders. Each diffuse texture should be named
-		// as 'texture_diffuseN' where N is a sequential number ranging from 1 to MAX_SAMPLER_NUMBER. 
+		// as 'texture_diffuseN' where N is a sequential number ranging from 1 to MAX_SAMPLER_NUMBER.
 		// Same applies to other texture as the following list summarizes:
 		// diffuse: texture_diffuseN
 		// specular: texture_specularN
@@ -77,7 +77,7 @@ namespace Soon
 			// 1. diffuse maps
 			///// TEST 3K /////
 			LoadMaterialTextures(&objMesh._mat, material, aiTextureType_DIFFUSE, "texture_diffuse");
-			
+
 //			std::vector<Texture2D> diffuseMaps = LoadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
 //			textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
 //			// 2. specular maps
@@ -101,7 +101,7 @@ namespace Soon
 		// return a mesh object created from the extracted mesh data
 		//		return Mesh(_owner, vertices, indices, textures);
 	}
-	#include "assimp/material.h"
+#include "assimp/material.h"
 
 	void Mesh::LoadMaterialTextures(Material* material, aiMaterial *mat, aiTextureType type, std::string typeName)
 	{
@@ -180,7 +180,7 @@ namespace Soon
 		//process all the node's meshes (if any)
 		for(unsigned int i = 0; i < node->mNumMeshes; i++)
 		{
-			aiMesh *mesh = scene->mMeshes[node->mMeshes[i]]; 
+			aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
 
 			Object* obj = new Object(_owner.GetComponent<ObjectOwner>()._owner);
 			Mesh& objMesh = obj->AddComponent<Soon::Mesh>();
@@ -197,21 +197,32 @@ namespace Soon
 			std::cout << "My Parser : indexSize : " << objMesh._inf._indexSize << std::endl;
 			objMesh._inf._indexData = objMesh._indices.data();
 			objMesh._inf._material = &(objMesh._mat);
-			GraphicsRenderer::GetInstance()->AddVertexToRender(_owner.GetComponent<Transform3D>(), objMesh._inf);
+//			GraphicsRenderer::GetInstance()->AddVertexToRender(_owner.GetComponent<Transform3D>(), objMesh._inf);
 		}
 		// then do the same for each of its children
 		for(unsigned int i = 0; i < node->mNumChildren; i++)
 		{
 			ProcessNode(node->mChildren[i], scene);
 		}
-	} 
+	}
+
+	void Mesh::EnableRender( void )
+	{
+		GraphicsRenderer::GetInstance()->AddVertexToRender(_owner.GetComponent<Transform3D>(), objMesh._inf);
+		for (_owner.GetComponent<ObjectOwner>()._owner)
+	}
+
+	void Mesh::DisableRender( void )
+	{
+
+	}
 
 	void Mesh::LoadMesh(std::string path)
 	{
 		Assimp::Importer importer;
 		const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals);
 
-		if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) 
+		if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 		{
 			std::cout << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
 			return;

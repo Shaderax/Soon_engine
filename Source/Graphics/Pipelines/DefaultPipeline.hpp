@@ -36,11 +36,11 @@ namespace Soon
 
 				///////////////
 
-				Mesh skybox;
+			//	Mesh skybox;
 
-				skybox.LoadMesh();
+			//	skybox.LoadMesh();
 
-				std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(inf._vertexSize, inf._vertexData, false);
+			//	std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(inf._vertexSize, inf._vertexData, false);
 
 
 
