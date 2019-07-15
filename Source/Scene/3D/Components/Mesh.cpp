@@ -161,7 +161,7 @@ namespace Soon
 			int pos = filename.find_last_of('/');
 			if (std::string::npos == (std::size_t)pos)
 				pos = 0;
-			prop->_texture = Texture2D(_path + "/" + filename.substr(pos, filename.length()));
+			prop->_texture.LoadTexture(_path + "/" + filename.substr(pos, filename.length()));
 			//				texture.id = TextureFromFile(str.C_Str(), this->directory);
 			//				texture.type = typeName;
 			//				texture.path = str.C_Str();

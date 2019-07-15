@@ -69,7 +69,7 @@ struct Texture
 
 	~Texture( void )
 	{
-
+		stbi_image_free(_data);
 	}
 
 	Texture& operator=(const Texture& b)
