@@ -47,14 +47,14 @@ namespace Soon
 
 			skybox.LoadMesh("../Ressources/objects/Basics/Cube.obj");
 
-			std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(skybox.inf._vertexSize, skybox.inf._vertexData, false);
+			std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(skybox._inf._vertexSize, skybox._inf._vertexData, false);
 
 			_stagingBuffers.push_back(handler[0]);
 			_gpuBuffers.push_back(handler[1]._Buffer[0]);
 			_gpuMemoryBuffers.push_back(handler[1]._BufferMemory[0]);
-			_indexBuffers.push_back(GraphicsInstance::GetInstance()->CreateIndexBuffer(skybox.inf));
-			_nbVertex.push_back(skybox.inf._nbVertex);
-			_indexSize.push_back(skybox.inf._indexSize);
+			_indexBuffers.push_back(GraphicsInstance::GetInstance()->CreateIndexBuffer(skybox._inf));
+			_nbVertex.push_back(skybox._inf._nbVertex);
+			_indexSize.push_back(skybox._inf._indexSize);
 
 			Image img;
 			_imagesRenderer.push_back(GraphicsInstance::GetInstance()->CreateTextureImage(&_skybox));
@@ -66,6 +66,20 @@ namespace Soon
 			_uniformsImagesDescriptorSets.push_back(imageUniform);
 
 			/////////////
+		}
+
+		void BindCaller( VkCommandBuffer commandBuffer, uint32_t index )
+		{
+			vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _graphicPipeline);
+
+			VkDeviceSize offsets[] = {0};
+
+			vkCmdBindVertexBuffers(commandBuffer, 0, 1, &_gpuBuffers.at(0), offsets);
+			vkCmdBindIndexBuffer(commandBuffer, _indexBuffers.at(0)._Buffer[0], 0, VK_INDEX_TYPE_UINT32);
+			vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 0, 1, &(_uniformCamera._descriptorSets.at(index)), 0, nullptr);
+			vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 2, 1, &_uniformsImagesDescriptorSets.at(0).at(index), 0, nullptr);
+
+			vkCmdDrawIndexed(commandBuffer, _indexSize.at(0), 1, 0, 0, 0);
 		}
 
 		void AddToRender( void )
@@ -104,24 +118,11 @@ namespace Soon
 			vkUnmapMemory(device, vkdm[currentImage]);
 		}
 
-		void BindCaller( VkCommandBuffer commandBuffer, uint32_t index )
-		{
-			vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _graphicPipeline);
-
-			VkDeviceSize offsets[] = {0};
-
-			vkCmdBindVertexBuffers(commandBuffer, 0, 1, &_gpuBuffers.at(0), offsets);
-			vkCmdBindIndexBuffer(commandBuffer, _indexBuffers.at(0)._Buffer[0], 0, VK_INDEX_TYPE_UINT32);
-			vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 0, 1, &(_uniformCamera._descriptorSets.at(index)), 0, nullptr);
-			vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 2, 1, &_uniformsImagesDescriptorSets.at(0).at(index), 0, nullptr);
-
-			vkCmdDrawIndexed(commandBuffer, _indexSize.at(0), 1, 0, 0, 0);
-		}
-
 		std::vector<VkDescriptorSetLayoutBinding> GetLayoutBinding( void )
 		{
 			std::vector<VkDescriptorSetLayoutBinding> uboLayoutBinding(2);
 
+			/////// CAM /////////////
 			uboLayoutBinding[0].binding = 0;
 			uboLayoutBinding[0].descriptorCount = 1;
 			uboLayoutBinding[0].descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
@@ -141,7 +142,7 @@ namespace Soon
 		{
 			VkVertexInputBindingDescription bindingDescription = {};
 			bindingDescription.binding = 0;
-			bindingDescription.stride = sizeof(vec3<float>);//sizeof(Vertex); // stride : size of one pointe
+			bindingDescription.stride = sizeof(Vertex); // stride : size of one pointe
 			bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
 
 			return (bindingDescription);
@@ -149,14 +150,24 @@ namespace Soon
 
 		std::vector<VkVertexInputAttributeDescription> GetAttributeDescriptions( void )
 		{
-			std::vector<VkVertexInputAttributeDescription> attributeDescriptions(1);
+			std::vector<VkVertexInputAttributeDescription> attributeDescriptions(3);
 
 			attributeDescriptions[0].binding = 0;
 			attributeDescriptions[0].location = 0;
 			attributeDescriptions[0].format = VK_FORMAT_R32G32B32_SFLOAT;//VK_FORMAT_R32G32_SFLOAT;
-			attributeDescriptions[0].offset = 0;
+			attributeDescriptions[0].offset = offsetof(Vertex, _position);
 
-			return (attributeDescriptions);
+			attributeDescriptions[1].binding = 0;
+			attributeDescriptions[1].location = 1;
+			attributeDescriptions[1].format = VK_FORMAT_R32G32B32_SFLOAT;//VK_FORMAT_R32G32_SFLOAT;
+			attributeDescriptions[1].offset = offsetof(Vertex, _normal);
+
+			attributeDescriptions[2].binding = 0;
+			attributeDescriptions[2].location = 2;
+			attributeDescriptions[2].format = VK_FORMAT_R32G32B32_SFLOAT;//VK_FORMAT_R32G32_SFLOAT;
+			attributeDescriptions[2].offset = offsetof(Vertex, _texCoords);
+
+			return attributeDescriptions;
 		}
 
 		void RecreatePipeline( void )

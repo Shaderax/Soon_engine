@@ -1,6 +1,6 @@
 #include "Core/Math/vec2.hpp"
 #include "Core/Math/vec3.hpp"
-#include "Mesh.hpp"
+#include "Scene/3D/Components/Mesh.hpp"
 #include <cstring>
 #include "Scene/Object.hpp"
 
@@ -39,15 +39,16 @@ namespace Soon
 			// texture coordinates
 			if(mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
 			{
-				vec2<float> vec;
+				vec3<float> vec;
 				// a vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't
 				// use models where a vertex can have multiple texture coordinates so we always take the first set (0).
 				vec.x = mesh->mTextureCoords[0][i].x;
 				vec.y = mesh->mTextureCoords[0][i].y;
+				vec.z = mesh->mTextureCoords[0][i].z;
 				vertex._texCoords = vec;
 			}
 			else
-				vertex._texCoords = vec2<float>(0.0f, 0.0f);
+				vertex._texCoords = vec3<float>(0.0f, 0.0f, 0.0f);
 			objMesh._vertices.push_back(vertex);
 		}
 		// now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
@@ -209,8 +210,8 @@ namespace Soon
 	void Mesh::EnableRender( void )
 	{
 		GraphicsRenderer::GetInstance()->AddVertexToRender(_owner.GetComponent<Transform3D>(), _inf);
-		for (Object& obj : _owner.GetComponent<ObjectOwner>()._owner->_childrens)
-			obj.EnableRender();
+//		for (Object& obj : _owner.GetComponent<ObjectOwner>()._owner->GetChildrens())
+//			obj.EnableRender();
 	}
 
 	void Mesh::DisableRender( void )

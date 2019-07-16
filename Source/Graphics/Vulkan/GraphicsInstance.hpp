@@ -31,7 +31,7 @@ struct Vertex
 {
 	vec3<float> _position;
 	vec3<float> _normal;
-	vec2<float> _texCoords;
+	vec3<float> _texCoords;
 };
 
 struct BufferRenderer

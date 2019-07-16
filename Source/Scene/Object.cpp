@@ -18,4 +18,9 @@ namespace Soon
 	{
 		Kill();
 	}
+
+	std::vector< Object* >& Object::GetChildrens( void )
+	{
+		return (_childrens);
+	}
 }
