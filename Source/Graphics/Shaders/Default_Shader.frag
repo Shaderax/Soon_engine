@@ -2,6 +2,7 @@
 #extension GL_ARB_separate_shader_objects : enable
 
 layout(binding = 0, set = 2) uniform sampler2D texSampler;
+layout(binding = 0, set = 5) uniform samplerCube texSampler;
 
 layout(binding = 0, set = 3) uniform UniformMaterial
 {
@@ -20,6 +21,7 @@ layout(binding = 0, set = 4) uniform UniformLight
 
 layout(location = 0) in vec3 fragNormal;
 layout(location = 1) in vec2 fragTexCoord;
+layout(location = 2) in vec3 fragTexCubeCoord;
 
 layout(location = 0) out vec4 outColor;
 

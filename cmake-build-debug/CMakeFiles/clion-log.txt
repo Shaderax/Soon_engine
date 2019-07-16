@@ -1,0 +1,47 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/nrouzeva/Documents/42_PJ/Soon_engine
+-- The C compiler identification is AppleClang 9.0.0.9000039
+-- The CXX compiler identification is GNU 8.3.0
+-- Check for working C compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc
+-- Check for working C compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Checking whether CXX compiler has -isysroot
+-- Checking whether CXX compiler has -isysroot - yes
+-- Checking whether CXX compiler supports OSX deployment target flag
+-- Checking whether CXX compiler supports OSX deployment target flag - yes
+-- Check for working CXX compiler: /Users/nrouzeva/.brew/Cellar/gcc/8.3.0/bin/g++-8
+-- Check for working CXX compiler: /Users/nrouzeva/.brew/Cellar/gcc/8.3.0/bin/g++-8 -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Looking for pthread_create
+-- Looking for pthread_create - found
+-- Found Threads: TRUE  
+-- Could NOT find Vulkan (missing: VULKAN_LIBRARY VULKAN_INCLUDE_DIR) 
+-- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE) 
+-- Using Cocoa for window creation
+-- Shared libraries disabled
+-- Looking for ZLIB...
+-- Found PkgConfig: /Users/nrouzeva/.brew/bin/pkg-config (found version "0.29.2") 
+-- Checking for module 'zzip-zlib-config'
+--   No package 'zzip-zlib-config' found
+-- Found ZLIB: optimized;/usr/lib/libz.dylib;debug;/usr/lib/libz.dylib
+-- Checking for module 'minizip'
+--   No package 'minizip' found
+-- Could NOT find rt (missing: RT_LIBRARY) 
+INFO RT-extension not found. glTF import/export will be built without Open3DGC-compression.
+-- Enabled formats: AMF 3DS AC ASE ASSBIN ASSXML B3D BVH COLLADA DXF CSM HMP IRRMESH IRR LWO LWS MD2 MD3 MD5 MDC MDL NFF NDO OFF OBJ OGRE OPENGEX PLY MS3D COB BLEND IFC XGL FBX Q3D Q3BSP RAW SIB SMD STL TERRAGEN 3D X X3D GLTF 3MF MMD
+-- Disabled formats:
+-- Could NOT find IL (missing: IL_LIBRARIES IL_INCLUDE_DIR) 
+CMake Warning at ThirdParty/assimp_lib/CMakeLists.txt:439 (MESSAGE):
+  Build of assimp_qt_viewer is disabled.  Unsatisfied dendencies: Qt5 DevIL
+
+
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug

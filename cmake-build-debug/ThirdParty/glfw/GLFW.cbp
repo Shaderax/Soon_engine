@@ -1,0 +1,2398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="GLFW"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\ThirdParty\;CMake Files\ThirdParty\assimp_lib\;CMake Files\ThirdParty\assimp_lib\include\;CMake Files\ThirdParty\assimp_lib\include\assimp\;CMake Files\ThirdParty\assimp_lib\cmake-modules\;CMake Files\ThirdParty\assimp_lib\contrib\;CMake Files\ThirdParty\assimp_lib\contrib\irrXML\;CMake Files\ThirdParty\assimp_lib\code\;CMake Files\ThirdParty\assimp_lib\tools\;CMake Files\ThirdParty\assimp_lib\tools\assimp_cmd\;CMake Files\ThirdParty\glfw\;CMake Files\ThirdParty\glfw\CMake\;CMake Files\ThirdParty\glfw\CMake\modules\;CMake Files\ThirdParty\glfw\src\;CMake Files\ThirdParty\glfw\examples\;CMake Files\ThirdParty\glfw\tests\;CMake Files\ThirdParty\vulkan\;CMake Files\ThirdParty\vulkan\libs\;CMake Files\Modules\;CMake Files\Modules\ECS\;CMake Files\Source\;CMake Files\Source\Core\;CMake Files\Source\Core\OS\;CMake Files\Source\Core\OS\Input\;CMake Files\Source\Graphics\;CMake Files\Source\Graphics\GLFW\;CMake Files\Source\Graphics\Vulkan\;CMake Files\Source\Scene\;CMake Files\Exemples\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="uninstall">
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/Makefile&quot;  VERBOSE=1 uninstall"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="glfw">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/src/libglfw3.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/src"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_GLFW_USE_CONFIG_H"/>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/src"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/src/Makefile&quot;  VERBOSE=1 glfw"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="glfw/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/src/libglfw3.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/src"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D_GLFW_USE_CONFIG_H"/>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/src"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/src/Makefile&quot;  VERBOSE=1 glfw/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="wave">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/wave.app/Contents/MacOS/wave" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 wave"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="wave/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/wave.app/Contents/MacOS/wave" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 wave/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="simple">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/simple.app/Contents/MacOS/simple" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 simple"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="simple/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/simple.app/Contents/MacOS/simple" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 simple/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="sharing">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/sharing.app/Contents/MacOS/sharing" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 sharing"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="sharing/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/sharing.app/Contents/MacOS/sharing" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 sharing/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="particles">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/particles.app/Contents/MacOS/particles" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 particles"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="particles/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/particles.app/Contents/MacOS/particles" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 particles/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="heightmap">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/heightmap.app/Contents/MacOS/heightmap" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 heightmap"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="heightmap/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/heightmap.app/Contents/MacOS/heightmap" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 heightmap/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="splitview">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/splitview.app/Contents/MacOS/splitview" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 splitview"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="splitview/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/splitview.app/Contents/MacOS/splitview" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 splitview/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="offscreen">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/offscreen" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 offscreen"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="offscreen/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/offscreen" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 offscreen/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gears">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/gears.app/Contents/MacOS/gears" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 gears"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gears/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/gears.app/Contents/MacOS/gears" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 gears/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="boing">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/boing.app/Contents/MacOS/boing" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 boing"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="boing/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/boing.app/Contents/MacOS/boing" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 boing/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/examples/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="clipboard">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/clipboard" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clipboard"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="clipboard/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/clipboard" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clipboard/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="title">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/title.app/Contents/MacOS/title" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 title"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="title/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/title.app/Contents/MacOS/title" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 title/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="timeout">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/timeout.app/Contents/MacOS/timeout" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 timeout"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="timeout/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/timeout.app/Contents/MacOS/timeout" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 timeout/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="threads">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/threads.app/Contents/MacOS/threads" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 threads"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="threads/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/threads.app/Contents/MacOS/threads" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 threads/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="opacity">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/opacity.app/Contents/MacOS/opacity" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 opacity"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="opacity/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/opacity.app/Contents/MacOS/opacity" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 opacity/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gamma">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/gamma.app/Contents/MacOS/gamma" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 gamma"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gamma/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/gamma.app/Contents/MacOS/gamma" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 gamma/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="tearing">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/tearing.app/Contents/MacOS/tearing" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 tearing"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="tearing/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/tearing.app/Contents/MacOS/tearing" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 tearing/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="iconify">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/iconify" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 iconify"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="iconify/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/iconify" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 iconify/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="joysticks">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/joysticks.app/Contents/MacOS/joysticks" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 joysticks"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="joysticks/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/joysticks.app/Contents/MacOS/joysticks" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 joysticks/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="windows">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/windows.app/Contents/MacOS/windows" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 windows"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="windows/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/windows.app/Contents/MacOS/windows" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 windows/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="inputlag">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/inputlag.app/Contents/MacOS/inputlag" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 inputlag"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="inputlag/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/inputlag.app/Contents/MacOS/inputlag" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 inputlag/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="empty">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/empty.app/Contents/MacOS/empty" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 empty"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="empty/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/empty.app/Contents/MacOS/empty" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 empty/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="reopen">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/reopen" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 reopen"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="reopen/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/reopen" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 reopen/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="msaa">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/msaa" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 msaa"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="msaa/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/msaa" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 msaa/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="cursor">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/cursor" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 cursor"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="cursor/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/cursor" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 cursor/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="glfwinfo">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/glfwinfo" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 glfwinfo"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="glfwinfo/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/glfwinfo" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 glfwinfo/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="monitors">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/monitors" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 monitors"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="monitors/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/monitors" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 monitors/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="events">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/events" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 events"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="events/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/events" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 events/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="icon">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/icon.app/Contents/MacOS/icon" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 icon"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="icon/fast">
+				<Option output="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/icon.app/Contents/MacOS/icon" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests"/>
+				<Option object_output="./"/>
+				<Option type="0"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DUSE_VULKAN"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty"/>
+					<Add directory="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/x86_64-apple-darwin16.7.0"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/../../../../../../include/c++/8.3.0/backward"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/include"/>
+					<Add directory="/Users/nrouzeva/.brew/Cellar/gcc/8.3.0/lib/gcc/8/gcc/x86_64-apple-darwin16.7.0/8.3.0/include-fixed"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/9.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 icon/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/tests/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps/getopt.c">
+			<Option target="particles"/>
+			<Option target="clipboard"/>
+			<Option target="tearing"/>
+			<Option target="iconify"/>
+			<Option target="windows"/>
+			<Option target="inputlag"/>
+			<Option target="msaa"/>
+			<Option target="glfwinfo"/>
+			<Option target="monitors"/>
+			<Option target="events"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps/getopt.h">
+			<Option target="particles"/>
+			<Option target="clipboard"/>
+			<Option target="tearing"/>
+			<Option target="iconify"/>
+			<Option target="windows"/>
+			<Option target="inputlag"/>
+			<Option target="msaa"/>
+			<Option target="glfwinfo"/>
+			<Option target="monitors"/>
+			<Option target="events"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps/glad.c">
+			<Option target="wave"/>
+			<Option target="simple"/>
+			<Option target="sharing"/>
+			<Option target="particles"/>
+			<Option target="heightmap"/>
+			<Option target="splitview"/>
+			<Option target="offscreen"/>
+			<Option target="gears"/>
+			<Option target="boing"/>
+			<Option target="clipboard"/>
+			<Option target="title"/>
+			<Option target="timeout"/>
+			<Option target="threads"/>
+			<Option target="opacity"/>
+			<Option target="gamma"/>
+			<Option target="tearing"/>
+			<Option target="iconify"/>
+			<Option target="joysticks"/>
+			<Option target="windows"/>
+			<Option target="inputlag"/>
+			<Option target="empty"/>
+			<Option target="reopen"/>
+			<Option target="msaa"/>
+			<Option target="cursor"/>
+			<Option target="glfwinfo"/>
+			<Option target="monitors"/>
+			<Option target="events"/>
+			<Option target="icon"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps/glad/glad.h">
+			<Option target="wave"/>
+			<Option target="simple"/>
+			<Option target="sharing"/>
+			<Option target="particles"/>
+			<Option target="heightmap"/>
+			<Option target="splitview"/>
+			<Option target="offscreen"/>
+			<Option target="gears"/>
+			<Option target="boing"/>
+			<Option target="clipboard"/>
+			<Option target="title"/>
+			<Option target="timeout"/>
+			<Option target="threads"/>
+			<Option target="opacity"/>
+			<Option target="gamma"/>
+			<Option target="tearing"/>
+			<Option target="iconify"/>
+			<Option target="joysticks"/>
+			<Option target="windows"/>
+			<Option target="inputlag"/>
+			<Option target="empty"/>
+			<Option target="reopen"/>
+			<Option target="msaa"/>
+			<Option target="cursor"/>
+			<Option target="glfwinfo"/>
+			<Option target="monitors"/>
+			<Option target="events"/>
+			<Option target="icon"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps/tinycthread.c">
+			<Option target="particles"/>
+			<Option target="threads"/>
+			<Option target="empty"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/deps/tinycthread.h">
+			<Option target="particles"/>
+			<Option target="threads"/>
+			<Option target="empty"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/examples/boing.c">
+			<Option target="boing"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/examples/gears.c">
+			<Option target="gears"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/examples/glfw.icns">
+			<Option target="wave"/>
+			<Option target="simple"/>
+			<Option target="sharing"/>
+			<Option target="particles"/>
+			<Option target="heightmap"/>
+			<Option target="splitview"/>
+			<Option target="offscreen"/>
+			<Option target="gears"/>
+			<Option target="boing"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/examples/heightmap.c">
+			<Option target="heightmap"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/examples/offscreen.c">
+			<Option target="offscreen"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/examples/particles.c">
+			<Option target="particles"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/examples/sharing.c">
+			<Option target="sharing"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/examples/simple.c">
+			<Option target="simple"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/examples/splitview.c">
+			<Option target="splitview"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/examples/wave.c">
+			<Option target="wave"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include/GLFW/glfw3.h">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/include/GLFW/glfw3native.h">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/cocoa_init.m">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/cocoa_joystick.h">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/cocoa_joystick.m">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/cocoa_monitor.m">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/cocoa_platform.h">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/cocoa_time.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/cocoa_window.m">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/context.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/egl_context.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/egl_context.h">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/init.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/input.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/internal.h">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/mappings.h">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/monitor.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/nsgl_context.h">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/nsgl_context.m">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/osmesa_context.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/osmesa_context.h">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/posix_thread.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/posix_thread.h">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/vulkan.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/window.c">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/tests/clipboard.c">
+			<Option target="clipboard"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/tests/cursor.c">
+			<Option target="cursor"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/tests/empty.c">
+			<Option target="empty"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/tests/events.c">
+			<Option target="events"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/tests/gamma.c">
+			<Option target="gamma"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/tests/glfwinfo.c">
+			<Option target="glfwinfo"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/tests/icon.c">
+			<Option target="icon"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/tests/iconify.c">
+			<Option target="iconify"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/tests/inputlag.c">
+			<Option target="inputlag"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/tests/joysticks.c">
+			<Option target="joysticks"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/tests/monitors.c">
+			<Option target="monitors"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/tests/msaa.c">
+			<Option target="msaa"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/tests/opacity.c">
+			<Option target="opacity"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/tests/reopen.c">
+			<Option target="reopen"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/tests/tearing.c">
+			<Option target="tearing"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/tests/threads.c">
+			<Option target="threads"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/tests/timeout.c">
+			<Option target="timeout"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/tests/title.c">
+			<Option target="title"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/tests/windows.c">
+			<Option target="windows"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/cmake-build-debug/ThirdParty/glfw/src/glfw_config.h">
+			<Option target="glfw"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ThirdParty\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/assimp-config-version.cmake.in">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/assimp-config.cmake.in">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/assimp.pc.in">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/revision.h.in">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/include/assimp/config.h.in">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\include\assimp\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/cmake-modules/FindDevIL.cmake">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\cmake-modules\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/cmake-modules/FindDirectX.cmake">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\cmake-modules\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/cmake-modules/FindPkgMacros.cmake">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\cmake-modules\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/cmake-modules/FindRT.cmake">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\cmake-modules\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/cmake-modules/FindZLIB.cmake">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\cmake-modules\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/cmake-modules/PrecompiledHeader.cmake">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\cmake-modules\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\contrib\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/contrib/irrXML/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\contrib\irrXML\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/code/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\code\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/assimp_lib/tools/assimp_cmd/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ThirdParty\assimp_lib\tools\assimp_cmd\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ThirdParty\glfw\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/cmake_uninstall.cmake.in">
+			<Option virtualFolder="CMake Files\ThirdParty\glfw\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/CMake/MacOSXBundleInfo.plist.in">
+			<Option virtualFolder="CMake Files\ThirdParty\glfw\CMake\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/CMake/modules/FindVulkan.cmake">
+			<Option virtualFolder="CMake Files\ThirdParty\glfw\CMake\modules\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ThirdParty\glfw\src\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/glfw3.pc.in">
+			<Option virtualFolder="CMake Files\ThirdParty\glfw\src\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/glfw3Config.cmake.in">
+			<Option virtualFolder="CMake Files\ThirdParty\glfw\src\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/src/glfw_config.h.in">
+			<Option virtualFolder="CMake Files\ThirdParty\glfw\src\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/examples/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ThirdParty\glfw\examples\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/glfw/tests/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ThirdParty\glfw\tests\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/vulkan/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ThirdParty\vulkan\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/ThirdParty/vulkan/libs/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ThirdParty\vulkan\libs\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Modules\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Modules/ECS/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Modules\ECS\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Source\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source/Core/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Source\Core\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source/Core/OS/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Source\Core\OS\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source/Core/OS/Input/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Source\Core\OS\Input\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source/Graphics/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Source\Graphics\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source/Graphics/GLFW/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Source\Graphics\GLFW\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source/Graphics/Vulkan/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Source\Graphics\Vulkan\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Source/Scene/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Source\Scene\"/>
+		</Unit>
+		<Unit filename="/Users/nrouzeva/Documents/42_PJ/Soon_engine/Exemples/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\Exemples\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
