@@ -183,7 +183,11 @@ namespace Soon
 		{
 			aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
 
-			Object* obj = new Object(_owner.GetComponent<ObjectOwner>()._owner);
+			Object* obj;
+			if (_owner)
+				obj = new Object(_owner->GetComponent<ObjectOwner>()._owner);
+			else
+				obj = new Object();
 			Mesh& objMesh = obj->AddComponent<Soon::Mesh>();
 			objMesh._path = _path;
 
@@ -209,7 +213,7 @@ namespace Soon
 
 	void Mesh::EnableRender( void )
 	{
-		GraphicsRenderer::GetInstance()->AddVertexToRender(_owner.GetComponent<Transform3D>(), _inf);
+		GraphicsRenderer::GetInstance()->AddVertexToRender(_owner->GetComponent<Transform3D>(), _inf);
 //		for (Object& obj : _owner.GetComponent<ObjectOwner>()._owner->GetChildrens())
 //			obj.EnableRender();
 	}
@@ -222,7 +226,7 @@ namespace Soon
 	void Mesh::LoadMesh(std::string path)
 	{
 		Assimp::Importer importer;
-		const aiScene *scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals);
+		const aiScene *scene = importer.ReadFile(path.c_str(), aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals);
 
 		if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 		{

@@ -3,14 +3,16 @@
 #include <cstring>
 #include "Scene/Common/Texture.hpp"
 
-std::array<char*, 6> files =
+std::array<char const *, 6> files =
 {
+	{
 	"../Ressources/skybox/hw_lagoon/lagoon_bk.tga",
 	"../Ressources/skybox/hw_lagoon/lagoon_rt.tga",
 	"../Ressources/skybox/hw_lagoon/lagoon_dn.tga",
 	"../Ressources/skybox/hw_lagoon/lagoon_ft.tga",
 	"../Ressources/skybox/hw_lagoon/lagoon_up.tga",
 	"../Ressources/skybox/hw_lagoon/lagoon_lf.tga"
+	}
 };
 
 struct TextureCubeMap : Texture
@@ -28,7 +30,10 @@ struct TextureCubeMap : Texture
 		{
 			tmp = stbi_load(files[i], &_width, &_height, &format, STBI_rgb_alpha);
 			if (!tmp)
+			{
+				std::cout << "Failed load files : " << files[i] << std::endl;
 				exit(0);
+			}
 
 			std::cout << "Open Texture : " << files[i] << std::endl;
 			std::cout << _width << " " << _height << std::endl;

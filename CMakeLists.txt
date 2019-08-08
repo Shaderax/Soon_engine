@@ -29,11 +29,18 @@ include_directories(Source)
 include_directories(Modules)
 include_directories(ThirdParty/glfw/include/)
 include_directories(ThirdParty/assimp_lib/include/)
+include_directories(ThirdParty/assimp_lib/code)
 include_directories(ThirdParty/)
+
+LINK_DIRECTORIES(
+	  ${Assimp_BINARY_DIR}
+	    ${Assimp_BINARY_DIR}/lib
+		)
+
 
 project(Soon)
 
-add_compile_options(-Wall -Wextra -g3 )
+add_compile_options(-Wall -Wextra -g3)
 
 add_subdirectory(Source)
 add_subdirectory(Modules)

@@ -1,3 +1,5 @@
+#pragma once
+
 #include "ECS/Component.hpp"
 #include "Core/Math/vec2.hpp"
 #include "Core/Math/vec3.hpp"
@@ -18,17 +20,16 @@ namespace Soon
 	{
 		public:
 
-			Mesh( void )
+			Mesh( void ) : _owner(nullptr)
 			{
 
 			}
 
-			Mesh(Entity& entity)
+			Mesh(Entity& entity) : _owner(&entity)
 			{
-				_owner = entity;
 			}
 
-			~Mesh()
+			~Mesh( void )
 			{
 
 			}
@@ -42,9 +43,6 @@ namespace Soon
 
 			VertexBufferInfo _inf =
 			{
-				0,
-				0,
-				(void*)0
 			};
 
 //			ComponentRenderer _itRender;
@@ -55,6 +53,6 @@ namespace Soon
 
 			Material			_mat;
 		private:
-			Entity				_owner;
+			Entity*				_owner;
 	};
 }

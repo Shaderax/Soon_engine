@@ -8,6 +8,7 @@
 #include <typeinfo>
 #include "ECS/ClassTypeId.hpp"
 
+
 namespace Soon
 {
 		GraphicsRenderer* GraphicsRenderer::_instance = nullptr;

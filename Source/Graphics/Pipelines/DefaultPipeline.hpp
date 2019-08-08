@@ -45,8 +45,9 @@ namespace Soon
 
 			Mesh skybox;
 
-			skybox.LoadMesh("../Ressources/objects/Basics/Cube.obj");
+			skybox.LoadMesh("../Ressources/objects/Basics/cube.obj");
 
+			exit(-1);
 			std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(skybox._inf._vertexSize, skybox._inf._vertexData, false);
 
 			_stagingBuffers.push_back(handler[0]);
@@ -56,6 +57,7 @@ namespace Soon
 			_nbVertex.push_back(skybox._inf._nbVertex);
 			_indexSize.push_back(skybox._inf._indexSize);
 
+
 			Image img;
 			_imagesRenderer.push_back(GraphicsInstance::GetInstance()->CreateTextureImage(&_skybox));
 			img._textureSampler = GraphicsInstance::GetInstance()->CreateTextureSampler();
@@ -64,8 +66,6 @@ namespace Soon
 
 			std::vector<VkDescriptorSet> imageUniform = GraphicsInstance::GetInstance()->CreateImageDescriptorSets(img._imageView, img._textureSampler, _descriptorSetLayout[1]);
 			_uniformsImagesDescriptorSets.push_back(imageUniform);
-
-			/////////////
 		}
 
 		void BindCaller( VkCommandBuffer commandBuffer, uint32_t index )
