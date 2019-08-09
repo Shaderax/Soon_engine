@@ -184,10 +184,12 @@ namespace Soon
 			aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
 
 			Object* obj;
-			if (_owner)
+
+			if (_owner != nullptr)
 				obj = new Object(_owner->GetComponent<ObjectOwner>()._owner);
 			else
 				obj = new Object();
+
 			Mesh& objMesh = obj->AddComponent<Soon::Mesh>();
 			objMesh._path = _path;
 

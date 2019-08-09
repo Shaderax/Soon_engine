@@ -22,7 +22,6 @@ namespace Soon
 
 			Mesh( void ) : _owner(nullptr)
 			{
-
 			}
 
 			Mesh(Entity& entity) : _owner(&entity)

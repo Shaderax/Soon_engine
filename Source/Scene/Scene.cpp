@@ -14,7 +14,7 @@ namespace Soon
 
 	void Scene::AddObject( Object* parent, Object* obj )
 	{
-		if (parent)
+		if (parent != nullptr)
 		{
 			if (parent->_scene != this)
 				std::cout << "Parent Not in Scene" << std::endl;

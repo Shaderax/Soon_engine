@@ -70,6 +70,7 @@ namespace Soon
 
 	Scene* Engine::GetCurrentScene( void )
 	{
+        std::cout << "KECECE CETTE MERDE ?" << std::endl;
 		return (_currentScene);
 	}
 }
