@@ -1,8 +1,10 @@
 #pragma once
 
+#include "ECS/ClassTypeId.hpp"
+
 namespace Soon
 {
-	Load3dObj( std::string path )
+	std::vector<Mesh> LoadMesh( std::string path )
 	{
 		
 	}
@@ -12,10 +14,10 @@ namespace Soon
 	{
 		std::vector<T> ret;
 
-		if(path.substr(path.find_last_of(".") + 1) == "obj")
+		if (typeid(T) == typeid(Mesh))
 		{
 			std::cout << "Loading obj file" << std:endl;
-			Load3dObj(path);
+			ret = LoadMesh(path);
 		}
 		else
 			std::cout << "Error : Wut kind of template is that ?" << std::endl;
@@ -23,3 +25,24 @@ namespace Soon
 		return (ret);
 	}
 }
+
+
+
+
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/
