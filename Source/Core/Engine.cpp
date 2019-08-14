@@ -20,6 +20,7 @@ namespace Soon
 	{
 		new OS;
 		OS::GetInstance()->Initialize();
+		InitRessourceImporter();
 		NewScene();
 
 		return (true);
