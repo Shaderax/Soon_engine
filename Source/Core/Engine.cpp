@@ -3,6 +3,8 @@
 #include "ECS/World.hpp"
 #include "Graphics/Vulkan/GraphicsRenderer.hpp"
 
+#include "Core/Parsers/InitRessourceImporter.hpp"
+
 namespace Soon
 {
 	Engine::Engine( void ) :

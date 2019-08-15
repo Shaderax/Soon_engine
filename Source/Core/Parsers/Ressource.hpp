@@ -7,11 +7,11 @@ namespace Soon
 	template<class T>
 		class Resource
 		{
-			std::vector<T> GetData( void )
+			T GetData( void )
 			{
 				return (_data);
 			}
 
-			std::vector<T> _data;
+			T _data;
 		};
 }

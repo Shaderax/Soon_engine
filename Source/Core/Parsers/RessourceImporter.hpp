@@ -14,9 +14,11 @@ namespace Soon
 
 		public:
 
-			RessourceImporter* GetSingleton( void )
+			RessourceImporter GetSingleton( void )
 			{
-				return (_singleton);
+				static RessourceImporter singleton;
+
+				return (singleton);
 			}
 
 			template<class T>
@@ -24,6 +26,8 @@ namespace Soon
 				{
 					T* imp = new T;
 					importers.push_back(imp);
+	//		std::map< std::string ext, Importer* >		_extToImporter;
+	//		std::map< uint32_t type, Importer* >		_typeToImporter;
 
 					return (importers.back());
 				}
@@ -32,7 +36,7 @@ namespace Soon
 			{
 				for (Importer* imp : _importers)
 				{
-					for (std::string extension : strsplit(imp->valid_extension(), ';'))
+					for (std::string extension : imp->valid_extension())
 						if (ext == extension)
 							return (imp);
 				}
@@ -42,9 +46,8 @@ namespace Soon
 			template<class T>
 				Ressource Loader( std::string path )
 				{
-					Ressource<T> res;
+//					Ressource<T> res;
 
-					std::string ext = path.substr(fn.find_last_of(".") + 1);
 					Importer* imp = GetValidImporter(ext);
 					if (!imp)
 					{
@@ -53,12 +56,11 @@ namespace Soon
 						exit(-1);
 					}
 					else
-						res = imp->import("path");
+						res = imp->import(path);
 					return (res);
 				}
 
 			std::list<Importer*>	_importers;
-			RessourceImporter*		_singleton = nullptr;
 			std::map< std::string ext, Importer* >		_extToImporter;
 			std::map< uint32_t type, Importer* >		_typeToImporter;
 	};
@@ -75,14 +77,13 @@ namespace Soon
 	//////////////
 	RessourceImporter::GetSingleton()->AddImporter<MeshImporter>();
 	RessourceImporter::GetSingleton()->AddImporter<TextureImporter>();
-	RessourceImporter::GetSingleton()->AddImporter<TextureImporter>();
-	RessourceImporter::GetSingleton()->AddImporter<TextureImporter>();
-	RessourceImporter::GetSingleton()->AddImporter<TextureImporter>();
-	RessourceImporter::GetSingleton()->AddImporter<TextureImporter>();
-	RessourceImporter::GetSingleton()->AddImporter<TextureImporter>();
-	RessourceImporter::GetSingleton()->AddImporter<TextureImporter>();
-	RessourceImporter::GetSingleton()->AddImporter<TextureImporter>();
-	RessourceImporter::GetSingleton()->AddImporter<TextureImporter>();
-	RessourceImporter::GetSingleton()->AddImporter<TextureImporter>();
-	RessourceImporter::GetSingleton()->AddImporter<TextureImporter>();
+	RessourceImporter::GetSingleton()->AddImporter<CACAOUETImporter>();
    */
+
+   Ressource res = RessourceImporter::GetSingleton()->Loader<Mesh>("Coucou.obj");
+   Ressource res = RessourceImporter::GetSingleton()->Loader<Texture>("Coucou.png");
+   if img ; res = Texture;
+   	res.data = ArrayMesh
+	how Mesh become ArrayMesh List<Mesh> ?
+	Import do that so there is no template things
+*/	
