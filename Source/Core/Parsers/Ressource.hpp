@@ -12,6 +12,6 @@ namespace Soon
 				return (_data);
 			}
 
-			T _data;
+			std::vector<T> _data;
 		};
 }

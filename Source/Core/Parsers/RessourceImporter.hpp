@@ -73,7 +73,6 @@ namespace Soon
 	///////////
 	std::vector<Object*> obj = Instantiate<Mesh>(vec);
 
-
 	//////////////
 	RessourceImporter::GetSingleton()->AddImporter<MeshImporter>();
 	RessourceImporter::GetSingleton()->AddImporter<TextureImporter>();
@@ -86,4 +85,12 @@ namespace Soon
    	res.data = ArrayMesh
 	how Mesh become ArrayMesh List<Mesh> ?
 	Import do that so there is no template things
+
+
+
+
+
+   Ressource res = RessourceImporter::GetSingleton()->Loader<Mesh>("Coucou.obj");
+   Ressource == Mesh or MeshArray
+   MeshArray am = res.GetData();
 */	
