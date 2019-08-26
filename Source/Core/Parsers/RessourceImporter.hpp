@@ -67,30 +67,35 @@ namespace Soon
 }
 
 /*
-   Ressource res = RessourceImporter::GetSingleton()->Loader<Mesh>("Coucou.obj");
-	std::vector<Mesh> vec = res.GetData();
-
 	///////////
 	std::vector<Object*> obj = Instantiate<Mesh>(vec);
-
 	//////////////
+	
 	RessourceImporter::GetSingleton()->AddImporter<MeshImporter>();
 	RessourceImporter::GetSingleton()->AddImporter<TextureImporter>();
 	RessourceImporter::GetSingleton()->AddImporter<CACAOUETImporter>();
-   */
 
-   Ressource res = RessourceImporter::GetSingleton()->Loader<Mesh>("Coucou.obj");
-   Ressource res = RessourceImporter::GetSingleton()->Loader<Texture>("Coucou.png");
-   if img ; res = Texture;
-   	res.data = ArrayMesh
-	how Mesh become ArrayMesh List<Mesh> ?
-	Import do that so there is no template things
+	Ressource res = RessourceImporter::GetSingleton()->Loader<Mesh>("Coucou.obj");
+	Ressource res = RessourceImporter::GetSingleton()->Loader<Texture>("Coucou.png");
 
+//////////////////////////////////////
+
+	ArrayMesh res = RessourceImporter::GetSingleton().Load<Mesh>();
 
 
+	T Load(str::string path);
 
+	check if importer good
+	/
+	Importer
+	{
+	template<class T>
+		virtual T import(path);
+	}
 
-   Ressource res = RessourceImporter::GetSingleton()->Loader<Mesh>("Coucou.obj");
-   Ressource == Mesh or MeshArray
-   MeshArray am = res.GetData();
+	meshImporter: Importer
+	{
+	template<>
+		ArrayMesh import(path);
+	}
 */	
