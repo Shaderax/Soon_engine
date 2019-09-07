@@ -43,29 +43,29 @@ namespace Soon
 
 			///////////////
 
-			Mesh skybox;
+//			Mesh skybox;
 
-			skybox.LoadMesh("../Ressources/objects/Basics/cube.obj");
+//			skybox.LoadMesh("../Ressources/objects/Basics/cube.obj");
 
 			exit(-1);
-			std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(skybox._inf._vertexSize, skybox._inf._vertexData, false);
+//			std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(skybox._inf._vertexSize, skybox._inf._vertexData, false);
 
-			_stagingBuffers.push_back(handler[0]);
-			_gpuBuffers.push_back(handler[1]._Buffer[0]);
-			_gpuMemoryBuffers.push_back(handler[1]._BufferMemory[0]);
-			_indexBuffers.push_back(GraphicsInstance::GetInstance()->CreateIndexBuffer(skybox._inf));
-			_nbVertex.push_back(skybox._inf._nbVertex);
-			_indexSize.push_back(skybox._inf._indexSize);
+//			_stagingBuffers.push_back(handler[0]);
+//			_gpuBuffers.push_back(handler[1]._Buffer[0]);
+//			_gpuMemoryBuffers.push_back(handler[1]._BufferMemory[0]);
+//			_indexBuffers.push_back(GraphicsInstance::GetInstance()->CreateIndexBuffer(skybox._inf));
+//			_nbVertex.push_back(skybox._inf._nbVertex);
+//			_indexSize.push_back(skybox._inf._indexSize);
 
 
-			Image img;
-			_imagesRenderer.push_back(GraphicsInstance::GetInstance()->CreateTextureImage(&_skybox));
-			img._textureSampler = GraphicsInstance::GetInstance()->CreateTextureSampler();
-			img._imageView = GraphicsInstance::GetInstance()->CreateImageView(_imagesRenderer.back()._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_CUBE);
-			_images.push_back(img);
+//			Image img;
+//			_imagesRenderer.push_back(GraphicsInstance::GetInstance()->CreateTextureImage(&_skybox));
+//			img._textureSampler = GraphicsInstance::GetInstance()->CreateTextureSampler();
+//			img._imageView = GraphicsInstance::GetInstance()->CreateImageView(_imagesRenderer.back()._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_CUBE);
+//			_images.push_back(img);
 
-			std::vector<VkDescriptorSet> imageUniform = GraphicsInstance::GetInstance()->CreateImageDescriptorSets(img._imageView, img._textureSampler, _descriptorSetLayout[1]);
-			_uniformsImagesDescriptorSets.push_back(imageUniform);
+//			std::vector<VkDescriptorSet> imageUniform = GraphicsInstance::GetInstance()->CreateImageDescriptorSets(img._imageView, img._textureSampler, _descriptorSetLayout[1]);
+//			_uniformsImagesDescriptorSets.push_back(imageUniform);
 		}
 
 		void BindCaller( VkCommandBuffer commandBuffer, uint32_t index )

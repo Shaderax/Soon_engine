@@ -1,6 +1,10 @@
 #pragma once
 
 #include "ECS/ClassTypeId.hpp"
+#include "Importer.hpp"
+#include <list>
+#include <unordered_map>
+#include <iostream>
 
 namespace Soon
 {
@@ -14,7 +18,7 @@ namespace Soon
 
 		public:
 
-			RessourceImporter GetSingleton( void )
+			static RessourceImporter GetSingleton( void )
 			{
 				static RessourceImporter singleton;
 
@@ -22,80 +26,47 @@ namespace Soon
 			}
 
 			template<class T>
-				Importer* AddImporter( Importer& imp )
+				Importer* AddImporter( void )
 				{
 					T* imp = new T;
-					importers.push_back(imp);
-	//		std::map< std::string ext, Importer* >		_extToImporter;
-	//		std::map< uint32_t type, Importer* >		_typeToImporter;
+					_importers.push_back(imp);
 
-					return (importers.back());
+					return (_importers.back());
 				}
-
-			Importer* GetValidImporter( std::string ext )
-			{
-				for (Importer* imp : _importers)
-				{
-					for (std::string extension : imp->valid_extension())
-						if (ext == extension)
-							return (imp);
-				}
-				return (nullptr);
-			}
 
 			template<class T>
-				Ressource Loader( std::string path )
+				Importer* GetValidImporter( void )
 				{
-//					Ressource<T> res;
+					for (auto& ok : _importers)
+						if (ClassTypeId<RessourceImporter>::GetId<T>() == ClassTypeId<RessourceImporter>::GetId<T>())
+							return (ok);
+					return (nullptr);
+				}
 
-					Importer* imp = GetValidImporter(ext);
+			template<class T>
+				T Load( std::string path )
+				{
+					T* ret;
+					Importer* imp = GetValidImporter<T>();
 					if (!imp)
 					{
 						std::cout << "Error : Wut kind of template is that ?" << std::endl;
-						std::cout << "Ouais nan tu as merde" << std::endl;
 						exit(-1);
 					}
 					else
-						res = imp->import(path);
-					return (res);
+						ret = imp->import<T>(path);
+					return (*ret);
 				}
 
 			std::list<Importer*>	_importers;
-			std::map< std::string ext, Importer* >		_extToImporter;
-			std::map< uint32_t type, Importer* >		_typeToImporter;
+			std::unordered_map< uint32_t, Importer* >		_typeToImporter;
 	};
 }
 
 /*
-	///////////
-	std::vector<Object*> obj = Instantiate<Mesh>(vec);
-	//////////////
-	
-	RessourceImporter::GetSingleton()->AddImporter<MeshImporter>();
-	RessourceImporter::GetSingleton()->AddImporter<TextureImporter>();
-	RessourceImporter::GetSingleton()->AddImporter<CACAOUETImporter>();
+   MeshImporter* imp =  RessourceImporter::GetSingleton()->AddImporter<MeshImporter>();
+   TextureImporter* imp =  RessourceImporter::GetSingleton()->AddImporter<TextureImporter>();
 
-	Ressource res = RessourceImporter::GetSingleton()->Loader<Mesh>("Coucou.obj");
-	Ressource res = RessourceImporter::GetSingleton()->Loader<Texture>("Coucou.png");
-
-//////////////////////////////////////
-
-	ArrayMesh res = RessourceImporter::GetSingleton().Load<Mesh>();
-
-
-	T Load(str::string path);
-
-	check if importer good
-	/
-	Importer
-	{
-	template<class T>
-		virtual T import(path);
-	}
-
-	meshImporter: Importer
-	{
-	template<>
-		ArrayMesh import(path);
-	}
-*/	
+   ArrayMesh res = RessourceImporter::GetSingleton()->Loader<Mesh>("Coucou.obj");
+   Texture res = RessourceImporter::GetSingleton()->Loader<Texture>("Coucou.png");
+   */	
