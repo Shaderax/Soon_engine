@@ -46,8 +46,9 @@ namespace Soon
 			template<class T>
 				T Load( std::string path )
 				{
-					T* ret;
+					T ret;
 					Importer* imp = GetValidImporter<T>();
+
 					if (!imp)
 					{
 						std::cout << "Error : Wut kind of template is that ?" << std::endl;
@@ -55,7 +56,7 @@ namespace Soon
 					}
 					else
 						ret = imp->import<T>(path);
-					return (*ret);
+					return (ret);
 				}
 
 			std::list<Importer*>	_importers;

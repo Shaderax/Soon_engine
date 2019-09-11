@@ -4,6 +4,8 @@
 #include "Scene/3D/Components/Camera.hpp"
 #include "Scene/Common/TextureCubeMap.hpp"
 #include "Scene/3D/Components/Mesh.hpp"
+#include "Utilities/MeshArray.hpp"
+#include "Core/Parsers/RessourceImporter.hpp"
 
 #include <cstring>
 
@@ -43,9 +45,9 @@ namespace Soon
 
 			///////////////
 
-//			Mesh skybox;
+			Mesh skybox;
 
-//			skybox.LoadMesh("../Ressources/objects/Basics/cube.obj");
+			MeshArray ma = RessourceImporter::GetSingleton().Load<MeshArray>("../Ressources/objects/Basics/cube.obj");
 
 			exit(-1);
 //			std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(skybox._inf._vertexSize, skybox._inf._vertexData, false);
