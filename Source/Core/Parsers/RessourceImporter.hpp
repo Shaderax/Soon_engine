@@ -40,6 +40,7 @@ namespace Soon
 					for (auto& ok : _importers)
 						if (ClassTypeId<RessourceImporter>::GetId<T>() == ClassTypeId<RessourceImporter>::GetId<T>())
 							return (ok);
+
 					return (nullptr);
 				}
 
@@ -65,9 +66,9 @@ namespace Soon
 }
 
 /*
-   MeshImporter* imp =  RessourceImporter::GetSingleton()->AddImporter<MeshImporter>();
-   TextureImporter* imp =  RessourceImporter::GetSingleton()->AddImporter<TextureImporter>();
+   MeshImporter*	imp =  RessourceImporter::GetSingleton()->AddImporter<MeshImporter>();
+   TextureImporter*	imp =  RessourceImporter::GetSingleton()->AddImporter<TextureImporter>();
 
-   ArrayMesh res = RessourceImporter::GetSingleton()->Loader<Mesh>("Coucou.obj");
-   Texture res = RessourceImporter::GetSingleton()->Loader<Texture>("Coucou.png");
-   */	
+   ArrayMesh	res = RessourceImporter::GetSingleton()->Loader<Mesh>("Coucou.obj");
+   Texture		res = RessourceImporter::GetSingleton()->Loader<Texture>("Coucou.png");
+*/	
