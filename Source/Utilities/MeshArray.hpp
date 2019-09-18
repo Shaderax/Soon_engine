@@ -1,14 +1,14 @@
 #pragma once
 
 #include "Scene/3D/Components/Mesh.hpp"
-#include <list>
+#include <vector>
 
 namespace Soon
 {
 	class MeshArray
 	{
 		public:
-			std::list<Mesh> _meshArray;
+			std::vector<Mesh> _meshArray;
 
 			  MeshArray& operator+=(const MeshArray& rhs)
 			  {
@@ -22,6 +22,15 @@ namespace Soon
 				  _meshArray = rhs._meshArray;
 
 				  return (*this);
+			  }
+			  
+			  Mesh& operator[](uint32_t index)
+			  {
+				  if (index >= _meshArray.size())
+				  {
+						std::cout << "Out of range MeshArray[]" << std::endl;
+				  }
+				  return (_meshArray[index]);
 			  }
 	};
 };

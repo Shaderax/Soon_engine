@@ -60,14 +60,12 @@ namespace Soon
 					else
 					{
 						if (imp->import(path))
+							ret = GetRessourceMap<T>()[path];
+						else
 						{
-							//ret = RessourceMap<T>::GetMap()[path];
+							std::cout << "Fail Load" << std::endl;
+							exit(-1);
 						}
-//						else
-//						{
-//							std::cout << "Fail Load" << std::endl;
-//							exit(-1);
-//						}
 					}
 					return (ret);
 				}

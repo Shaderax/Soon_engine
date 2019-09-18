@@ -1,6 +1,7 @@
 #pragma once
 
-#include "ECS/Component.hpp"
+//#include "ECS/Component.hpp"
+#include "Scene/ComponentRenderer.hpp"
 #include "Core/Math/vec2.hpp"
 #include "Core/Math/vec3.hpp"
 #include <vector>
@@ -16,7 +17,7 @@
 namespace Soon
 {
 	// Vertex of a 3D Object
-	class Mesh : public Component
+	class Mesh : public ComponentRenderer
 	{
 		public:
 

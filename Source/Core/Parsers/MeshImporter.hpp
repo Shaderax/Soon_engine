@@ -42,12 +42,8 @@ namespace Soon
 
 			bool import( std::string path )
 			{
-				MeshArray ma;
-
 				Assimp::Importer importer;
-				std::cout << "Avant !" << std::endl;
 				const aiScene *scene = importer.ReadFile(path.c_str(), aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals);
-				std::cout << "Apres !" << std::endl;
 
 				if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 				{
@@ -57,9 +53,10 @@ namespace Soon
 
 				_path = path.substr(0, path.find_last_of('/'));
 
-				ma = ProcessNode(scene->mRootNode, scene);
+				MeshArray ma = ProcessNode(scene->mRootNode, scene);
 
 				GetRessourceMap<MeshArray>().emplace(std::make_pair(path, ma));
+//				GetRessourceMap<MeshArray>()[path] =  ma;
 
 				return (true);
 			}

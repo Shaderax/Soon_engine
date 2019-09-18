@@ -10,6 +10,8 @@
 #include "ECS/World.hpp"
 #include "Scene/3D/Components/DirectionalLight.hpp"
 #include "Scene/3D/Components/ParticlesSystem.hpp"
+#include "Utilities/MeshArray.hpp"
+#include "Core/Parsers/RessourceImporter.hpp"
 
 Soon::Engine& engine = Soon::Engine::GetInstance();
 
@@ -44,7 +46,8 @@ int main(int argc, char**argv)
 
 //	Soon::Object Particles;
 //	Particles.AddComponent<Soon::ParticlesSystem>();
-//	Maya.AddComponent<Soon::Mesh>();
+	Maya.AddComponent<Soon::Mesh>();
+	Soon::MeshArray ar = Soon::RessourceImporter::GetSingleton().Load<Soon::MeshArray>("../Ressources/objects/Borderlands 2 - Maya/untitled.obj");
 //	Maya.GetComponent<Soon::Mesh>().LoadMesh("../Ressources/objects/Borderlands 2 - Maya/untitled.obj");
 //	Maya.GetComponent<Soon::Mesh>().LoadMesh("../Ressources/objects/Borderlands 2 - Maya/maya.obj");
 //	Maya.GetComponent<Soon::Mesh>().LoadMesh("../Ressources/objects/Test/test.obj");
@@ -64,3 +67,17 @@ int main(int argc, char**argv)
 	}
 	return (0);
 }
+
+/*
+	MeshArray ma = Load<MeshArray>("../Coucou.obj");
+	Instantiate(parent, ma);
+
+
+
+
+
+
+
+
+
+*/

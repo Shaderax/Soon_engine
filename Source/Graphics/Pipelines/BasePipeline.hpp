@@ -8,7 +8,7 @@ enum PipelineType
 
 struct BasePipeline
 {
-	BasePipeline()
+	BasePipeline( void )
 	{
 
 	}
