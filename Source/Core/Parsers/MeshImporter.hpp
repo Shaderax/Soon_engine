@@ -1,5 +1,7 @@
 #pragma once
 
+#include "RessourceMap.hpp"
+
 #include "Importer.hpp"
 #include "RessourceImporter.hpp"
 #include "ECS/ClassTypeId.hpp"
@@ -21,42 +23,45 @@
 
 #include "Graphics/Pipelines/DefaultVertexPipeline.hpp"
 ////
+//
 
 namespace Soon
 {
 	class MeshImporter : public Importer
 	{
+		typedef MeshArray ValidType;
 		public:
 			std::string _path;
-			MeshImporter( void ) {};
+			MeshImporter( void ) { };
 			~MeshImporter( void ) {};
 
-			bool valid_type( std::string ext )
+			uint32_t IdValidType( void )
 			{
-				return (ClassTypeId<RessourceImporter>::GetId<Mesh>());
+				return (ClassTypeId<RessourceImporter>::GetId<ValidType>());
 			}
 
-			template<>
-			MeshArray import<MeshArray>( std::string path )
+			bool import( std::string path )
 			{
 				MeshArray ma;
 
-				std::cout << "On est entre et tout est bon !" << std::endl;
-
 				Assimp::Importer importer;
+				std::cout << "Avant !" << std::endl;
 				const aiScene *scene = importer.ReadFile(path.c_str(), aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals);
+				std::cout << "Apres !" << std::endl;
 
 				if(!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 				{
 					std::cout << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
-					return ma;
+					return false;
 				}
 
 				_path = path.substr(0, path.find_last_of('/'));
 
 				ma = ProcessNode(scene->mRootNode, scene);
 
-				return (ma);
+				GetRessourceMap<MeshArray>().emplace(std::make_pair(path, ma));
+
+				return (true);
 			}
 
 			void ProcessMesh(Mesh& objMesh, aiMesh *mesh, const aiScene *scene)

@@ -33,10 +33,6 @@ namespace Soon
 
 			}
 
-			void ProcessNode(aiNode *node, const aiScene *scene);
-			void LoadMesh(std::string path);
-			void ProcessMesh(Mesh& objMesh, aiMesh *mesh, const aiScene *scene);
-			void LoadMaterialTextures(Material* material, aiMaterial *mat, aiTextureType type, std::string typeName);
 			void EnableRender( void );
 			void DisableRender( void );
 

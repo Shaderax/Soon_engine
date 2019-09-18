@@ -16,7 +16,7 @@ namespace Soon
 	public:
 		std::vector< Transform3D* >	_transforms;
 		UniformSets			_uniformCamera;
-		TextureCubeMap			_skybox;
+//		TextureCubeMap			_skybox;
 
 		std::vector< ImageRenderer >			_imagesRenderer;
 		std::vector< std::vector< VkDescriptorSet > >	_uniformsImagesDescriptorSets;
@@ -31,23 +31,23 @@ namespace Soon
 
 		DefaultPipeline( void )
 		{
-			_descriptorSetLayout = GraphicsInstance::GetInstance()->CreateDescriptorSetLayout( GetLayoutBinding() );
-			_pipelineLayout = GraphicsInstance::GetInstance()->CreatePipelineLayout(_descriptorSetLayout);
-			_graphicPipeline = GraphicsInstance::GetInstance()->CreateGraphicsPipeline(
-					_pipelineLayout,
-					GetBindingDescription(),
-					GetAttributeDescriptions(),
-					GraphicsInstance::ShaderType::VERTEX_FRAGMENT,
-					"../Source/Graphics/Shaders/DefaultPipeline.vert.spv",
-					"../Source/Graphics/Shaders/DefaultPipeline.frag.spv");
-
-			_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), _descriptorSetLayout, 0);
+//			_descriptorSetLayout = GraphicsInstance::GetInstance()->CreateDescriptorSetLayout( GetLayoutBinding() );
+//			_pipelineLayout = GraphicsInstance::GetInstance()->CreatePipelineLayout(_descriptorSetLayout);
+//			_graphicPipeline = GraphicsInstance::GetInstance()->CreateGraphicsPipeline(
+//					_pipelineLayout,
+//					GetBindingDescription(),
+//					GetAttributeDescriptions(),
+//					GraphicsInstance::ShaderType::VERTEX_FRAGMENT,
+//					"../Source/Graphics/Shaders/DefaultPipeline.vert.spv",
+//					"../Source/Graphics/Shaders/DefaultPipeline.frag.spv");
+//
+//			_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), _descriptorSetLayout, 0);
 
 			///////////////
 
 			Mesh skybox;
 
-			MeshArray ma = RessourceImporter::GetSingleton().Load<MeshArray>("../Ressources/objects/Basics/cube.obj");
+			MeshArray ma = RessourceImporter::GetSingleton().Load<MeshArray>("../Ressources/objects/Basics/Cube.obj");
 
 			exit(-1);
 //			std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(skybox._inf._vertexSize, skybox._inf._vertexData, false);

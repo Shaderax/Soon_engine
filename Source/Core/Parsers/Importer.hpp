@@ -6,6 +6,7 @@ namespace Soon
 {
 	struct Importer
 	{
-		uint32_t import( std::string path ) { std::cout << "Je suis la fonction Import de base !" << std::endl;};
+		virtual uint32_t IdValidType( void ) = 0;
+		virtual bool import( std::string path ) = 0;
 	};
 }

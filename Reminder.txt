@@ -1,42 +1,32 @@
-class BaseGr
+Importer
 {
-	virtual UpdateData( int CurrentImage ); 
-};
-
-class ComputeShader : BaseGr
-{
-	Update();
-};
-
-class DefaultShader : BaseGr
-{
-	std::vector< uint32_t >         _nbVertex;
-	Update();
-};
-
-Class Renderer
-{
-	std:vector<BaseGr*> _vectorGraphicPipeline;
-};
-
-int main()
-{
-	Son::Object Maya;
-	Maya.AddComponent<Soon::Mesh>();
-	Maya.GetComponent<Soon::Mesh>().LoadMesh("ICI");
-
-	Soon::Object Particles;
-	Particles.AddComponent<Soon::SystemParticles>();
-
-//	for (auto& pipeline : Renderer::_vectorGraphicPipeline)
-//	{
-//		pipeline.UpdateData();
-//	}
+	uint32_t import(std::string path);
 }
 
-Mais UpdateData a besoin du _device du Graphicsinstance, alors ... .
-Soit je fais un GetDevice();
-Soit les pipelines sont stoke dans la class GraphicsInstance;
+MeshImporter : Importer 
+{
 
-Puis-Je avoir Un truc de creation de layout dynamic ?
-Faiut lancer CreateDescriptorSetLayout avec une struct en param.
+}
+
+RessourceImporter
+{
+	GetGoodImp()
+	{
+
+	}
+
+	template<typename T>
+	T Load(std::string path)
+	{
+		Importer* imp = GetGoodImp<T>();
+		uint32_t yey = imp.import(path);
+		unordered_map<string, T> map = RessourceMap<T>::GetMap();
+		if (yey exist in map)
+			return (map["path"]);
+	}
+}
+
+
+Check si deja load
+::
+Siffit de check la string avec le type au bebut et si ya on return ca.

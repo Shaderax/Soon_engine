@@ -1,5 +1,6 @@
 #pragma once
 
+#include "RessourceMap.hpp"
 #include "ECS/ClassTypeId.hpp"
 #include "Importer.hpp"
 #include <list>
@@ -13,12 +14,11 @@ namespace Soon
 		private:
 			RessourceImporter( void )
 			{
-
 			}
 
 		public:
 
-			static RessourceImporter GetSingleton( void )
+			static RessourceImporter& GetSingleton( void )
 			{
 				static RessourceImporter singleton;
 
@@ -28,7 +28,7 @@ namespace Soon
 			template<class T>
 				Importer* AddImporter( void )
 				{
-					T* imp = new T;
+					Importer* imp = new T;
 					_importers.push_back(imp);
 
 					return (_importers.back());
@@ -37,9 +37,11 @@ namespace Soon
 			template<class T>
 				Importer* GetValidImporter( void )
 				{
-					for (auto& ok : _importers)
-						if (ClassTypeId<RessourceImporter>::GetId<T>() == ClassTypeId<RessourceImporter>::GetId<T>())
+					for (Importer* ok : _importers)
+					{
+						if (ok->IdValidType() == ClassTypeId<RessourceImporter>::GetId<T>())
 							return (ok);
+					}
 
 					return (nullptr);
 				}
@@ -52,23 +54,24 @@ namespace Soon
 
 					if (!imp)
 					{
-						std::cout << "Error : Wut kind of template is that ?" << std::endl;
+						std::cout << "Not found valid Importer" << std::endl;
 						exit(-1);
 					}
 					else
-						ret = imp->import<T>(path);
+					{
+						if (imp->import(path))
+						{
+							//ret = RessourceMap<T>::GetMap()[path];
+						}
+//						else
+//						{
+//							std::cout << "Fail Load" << std::endl;
+//							exit(-1);
+//						}
+					}
 					return (ret);
 				}
 
 			std::list<Importer*>	_importers;
-			std::unordered_map< uint32_t, Importer* >		_typeToImporter;
 	};
 }
-
-/*
-   MeshImporter*	imp =  RessourceImporter::GetSingleton()->AddImporter<MeshImporter>();
-   TextureImporter*	imp =  RessourceImporter::GetSingleton()->AddImporter<TextureImporter>();
-
-   ArrayMesh	res = RessourceImporter::GetSingleton()->Loader<Mesh>("Coucou.obj");
-   Texture		res = RessourceImporter::GetSingleton()->Loader<Texture>("Coucou.png");
-*/	

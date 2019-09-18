@@ -3,6 +3,15 @@ cmake_minimum_required (VERSION 3.10)
 #execute_process(COMMAND source export.sh)
 set (CMAKE_CXX_STANDARD 11)
 
+set(GLFW_BUILD_EXAMPLES "Build the GLFW example programs" OFF FORCE)
+set(GLFW_BUILD_TESTS "Build the GLFW test programs" OFF FORCE)
+set ( ASSIMP_BUILD_TESTS
+  "If the test suite for Assimp is built in addition to the library."
+  OFF FORCE
+)
+
+
+
 if (UNIX AND NOT APPLE)
 	set(CMAKE_CXX_COMPILER /usr/bin/g++-8)
 	execute_process(COMMAND apt-get install libx11-dev)

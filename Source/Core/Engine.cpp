@@ -20,9 +20,9 @@ namespace Soon
 
 	bool Engine::Init( void )
 	{
+		InitRessourceImporter();
 		new OS;
 		OS::GetInstance()->Initialize();
-		InitRessourceImporter();
 		NewScene();
 
 		return (true);
