@@ -1240,9 +1240,9 @@ namespace Soon
 
 		CreateImage(texture->_width, texture->_width, texture->_tType, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, ir._textureImage, ir._textureImageMemory);
 
-		TransitionImageLayout(ir._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
-		CopyBufferToImage(stagingBuffer, ir._textureImage, static_cast<uint32_t>(texture->_width), static_cast<uint32_t>(texture->_height));
-		TransitionImageLayout(ir._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+		TransitionImageLayout(ir._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, texture->_tType == TEXTURE_2D ? VK_IMAGE_VIEW_TYPE_2D : VK_IMAGE_VIEW_TYPE_CUBE);
+		CopyBufferToImage(stagingBuffer, ir._textureImage, static_cast<uint32_t>(texture->_width), static_cast<uint32_t>(texture->_height), texture->_tType == TEXTURE_2D ? VK_IMAGE_VIEW_TYPE_2D : VK_IMAGE_VIEW_TYPE_CUBE);
+		TransitionImageLayout(ir._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, texture->_tType == TEXTURE_2D ? VK_IMAGE_VIEW_TYPE_2D : VK_IMAGE_VIEW_TYPE_CUBE);
 
 		vkDestroyBuffer(_device, stagingBuffer, nullptr);
 		vkFreeMemory(_device, stagingBufferMemory, nullptr);
@@ -1329,7 +1329,7 @@ namespace Soon
 		vkFreeCommandBuffers(_device, _commandPool, 1, &commandBuffer);
 	}
 
-	void GraphicsInstance::TransitionImageLayout(VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout)
+	void GraphicsInstance::TransitionImageLayout(VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout, VkImageViewType vType)
 	{
 		VkCommandBuffer commandBuffer = BeginSingleTimeCommands();
 
@@ -1354,7 +1354,7 @@ namespace Soon
 		barrier.subresourceRange.baseMipLevel = 0;
 		barrier.subresourceRange.levelCount = 1;
 		barrier.subresourceRange.baseArrayLayer = 0;
-		barrier.subresourceRange.layerCount = 1;
+		barrier.subresourceRange.layerCount = vType == VK_IMAGE_VIEW_TYPE_2D ? 1 : 6;
 
 		VkPipelineStageFlags sourceStage;
 		VkPipelineStageFlags destinationStage;
@@ -1400,7 +1400,7 @@ namespace Soon
 		EndSingleTimeCommands(commandBuffer);
 	}
 
-	void GraphicsInstance::CopyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height)
+	void GraphicsInstance::CopyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height, VkImageViewType vType)
 	{
 		VkCommandBuffer commandBuffer = BeginSingleTimeCommands();
 
@@ -1411,7 +1411,7 @@ namespace Soon
 		region.imageSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
 		region.imageSubresource.mipLevel = 0;
 		region.imageSubresource.baseArrayLayer = 0;
-		region.imageSubresource.layerCount = 1;
+		region.imageSubresource.layerCount = vType == VK_IMAGE_VIEW_TYPE_2D ? 1 : 6;
 		region.imageOffset = {0, 0, 0};
 		region.imageExtent = {
 			width,
@@ -1694,7 +1694,7 @@ namespace Soon
 		CreateImage(_swapChainExtent.width, _swapChainExtent.height, TextureType::TEXTURE_2D, depthFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, _depthImage, _depthImageMemory);
 		_depthImageView = CreateImageView(_depthImage, depthFormat, VK_IMAGE_ASPECT_DEPTH_BIT, VK_IMAGE_VIEW_TYPE_2D);
 
-		TransitionImageLayout(_depthImage, depthFormat, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
+		TransitionImageLayout(_depthImage, depthFormat, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, VK_IMAGE_VIEW_TYPE_2D);
 	}
 
 	//////////// GETTER ////////////

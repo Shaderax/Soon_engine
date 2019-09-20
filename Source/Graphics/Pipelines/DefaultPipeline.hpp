@@ -45,27 +45,27 @@ namespace Soon
 
 			///////////////
 
-			MeshArray ma = RessourceImporter::GetSingleton().Load<MeshArray>("../Ressources/objects/Basics/Cube.obj");
+			MeshArray ma = RessourceImporter::GetSingleton().Load<MeshArray>("../Ressources/objects/Basics/cube2.obj");
 
 			Mesh skybox = ma[0];
 
-//			std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(skybox._inf._vertexSize, skybox._inf._vertexData, false);
+			std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(skybox._inf._vertexSize, skybox._inf._vertexData, false);
 
-//			_stagingBuffers.push_back(handler[0]);
-//			_gpuBuffers.push_back(handler[1]._Buffer[0]);
-//			_gpuMemoryBuffers.push_back(handler[1]._BufferMemory[0]);
-//			_indexBuffers.push_back(GraphicsInstance::GetInstance()->CreateIndexBuffer(skybox._inf));
-//			_nbVertex.push_back(skybox._inf._nbVertex);
-//			_indexSize.push_back(skybox._inf._indexSize);
+			_stagingBuffers.push_back(handler[0]);
+			_gpuBuffers.push_back(handler[1]._Buffer[0]);
+			_gpuMemoryBuffers.push_back(handler[1]._BufferMemory[0]);
+			_indexBuffers.push_back(GraphicsInstance::GetInstance()->CreateIndexBuffer(skybox._inf));
+			_nbVertex.push_back(skybox._inf._nbVertex);
+			_indexSize.push_back(skybox._inf._indexSize);
 
-//			Image img;
-//			_imagesRenderer.push_back(GraphicsInstance::GetInstance()->CreateTextureImage(&_skybox));
-//			img._textureSampler = GraphicsInstance::GetInstance()->CreateTextureSampler();
-//			img._imageView = GraphicsInstance::GetInstance()->CreateImageView(_imagesRenderer.back()._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_CUBE);
-//			_images.push_back(img);
+			Image img;
+			_imagesRenderer.push_back(GraphicsInstance::GetInstance()->CreateTextureImage(&_skybox));
+			img._textureSampler = GraphicsInstance::GetInstance()->CreateTextureSampler();
+			img._imageView = GraphicsInstance::GetInstance()->CreateImageView(_imagesRenderer.back()._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_CUBE);
+			_images.push_back(img);
 
-//			std::vector<VkDescriptorSet> imageUniform = GraphicsInstance::GetInstance()->CreateImageDescriptorSets(img._imageView, img._textureSampler, _descriptorSetLayout[1]);
-//			_uniformsImagesDescriptorSets.push_back(imageUniform);
+			std::vector<VkDescriptorSet> imageUniform = GraphicsInstance::GetInstance()->CreateImageDescriptorSets(img._imageView, img._textureSampler, _descriptorSetLayout[1]);
+			_uniformsImagesDescriptorSets.push_back(imageUniform);
 		}
 
 		void BindCaller( VkCommandBuffer commandBuffer, uint32_t index )
@@ -77,7 +77,7 @@ namespace Soon
 			vkCmdBindVertexBuffers(commandBuffer, 0, 1, &_gpuBuffers.at(0), offsets);
 			vkCmdBindIndexBuffer(commandBuffer, _indexBuffers.at(0)._Buffer[0], 0, VK_INDEX_TYPE_UINT32);
 			vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 0, 1, &(_uniformCamera._descriptorSets.at(index)), 0, nullptr);
-			vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 2, 1, &_uniformsImagesDescriptorSets.at(0).at(index), 0, nullptr);
+			vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 1, 1, &_uniformsImagesDescriptorSets.at(0).at(index), 0, nullptr);
 
 			vkCmdDrawIndexed(commandBuffer, _indexSize.at(0), 1, 0, 0, 0);
 		}
@@ -90,6 +90,10 @@ namespace Soon
 		void RecreateUniforms( void )
 		{
 			_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), _descriptorSetLayout, 0);
+
+			// TO Delete
+			std::vector<VkDescriptorSet> imageUniform = GraphicsInstance::GetInstance()->CreateImageDescriptorSets(_images.back()._imageView, _images.back()._textureSampler, _descriptorSetLayout[1]);
+			_uniformsImagesDescriptorSets[0] = imageUniform;
 		}
 
 		void UpdateData( int currentImage )
@@ -172,6 +176,13 @@ namespace Soon
 
 		void RecreatePipeline( void )
 		{
+			_graphicPipeline = GraphicsInstance::GetInstance()->CreateGraphicsPipeline(
+					_pipelineLayout,
+					GetBindingDescription(),
+					GetAttributeDescriptions(),
+					GraphicsInstance::ShaderType::VERTEX_FRAGMENT,
+					"../Source/Graphics/Shaders/DefaultPipeline.vert.spv",
+					"../Source/Graphics/Shaders/DefaultPipeline.frag.spv");
 
 		}
 

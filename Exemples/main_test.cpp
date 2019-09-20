@@ -12,6 +12,7 @@
 #include "Scene/3D/Components/ParticlesSystem.hpp"
 #include "Utilities/MeshArray.hpp"
 #include "Core/Parsers/RessourceImporter.hpp"
+#include "Scene/Instantiate.hpp"
 
 Soon::Engine& engine = Soon::Engine::GetInstance();
 
@@ -42,12 +43,12 @@ int main(int argc, char**argv)
 	Camera.AddComponent<Soon::Camera3D>();
 	Camera.AddComponent<ObjectControler>();
 
-	Soon::Object Maya;
-
 //	Soon::Object Particles;
 //	Particles.AddComponent<Soon::ParticlesSystem>();
-	Maya.AddComponent<Soon::Mesh>();
-	Soon::MeshArray ar = Soon::RessourceImporter::GetSingleton().Load<Soon::MeshArray>("../Ressources/objects/Borderlands 2 - Maya/untitled.obj");
+//	Soon::Mesh mesh = Maya.AddComponent<Soon::Mesh>();
+//	Soon::MeshArray ar = Soon::RessourceImporter::GetSingleton().Load<Soon::MeshArray>("../Ressources/objects/Borderlands 2 - Maya/untitled.obj");
+//	Soon::Object* Maya = Instantiate(ar);
+
 //	Maya.GetComponent<Soon::Mesh>().LoadMesh("../Ressources/objects/Borderlands 2 - Maya/untitled.obj");
 //	Maya.GetComponent<Soon::Mesh>().LoadMesh("../Ressources/objects/Borderlands 2 - Maya/maya.obj");
 //	Maya.GetComponent<Soon::Mesh>().LoadMesh("../Ressources/objects/Test/test.obj");
@@ -67,17 +68,3 @@ int main(int argc, char**argv)
 	}
 	return (0);
 }
-
-/*
-	MeshArray ma = Load<MeshArray>("../Coucou.obj");
-	Instantiate(parent, ma);
-
-
-
-
-
-
-
-
-
-*/

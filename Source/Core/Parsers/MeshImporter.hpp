@@ -56,7 +56,6 @@ namespace Soon
 				MeshArray ma = ProcessNode(scene->mRootNode, scene);
 
 				GetRessourceMap<MeshArray>().emplace(std::make_pair(path, ma));
-//				GetRessourceMap<MeshArray>()[path] =  ma;
 
 				return (true);
 			}
@@ -223,9 +222,9 @@ namespace Soon
 				//		return textures;
 			}
 
-			MeshArray ProcessNode(aiNode *node, const aiScene *scene)
+			MeshArray& ProcessNode(aiNode *node, const aiScene *scene)
 			{
-				MeshArray ma;
+				MeshArray* ma = new MeshArray();
 				//process all the node's meshes (if any)
 				for(unsigned int i = 0; i < node->mNumMeshes; i++)
 				{
@@ -242,7 +241,6 @@ namespace Soon
 					objMesh._path = _path;
 
 					ProcessMesh(objMesh, mesh, scene);
-					ma._meshArray.push_back(objMesh);
 
 					objMesh._inf._nbVertex = objMesh._vertices.size();
 					std::cout << "My Parser : Nb Vertice : " << objMesh._inf._nbVertex << std::endl;
@@ -253,12 +251,15 @@ namespace Soon
 					std::cout << "My Parser : indexSize : " << objMesh._inf._indexSize << std::endl;
 					objMesh._inf._indexData = objMesh._indices.data();
 					objMesh._inf._material = &(objMesh._mat);
+
+					(*ma)._meshArray.push_back(objMesh);
+
 					//			GraphicsRenderer::GetInstance()->AddVertexToRender(_owner.GetComponent<Transform3D>(), objMesh._inf);
 				}
 				// then do the same for each of its children
 				for(unsigned int i = 0; i < node->mNumChildren; i++)
-					ma += ProcessNode(node->mChildren[i], scene);
-				return (ma);
+					*ma += ProcessNode(node->mChildren[i], scene);
+				return (*ma);
 			}
 	};
 }

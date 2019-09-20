@@ -15,6 +15,8 @@ layout(location = 0) out vec3 fragTexCubeCoord;
 
 void main()
 {
-	fragTexCubeCoord = inTexCoord;
-	gl_Position = uc.proj * uc.view * vec4(1.0f);
+	fragTexCubeCoord = inPos;
+	fragTexCubeCoord.x *= -1.0f;
+	vec3 position = mat3(uc.view) * inPos;
+	gl_Position = uc.proj * vec4(position, 1.0f);
 }

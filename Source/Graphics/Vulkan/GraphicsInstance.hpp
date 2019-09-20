@@ -194,8 +194,8 @@ namespace Soon
 			void 	CreateImage(uint32_t width, uint32_t height, TextureType tType, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory);
 			VkCommandBuffer BeginSingleTimeCommands( void );
 			void	EndSingleTimeCommands(VkCommandBuffer commandBuffer);
-			void 	TransitionImageLayout(VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);
-			void 	CopyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height);
+			void 	TransitionImageLayout(VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout, VkImageViewType vType);
+			void 	CopyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height, VkImageViewType vType);
 			VkSampler	CreateTextureSampler( void );
 //			void	CreateTextureImageView( void );
 			BufferRenderer CreateIndexBuffer( VertexBufferInfo inf );
