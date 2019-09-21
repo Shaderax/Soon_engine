@@ -34,12 +34,11 @@ namespace Soon
 
 			}
 
-			void EnableRender( void );
-			void DisableRender( void );
+			void EnableRender( void ) {};
+			void DisableRender( void ) {};
 
 			VertexBufferInfo _inf =
-			{
-			};
+			{};
 
 //			ComponentRenderer _itRender;
 
@@ -47,7 +46,6 @@ namespace Soon
 			std::vector<uint32_t>		_indices;
 			std::string					_path;
 
-			Material			_mat;
 		private:
 			Entity*				_owner;
 	};

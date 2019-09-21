@@ -33,36 +33,18 @@ namespace Soon
 		void				AddLightToRender( Transform3D& tr, DirectionalLight* dl);
 		void				AddParticlesSystemToRender( Transform3D& tr, ParticlesSystem *ps );
 
-
 		// TODO 
 		// Max pipelines reach
 		template<typename T, typename ... Args>
-		void AddPipeline( Args ... args );
+		T* AddPipeline( Args ... args );
 
-//		std::vector< VkBuffer >		GetvkBuffers( void );
-//		std::vector< uint32_t >		GetNbVertex( void );
-//		std::vector< BufferRenderer >	GetUniformBuffers( void );
-//		std::vector< std::vector<VkDescriptorSet> > GetUniformsDescriptorSets( void );
-//		std::vector< Transform3D* >	GetTransforms( void );
-//		UniformSets			GetUniformsCamera( void );
-//		std::vector<VkDescriptorSet>	GetUniformCameraDescriptorSets( void );
-//		std::vector< VkDeviceMemory >   GetVkDeviceMemory( void );
-//		std::vector< BufferRenderer >   GetIndexBuffers( void );
-//		std::vector<uint32_t>   GetIndexSize( void );
-//		std::vector< std::vector<VkDescriptorSet> > GetUniformsImagesDescriptorSets( void );
-
-//		std::vector< std::vector<VkDescriptorSet> > GetUniformsMaterialsDescriptorSets( void );
-//		std::vector< BufferRenderer > GetUniformsMaterials( void );
-//		std::vector< Material * > GetMaterials( void );
-//		std::vector< std::vector<VkDescriptorSet> > GetUniformsLightsDescriptorSets( void );
-//		std::vector< BufferRenderer > GetUniformsLights( void );
-//		std::vector< DirectionalLight * > GetLights( void );
+		template<typename T>
+		void RemovePipeline( void );
 
 		private:
 		std::array<BasePipeline*, MAX_PIPELINES / 2>		_graphicPipelines{};
 		std::array<BasePipeline*, MAX_PIPELINES / 2>		_computePipelines{};
 		bool _changes;
-		bool _isDefault;
 		std::bitset<MAX_PIPELINES>					_createdPipeline;
 	};
 }

@@ -1,32 +1,15 @@
-Importer
+wut if je veux changer de pipeline mon material
+or
+if its not a basic pipeline
+
+le addImporter peut creer une map d'id qui pointe vers des fonctions d'import -- La gestion des priority ? 
 {
-	uint32_t import(std::string path);
+priority	id of class
+	{0,       10}
 }
 
-MeshImporter : Importer 
-{
+Max pipeline reach
 
-}
+je dois refaire les pipelines
 
-RessourceImporter
-{
-	GetGoodImp()
-	{
-
-	}
-
-	template<typename T>
-	T Load(std::string path)
-	{
-		Importer* imp = GetGoodImp<T>();
-		uint32_t yey = imp.import(path);
-		unordered_map<string, T> map = RessourceMap<T>::GetMap();
-		if (yey exist in map)
-			return (map["path"]);
-	}
-}
-
-
-Check si deja load
-::
-Siffit de check la string avec le type au bebut et si ya on return ca.
+AddPipeline if already exist

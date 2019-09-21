@@ -254,7 +254,7 @@ namespace Soon
 
 					(*ma)._meshArray.push_back(objMesh);
 
-					//			GraphicsRenderer::GetInstance()->AddVertexToRender(_owner.GetComponent<Transform3D>(), objMesh._inf);
+					// GraphicsRenderer::GetInstance()->AddVertexToRender(_owner.GetComponent<Transform3D>(), objMesh._inf);
 				}
 				// then do the same for each of its children
 				for(unsigned int i = 0; i < node->mNumChildren; i++)
@@ -263,4 +263,3 @@ namespace Soon
 			}
 	};
 }
-
