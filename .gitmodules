@@ -7,3 +7,9 @@
 [submodule "ThirdParty/assimp_lib"]
 	path = ThirdParty/assimp_lib
 	url = https://github.com/assimp/assimp
+[submodule "ThirdParty/imgui"]
+	path = ThirdParty/imgui
+	url = https://github.com/ocornut/imgui
+[submodule "ThirdParty/Box2D"]
+	path = ThirdParty/Box2D
+	url = https://github.com/erincatto/Box2D
