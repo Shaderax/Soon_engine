@@ -4,7 +4,7 @@ if its not a basic pipeline
 
 le addImporter peut creer une map d'id qui pointe vers des fonctions d'import -- La gestion des priority ? 
 {
-priority	id of class
+	priority	id of class
 	{0,       10}
 }
 
@@ -13,3 +13,61 @@ Max pipeline reach
 je dois refaire les pipelines
 
 AddPipeline if already exist
+
+Surcouche a la gestion des pipelines pour update etc
+
+////////// Brain Function //////////
+
+class BasePipeline
+{
+};
+
+class Default2DPipeline : BasePipeline
+{
+
+};
+
+class DefaultVertexPipeline : BasePipeline
+{
+
+};
+
+class Component
+{
+};
+
+class Material
+{
+	template<typename T>
+		void SetPipeline( void )
+		{
+			T* pip = GraphicRenderer::GetInstance()->AddPipeline<T>();
+		}
+};
+
+class ComponentRenderer : Component
+{
+	virtual void EnableRender() = 0;
+	virtual void DisableRender() = 0;
+
+	Material _mat;
+};
+
+class Mesh : ComponentRenderer
+{
+	void EnableRender( void )
+	{
+
+	}
+
+	std::vector<unsigned int> vertice;
+}
+
+int main()
+{
+	Mesh mesh;
+
+	mesh.EnableRender();
+}
+
+///////// End Brain MalFunction /////////
