@@ -25,6 +25,11 @@ namespace Soon
 			_properties = new T::Properties();
 		}
 
+		void SetTexture( std::string name, Texture* texture )
+		{
+
+		}
+
 		BasePipeline*				_bpipeline;
 		BasePipeline::Properties*	_properties;
 	};

@@ -16,6 +16,8 @@ AddPipeline if already exist
 
 Surcouche a la gestion des pipelines pour update etc
 
+Add SetTexture at Material class
+
 ////////// Brain Function //////////
 
 class BasePipeline
