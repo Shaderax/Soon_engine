@@ -9,7 +9,7 @@
 
 namespace Soon
 {
-	struct DefaultParticlesSystemPipeline : BasePipeline
+	struct DefaultParticlesSystemPipeline : ShaderPipeline
 	{
 		public:
 			struct Particle
@@ -39,6 +39,9 @@ namespace Soon
 
 			DefaultParticlesSystemPipeline( void )
 			{
+
+				GraphicRenderer::GetInstance().AddPipeline<DefaultComputeParticlesSystemPipeline>();
+
 				_descriptorSetLayout = GraphicsInstance::GetInstance()->CreateDescriptorSetLayout( GetLayoutBinding() );
 				_pipelineLayout = GraphicsInstance::GetInstance()->CreatePipelineLayout(_descriptorSetLayout);
 				_graphicPipeline = GraphicsInstance::GetInstance()->CreateGraphicsPipeline(
@@ -150,7 +153,7 @@ namespace Soon
 
 			void AddToRender( Transform3D& tr, ParticlesSystem* ps )
 			{
-				std::vector<BufferRenderer>                                     bufRenderer;
+				std::vector<BufferRenderer>	bufRenderer;
 
 				Particle* p = new Particle[ps->_size];
 

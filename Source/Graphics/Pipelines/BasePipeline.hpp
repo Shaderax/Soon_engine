@@ -25,17 +25,14 @@ namespace Soon
 		virtual void RecreatePipeline( void ) = 0;
 
 		virtual void RemoveFromPipeline( void ) = 0;
+		virtual void Enable( void ) = 0;
+		virtual void Disable( void ) = 0;
 
 		std::vector<VkDescriptorSetLayout>		_descriptorSetLayout;
 		VkPipelineLayout 						_pipelineLayout;
 		VkPipeline								_graphicPipeline;
 
-		struct Properties
-		{
-
-		};
-
-		PipelineType _type = PipelineType::GRAPHIC;
+		PipelineType _type;
 
 	};
 }

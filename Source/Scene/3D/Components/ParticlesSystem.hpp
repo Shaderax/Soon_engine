@@ -1,17 +1,28 @@
 #pragma once
 
-#include "ECS/Component.hpp"
 #include "ECS/Entity.hpp"
+#include "Scene/ComponentRenderer.hpp"
 
 namespace Soon
 {
-	struct ParticlesSystem : public Component
+	struct ParticlesSystem : public ComponentRenderer
 	{
 		public:
-			ParticlesSystem( Entity& entity );
 
-			~ParticlesSystem( void );
+		enum class RenderType : uint32_t
+		{
+			NONE = 0,
+			MESH = 1,
+			SPRITE = 2;
+		};
 
-			uint32_t _size;
+		ParticlesSystem( Entity& entity );
+
+		~ParticlesSystem( void );
+
+		uint32_t		_amount;
+		RenderType		_rt;
+		ComponentRenderer*	_toRender;
+		ComputeMaterial		_computeMaterial;
 	};
 }

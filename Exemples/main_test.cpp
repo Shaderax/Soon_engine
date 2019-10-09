@@ -43,8 +43,8 @@ int main(int argc, char**argv)
 	Camera.AddComponent<Soon::Camera3D>();
 	Camera.AddComponent<ObjectControler>();
 
-//	Soon::Object Particles;
-//	Particles.AddComponent<Soon::ParticlesSystem>();
+	Soon::Object Particles;
+	Particles.AddComponent<Soon::ParticlesSystem>();
 //	Soon::Mesh mesh = Maya.AddComponent<Soon::Mesh>();
 //	Soon::MeshArray ar = Soon::RessourceImporter::GetSingleton().Load<Soon::MeshArray>("../Ressources/objects/Borderlands 2 - Maya/untitled.obj");
 //	Soon::Object* Maya = Instantiate(ar);

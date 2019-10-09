@@ -35,9 +35,6 @@ struct Transform3D : Component
 			_rot *= Quaternion(vec3<float>(0.0f, 1.0f, 0.0f), y);
 		if (z)
 			_rot *= Quaternion(vec3<float>(0.0f, 0.0f, 1.0f), z);
-
-//		std::cout << "Rotate : " << _rot.v.x << " " << _rot.v.y << " " << _rot.v.z << std::endl;
-//		_rot.ToEulerAngle();
 	}
 
 	vec3<float>	_pos;

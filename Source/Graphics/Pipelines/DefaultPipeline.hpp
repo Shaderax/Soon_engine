@@ -185,9 +185,5 @@ namespace Soon
 					"../Source/Graphics/Shaders/DefaultPipeline.frag.spv");
 
 		}
-
-		struct Properties
-		{
-		} _properties;
 	};
 }

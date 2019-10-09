@@ -247,7 +247,7 @@ namespace Soon
 			return attributeDescriptions;
 		}
 
-		void AddToRender( Transform3D& tr, VertexBufferInfo inf )
+		void AddToRender( Transform3D& tr, Mesh* mesh )
 		{
 			std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(inf._vertexSize, inf._vertexData, false);
 			//      ComponentRenderer ret;

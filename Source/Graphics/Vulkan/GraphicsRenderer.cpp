@@ -30,6 +30,13 @@ namespace Soon
 	template<typename T, typename ... Args>
 		T* GraphicsRenderer::AddPipeline( Args ... args )
 		{
+			if (_createdPipeline[ClassTypeId<BasePipeline>::GetId<T>()] == true)
+			{
+				if (T::_type == PipelineType::COMPUTE)
+					return (_computePipelines[ClassTypeId<BasePipeline>::GetId<T>()]);
+				else if (T::_type == PipelineType::GRAPHIC)
+					return (_graphicPipelines[ClassTypeId<BasePipeline>::GetId<T>()]);
+			}
 			T* pipeline;
 			pipeline = new T(std::forward<Args>(args) ...);
 			if (T::_type == PipelineType::COMPUTE)
@@ -53,38 +60,29 @@ namespace Soon
 		_instance = this;
 	}
 
-	void GraphicsRenderer::AddVertexToRender( Transform3D& tr, VertexBufferInfo inf)
+	void GraphicsRenderer::AddLight( Transform3D& tr, Light* light)
 	{
-		if (!_createdPipeline[ClassTypeId<BasePipeline>::GetId<DefaultVertexPipeline>()])
-			AddPipeline<DefaultVertexPipeline>();
-		DefaultVertexPipeline* pip = reinterpret_cast<DefaultVertexPipeline*>(_graphicPipelines[ClassTypeId<BasePipeline>::GetId<DefaultVertexPipeline>()]);
-		pip->AddToRender(tr, inf);
+		//		DefaultVertexPipeline* pip = reinterpret_cast<DefaultVertexPipeline*>(_graphicPipelines[ClassTypeId<BasePipeline>::GetId<DefaultVertexPipeline>()]);
+		//		pip->AddLightToRender(tr, dl);
+		_lights.push_back(light);
 
 		_changes = true;
 	}
 
-	void GraphicsRenderer::AddLightToRender( Transform3D& tr, DirectionalLight* dl)
-	{
-		DefaultVertexPipeline* pip = reinterpret_cast<DefaultVertexPipeline*>(_graphicPipelines[ClassTypeId<BasePipeline>::GetId<DefaultVertexPipeline>()]);
-		pip->AddLightToRender(tr, dl);
-
-		_changes = true;
-	}
-
-	void GraphicsRenderer::AddParticlesSystemToRender( Transform3D& tr, ParticlesSystem* ps )
-	{
-		if (!_createdPipeline[ClassTypeId<BasePipeline>::GetId<DefaultParticlesSystemPipeline>()])
-		{
-			AddPipeline<DefaultParticlesSystemPipeline>();
-			AddPipeline<DefaultComputeParticlesSystemPipeline>(reinterpret_cast<DefaultParticlesSystemPipeline*>(_graphicPipelines[ClassTypeId<BasePipeline>::GetId<DefaultParticlesSystemPipeline>()]));
-		}
-		DefaultParticlesSystemPipeline* pip = reinterpret_cast<DefaultParticlesSystemPipeline*>(_graphicPipelines[ClassTypeId<BasePipeline>::GetId<DefaultParticlesSystemPipeline>()]);
-		DefaultComputeParticlesSystemPipeline* cpsp = reinterpret_cast<DefaultComputeParticlesSystemPipeline*>(_computePipelines[ClassTypeId<BasePipeline>::GetId<DefaultComputeParticlesSystemPipeline>()]);
-		pip->AddToRender(tr, ps);
-		cpsp->AddToRender(tr, ps);
-
-		_changes = true;
-	}
+//	void GraphicsRenderer::AddParticlesSystemToRender( Transform3D& tr, ParticlesSystem* ps )
+//	{
+//		if (!_createdPipeline[ClassTypeId<BasePipeline>::GetId<DefaultParticlesSystemPipeline>()])
+//		{
+//			AddPipeline<DefaultParticlesSystemPipeline>();
+//			AddPipeline<DefaultComputeParticlesSystemPipeline>(reinterpret_cast<DefaultParticlesSystemPipeline*>(_graphicPipelines[ClassTypeId<BasePipeline>::GetId<DefaultParticlesSystemPipeline>()]));
+//		}
+//		DefaultParticlesSystemPipeline* pip = reinterpret_cast<DefaultParticlesSystemPipeline*>(_graphicPipelines[ClassTypeId<BasePipeline>::GetId<DefaultParticlesSystemPipeline>()]);
+//		DefaultComputeParticlesSystemPipeline* cpsp = reinterpret_cast<DefaultComputeParticlesSystemPipeline*>(_computePipelines[ClassTypeId<BasePipeline>::GetId<DefaultComputeParticlesSystemPipeline>()]);
+//		pip->AddToRender(tr, ps);
+//		cpsp->AddToRender(tr, ps);
+//
+//		_changes = true;
+//	}
 
 	void GraphicsRenderer::RecreateAllUniforms( void )
 	{

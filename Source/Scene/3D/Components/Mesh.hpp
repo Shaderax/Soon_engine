@@ -34,17 +34,23 @@ namespace Soon
 
 			}
 
-			void EnableRender( void ) {};
-			void DisableRender( void ) {};
+			void EnableRender( void )
+			{
+				if (_owner && _material.bpipeline)
+					_material.bpipeline->AddToRender(_owner->GetComponent<Transform3D>(), this);
+			};
 
-			VertexBufferInfo _inf =
-			{};
+			void DisableRender( void )
+			{
+				if (_material.bpipeline)
+					_material.bpipeline->RemoveRender();
+			};
 
 //			ComponentRenderer _itRender;
 
 			std::vector< Vertex >		_vertices;
 			std::vector<uint32_t>		_indices;
-			std::string					_path;
+			std::string			_path;
 
 		private:
 			Entity*				_owner;

@@ -18,58 +18,26 @@ Surcouche a la gestion des pipelines pour update etc
 
 Add SetTexture at Material class
 
+Light struct is not alignas for gpu alignement
+
+put TypeId au ileu de uint32_t
+
+
+tu peux templaté les Shader/Compute Material;
+
+
 ////////// Brain Function //////////
 
-class BasePipeline
-{
-};
+le type de rendu doit etre instncié sur gpu et ya que transform
 
-class Default2DPipeline : BasePipeline
-{
+Donc, Je dis si c'est une mesh si ui je dois malloc ma mesh sur gpu, je le print pour le nombre que j'en ai, avec des transform different. 
+ca c'est qui qui s'en occupe (gen le tout et les transforms) ?
+C'est le compute Shader
+pour l'affichage comment ca se passe ?
+a la base on pourrait penseer qu'on render les objecct instantié mais ca pue,
+le mieux serait de de gen les transform dans le compute shader avec la mesh et ca reviens pas a faire un mesh enable to render ?
 
-};
-
-class DefaultVertexPipeline : BasePipeline
-{
-
-};
-
-class Component
-{
-};
-
-class Material
-{
-	template<typename T>
-		void SetPipeline( void )
-		{
-			T* pip = GraphicRenderer::GetInstance()->AddPipeline<T>();
-		}
-};
-
-class ComponentRenderer : Component
-{
-	virtual void EnableRender() = 0;
-	virtual void DisableRender() = 0;
-
-	Material _mat;
-};
-
-class Mesh : ComponentRenderer
-{
-	void EnableRender( void )
-	{
-
-	}
-
-	std::vector<unsigned int> vertice;
-}
-
-int main()
-{
-	Mesh mesh;
-
-	mesh.EnableRender();
-}
+donc vu que la mesh ne doit pas etre consideré comme un component d'Object, elle n'a pas d'owner et donc ne peux pas etre utilisé avec enablerenderer 
+donc faut faire ca a la mano
 
 ///////// End Brain MalFunction /////////

@@ -8,7 +8,13 @@ namespace Soon
 	class ComponentRenderer : public Component
 	{
 		public:
-			Material _material;
+			Material	_material;
+			bool		_active;
+
+			ComponentRenderer( void ) : _active(false)
+			{
+
+			}
 
 			virtual ~ComponentRenderer( void ) {};
 

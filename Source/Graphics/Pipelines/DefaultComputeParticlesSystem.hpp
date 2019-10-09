@@ -11,7 +11,7 @@
 
 namespace Soon
 {
-	struct DefaultComputeParticlesSystemPipeline : BasePipeline
+	struct DefaultComputeParticlesSystemPipeline : ComputePipeline
 	{
 		public:
 			struct Particle
@@ -25,20 +25,16 @@ namespace Soon
 
 			std::vector< std::vector< VkDescriptorSet > >		_particlesDescriptorSets;
 
-			DefaultComputeParticlesSystemPipeline( DefaultParticlesSystemPipeline* pSysPipeline )
+			DefaultComputeParticlesSystemPipeline( void )
 			{
 				_descriptorSetLayout = GraphicsInstance::GetInstance()->CreateDescriptorSetLayout( GetLayoutBinding() );
 				_pipelineLayout = GraphicsInstance::GetInstance()->CreatePipelineLayout(_descriptorSetLayout);
 				_graphicPipeline = GraphicsInstance::GetInstance()->CreateComputePipeline(
 						_pipelineLayout,
 						"../Source/Graphics/Shaders/DefaultParticles.comp.spv");
-				_gpuBuffers = &pSysPipeline->GetGpuBuffers();
-				_pSize = &pSysPipeline->GetPSize();
+			//	_gpuBuffers = &pSysPipeline->GetGpuBuffers();
+			//	_pSize = &pSysPipeline->GetPSize();
 			}
-
-			struct Properties
-			{
-			};
 
 			void UpdateData( int currentImage )
 			{
@@ -71,7 +67,7 @@ namespace Soon
 				return (uboLayoutBinding);
 			}
 
-			void AddToRender( Transform3D& tr, ParticlesSystem* ps)
+			void AddToRender( Transform3D& tr, Mesh* mesh, uint32_t amount )
 			{
 				std::cout << "Create Particle System Descriptor Set" << std::endl;
 				_particlesDescriptorSets.push_back(GraphicsInstance::GetInstance()->CreateDescriptorSets(ps->_size * sizeof(Particle), _descriptorSetLayout, 0, &((*_gpuBuffers).back()), VK_DESCRIPTOR_TYPE_STORAGE_BUFFER));

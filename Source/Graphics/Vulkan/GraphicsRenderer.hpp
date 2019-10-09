@@ -29,8 +29,7 @@ namespace Soon
 		void 				ComputePipelinesBindCaller( VkCommandBuffer commandBuffer, uint32_t index );
 		void				UpdateAllDatas( uint32_t imageIndex );
 
-		void 				AddVertexToRender( Transform3D& tr, VertexBufferInfo inf);
-		void				AddLightToRender( Transform3D& tr, DirectionalLight* dl);
+		void				AddLight( Transform3D& tr, Light* light);
 		void				AddParticlesSystemToRender( Transform3D& tr, ParticlesSystem *ps );
 
 		// TODO 
@@ -46,5 +45,7 @@ namespace Soon
 		std::array<BasePipeline*, MAX_PIPELINES / 2>		_computePipelines{};
 		bool _changes;
 		std::bitset<MAX_PIPELINES>					_createdPipeline;
+
+		std::vector<Light*>	_lights;
 	};
 }
