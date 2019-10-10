@@ -3,6 +3,8 @@
 #include "ECS/Entity.hpp"
 #include "Scene/ComponentRenderer.hpp"
 
+#include "Scene/Common/ComputeMaterial.hpp"
+
 namespace Soon
 {
 	struct ParticlesSystem : public ComponentRenderer
@@ -13,12 +15,18 @@ namespace Soon
 		{
 			NONE = 0,
 			MESH = 1,
-			SPRITE = 2;
+			SPRITE = 2
 		};
 
 		ParticlesSystem( Entity& entity );
 
 		~ParticlesSystem( void );
+
+	template<typename T>
+		void SetComponentToRender( T* cmp );
+
+		void EnableRender( void );
+		void DisableRender( void );
 
 		uint32_t		_amount;
 		RenderType		_rt;

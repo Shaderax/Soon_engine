@@ -2,7 +2,7 @@
 
 #include "ECS/Component.hpp"
 #include "ECS/Entity.hpp"
-#include "Graphics/Vulkan/GraphicsRenderer.hpp"
+//#include "Graphics/Vulkan/GraphicsRenderer.hpp"
 
 #include "Scene/Common/Light.hpp"
 
@@ -13,7 +13,7 @@ namespace Soon
 		DirectionalLight( Entity& entity )
 		{
 			_type = LightType::DIRECTIONAL;
-			GraphicsRenderer::GetInstance()->AddLightToRender(entity.GetComponent<Transform3D>(), this);
+//			GraphicsRenderer::GetInstance()->AddLight(entity.GetComponent<Transform3D>(), this);
 		}
 
 			~DirectionalLight( void )

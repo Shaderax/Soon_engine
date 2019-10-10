@@ -1,16 +1,27 @@
 #pragma once
 
-#include "Graphics/Vulkan/GraphicsInstance.hpp"
+//#include "Graphics/Vulkan/GraphicsInstance.hpp"
+#define GLFW_INCLUDE_VULKAN
+#include <GLFW/glfw3.h>
 #include "Scene/3D/Components/Transform3D.hpp"
 #include "Core/Math/mat4.hpp"
 
 #include <bitset>
 #include <array>
+#include <vector>
+
+//#include "Graphics/Pipelines/ShaderPipeline.hpp"
+//#include "Graphics/Pipelines/ComputePipeline.hpp"
+
+//#include "Scene/Common/Light.hpp"
 
 namespace Soon
 {
 	class DirectionalLight;
 	class ParticlesSystem;
+	class ShaderPipeline;
+	class ComputePipeline;
+	class Light;
 
 	class GraphicsRenderer
 	{
@@ -41,8 +52,8 @@ namespace Soon
 		void RemovePipeline( void );
 
 		private:
-		std::array<BasePipeline*, MAX_PIPELINES / 2>		_graphicPipelines{};
-		std::array<BasePipeline*, MAX_PIPELINES / 2>		_computePipelines{};
+		std::array<ShaderPipeline*, MAX_PIPELINES / 2>		_graphicPipelines{};
+		std::array<ComputePipeline*, MAX_PIPELINES / 2>		_computePipelines{};
 		bool _changes;
 		std::bitset<MAX_PIPELINES>					_createdPipeline;
 

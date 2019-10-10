@@ -2,7 +2,7 @@
 
 namespace Soon
 {
-	class ComputeMaterial : Material
+	class ComputeMaterial : public Material
 	{
 		public:
 			ComputePipeline*	_computePipeline;
@@ -14,6 +14,5 @@ namespace Soon
 						_computePipeline->RemoveFromPipeline();
 					_computePipeline = GraphicRenderer::GetInstance().AddPipeline<T>();
 				}
-
 	};
 }

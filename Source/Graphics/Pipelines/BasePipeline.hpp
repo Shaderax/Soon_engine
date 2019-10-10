@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 namespace Soon
 {
 	enum PipelineType
@@ -8,8 +10,9 @@ namespace Soon
 		COMPUTE = 1
 	};
 
-	struct BasePipeline
+	class BasePipeline
 	{
+		public:
 		BasePipeline( void )
 		{
 

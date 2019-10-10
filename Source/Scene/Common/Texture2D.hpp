@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Scene/Common/Texture.hpp"
 
 struct Texture2D : Texture

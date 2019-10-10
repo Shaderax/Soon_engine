@@ -1,11 +1,13 @@
-#include "Graphics/Pipelines/BasePipeline.hpp"
-#include "Graphics/Vulkan/GraphicsInstance.hpp"
-#include "Core/Engine.hpp"
+#pragma once
+
+#include "Graphics/Pipelines/ShaderPipeline.hpp"
+//#include "Graphics/Vulkan/GraphicsInstance.hpp"
+//#include "Core/Engine.hpp"
 #include "Scene/3D/Components/Camera.hpp"
 #include "Scene/Common/TextureCubeMap.hpp"
 #include "Scene/3D/Components/Mesh.hpp"
 #include "Utilities/MeshArray.hpp"
-#include "Core/Parsers/RessourceImporter.hpp"
+//#include "Core/Parsers/RessourceImporter.hpp"
 
 #include <cstring>
 

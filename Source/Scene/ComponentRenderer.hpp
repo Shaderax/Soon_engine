@@ -1,14 +1,14 @@
 #pragma once
 
 #include "ECS/Component.hpp"
-#include "Scene/Common/Material.hpp"
+#include "Scene/Common/ShaderMaterial.hpp"
 
 namespace Soon
 {
 	class ComponentRenderer : public Component
 	{
 		public:
-			Material	_material;
+			ShaderMaterial	_material;
 			bool		_active;
 
 			ComponentRenderer( void ) : _active(false)

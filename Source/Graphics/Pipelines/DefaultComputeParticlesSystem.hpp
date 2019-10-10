@@ -29,7 +29,7 @@ namespace Soon
 			{
 				_descriptorSetLayout = GraphicsInstance::GetInstance()->CreateDescriptorSetLayout( GetLayoutBinding() );
 				_pipelineLayout = GraphicsInstance::GetInstance()->CreatePipelineLayout(_descriptorSetLayout);
-				_graphicPipeline = GraphicsInstance::GetInstance()->CreateComputePipeline(
+				_computePipeline = GraphicsInstance::GetInstance()->CreateComputePipeline(
 						_pipelineLayout,
 						"../Source/Graphics/Shaders/DefaultParticles.comp.spv");
 			//	_gpuBuffers = &pSysPipeline->GetGpuBuffers();
@@ -70,6 +70,7 @@ namespace Soon
 			void AddToRender( Transform3D& tr, Mesh* mesh, uint32_t amount )
 			{
 				std::cout << "Create Particle System Descriptor Set" << std::endl;
+				// Go creer un tas de transform 
 				_particlesDescriptorSets.push_back(GraphicsInstance::GetInstance()->CreateDescriptorSets(ps->_size * sizeof(Particle), _descriptorSetLayout, 0, &((*_gpuBuffers).back()), VK_DESCRIPTOR_TYPE_STORAGE_BUFFER));
 				std::cout << "END : Create Particle System Descriptor Set" << std::endl;
 			}
@@ -86,7 +87,7 @@ namespace Soon
 
 			void RecreatePipeline( void )
 			{
-				_graphicPipeline = GraphicsInstance::GetInstance()->CreateComputePipeline(
+				_computePipeline = GraphicsInstance::GetInstance()->CreateComputePipeline(
 						_pipelineLayout,
 						"../Source/Graphics/Shaders/DefaultParticles.comp.spv");
 			}

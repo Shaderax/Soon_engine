@@ -1,8 +1,12 @@
 #pragma once
 
+#include "Graphics/Pipelines/BasePipeline.hpp"
+
 namespace Soon
 {
-	class ComputePipeline : BasePipeline
+	class Mesh;
+
+	class ComputePipeline : public BasePipeline
 	{
 		public:
 			ComputePipeline()

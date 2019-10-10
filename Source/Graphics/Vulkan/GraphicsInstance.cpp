@@ -1449,10 +1449,10 @@ namespace Soon
 		vkBindBufferMemory(_device, buffer, bufferMemory, 0);
 	}
 
-	BufferRenderer GraphicsInstance::CreateIndexBuffer( VertexBufferInfo inf )
+	BufferRenderer GraphicsInstance::CreateIndexBuffer( std::vector<uint32_t> indexData )
 	{
 		BufferRenderer bufRenderer;
-		VkDeviceSize bufferSize = sizeof(uint32_t) * inf._indexSize;
+		VkDeviceSize bufferSize = sizeof(uint32_t) * indexData.size();
 		std::cout << "INDEX BUFFER CREATION : " << bufferSize << std::endl;
 
 		bufRenderer._Buffer.resize(1);
@@ -1465,7 +1465,7 @@ namespace Soon
 
 		void* data;
 		vkMapMemory(_device, stagingBufferMemory, 0, bufferSize, 0, &data);
-		memcpy(data, inf._indexData, (size_t)bufferSize);
+		memcpy(data, indexData.data(), (size_t)bufferSize);
 		vkUnmapMemory(_device, stagingBufferMemory);
 
 		CreateBuffer(bufferSize, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, bufRenderer._Buffer[0], bufRenderer._BufferMemory[0]);

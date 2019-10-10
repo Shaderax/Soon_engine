@@ -1,12 +1,16 @@
 #include "Graphics/Vulkan/GraphicsRenderer.hpp"
 #include "Graphics/Vulkan/GraphicsInstance.hpp"
 #include "Scene/3D/Components/Transform3D.hpp"
-#include "Graphics/Pipelines/DefaultPipeline.hpp"
-#include "Graphics/Pipelines/DefaultVertexPipeline.hpp"
-#include "Graphics/Pipelines/DefaultParticlesSystem.hpp"
-#include "Graphics/Pipelines/DefaultComputeParticlesSystem.hpp"
+//#include "Graphics/Pipelines/DefaultPipeline.hpp"
+//#include "Graphics/Pipelines/DefaultVertexPipeline.hpp"
+//#include "Graphics/Pipelines/DefaultParticlesSystem.hpp"
+//#include "Graphics/Pipelines/DefaultComputeParticlesSystem.hpp"
 #include <typeinfo>
 #include "ECS/ClassTypeId.hpp"
+
+#include "Graphics/Pipelines/BasePipeline.hpp"
+#include "Graphics/Pipelines/ShaderPipeline.hpp"
+#include "Graphics/Pipelines/ComputePipeline.hpp"
 
 
 namespace Soon
@@ -52,7 +56,7 @@ namespace Soon
 
 	void GraphicsRenderer::Initialize( void )
 	{
-		AddPipeline<DefaultPipeline>();
+//		AddPipeline<DefaultPipeline>();
 	}
 
 	GraphicsRenderer::GraphicsRenderer( void ) : _changes(false)
@@ -86,37 +90,37 @@ namespace Soon
 
 	void GraphicsRenderer::RecreateAllUniforms( void )
 	{
-		for (BasePipeline* bp : _graphicPipelines)
+		for (ShaderPipeline* bp : _graphicPipelines)
 			if (bp)
 				bp->RecreateUniforms();
-		for (BasePipeline* bp : _computePipelines)
+		for (ComputePipeline* bp : _computePipelines)
 			if (bp)
 				bp->RecreateUniforms();
 	}
 
 	void GraphicsRenderer::RecreateAllPipelines( void )
 	{
-		for (BasePipeline* bp : _graphicPipelines)
+		for (ShaderPipeline* bp : _graphicPipelines)
 			if (bp)
 				bp->RecreatePipeline();
-		for (BasePipeline* bp : _computePipelines)
+		for (ComputePipeline* bp : _computePipelines)
 			if (bp)
 				bp->RecreatePipeline();
 	}
 
 	void GraphicsRenderer::UpdateAllDatas( uint32_t imageIndex )
 	{
-		for (BasePipeline* bp : _graphicPipelines)
+		for (ShaderPipeline* bp : _graphicPipelines)
 			if (bp)
 				bp->UpdateData(imageIndex);
-		for (BasePipeline* bp : _computePipelines)
+		for (ComputePipeline* bp : _computePipelines)
 			if (bp)
 				bp->UpdateData(imageIndex);
 	}
 
 	void GraphicsRenderer::GraphicPipelinesBindCaller( VkCommandBuffer commandBuffer, uint32_t index )
 	{
-		for (BasePipeline* bp : _graphicPipelines)
+		for (ShaderPipeline* bp : _graphicPipelines)
 		{
 			if (bp != nullptr)
 			{
@@ -129,7 +133,7 @@ namespace Soon
 
 	void GraphicsRenderer::ComputePipelinesBindCaller( VkCommandBuffer commandBuffer, uint32_t index )
 	{
-		for (BasePipeline* bp : _computePipelines)
+		for (ComputePipeline* bp : _computePipelines)
 		{
 			if (bp)
 			{

@@ -6,13 +6,13 @@
 #include "Core/Math/vec3.hpp"
 #include <vector>
 #include <iostream>
-#include "Graphics/Vulkan/GraphicsRenderer.hpp"
+//#include "Graphics/Vulkan/GraphicsRenderer.hpp"
 
-#include "Scene/Common/Material.hpp"
-
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+//#include "Scene/Common/Material.hpp"
+//
+//#include <assimp/Importer.hpp>
+//#include <assimp/scene.h>
+//#include <assimp/postprocess.h>
 
 namespace Soon
 {
@@ -36,14 +36,14 @@ namespace Soon
 
 			void EnableRender( void )
 			{
-				if (_owner && _material.bpipeline)
-					_material.bpipeline->AddToRender(_owner->GetComponent<Transform3D>(), this);
+				if (_owner && _material._shaderPipeline)
+					_material._shaderPipeline->AddToRender(_owner->GetComponent<Transform3D>(), this);
 			};
 
 			void DisableRender( void )
 			{
-				if (_material.bpipeline)
-					_material.bpipeline->RemoveRender();
+//				if (_material._shaderPipeline)
+//					_material._shaderPipeline->RemoveRender();
 			};
 
 //			ComponentRenderer _itRender;

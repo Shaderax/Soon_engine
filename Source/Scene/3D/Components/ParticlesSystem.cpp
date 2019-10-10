@@ -1,8 +1,11 @@
 #include "Scene/3D/Components/ParticlesSystem.hpp"
 #include "Scene/3D/Components/Transform3D.hpp"
-#include "Graphics/Vulkan/GraphicsRenderer.hpp"
+//#include "Graphics/Vulkan/GraphicsRenderer.hpp"
 
 #include "ECS/ClassTypeId.hpp"
+
+#include "Scene/2D/Components/Sprite.hpp"
+#include "Scene/3D/Components/Mesh.hpp"
 
 namespace Soon
 {
@@ -19,12 +22,12 @@ namespace Soon
 	}
 
 	template<typename T>
-		void SetComponentToRender( T* cmp )
+		void ParticlesSystem::SetComponentToRender( T* cmp )
 		{
 			if (GetComponentTypeId<T>() == GetComponentTypeId<Mesh>())
-				rt = ParticlesSystem::RenderType::MESH;
+				_rt = ParticlesSystem::RenderType::MESH;
 			else if (GetComponentTypeId<T>() == GetComponentTypeId<Sprite>())
-				rt = ParticlesSystem::RenderType::SPRITE;
+				_rt = ParticlesSystem::RenderType::SPRITE;
 			else
 			{
 				std::cout << "Wrong Type for SetComponentToRender" << std::endl;
@@ -34,15 +37,15 @@ namespace Soon
 			EnableRender();
 		}
 
-	void EnableRender( void )
+	void ParticlesSystem::EnableRender( void )
 	{
-		if (_computeMaterial.bpipeline)
-			_computeMaterial._computePipeline->AddToRender(cmp, _amount);
+		if (_computeMaterial._computePipeline)
+			_computeMaterial._computePipeline->AddToRender(_toRender, _amount);
 	}
 
-	void DisableRender( void )
+	void ParticlesSystem::DisableRender( void )
 	{
-		if (_computeMaterial.bpipeline)
-			_computeMaterial._computePipeline->RemoveFromPipeline(cmp, _amount);
+		if (_computeMaterial._computePipeline)
+			_computeMaterial._computePipeline->RemoveFromPipeline(_toRender, _amount);
 	}
 }

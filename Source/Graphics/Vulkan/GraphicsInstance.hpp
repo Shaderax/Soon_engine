@@ -7,7 +7,8 @@
 #include "Core/Math/mat4.hpp"
 #include "Core/Math/vec2.hpp"
 #include "Core/Math/vec3.hpp"
-#include "Scene/Common/Material.hpp"
+//#include "Scene/Common/Material.hpp"
+#include "Scene/Common/Texture.hpp"
 
 enum DescriptorTypeLayout
 {
@@ -52,15 +53,15 @@ struct Image
 	VkImageView _imageView;
 };
 
-struct VertexBufferInfo
-{
-	uint32_t	_nbVertex;
-	size_t		_vertexSize;
-	void*		_vertexData;
-	size_t		_indexSize;
-	void*		_indexData;
-	Material*	_material;
-};
+//struct VertexBufferInfo
+//{
+//	uint32_t	_nbVertex;
+//	size_t		_vertexSize;
+//	void*		_vertexData;
+//	size_t		_indexSize;
+//	void*		_indexData;
+//	Material*	_material;
+//};
 
 struct UniformCamera
 {
@@ -198,7 +199,7 @@ namespace Soon
 			void 	CopyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height, VkImageViewType vType);
 			VkSampler	CreateTextureSampler( void );
 //			void	CreateTextureImageView( void );
-			BufferRenderer CreateIndexBuffer( VertexBufferInfo inf );
+			BufferRenderer CreateIndexBuffer( std::vector<uint32_t> indexData );
 			void CopyBuffer( VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size );
 			VkFormat FindDepthFormat( void );
 			VkFormat FindSupportedFormat(const std::vector<VkFormat>& candidates, VkImageTiling tiling, VkFormatFeatureFlags features);

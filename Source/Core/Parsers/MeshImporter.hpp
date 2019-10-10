@@ -21,7 +21,9 @@
 
 #include "Scene/Common/ObjectOwner.hpp"
 
-#include "Graphics/Pipelines/DefaultVertexPipeline.hpp"
+#include "Scene/Common/Texture2D.hpp"
+
+//#include "Graphics/Pipelines/DefaultVertexPipeline.hpp"
 ////
 //
 
@@ -65,7 +67,7 @@ namespace Soon
 				// data to fill
 				//		std::vector<Vertex> vertices;
 				//		std::vector<unsigned int> indices;
-				std::vector<Texture2D> textures;
+				//std::vector<Texture2D> textures;
 
 				// Walk through each of the mesh's vertices
 				for(unsigned int i = 0; i < mesh->mNumVertices; i++)
@@ -123,7 +125,7 @@ namespace Soon
 				{
 					// 1. diffuse maps
 					///// TEST 3K /////
-					LoadMaterialTextures(&objMesh._mat, material, aiTextureType_DIFFUSE, "texture_diffuse");
+					LoadMaterialTextures(objMesh._material, material, aiTextureType_DIFFUSE, "texture_diffuse");
 
 					//			std::vector<Texture2D> diffuseMaps = LoadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
 					//			textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
@@ -150,7 +152,7 @@ namespace Soon
 			}
 #include "assimp/material.h"
 
-			void LoadMaterialTextures(Material* material, aiMaterial *mat, aiTextureType type, std::string typeName)
+			void LoadMaterialTextures(ShaderMaterial& material, aiMaterial *mat, aiTextureType type, std::string typeName)
 			{
 				//		std::vector<Texture2D> textures(0);
 
@@ -179,11 +181,13 @@ namespace Soon
 				std::cout << (ret == AI_SUCCESS ? "AI_SUCCESS" : "AI_FAILURE") << std::endl;
 				std::cout << "Shininess : " << shini << std::endl;
 
-				DefaultVertexPipeline::Properties* prop = new DefaultVertexPipeline::Properties;
-				prop->_ambient = vec3<float>(ambient.r, ambient.g, ambient.b);
-				prop->_diffuse = vec3<float>(diff.r, diff.g, diff.b);
-				prop->_specular = vec3<float>(spec.r, spec.g, spec.b);
-				prop->_shininess = shini;
+				vec3<float> tmp(ambient.r, ambient.g, ambient.b);
+				material.SetVec3("ambient", tmp);
+				tmp = vec3<float>(diff.r, diff.g, diff.b);
+				material.SetVec3("diffuse", tmp);
+				tmp = vec3<float>(spec.r, spec.g, spec.b);
+				material.SetVec3("specular", tmp);
+				material.SetFloat("shininess", shini);
 
 				std::cout << "mat->GetTextureCount(type) : " << mat->GetTextureCount(type) << std::endl;
 				for(unsigned int i = 0; i < mat->GetTextureCount(type); i++)
@@ -208,7 +212,8 @@ namespace Soon
 					int pos = filename.find_last_of('/');
 					if (std::string::npos == (std::size_t)pos)
 						pos = 0;
-					prop->_texture.LoadTexture(_path + "/" + filename.substr(pos, filename.length()));
+					Texture2D t = RessourceImporter::GetSingleton().Load<Texture2D>(_path + "/" + filename.substr(pos, filename.length()));
+					material.SetTexture("texSampler", t);
 					//				texture.id = TextureFromFile(str.C_Str(), this->directory);
 					//				texture.type = typeName;
 					//				texture.path = str.C_Str();
@@ -218,7 +223,6 @@ namespace Soon
 					//				textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
 					//			}
 				}
-				material->_properties = reinterpret_cast<BasePipeline::Properties*>(prop);
 				//		return textures;
 			}
 
@@ -242,15 +246,15 @@ namespace Soon
 
 					ProcessMesh(objMesh, mesh, scene);
 
-					objMesh._inf._nbVertex = objMesh._vertices.size();
-					std::cout << "My Parser : Nb Vertice : " << objMesh._inf._nbVertex << std::endl;
-					objMesh._inf._vertexSize = sizeof(Vertex) * objMesh._vertices.size();
-					std::cout << "My Parser : vertexSize : " << objMesh._inf._vertexSize << std::endl;
-					objMesh._inf._vertexData = objMesh._vertices.data();
-					objMesh._inf._indexSize = objMesh._indices.size();
-					std::cout << "My Parser : indexSize : " << objMesh._inf._indexSize << std::endl;
-					objMesh._inf._indexData = objMesh._indices.data();
-					objMesh._inf._material = &(objMesh._mat);
+//					objMesh._inf._nbVertex = objMesh._vertices.size();
+//					std::cout << "My Parser : Nb Vertice : " << objMesh._inf._nbVertex << std::endl;
+//					objMesh._inf._vertexSize = sizeof(Vertex) * objMesh._vertices.size();
+//					std::cout << "My Parser : vertexSize : " << objMesh._inf._vertexSize << std::endl;
+//					objMesh._inf._vertexData = objMesh._vertices.data();
+//					objMesh._inf._indexSize = objMesh._indices.size();
+//					std::cout << "My Parser : indexSize : " << objMesh._inf._indexSize << std::endl;
+//					objMesh._inf._indexData = objMesh._indices.data();
+//					objMesh._inf._material = &(objMesh._mat);
 
 					(*ma)._meshArray.push_back(objMesh);
 

@@ -10,7 +10,7 @@
 
 namespace Soon
 {
-	struct DefaultVertexPipeline : BasePipeline
+	struct DefaultVertexPipeline : ShaderPipeline
 	{
 		DefaultVertexPipeline( void )
 		{
@@ -341,15 +341,15 @@ namespace Soon
 			}
 		}
 		
-		void AddLightToRender( Transform3D& tr, DirectionalLight* dl)
-		{
-			UniformSets lightUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformLight), _descriptorSetLayout, 4);
-
-			_uniformsLights.push_back(lightUniform._uniformRender);
-			_uniformsLightsDescriptorSets.push_back(lightUniform._descriptorSets);
-
-			_vecLights.push_back(dl);
-		}
+//		void AddLightToRender( Transform3D& tr, DirectionalLight* dl)
+//		{
+//			UniformSets lightUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformLight), _descriptorSetLayout, 4);
+//
+//			_uniformsLights.push_back(lightUniform._uniformRender);
+//			_uniformsLightsDescriptorSets.push_back(lightUniform._descriptorSets);
+//
+//			_vecLights.push_back(dl);
+//		}
 
 		void RecreatePipeline( void )
 		{

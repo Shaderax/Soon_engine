@@ -1,8 +1,13 @@
 #pragma once
 
+#include "Graphics/Pipelines/ShaderPipeline.hpp"
+#include "Scene/Common/Material.hpp"
+
+#include "Graphics/Vulkan/GraphicsRenderer.hpp"
+
 namespace Soon
 {
-	class ShaderMaterial : Material
+	class ShaderMaterial : public Material
 	{
 		public:
 			ShaderPipeline*		_shaderPipeline;
