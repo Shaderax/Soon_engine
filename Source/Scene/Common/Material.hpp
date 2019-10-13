@@ -1,6 +1,9 @@
 #pragma once
 
 #include "Scene/Common/Texture.hpp"
+#include "Core/Math/vec3.hpp"
+#include <unordered_map>
+#include <string>
 
 namespace Soon
 {
@@ -16,29 +19,28 @@ namespace Soon
 
 		}
 
-//		template<class T>
-//		void SetPipeline( void )
-//		{
-//			if (_bpipeline)
-//				_bpipeline->RemoveFromPipeline();
-//			_bpipeline = GraphicRenderer::GetInstance().AddPipeline<T>();
-//		}
-
 		void SetTexture( std::string name, Texture& texture )
 		{
-
+			_textures[name] = &texture;
 		}
 
-		void SetFloat( std::string name, float value )
+		Texture* GetTexture( std::string name )
 		{
-
+			return (_textures[name]);
 		}
 
-		void SetVec3( std::string name, vec3<float> vec )
+		void SetFloat( std::string name, float& value )
 		{
-			
+			_floats[name] = value;
 		}
 
-//		BasePipeline*				_bpipeline;
+		void SetVec3( std::string name, vec3<float>& vec )
+		{
+			_vec3s[name] = &vec;
+		}
+
+		std::unordered_map<std::string, Texture*> _textures;
+		std::unordered_map<std::string, float> _floats;
+		std::unordered_map<std::string, vec3<float>*> _vec3s;
 	};
 }

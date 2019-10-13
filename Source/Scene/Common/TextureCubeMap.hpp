@@ -6,12 +6,12 @@
 std::array<char const *, 6> files =
 {
 	{
-	"../Ressources/skybox/hw_lagoon/lagoon_bk.tga",
 	"../Ressources/skybox/hw_lagoon/lagoon_rt.tga",
-	"../Ressources/skybox/hw_lagoon/lagoon_dn.tga",
-	"../Ressources/skybox/hw_lagoon/lagoon_ft.tga",
+	"../Ressources/skybox/hw_lagoon/lagoon_lf.tga",
 	"../Ressources/skybox/hw_lagoon/lagoon_up.tga",
-	"../Ressources/skybox/hw_lagoon/lagoon_lf.tga"
+	"../Ressources/skybox/hw_lagoon/lagoon_dn.tga",
+	"../Ressources/skybox/hw_lagoon/lagoon_bk.tga",
+	"../Ressources/skybox/hw_lagoon/lagoon_ft.tga"
 	}
 };
 

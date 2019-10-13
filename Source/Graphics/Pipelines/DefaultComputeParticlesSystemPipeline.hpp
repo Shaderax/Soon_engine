@@ -1,11 +1,9 @@
 #pragma once
 
-#include "Graphics/Pipelines/BasePipeline.hpp"
+#include "Graphics/Pipelines/ComputePipeline.hpp"
 #include "Core/Engine.hpp"
 #include "Scene/3D/Components/Camera.hpp"
 #include "Scene/3D/Components/ParticlesSystem.hpp"
-
-#include "Graphics/Pipelines/DefaultParticlesSystem.hpp"
 
 #include <cstring>
 

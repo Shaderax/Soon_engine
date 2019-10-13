@@ -19,6 +19,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
 
+#include "GraphicsPipelineConf.hpp"
+
 const std::vector<const char*> validationLayers = {
 	"VK_LAYER_LUNARG_standard_validation"
 };
@@ -568,10 +570,7 @@ namespace Soon
 	}
 
 	VkPipeline GraphicsInstance::CreateGraphicsPipeline(
-			VkPipelineLayout								pipelineLayout,
-			VkVertexInputBindingDescription					bindingDescription,
-			std::vector<VkVertexInputAttributeDescription>	attributeDescriptions,
-			GraphicsInstance::ShaderType 						sType,
+			GraphicsPipelineConf&								conf,
 			std::string 									pathVert,
 			std::string										pathFrag)
 	{
@@ -597,12 +596,12 @@ namespace Soon
 
 		VkPipelineShaderStageCreateInfo shaderStages[] = {vertShaderStageInfo, fragShaderStageInfo};
 
+		conf.pipelineInfo.stageCount = 2;
+
 		//
+		/*
 		VkPipelineVertexInputStateCreateInfo vertexInputInfo = {};
 		vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
-
-		//		auto bindingDescription = Vertex::getBindingDescription();
-		//		auto attributeDescriptions = Vertex::getAttributeDescriptions();
 
 		vertexInputInfo.vertexBindingDescriptionCount = 1;
 		vertexInputInfo.vertexAttributeDescriptionCount = static_cast<uint32_t>(attributeDescriptions.size());
@@ -687,22 +686,23 @@ namespace Soon
 		/////////// PIPELINE LAYOUT ////////////
 
 		VkGraphicsPipelineCreateInfo pipelineInfo = {};
-		pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
-		pipelineInfo.stageCount = 2;
-		pipelineInfo.pStages = shaderStages;
-		pipelineInfo.pVertexInputState = &vertexInputInfo;
-		pipelineInfo.pInputAssemblyState = &inputAssembly;
-		pipelineInfo.pViewportState = &viewportState;
-		pipelineInfo.pRasterizationState = &rasterizer;
-		pipelineInfo.pMultisampleState = &multisampling;
-		pipelineInfo.pColorBlendState = &colorBlending;
-		pipelineInfo.pDepthStencilState = &depthStencil;
-		pipelineInfo.layout = pipelineLayout;
-		pipelineInfo.renderPass = _renderPass;
-		pipelineInfo.subpass = 0;
-		pipelineInfo.basePipelineHandle = VK_NULL_HANDLE;
+*/
+	//	conf.pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
+		conf.pipelineInfo.stageCount = 2;
+		conf.pipelineInfo.pStages = shaderStages;
+	//	conf.pipelineInfo.pVertexInputState = &vertexInputInfo;
+	//	conf.pipelineInfo.pInputAssemblyState = &inputAssembly;
+	//	conf.pipelineInfo.pViewportState = &viewportState;
+	//	conf.pipelineInfo.pRasterizationState = &rasterizer;
+	//	conf.pipelineInfo.pMultisampleState = &multisampling;
+	//	conf.pipelineInfo.pColorBlendState = &colorBlending;
+	//	conf.pipelineInfo.pDepthStencilState = &depthStencil;
+	//	conf.pipelineInfo.layout = pipelineLayout;
+	//	conf.pipelineInfo.renderPass = _renderPass;
+	//	conf.pipelineInfo.subpass = 0;
+	//	conf.pipelineInfo.basePipelineHandle = VK_NULL_HANDLE;
 
-		if (vkCreateGraphicsPipelines(_device, VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &graphicsPipeline) != VK_SUCCESS)
+		if (vkCreateGraphicsPipelines(_device, VK_NULL_HANDLE, 1, &conf.pipelineInfo, nullptr, &graphicsPipeline) != VK_SUCCESS)
 			throw std::runtime_error("failed to create graphics pipeline!");
 
 		vkDestroyShaderModule(_device, fragShaderModule, nullptr);
@@ -814,6 +814,7 @@ namespace Soon
 
 		if (vkCreateRenderPass(_device, &renderPassInfo, nullptr, &_renderPass) != VK_SUCCESS)
 			throw std::runtime_error("failed to create render pass!");
+		std::cout << "Created render pass" << std::endl;
 	}
 
 	void GraphicsInstance::CreateFramebuffers( void )
@@ -1103,8 +1104,8 @@ namespace Soon
 
 		throw std::runtime_error("failed to find suitable memory type!");
 	}
-
-	std::vector<BufferRenderer> GraphicsInstance::CreateVertexBuffer( uint32_t size, void* ptrData, bool storageBit )
+	
+	std::vector<BufferRenderer> GraphicsInstance::CreateStorageBuffer( uint32_t size, void* ptrData )
 	{
 		std::vector<BufferRenderer>					bufRenderer;
 		std::cout << "Vertex BUFFER CREATION : " << size << std::endl;
@@ -1116,7 +1117,7 @@ namespace Soon
 		bufRenderer[1]._Buffer.resize(1);
 		bufRenderer[1]._BufferMemory.resize(1);
 
-		CreateBuffer(size/*inf._vertexSize*/, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, bufRenderer[0]._Buffer[0], bufRenderer[0]._BufferMemory[0]);
+		CreateBuffer(size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, bufRenderer[0]._Buffer[0], bufRenderer[0]._BufferMemory[0]);
 
 		if (ptrData)
 		{
@@ -1126,10 +1127,39 @@ namespace Soon
 			vkUnmapMemory(_device, bufRenderer[0]._BufferMemory[0]);
 		}
 
-		if (storageBit)
-			CreateBuffer(size, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, bufRenderer[1]._Buffer[0], bufRenderer[1]._BufferMemory[0] );
-		else
-			CreateBuffer(size, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, bufRenderer[1]._Buffer[0], bufRenderer[1]._BufferMemory[0] );
+		CreateBuffer(size, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, bufRenderer[1]._Buffer[0], bufRenderer[1]._BufferMemory[0] );
+
+		CopyBuffer(bufRenderer[0]._Buffer[0], bufRenderer[1]._Buffer[0], size);
+
+		//		vkDestroyBuffer(_device, stagingBuffer, nullptr);
+		//		vkFreeMemory(_device, stagingBufferMemory, nullptr);
+
+		return ( bufRenderer );
+	}
+
+	std::vector<BufferRenderer> GraphicsInstance::CreateVertexBuffer( uint32_t size, void* ptrData )
+	{
+		std::vector<BufferRenderer>					bufRenderer;
+		std::cout << "Vertex BUFFER CREATION : " << size << std::endl;
+
+		bufRenderer.resize(2);
+
+		bufRenderer[0]._Buffer.resize(1);
+		bufRenderer[0]._BufferMemory.resize(1);
+		bufRenderer[1]._Buffer.resize(1);
+		bufRenderer[1]._BufferMemory.resize(1);
+
+		CreateBuffer(size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, bufRenderer[0]._Buffer[0], bufRenderer[0]._BufferMemory[0]);
+
+		if (ptrData)
+		{
+			void* data;
+			vkMapMemory(_device, bufRenderer[0]._BufferMemory[0], 0, size, 0, &data);
+			memcpy(data, ptrData, (size_t)size);
+			vkUnmapMemory(_device, bufRenderer[0]._BufferMemory[0]);
+		}
+
+		CreateBuffer(size, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, bufRenderer[1]._Buffer[0], bufRenderer[1]._BufferMemory[0] );
 
 		CopyBuffer(bufRenderer[0]._Buffer[0], bufRenderer[1]._Buffer[0], size);
 
@@ -1704,6 +1734,16 @@ namespace Soon
 		return (_device);
 	}
 
+	VkExtent2D GraphicsInstance::GetSwapChainExtent( void )
+	{
+		return _swapChainExtent;
+	}
+
+	VkRenderPass GraphicsInstance::GetRenderPass( void )
+	{
+		std::cout << "GetRender" << std::endl;
+		return (_renderPass);
+	}
 	////////// INIT ////////////
 
 	void GraphicsInstance::Initialize( void )

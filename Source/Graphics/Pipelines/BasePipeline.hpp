@@ -1,10 +1,13 @@
 #pragma once
 
+#define GLFW_INCLUDE_VULKAN
+#include <GLFW/glfw3.h>
+
 #include <vector>
 
 namespace Soon
 {
-	enum PipelineType
+	enum struct PipelineType : uint32_t
 	{
 		GRAPHIC = 0,
 		COMPUTE = 1
@@ -20,10 +23,10 @@ namespace Soon
 
 		virtual ~BasePipeline() {}
 		virtual std::vector<VkDescriptorSetLayoutBinding> GetLayoutBinding( void ) = 0;
-		virtual VkVertexInputBindingDescription GetBindingDescription( void ) = 0;
 		virtual void UpdateData( int currentImg ) = 0;
 		virtual void BindCaller( VkCommandBuffer commandBuffer, uint32_t index ) = 0;
-		virtual std::vector<VkVertexInputAttributeDescription> GetAttributeDescriptions( void ) = 0;
+//		virtual std::vector<VkVertexInputAttributeDescription> GetAttributeDescriptions( void ) = 0;
+//		virtual VkVertexInputBindingDescription GetBindingDescription( void ) = 0;
 		virtual void RecreateUniforms( void ) = 0;
 		virtual void RecreatePipeline( void ) = 0;
 
@@ -35,7 +38,6 @@ namespace Soon
 		VkPipelineLayout 						_pipelineLayout;
 		VkPipeline								_graphicPipeline;
 
-		PipelineType _type;
 
 	};
 }

@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.10)
 
 #execute_process(COMMAND source export.sh)
-set (CMAKE_CXX_STANDARD 20)
+set (CMAKE_CXX_STANDARD 17)
 
 set(GLFW_BUILD_EXAMPLES "Build the GLFW example programs" OFF FORCE)
 set(GLFW_BUILD_TESTS "Build the GLFW test programs" OFF FORCE)
@@ -41,8 +41,6 @@ LINK_DIRECTORIES(
 
 
 project(Soon)
-
-add_compile_options(-Wall -Wextra -g3)
 
 option (ASSIMP_BUILD_TESTS OFF)
 option(ASSIMP_NO_EXPORT "" ON)

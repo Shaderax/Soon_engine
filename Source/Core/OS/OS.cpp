@@ -1,7 +1,7 @@
 #include "Core/OS/OS.hpp"
 #include "Graphics/GLFW/Init.hpp"
 #include "Graphics/GLFW/Hints.hpp"
-#include "Core/OS/Input/Input.hpp"
+//#include "Core/OS/Input/Input.hpp"
 #include "Graphics/Vulkan/GraphicsInstance.hpp"
 #include "Graphics/Vulkan/GraphicsRenderer.hpp"
 #include <iostream>
@@ -35,7 +35,7 @@ namespace Soon
 		GraphicsInstance::GetInstance()->Initialize();
 		GraphicsRenderer::GetInstance()->Initialize();
 		_window = GraphicsInstance::GetInstance()->GetWindow();
-		_input = new Input;
+//		_input = new Input;
 	}
 
 	void OS::Destroy( void )

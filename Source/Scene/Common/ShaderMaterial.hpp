@@ -10,14 +10,16 @@ namespace Soon
 	class ShaderMaterial : public Material
 	{
 		public:
-			ShaderPipeline*		_shaderPipeline;
+			ShaderPipeline*		_shaderPipeline = nullptr;
+
+			ShaderMaterial( void );
 
 			template<class T>
 				void SetPipeline( void )
 				{
 					if (_shaderPipeline)
 						_shaderPipeline->RemoveFromPipeline();
-					_shaderPipeline = GraphicRenderer::GetInstance().AddPipeline<T>();
+					_shaderPipeline = GraphicsRenderer::GetInstance()->AddPipeline<T>();
 				}
 
 	};

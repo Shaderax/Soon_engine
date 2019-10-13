@@ -9,6 +9,7 @@
 #include "Core/Math/vec3.hpp"
 //#include "Scene/Common/Material.hpp"
 #include "Scene/Common/Texture.hpp"
+#include "GraphicsPipelineConf.hpp"
 
 enum DescriptorTypeLayout
 {
@@ -26,13 +27,6 @@ struct SwapChainSupportDetails
 	VkSurfaceCapabilitiesKHR capabilities;
 	std::vector<VkSurfaceFormatKHR> formats;
 	std::vector<VkPresentModeKHR> presentModes;
-};
-
-struct Vertex
-{
-	vec3<float> _position;
-	vec3<float> _normal;
-	vec3<float> _texCoords;
 };
 
 struct BufferRenderer
@@ -163,10 +157,7 @@ namespace Soon
 			VkImageView CreateImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags, VkImageViewType viewType = VK_IMAGE_VIEW_TYPE_2D );
 			std::vector<VkDescriptorSetLayout> CreateDescriptorSetLayout( std::vector<VkDescriptorSetLayoutBinding> uboLayoutBinding );
 			VkPipeline CreateGraphicsPipeline(
-				VkPipelineLayout						pipelineLayout,
-				VkVertexInputBindingDescription					bindingDescription,
-				std::vector<VkVertexInputAttributeDescription>			attributeDescriptions,
-				ShaderType							sType,
+				GraphicsPipelineConf&						conf,
 				std::string 							FirstPath,
 				std::string							SecondPath);
 			VkPipeline CreateComputePipeline(
@@ -183,7 +174,8 @@ namespace Soon
 			void 	CleanupSwapChain( void );
 			VkExtent2D ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
 			static void FramebufferResizeCallback(GLFWwindow *window, int width, int height);
-			std::vector<BufferRenderer> CreateVertexBuffer( uint32_t size, void* ptrData, bool storageBit );
+			std::vector<BufferRenderer> CreateVertexBuffer( uint32_t size, void* ptrData );
+			std::vector<BufferRenderer> CreateStorageBuffer( uint32_t size, void* ptrData );
 			uint32_t FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
 			void	FillCommandBuffer( void );
 			void 	CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory);
@@ -191,7 +183,7 @@ namespace Soon
 			void	UpdateUniformBuffer(uint32_t currentImage);
 			void 	CreateDescriptorPool( void );
 			std::vector<VkDescriptorSet> CreateImageDescriptorSets( VkImageView textureImageView, VkSampler textureSampler, VkDescriptorSetLayout descriptorSetLayout );
-			ImageRenderer	CreateTextureImage( Texture* texture);
+			ImageRenderer	CreateTextureImage( Texture* texture );
 			void 	CreateImage(uint32_t width, uint32_t height, TextureType tType, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory);
 			VkCommandBuffer BeginSingleTimeCommands( void );
 			void	EndSingleTimeCommands(VkCommandBuffer commandBuffer);
@@ -206,6 +198,10 @@ namespace Soon
 			void CreateDepthResources( void );
 			bool HasStencilComponent(VkFormat format);
 			VkDevice GetDevice( void );
+
+
+			VkExtent2D GetSwapChainExtent( void );//						_swapChainExtent;
+			VkRenderPass GetRenderPass( void ); //					_renderPass;
 
 			VkPipelineLayout CreatePipelineLayout( std::vector<VkDescriptorSetLayout> descriptorSetLayout );
 			UniformSets CreateUniform( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout );

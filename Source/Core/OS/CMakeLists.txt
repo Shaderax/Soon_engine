@@ -6,7 +6,7 @@ set(SRC
 
 add_library(OS ${SRC})
 
-#add_subdirectory(Input)
+add_subdirectory(Input)
 
 #target_link_libraries(OS Input)
-target_link_libraries(OS Graphics)
+target_link_libraries(OS Input Graphics)

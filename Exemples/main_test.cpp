@@ -8,7 +8,7 @@
 #include "Scene/3D/Components/3dObjectControler.hpp"
 #include "Scene/3D/Systems/3dObjectControlerSystem.hpp"
 #include "ECS/World.hpp"
-#include "Scene/3D/Components/DirectionalLight.hpp"
+//#include "Scene/3D/Components/DirectionalLight.hpp"
 #include "Scene/3D/Components/ParticlesSystem.hpp"
 #include "Utilities/MeshArray.hpp"
 #include "Core/Parsers/RessourceImporter.hpp"
@@ -43,9 +43,10 @@ int main(int argc, char**argv)
 	Camera.AddComponent<Soon::Camera3D>();
 	Camera.AddComponent<ObjectControler>();
 
-	Soon::Object Particles;
-	Particles.AddComponent<Soon::ParticlesSystem>();
-//	Soon::Mesh mesh = Maya.AddComponent<Soon::Mesh>();
+//	Soon::Object Particles;
+//	Particles.AddComponent<Soon::ParticlesSystem>();
+	Soon::Object Maya;
+	Soon::Mesh mesh = Maya.AddComponent<Soon::Mesh>();
 //	Soon::MeshArray ar = Soon::RessourceImporter::GetSingleton().Load<Soon::MeshArray>("../Ressources/objects/Borderlands 2 - Maya/untitled.obj");
 //	Soon::Object* Maya = Instantiate(ar);
 

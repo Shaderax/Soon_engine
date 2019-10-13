@@ -7,6 +7,7 @@
 
 namespace Soon
 {
+	class Mesh;
 	struct ParticlesSystem : public ComponentRenderer
 	{
 		public:
@@ -22,15 +23,15 @@ namespace Soon
 
 		~ParticlesSystem( void );
 
-	template<typename T>
-		void SetComponentToRender( T* cmp );
+//	template<typename T>
+		void SetComponentToRender( Mesh* cmp );
 
 		void EnableRender( void );
 		void DisableRender( void );
 
 		uint32_t		_amount;
 		RenderType		_rt;
-		ComponentRenderer*	_toRender;
+		Mesh*			_toRender;
 		ComputeMaterial		_computeMaterial;
 	};
 }

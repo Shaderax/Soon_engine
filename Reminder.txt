@@ -25,6 +25,10 @@ put TypeId au ileu de uint32_t
 
 tu peux templaté les Shader/Compute Material;
 
+reimplement input
+
+_created pipeline != _computePIpeline
+
 
 ////////// Brain Function //////////
 

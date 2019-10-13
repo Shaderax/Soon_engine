@@ -10,9 +10,10 @@ namespace Soon
 	class ShaderPipeline : public BasePipeline
 	{
 		public:
+		static const PipelineType _type = PipelineType::GRAPHIC;
+
 			ShaderPipeline()
 			{
-				_type = PipelineType::GRAPHIC;
 			}
 
 			virtual void AddToRender( Transform3D& tr, Mesh* mesh ) = 0;

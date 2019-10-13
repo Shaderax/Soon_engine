@@ -1,5 +1,10 @@
 #pragma once
 
+#include "Graphics/Pipelines/ComputePipeline.hpp"
+#include "Scene/Common/Material.hpp"
+
+#include "Graphics/Vulkan/GraphicsRenderer.hpp"
+
 namespace Soon
 {
 	class ComputeMaterial : public Material
@@ -12,7 +17,7 @@ namespace Soon
 				{
 					if (_computePipeline)
 						_computePipeline->RemoveFromPipeline();
-					_computePipeline = GraphicRenderer::GetInstance().AddPipeline<T>();
+					_computePipeline = GraphicsRenderer::GetInstance()->AddPipeline<T>();
 				}
 	};
 }

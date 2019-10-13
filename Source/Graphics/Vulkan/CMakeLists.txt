@@ -3,6 +3,7 @@ cmake_minimum_required (VERSION 3.10)
 set (SRC
 	GraphicsInstance.cpp
 	GraphicsRenderer.cpp
+	GraphicsPipelineConf.cpp
 	)
 
 add_library(GraphicsVulkan
