@@ -29,6 +29,11 @@ reimplement input
 
 _created pipeline != _computePIpeline
 
+POur les materiaix j'ai plusisuers options :
+ - struct a la malloc
+ - Variant
+ - rien de special et je garde mes un_map
+
 
 ////////// Brain Function //////////
 

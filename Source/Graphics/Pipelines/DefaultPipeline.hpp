@@ -78,6 +78,11 @@ namespace Soon
 		//			alignas(16) vec3<float> _specular;
 		//			alignas(4)  float       _shininess;
 		//		};
+//		struct o
+//		{
+//			string name;
+//			type tt;
+//		};
 
 		void UpdateData( int currentImage )
 		{
@@ -140,11 +145,20 @@ namespace Soon
 			i = -1;
 			for (auto& uniformMaterial : _uniformsMaterials)
 			{
-				++i;
-
 				//				DefaultVertexPipeline::Properties* mt = reinterpret_cast<DefaultVertexPipeline::Properties*>(_vecMaterials.at(i)->_properties);
+				++i;
+struct UniformMaterial
+{
+	alignas(16)	vec3<float>		_ambient;
+	alignas(16)	vec3<float>		_diffuse;
+	alignas(16)	vec3<float>		_specular;
+	alignas(4)	float			_shininess;
+};
+
 
 				//				vkMapMemory(device, uniformMaterial._BufferMemory[currentImage], 0, sizeof(UniformMaterial), 0, &data);
+
+
 				//				memcpy(data, &(mt->_ambient), sizeof(UniformMaterial));
 				//				vkUnmapMemory(device, uniformMaterial._BufferMemory[currentImage]);
 			}
