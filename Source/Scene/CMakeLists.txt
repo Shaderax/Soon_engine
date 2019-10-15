@@ -5,8 +5,7 @@ set(SRC
 	Object.cpp
 	./3D/Components/Mesh.cpp
 	./3D/Components/ParticlesSystem.cpp
-	./Common/ShaderMaterial.cpp
 	)
 
 add_library(Scene ${SRC})
-target_link_libraries(Scene Graphics assimp)
+#target_link_libraries(Scene ECS Graphics assimp)

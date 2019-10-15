@@ -30,10 +30,10 @@ reimplement input
 _created pipeline != _computePIpeline
 
 POur les materiaix j'ai plusisuers options :
- - struct a la malloc
- - Variant
+ - struct a la malloc avec std::list du name et type
  - rien de special et je garde mes un_map
 
+out of range unordered map material.hp
 
 ////////// Brain Function //////////
 

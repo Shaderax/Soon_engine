@@ -5,7 +5,7 @@
 #include "Core/Engine.hpp"
 #include "Scene/3D/Components/Camera.hpp"
 //#include "Scene/3D/Components/DirectionalLight.hpp"
-#include "Scene/Common/Material.hpp"
+#include "Graphics/Materials/Material.hpp"
 
 #include "Graphics/Vulkan/GraphicsPipelineConf.hpp"
 #include "Utilities/Vertex.hpp"
@@ -78,11 +78,11 @@ namespace Soon
 		//			alignas(16) vec3<float> _specular;
 		//			alignas(4)  float       _shininess;
 		//		};
-//		struct o
-//		{
-//			string name;
-//			type tt;
-//		};
+		//		struct o
+		//		{
+		//			string name;
+		//			type tt;
+		//		};
 
 		void UpdateData( int currentImage )
 		{
@@ -145,22 +145,24 @@ namespace Soon
 			i = -1;
 			for (auto& uniformMaterial : _uniformsMaterials)
 			{
-				//				DefaultVertexPipeline::Properties* mt = reinterpret_cast<DefaultVertexPipeline::Properties*>(_vecMaterials.at(i)->_properties);
 				++i;
-struct UniformMaterial
-{
-	alignas(16)	vec3<float>		_ambient;
-	alignas(16)	vec3<float>		_diffuse;
-	alignas(16)	vec3<float>		_specular;
-	alignas(4)	float			_shininess;
-};
+				//struct UniformMaterial
+				//{
+				//	alignas(16)	vec3<float>		_ambient;
+				//	alignas(16)	vec3<float>		_diffuse;
+				//	alignas(16)	vec3<float>		_specular;
+				//	alignas(4)	float			_shininess;
+				//};
 
 
-				//				vkMapMemory(device, uniformMaterial._BufferMemory[currentImage], 0, sizeof(UniformMaterial), 0, &data);
+				vkMapMemory(device, uniformMaterial._BufferMemory[currentImage], 0, sizeof(UniformMaterial), 0, &data);
 
+				memcpy(data + offsetof(UniformMaterial, _ambient), _vecMaterials.at(i)->GetVec3("ambient"), sizeof(vec3<float>));
+				memcpy(data + offsetof(UniformMaterial, _diffuse), _vecMaterials.at(i)->GetVec3("diffuse"), sizeof(vec3<float>));
+				memcpy(data + offsetof(UniformMaterial, _specular), _vecMaterials.at(i)->GetVec3("specular"), sizeof(vec3<float>));
+				memcpy(data + offsetof(UniformMaterial, _shininess), _vecMaterials.at(i)->GetFloat("shininess"), sizeof(float));
 
-				//				memcpy(data, &(mt->_ambient), sizeof(UniformMaterial));
-				//				vkUnmapMemory(device, uniformMaterial._BufferMemory[currentImage]);
+				vkUnmapMemory(device, uniformMaterial._BufferMemory[currentImage]);
 			}
 			data = nullptr;
 
@@ -383,9 +385,9 @@ struct UniformMaterial
 					"../Source/Graphics/Shaders/Default_Shader.frag.spv");
 		}
 
-   		void RemoveFromPipeline( void ) {};
-   		void Enable( void ) {};
-   		void Disable( void ) {};
+		void RemoveFromPipeline( void ) {};
+		void Enable( void ) {};
+		void Disable( void ) {};
 
 	};
 }

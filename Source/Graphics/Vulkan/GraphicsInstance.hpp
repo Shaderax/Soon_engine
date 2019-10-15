@@ -208,6 +208,5 @@ namespace Soon
 			std::vector<VkDescriptorSet> CreateDescriptorSets( size_t size, std::vector<VkDescriptorSetLayout> layoutArray, int dlayout, VkBuffer* gpuBuffers,  VkDescriptorType dType);
 
 			void 	NewGraphicsInstance( void );
-
 	};
 }

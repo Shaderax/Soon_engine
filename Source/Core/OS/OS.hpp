@@ -1,9 +1,7 @@
 #pragma once
 #include <string>
-#include "Graphics/Vulkan/GraphicsInstance.hpp"
-//#define GLFW_INCLUDE_VULKAN
-//#include <GLFW/glfw3.h>
-#include "Core/OS/Input/Input.hpp"
+#define GLFW_INCLUDE_VULKAN
+#include <GLFW/glfw3.h>
 
 namespace Soon
 {
@@ -13,7 +11,12 @@ namespace Soon
 			OS( void );
 			~OS( void );
 
-			static OS* GetInstance( void );
+		//	static OS* GetInstance( void );
+	static OS* GetInstance( void )
+	{
+		return (_singleton);
+	}
+
 
 			struct WindowAttribute
 			{
@@ -36,18 +39,28 @@ namespace Soon
 			void Initialize( void );
 			void Destroy( void );
 			GLFWwindow* GetWindow( void );
-			OS::WindowAttribute GetWindowAttribute( void );
-			void SetGetWindowSizeAttribute( int width, int height);
 			bool ShouldClose( void );
 			void PollEvent( void );
 			void SwapBuffer( void );
 			void DrawFrame( void );
+
+			OS::WindowAttribute GetWindowAttribute( void )
+			{
+				return (_winAttr);
+			}
+
+			void SetWindowSizeAttribute( int width, int height)
+			{
+				_winAttr._width = width;
+				_winAttr._height = height;
+			}
 		private:
 			static OS*	_singleton;
 
 			GLFWwindow*     _window;
 			WindowAttribute _winAttr;
-			Input*      _input;
+			//		Input*      _input;
 	};
 	OS* NewOS( void );
+	OS* OS::_singleton = nullptr;
 }

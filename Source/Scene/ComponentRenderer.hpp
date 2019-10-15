@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ECS/Component.hpp"
-#include "Scene/Common/ShaderMaterial.hpp"
+#include "Graphics/Materials/ShaderMaterial.hpp"
 
 namespace Soon
 {

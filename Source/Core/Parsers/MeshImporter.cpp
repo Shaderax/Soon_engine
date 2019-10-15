@@ -1,25 +1,20 @@
 #include "MeshImporter.hpp"
-
 #include "RessourceMap.hpp"
-
 #include "Importer.hpp"
 #include "RessourceImporter.hpp"
 #include "ECS/ClassTypeId.hpp"
 #include "Scene/3D/Components/Mesh.hpp"
 #include "Utilities/MeshArray.hpp"
 
-///
-#include "Core/Math/vec2.hpp"
 #include "Core/Math/vec3.hpp"
-#include <cstring>
 #include "Scene/Object.hpp"
 
+#include <cstring>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
 #include "Scene/Common/ObjectOwner.hpp"
-
 #include "Scene/Common/Texture2D.hpp"
 
 namespace Soon

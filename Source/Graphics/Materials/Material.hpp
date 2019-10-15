@@ -31,7 +31,12 @@ namespace Soon
 
 		void SetFloat( std::string name, float& value )
 		{
-			_floats[name] = value;
+			_floats[name] = &value;
+		}
+
+		float* GetFloat( std::string name )
+		{
+			return _floats[name];
 		}
 
 		void SetVec3( std::string name, vec3<float>& vec )
@@ -39,8 +44,13 @@ namespace Soon
 			_vec3s[name] = &vec;
 		}
 
-		std::unordered_map<std::string, Texture*> _textures;
-		std::unordered_map<std::string, float> _floats;
-		std::unordered_map<std::string, vec3<float>*> _vec3s;
+		vec3<float>* GetVec3( std::string name )
+		{
+			return _vec3s[name];
+		}
+
+		std::unordered_map<std::string, Texture*>	_textures;
+		std::unordered_map<std::string, float*>		_floats;
+		std::unordered_map<std::string, vec3<float>*>	_vec3s;
 	};
 }

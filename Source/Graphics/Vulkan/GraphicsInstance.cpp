@@ -1211,7 +1211,7 @@ namespace Soon
 		auto app = reinterpret_cast<GraphicsInstance*>(glfwGetWindowUserPointer(window));
 		app->_framebufferResized = true;
 		std::cout << width << " " << height << std::endl;
-		OS::GetInstance()->SetGetWindowSizeAttribute(width, height);
+		OS::GetInstance()->SetWindowSizeAttribute(width, height);
 	}
 
 	VkSampler GraphicsInstance::CreateTextureSampler( void )

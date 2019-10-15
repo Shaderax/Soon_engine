@@ -2,6 +2,7 @@
 #include "Core/OS/OS.hpp"
 #include "ECS/World.hpp"
 #include "Graphics/Vulkan/GraphicsRenderer.hpp"
+#include "Graphics/Vulkan/GraphicsInstance.hpp"
 
 #include "Core/Parsers/InitRessourceImporter.hpp"
 

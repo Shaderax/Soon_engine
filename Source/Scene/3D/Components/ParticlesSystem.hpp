@@ -3,7 +3,7 @@
 #include "ECS/Entity.hpp"
 #include "Scene/ComponentRenderer.hpp"
 
-#include "Scene/Common/ComputeMaterial.hpp"
+#include "Graphics/Materials/ComputeMaterial.hpp"
 
 namespace Soon
 {

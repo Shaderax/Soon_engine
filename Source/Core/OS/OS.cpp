@@ -1,15 +1,12 @@
 #include "Core/OS/OS.hpp"
 #include "Graphics/GLFW/Init.hpp"
 #include "Graphics/GLFW/Hints.hpp"
-//#include "Core/OS/Input/Input.hpp"
 #include "Graphics/Vulkan/GraphicsInstance.hpp"
 #include "Graphics/Vulkan/GraphicsRenderer.hpp"
 #include <iostream>
 
 namespace Soon
 {
-	OS *OS::_singleton = NULL;
-
 	OS::OS( void )
 	{
 		_singleton = this;
@@ -21,11 +18,6 @@ namespace Soon
 		Destroy();
 	}
 
-	OS* OS::GetInstance( void )
-	{
-		return (_singleton);
-	}
-
 	void OS::Initialize( void )
 	{
 		InitGLFW();
@@ -35,7 +27,6 @@ namespace Soon
 		GraphicsInstance::GetInstance()->Initialize();
 		GraphicsRenderer::GetInstance()->Initialize();
 		_window = GraphicsInstance::GetInstance()->GetWindow();
-//		_input = new Input;
 	}
 
 	void OS::Destroy( void )
@@ -46,11 +37,6 @@ namespace Soon
 	GLFWwindow* OS::GetWindow( void )
 	{
 		return (_window);
-	}
-
-	OS::WindowAttribute OS::GetWindowAttribute( void )
-	{
-		return (_winAttr);
 	}
 
 	bool OS::ShouldClose( void )
@@ -80,9 +66,4 @@ namespace Soon
 		return (os);
 	}
 
-	void OS::SetGetWindowSizeAttribute( int width, int height)
-	{
-		_winAttr._width = width;
-		_winAttr._height = height;
-	}
 }

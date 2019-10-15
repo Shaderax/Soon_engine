@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Graphics/Pipelines/ComputePipeline.hpp"
-#include "Scene/Common/Material.hpp"
+#include "Graphics/Materials/Material.hpp"
 
 #include "Graphics/Vulkan/GraphicsRenderer.hpp"
 
