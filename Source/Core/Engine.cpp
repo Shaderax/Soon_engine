@@ -2,6 +2,9 @@
 #include "Core/OS/OS.hpp"
 #include "ECS/World.hpp"
 #include "Graphics/Vulkan/GraphicsRenderer.hpp"
+#include "Graphics/Vulkan/GraphicsInstance.hpp"
+
+#include "Core/Parsers/InitRessourceImporter.hpp"
 
 namespace Soon
 {
@@ -18,6 +21,7 @@ namespace Soon
 
 	bool Engine::Init( void )
 	{
+		InitRessourceImporter();
 		new OS;
 		OS::GetInstance()->Initialize();
 		NewScene();

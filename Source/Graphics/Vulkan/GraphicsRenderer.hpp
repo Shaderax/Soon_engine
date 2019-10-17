@@ -1,22 +1,21 @@
 #pragma once
 
-#include "Graphics/Vulkan/GraphicsInstance.hpp"
+#define GLFW_INCLUDE_VULKAN
+#include <GLFW/glfw3.h>
 #include "Scene/3D/Components/Transform3D.hpp"
 #include "Core/Math/mat4.hpp"
+#include "Graphics/Pipelines/BasePipeline.hpp"
+#include "Graphics/Pipelines/ComputePipeline.hpp"
 
 #include <bitset>
 #include <array>
-
-struct Image
-{
-	VkSampler _textureSampler;
-	VkImageView _imageView;
-};
+#include <vector>
 
 namespace Soon
 {
-	class DirectionalLight;
-	class ParticlesSystem;
+	class ShaderPipeline;
+	class ComputePipeline;
+	class Light;
 
 	class GraphicsRenderer
 	{
@@ -35,40 +34,45 @@ namespace Soon
 		void 				ComputePipelinesBindCaller( VkCommandBuffer commandBuffer, uint32_t index );
 		void				UpdateAllDatas( uint32_t imageIndex );
 
-		void 				AddVertexToRender( Transform3D& tr, VertexBufferInfo inf);
-		void				AddLightToRender( Transform3D& tr, DirectionalLight* dl);
-		void				AddParticlesSystemToRender( Transform3D& tr, ParticlesSystem *ps );
-
+		void				AddLight( Transform3D& tr, Light* light);
 
 		// TODO 
 		// Max pipelines reach
-		template<typename T, typename ... Args>
-		void AddPipeline( Args ... args );
+//		template<typename T, typename ... Args>
+//			T* AddPipeline( Args ... args );
+	template<typename T, typename ... Args>
+		T* AddPipeline( Args ... args )
+		{
+			if (_createdPipeline[ClassTypeId<BasePipeline>::GetId<T>()] == true)
+			{
+				if (T::_type == PipelineType::COMPUTE)
+					return dynamic_cast<T*>(_computePipelines[ClassTypeId<BasePipeline>::GetId<T>()]);
+				else if (T::_type == PipelineType::GRAPHIC)
+					return dynamic_cast<T*>(_graphicPipelines[ClassTypeId<BasePipeline>::GetId<T>()]);
+			}
+			T* pipeline;
+			pipeline = new T(std::forward<Args>(args) ...);
+			if (T::_type == PipelineType::COMPUTE)
+				_computePipelines[ClassTypeId<BasePipeline>::GetId<T>()] = dynamic_cast<ComputePipeline*>(pipeline);
+			else if (T::_type == PipelineType::GRAPHIC)
+				_graphicPipelines[ClassTypeId<BasePipeline>::GetId<T>()] = dynamic_cast<ShaderPipeline*>(pipeline);
 
-//		std::vector< VkBuffer >		GetvkBuffers( void );
-//		std::vector< uint32_t >		GetNbVertex( void );
-//		std::vector< BufferRenderer >	GetUniformBuffers( void );
-//		std::vector< std::vector<VkDescriptorSet> > GetUniformsDescriptorSets( void );
-//		std::vector< Transform3D* >	GetTransforms( void );
-//		UniformSets			GetUniformsCamera( void );
-//		std::vector<VkDescriptorSet>	GetUniformCameraDescriptorSets( void );
-//		std::vector< VkDeviceMemory >   GetVkDeviceMemory( void );
-//		std::vector< BufferRenderer >   GetIndexBuffers( void );
-//		std::vector<uint32_t>   GetIndexSize( void );
-//		std::vector< std::vector<VkDescriptorSet> > GetUniformsImagesDescriptorSets( void );
+			_createdPipeline[ClassTypeId<BasePipeline>::GetId<T>()] = true;
+			_changes = true;
 
-//		std::vector< std::vector<VkDescriptorSet> > GetUniformsMaterialsDescriptorSets( void );
-//		std::vector< BufferRenderer > GetUniformsMaterials( void );
-//		std::vector< Material * > GetMaterials( void );
-//		std::vector< std::vector<VkDescriptorSet> > GetUniformsLightsDescriptorSets( void );
-//		std::vector< BufferRenderer > GetUniformsLights( void );
-//		std::vector< DirectionalLight * > GetLights( void );
+			return (pipeline);
+		}
+
+
+		template<typename T>
+			void RemovePipeline( void );
 
 		private:
-		std::array<BasePipeline*, MAX_PIPELINES / 2>		_graphicPipelines{};
-		std::array<BasePipeline*, MAX_PIPELINES / 2>		_computePipelines{};
+		std::array<ShaderPipeline*, MAX_PIPELINES / 2>		_graphicPipelines{};
+		std::array<ComputePipeline*, MAX_PIPELINES / 2>		_computePipelines{};
 		bool _changes;
-		bool _isDefault;
 		std::bitset<MAX_PIPELINES>					_createdPipeline;
+
+		std::vector<Light*>	_lights;
 	};
 }

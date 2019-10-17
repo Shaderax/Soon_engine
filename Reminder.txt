@@ -1,42 +1,52 @@
-class BaseGr
+wut if je veux changer de pipeline mon material
+or
+if its not a basic pipeline
+
+le addImporter peut creer une map d'id qui pointe vers des fonctions d'import -- La gestion des priority ? 
 {
-	virtual UpdateData( int CurrentImage ); 
-};
-
-class ComputeShader : BaseGr
-{
-	Update();
-};
-
-class DefaultShader : BaseGr
-{
-	std::vector< uint32_t >         _nbVertex;
-	Update();
-};
-
-Class Renderer
-{
-	std:vector<BaseGr*> _vectorGraphicPipeline;
-};
-
-int main()
-{
-	Son::Object Maya;
-	Maya.AddComponent<Soon::Mesh>();
-	Maya.GetComponent<Soon::Mesh>().LoadMesh("ICI");
-
-	Soon::Object Particles;
-	Particles.AddComponent<Soon::SystemParticles>();
-
-//	for (auto& pipeline : Renderer::_vectorGraphicPipeline)
-//	{
-//		pipeline.UpdateData();
-//	}
+	priority	id of class
+	{0,       10}
 }
 
-Mais UpdateData a besoin du _device du Graphicsinstance, alors ... .
-Soit je fais un GetDevice();
-Soit les pipelines sont stoke dans la class GraphicsInstance;
+Max pipeline reach
 
-Puis-Je avoir Un truc de creation de layout dynamic ?
-Faiut lancer CreateDescriptorSetLayout avec une struct en param.
+je dois refaire les pipelines
+
+AddPipeline if already exist
+
+Surcouche a la gestion des pipelines pour update etc
+
+Add SetTexture at Material class
+
+Light struct is not alignas for gpu alignement
+
+put TypeId au ileu de uint32_t
+
+
+tu peux templaté les Shader/Compute Material;
+
+reimplement input
+
+_created pipeline != _computePIpeline
+
+POur les materiaix j'ai plusisuers options :
+ - struct a la malloc avec std::list du name et type
+ - rien de special et je garde mes un_map
+
+out of range unordered map material.hp
+
+////////// Brain Function //////////
+
+le type de rendu doit etre instncié sur gpu et ya que transform
+
+Donc, Je dis si c'est une mesh si ui je dois malloc ma mesh sur gpu, je le print pour le nombre que j'en ai, avec des transform different. 
+ca c'est qui qui s'en occupe (gen le tout et les transforms) ?
+C'est le compute Shader
+pour l'affichage comment ca se passe ?
+a la base on pourrait penseer qu'on render les objecct instantié mais ca pue,
+le mieux serait de de gen les transform dans le compute shader avec la mesh et ca reviens pas a faire un mesh enable to render ?
+
+donc vu que la mesh ne doit pas etre consideré comme un component d'Object, elle n'a pas d'owner et donc ne peux pas etre utilisé avec enablerenderer 
+donc faut faire ca a la mano
+
+///////// End Brain MalFunction /////////

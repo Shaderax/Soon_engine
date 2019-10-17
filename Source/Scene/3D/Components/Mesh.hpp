@@ -1,53 +1,66 @@
-#include "ECS/Component.hpp"
-#include "Core/Math/vec2.hpp"
-#include "Core/Math/vec3.hpp"
+#pragma once
+
+#include "Scene/ComponentRenderer.hpp"
 #include <vector>
 #include <iostream>
-#include "Graphics/Vulkan/GraphicsRenderer.hpp"
-
-#include "Scene/Common/Material.hpp"
-
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+#include "Utilities/Vertex.hpp"
 
 namespace Soon
 {
 	// Vertex of a 3D Object
-	class Mesh : public Component
+	class Mesh : public ComponentRenderer
 	{
 		public:
-			Mesh(Entity& entity)
+			Mesh( void ) : _owner(nullptr)
 			{
-				_owner = entity;
 			}
 
-			~Mesh()
+			Mesh(Entity& entity) : _owner(&entity)
+			{
+			}
+
+			Mesh(const Mesh& other)
+			{
+				_vertices = other._vertices;
+				_indices = other._indices;
+				_path = other._path;
+				_material = other._material;
+				_active = other._active;
+			}
+
+			Mesh(Entity& entity, const Mesh& other) : _owner(&entity)
+			{
+				_vertices = other._vertices;
+				_indices = other._indices;
+				_path = other._path;
+				_material = other._material;
+				_active = other._active;
+			}
+
+			~Mesh( void )
 			{
 
 			}
 
-			void ProcessNode(aiNode *node, const aiScene *scene);
-			void LoadMesh(std::string path);
-			void ProcessMesh(Mesh& objMesh, aiMesh *mesh, const aiScene *scene);
-			void LoadMaterialTextures(Material* material, aiMaterial *mat, aiTextureType type, std::string typeName);
-
-			VertexBufferInfo _inf =
+			/*
+			Mesh& operator=(const Mesh& other)
 			{
-				0,
-				0,
-				(void*)0
-			};
+				_vertices = other._vertices;
+				_indices = other._indices;
+				_path = other._path;
 
-//			ComponentRenderer _itRender;
+				return *this;
+			}
+			*/
 
+			void EnableRender();
+			void DisableRender();
 
 			std::vector< Vertex >		_vertices;
 			std::vector<uint32_t>		_indices;
-			std::string					_path;
+			std::string			_path;
 
-			Material			_mat;
 		private:
-			Entity				_owner;
+			Entity*				_owner;
 	};
 }

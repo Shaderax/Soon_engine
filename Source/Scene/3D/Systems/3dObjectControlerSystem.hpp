@@ -1,5 +1,8 @@
+#pragma once
+
 #include "ECS/System.hpp"
 #include "Core/Math/vec3.hpp"
+#include "Core/OS/Input/Input.hpp"
 
 struct ObjectControlerSystem : public System
 {

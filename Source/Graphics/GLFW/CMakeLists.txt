@@ -7,5 +7,4 @@ set(SOURCE
 	)
 
 add_library(GraphicsGLFW ${SOURCE})
-
-target_link_libraries(GraphicsGLFW glfw Input)
+#target_link_libraries(GraphicsGLFW glfw)

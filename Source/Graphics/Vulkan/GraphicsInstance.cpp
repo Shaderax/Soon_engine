@@ -14,9 +14,12 @@
 #include <string>
 #include "Core/Engine.hpp"
 #include "Scene/3D/Components/Camera.hpp"
+#include "Scene/Common/Texture.hpp"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb/stb_image.h"
+
+#include "GraphicsPipelineConf.hpp"
 
 const std::vector<const char*> validationLayers = {
 	"VK_LAYER_LUNARG_standard_validation"
@@ -506,21 +509,28 @@ namespace Soon
 		_swapChainImageViews.resize(_swapChainImages.size());
 
 		for (size_t i = 0; i < _swapChainImages.size(); i++)
-			_swapChainImageViews[i] = CreateImageView(_swapChainImages[i], _swapChainImageFormat, VK_IMAGE_ASPECT_COLOR_BIT);
+			_swapChainImageViews[i] = CreateImageView(_swapChainImages[i], _swapChainImageFormat, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D);
 	}
 
-	VkImageView GraphicsInstance::CreateImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags)
+	VkImageView GraphicsInstance::CreateImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags, VkImageViewType viewType)
 	{
 		VkImageViewCreateInfo viewInfo = {};
 		viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
 		viewInfo.image = image;
-		viewInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
+		viewInfo.viewType = viewType;//VK_IMAGE_VIEW_TYPE_2D;
 		viewInfo.format = format;
 		//		viewInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
 		viewInfo.subresourceRange.baseMipLevel = 0;
 		viewInfo.subresourceRange.levelCount = 1;
 		viewInfo.subresourceRange.baseArrayLayer = 0;
-		viewInfo.subresourceRange.layerCount = 1;
+		if (viewType == VK_IMAGE_VIEW_TYPE_2D)
+		{
+			viewInfo.subresourceRange.layerCount = 1;
+		}
+		else if (viewType == VK_IMAGE_VIEW_TYPE_CUBE)
+		{
+			viewInfo.subresourceRange.layerCount = 6;
+		}
 		viewInfo.subresourceRange.aspectMask = aspectFlags;
 
 		VkImageView imageView;
@@ -535,7 +545,9 @@ namespace Soon
 		std::ifstream file(filename, std::ios::ate | std::ios::binary);
 
 		if (!file.is_open())
-			throw std::runtime_error("failed to open file!");
+		{
+			throw std::runtime_error("failed to open file!" + filename);
+		}
 
 		size_t fileSize = (size_t) file.tellg();
 		std::vector<char> buffer(fileSize);
@@ -564,10 +576,7 @@ namespace Soon
 	}
 
 	VkPipeline GraphicsInstance::CreateGraphicsPipeline(
-			VkPipelineLayout								pipelineLayout,
-			VkVertexInputBindingDescription					bindingDescription,
-			std::vector<VkVertexInputAttributeDescription>	attributeDescriptions,
-			GraphicsInstance::ShaderType 						sType,
+			GraphicsPipelineConf&								conf,
 			std::string 									pathVert,
 			std::string										pathFrag)
 	{
@@ -593,12 +602,12 @@ namespace Soon
 
 		VkPipelineShaderStageCreateInfo shaderStages[] = {vertShaderStageInfo, fragShaderStageInfo};
 
+		conf.pipelineInfo.stageCount = 2;
+
 		//
+		/*
 		VkPipelineVertexInputStateCreateInfo vertexInputInfo = {};
 		vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
-
-		//		auto bindingDescription = Vertex::getBindingDescription();
-		//		auto attributeDescriptions = Vertex::getAttributeDescriptions();
 
 		vertexInputInfo.vertexBindingDescriptionCount = 1;
 		vertexInputInfo.vertexAttributeDescriptionCount = static_cast<uint32_t>(attributeDescriptions.size());
@@ -683,22 +692,23 @@ namespace Soon
 		/////////// PIPELINE LAYOUT ////////////
 
 		VkGraphicsPipelineCreateInfo pipelineInfo = {};
-		pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
-		pipelineInfo.stageCount = 2;
-		pipelineInfo.pStages = shaderStages;
-		pipelineInfo.pVertexInputState = &vertexInputInfo;
-		pipelineInfo.pInputAssemblyState = &inputAssembly;
-		pipelineInfo.pViewportState = &viewportState;
-		pipelineInfo.pRasterizationState = &rasterizer;
-		pipelineInfo.pMultisampleState = &multisampling;
-		pipelineInfo.pColorBlendState = &colorBlending;
-		pipelineInfo.pDepthStencilState = &depthStencil;
-		pipelineInfo.layout = pipelineLayout;
-		pipelineInfo.renderPass = _renderPass;
-		pipelineInfo.subpass = 0;
-		pipelineInfo.basePipelineHandle = VK_NULL_HANDLE;
+*/
+	//	conf.pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
+		conf.pipelineInfo.stageCount = 2;
+		conf.pipelineInfo.pStages = shaderStages;
+	//	conf.pipelineInfo.pVertexInputState = &vertexInputInfo;
+	//	conf.pipelineInfo.pInputAssemblyState = &inputAssembly;
+	//	conf.pipelineInfo.pViewportState = &viewportState;
+	//	conf.pipelineInfo.pRasterizationState = &rasterizer;
+	//	conf.pipelineInfo.pMultisampleState = &multisampling;
+	//	conf.pipelineInfo.pColorBlendState = &colorBlending;
+	//	conf.pipelineInfo.pDepthStencilState = &depthStencil;
+	//	conf.pipelineInfo.layout = pipelineLayout;
+	//	conf.pipelineInfo.renderPass = _renderPass;
+	//	conf.pipelineInfo.subpass = 0;
+	//	conf.pipelineInfo.basePipelineHandle = VK_NULL_HANDLE;
 
-		if (vkCreateGraphicsPipelines(_device, VK_NULL_HANDLE, 1, &pipelineInfo, nullptr, &graphicsPipeline) != VK_SUCCESS)
+		if (vkCreateGraphicsPipelines(_device, VK_NULL_HANDLE, 1, &conf.pipelineInfo, nullptr, &graphicsPipeline) != VK_SUCCESS)
 			throw std::runtime_error("failed to create graphics pipeline!");
 
 		vkDestroyShaderModule(_device, fragShaderModule, nullptr);
@@ -810,6 +820,7 @@ namespace Soon
 
 		if (vkCreateRenderPass(_device, &renderPassInfo, nullptr, &_renderPass) != VK_SUCCESS)
 			throw std::runtime_error("failed to create render pass!");
+		std::cout << "Created render pass" << std::endl;
 	}
 
 	void GraphicsInstance::CreateFramebuffers( void )
@@ -1099,8 +1110,8 @@ namespace Soon
 
 		throw std::runtime_error("failed to find suitable memory type!");
 	}
-
-	std::vector<BufferRenderer> GraphicsInstance::CreateVertexBuffer( uint32_t size, void* ptrData, bool storageBit )
+	
+	std::vector<BufferRenderer> GraphicsInstance::CreateStorageBuffer( uint32_t size, void* ptrData )
 	{
 		std::vector<BufferRenderer>					bufRenderer;
 		std::cout << "Vertex BUFFER CREATION : " << size << std::endl;
@@ -1112,7 +1123,7 @@ namespace Soon
 		bufRenderer[1]._Buffer.resize(1);
 		bufRenderer[1]._BufferMemory.resize(1);
 
-		CreateBuffer(size/*inf._vertexSize*/, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, bufRenderer[0]._Buffer[0], bufRenderer[0]._BufferMemory[0]);
+		CreateBuffer(size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, bufRenderer[0]._Buffer[0], bufRenderer[0]._BufferMemory[0]);
 
 		if (ptrData)
 		{
@@ -1122,10 +1133,39 @@ namespace Soon
 			vkUnmapMemory(_device, bufRenderer[0]._BufferMemory[0]);
 		}
 
-		if (storageBit)
-			CreateBuffer(size, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, bufRenderer[1]._Buffer[0], bufRenderer[1]._BufferMemory[0] );
-		else
-			CreateBuffer(size, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, bufRenderer[1]._Buffer[0], bufRenderer[1]._BufferMemory[0] );
+		CreateBuffer(size, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, bufRenderer[1]._Buffer[0], bufRenderer[1]._BufferMemory[0] );
+
+		CopyBuffer(bufRenderer[0]._Buffer[0], bufRenderer[1]._Buffer[0], size);
+
+		//		vkDestroyBuffer(_device, stagingBuffer, nullptr);
+		//		vkFreeMemory(_device, stagingBufferMemory, nullptr);
+
+		return ( bufRenderer );
+	}
+
+	std::vector<BufferRenderer> GraphicsInstance::CreateVertexBuffer( uint32_t size, void* ptrData )
+	{
+		std::vector<BufferRenderer>					bufRenderer;
+		std::cout << "Vertex BUFFER CREATION : " << size << std::endl;
+
+		bufRenderer.resize(2);
+
+		bufRenderer[0]._Buffer.resize(1);
+		bufRenderer[0]._BufferMemory.resize(1);
+		bufRenderer[1]._Buffer.resize(1);
+		bufRenderer[1]._BufferMemory.resize(1);
+
+		CreateBuffer(size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, bufRenderer[0]._Buffer[0], bufRenderer[0]._BufferMemory[0]);
+
+		if (ptrData)
+		{
+			void* data;
+			vkMapMemory(_device, bufRenderer[0]._BufferMemory[0], 0, size, 0, &data);
+			memcpy(data, ptrData, (size_t)size);
+			vkUnmapMemory(_device, bufRenderer[0]._BufferMemory[0]);
+		}
+
+		CreateBuffer(size, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, bufRenderer[1]._Buffer[0], bufRenderer[1]._BufferMemory[0] );
 
 		CopyBuffer(bufRenderer[0]._Buffer[0], bufRenderer[1]._Buffer[0], size);
 
@@ -1177,7 +1217,7 @@ namespace Soon
 		auto app = reinterpret_cast<GraphicsInstance*>(glfwGetWindowUserPointer(window));
 		app->_framebufferResized = true;
 		std::cout << width << " " << height << std::endl;
-		OS::GetInstance()->SetGetWindowSizeAttribute(width, height);
+		OS::GetInstance()->SetWindowSizeAttribute(width, height);
 	}
 
 	VkSampler GraphicsInstance::CreateTextureSampler( void )
@@ -1188,7 +1228,7 @@ namespace Soon
 		samplerInfo.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
 		samplerInfo.magFilter = VK_FILTER_LINEAR;
 		samplerInfo.minFilter = VK_FILTER_LINEAR;
-		samplerInfo.addressModeU = VK_SAMPLER_ADDRESS_MODE_REPEAT;
+		samplerInfo.addressModeU = VK_SAMPLER_ADDRESS_MODE_REPEAT; // VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE
 		samplerInfo.addressModeV = VK_SAMPLER_ADDRESS_MODE_REPEAT;
 		samplerInfo.addressModeW = VK_SAMPLER_ADDRESS_MODE_REPEAT;
 		samplerInfo.anisotropyEnable = VK_TRUE;
@@ -1208,24 +1248,24 @@ namespace Soon
 		return textureSampler;
 	}
 
-	void GraphicsInstance::CreateTextureImageView( void )
-	{
-		// TODO Cleanup
-		VkImageView	textureImageView;
-		VkImage		textureImage;
+//	void GraphicsInstance::CreateTextureImageView( void )
+//	{
+//		// TODO Cleanup
+//		VkImageView	textureImageView;
+//		VkImage		textureImage;
+//
+//		textureImageView = CreateImageView(textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT);
+//	}
 
-		textureImageView = CreateImageView(textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT);
-	}
-
-	ImageRenderer GraphicsInstance::CreateTextureImage( Texture2D* texture )
+	ImageRenderer GraphicsInstance::CreateTextureImage( Texture* texture )
 	{
 		ImageRenderer ir;
-		uint32_t imageSize = texture->_width * texture->_height * 4;
+		size_t imageSize = texture->_tType * texture->_width * texture->_height * 4;//texture->_format;
 		VkBuffer stagingBuffer;
 		VkDeviceMemory stagingBufferMemory;
 
 		std::cout << "ImageSize BUFFER CREATION : " << imageSize <<  std::endl;
-		std::cout << "width " << texture->_width <<  " " << "Height : " << texture->_height << std::endl;
+		std::cout << "width " << texture->_width <<  " " << "Height : " << texture->_height << "Format : " << texture->_format << std::endl;
 
 		CreateBuffer(imageSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, stagingBuffer, stagingBufferMemory);
 
@@ -1234,11 +1274,11 @@ namespace Soon
 		memcpy(data, texture->_data, static_cast<size_t>(imageSize));
 		vkUnmapMemory(_device, stagingBufferMemory);
 
-		CreateImage(texture->_width, texture->_height, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, ir._textureImage, ir._textureImageMemory);
+		CreateImage(texture->_width, texture->_width, texture->_tType, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, ir._textureImage, ir._textureImageMemory);
 
-		TransitionImageLayout(ir._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
-		CopyBufferToImage(stagingBuffer, ir._textureImage, static_cast<uint32_t>(texture->_width), static_cast<uint32_t>(texture->_height));
-		TransitionImageLayout(ir._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+		TransitionImageLayout(ir._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, texture->_tType == TextureType::TEXTURE_2D ? VK_IMAGE_VIEW_TYPE_2D : VK_IMAGE_VIEW_TYPE_CUBE);
+		CopyBufferToImage(stagingBuffer, ir._textureImage, static_cast<uint32_t>(texture->_width), static_cast<uint32_t>(texture->_height), texture->_tType == TextureType::TEXTURE_2D ? VK_IMAGE_VIEW_TYPE_2D : VK_IMAGE_VIEW_TYPE_CUBE);
+		TransitionImageLayout(ir._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, texture->_tType == TextureType::TEXTURE_2D ? VK_IMAGE_VIEW_TYPE_2D : VK_IMAGE_VIEW_TYPE_CUBE);
 
 		vkDestroyBuffer(_device, stagingBuffer, nullptr);
 		vkFreeMemory(_device, stagingBufferMemory, nullptr);
@@ -1250,7 +1290,7 @@ namespace Soon
 		return (ir);
 	}
 
-	void GraphicsInstance::CreateImage(uint32_t width, uint32_t height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory)
+	void GraphicsInstance::CreateImage(uint32_t width, uint32_t height, TextureType tType, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory)
 	{
 		VkImageCreateInfo imageInfo = {};
 		imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
@@ -1259,13 +1299,19 @@ namespace Soon
 		imageInfo.extent.height = height;
 		imageInfo.extent.depth = 1;
 		imageInfo.mipLevels = 1;
-		imageInfo.arrayLayers = 1;
 		imageInfo.format = format;
 		imageInfo.tiling = tiling;
 		imageInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 		imageInfo.usage = usage;
 		imageInfo.samples = VK_SAMPLE_COUNT_1_BIT;
 		imageInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
+		if (tType == TextureType::TEXTURE_CUBE)
+		{
+			imageInfo.arrayLayers = 6;
+			imageInfo.flags = VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT;
+		}
+		else
+			imageInfo.arrayLayers = 1;
 
 		if (vkCreateImage(_device, &imageInfo, nullptr, &image) != VK_SUCCESS)
 			throw std::runtime_error("failed to create image!");
@@ -1319,7 +1365,7 @@ namespace Soon
 		vkFreeCommandBuffers(_device, _commandPool, 1, &commandBuffer);
 	}
 
-	void GraphicsInstance::TransitionImageLayout(VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout)
+	void GraphicsInstance::TransitionImageLayout(VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout, VkImageViewType vType)
 	{
 		VkCommandBuffer commandBuffer = BeginSingleTimeCommands();
 
@@ -1344,7 +1390,7 @@ namespace Soon
 		barrier.subresourceRange.baseMipLevel = 0;
 		barrier.subresourceRange.levelCount = 1;
 		barrier.subresourceRange.baseArrayLayer = 0;
-		barrier.subresourceRange.layerCount = 1;
+		barrier.subresourceRange.layerCount = vType == VK_IMAGE_VIEW_TYPE_2D ? 1 : 6;
 
 		VkPipelineStageFlags sourceStage;
 		VkPipelineStageFlags destinationStage;
@@ -1390,7 +1436,7 @@ namespace Soon
 		EndSingleTimeCommands(commandBuffer);
 	}
 
-	void GraphicsInstance::CopyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height)
+	void GraphicsInstance::CopyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height, VkImageViewType vType)
 	{
 		VkCommandBuffer commandBuffer = BeginSingleTimeCommands();
 
@@ -1401,7 +1447,7 @@ namespace Soon
 		region.imageSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
 		region.imageSubresource.mipLevel = 0;
 		region.imageSubresource.baseArrayLayer = 0;
-		region.imageSubresource.layerCount = 1;
+		region.imageSubresource.layerCount = vType == VK_IMAGE_VIEW_TYPE_2D ? 1 : 6;
 		region.imageOffset = {0, 0, 0};
 		region.imageExtent = {
 			width,
@@ -1439,10 +1485,10 @@ namespace Soon
 		vkBindBufferMemory(_device, buffer, bufferMemory, 0);
 	}
 
-	BufferRenderer GraphicsInstance::CreateIndexBuffer( VertexBufferInfo inf )
+	BufferRenderer GraphicsInstance::CreateIndexBuffer( std::vector<uint32_t> indexData )
 	{
 		BufferRenderer bufRenderer;
-		VkDeviceSize bufferSize = sizeof(uint32_t) * inf._indexSize;
+		VkDeviceSize bufferSize = sizeof(uint32_t) * indexData.size();
 		std::cout << "INDEX BUFFER CREATION : " << bufferSize << std::endl;
 
 		bufRenderer._Buffer.resize(1);
@@ -1455,7 +1501,7 @@ namespace Soon
 
 		void* data;
 		vkMapMemory(_device, stagingBufferMemory, 0, bufferSize, 0, &data);
-		memcpy(data, inf._indexData, (size_t)bufferSize);
+		memcpy(data, indexData.data(), (size_t)bufferSize);
 		vkUnmapMemory(_device, stagingBufferMemory);
 
 		CreateBuffer(bufferSize, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, bufRenderer._Buffer[0], bufRenderer._BufferMemory[0]);
@@ -1681,10 +1727,10 @@ namespace Soon
 	{
 		VkFormat depthFormat = FindDepthFormat();
 
-		CreateImage(_swapChainExtent.width, _swapChainExtent.height, depthFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, _depthImage, _depthImageMemory);
-		_depthImageView = CreateImageView(_depthImage, depthFormat, VK_IMAGE_ASPECT_DEPTH_BIT);
+		CreateImage(_swapChainExtent.width, _swapChainExtent.height, TextureType::TEXTURE_2D, depthFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, _depthImage, _depthImageMemory);
+		_depthImageView = CreateImageView(_depthImage, depthFormat, VK_IMAGE_ASPECT_DEPTH_BIT, VK_IMAGE_VIEW_TYPE_2D);
 
-		TransitionImageLayout(_depthImage, depthFormat, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
+		TransitionImageLayout(_depthImage, depthFormat, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL, VK_IMAGE_VIEW_TYPE_2D);
 	}
 
 	//////////// GETTER ////////////
@@ -1694,6 +1740,15 @@ namespace Soon
 		return (_device);
 	}
 
+	VkExtent2D GraphicsInstance::GetSwapChainExtent( void )
+	{
+		return _swapChainExtent;
+	}
+
+	VkRenderPass GraphicsInstance::GetRenderPass( void )
+	{
+		return (_renderPass);
+	}
 	////////// INIT ////////////
 
 	void GraphicsInstance::Initialize( void )

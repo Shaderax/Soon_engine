@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Core/Math/vec3.hpp"
 #include "Core/Math/mat4.hpp"
 #include <math.h>
@@ -69,21 +71,19 @@ struct Quaternion
 		return (vec3<float>(roll * 180/M_PI, pitch * 180/M_PI, yaw * 180/M_PI));
 	}
 
-	Quaternion operator*(Quaternion const& b)
+	friend Quaternion operator*(Quaternion left, Quaternion const& b)
 	{
-		Quaternion Result;
-
-		Result.v.x = f * b.v.x	+ v.x * b.f		+ v.y * b.v.z	- v.z * b.v.y;
-		Result.v.y = f * b.v.y	- v.x * b.v.z	+ v.y * b.f		+ v.z * b.v.x;
-		Result.v.z = f * b.v.z	+ v.x * b.v.y	- v.y * b.v.x	+ v.z * b.f;
-		Result.f   = f * b.f	- v.x * b.v.x	- v.y * b.v.y	- v.z * b.v.z;
-
-		return (Result);
+		return left *= b;
 	}
 
 	Quaternion& operator*=(Quaternion const& b)
 	{
-		return (*this) = (*this) * b;
+		this->v.x = f * b.v.x	+ this->v.x * b.f	+ this->v.y * b.v.z	- this->v.z * b.v.y;
+		this->v.y = f * b.v.y	- this->v.x * b.v.z	+ this->v.y * b.f	+ this->v.z * b.v.x;
+		this->v.z = f * b.v.z	+ this->v.x * b.v.y	- this->v.y * b.v.x	+ this->v.z * b.f;
+		this->f   = f * b.f	- this->v.x * b.v.x	- this->v.y * b.v.y	- this->v.z * b.v.z;
+		
+		return (*this);// = (*this) * b;
 	}
 
 	Quaternion& operator=(Quaternion const& b)
