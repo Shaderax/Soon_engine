@@ -7,6 +7,8 @@
 
 namespace Soon
 {
+        OS* OS::_singleton = nullptr;
+
 	OS::OS( void )
 	{
 		_singleton = this;
@@ -17,6 +19,11 @@ namespace Soon
 		_singleton = nullptr;
 		Destroy();
 	}
+	
+	OS* OS::GetInstance( void )
+        {
+                return (_singleton);
+        }
 
 	void OS::Initialize( void )
 	{

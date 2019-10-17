@@ -7,4 +7,4 @@ set(SRC
 
 add_library(Parsers ${SRC})
 
-#target_link_libraries(Parsers Scene)
+target_link_libraries(Parsers assimp)

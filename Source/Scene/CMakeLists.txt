@@ -9,3 +9,4 @@ set(SRC
 
 add_library(Scene ${SRC})
 #target_link_libraries(Scene ECS Graphics assimp)
+target_link_libraries(Scene Input Materials)

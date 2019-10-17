@@ -2,7 +2,7 @@
 
 #include <stb/stb_image.h>
 
-enum TextureFormat
+enum TextureFormat : int32_t
 {
 	UNDEFINED = 0,
 	G = 1,
@@ -16,7 +16,7 @@ enum TextureFormat
 		//     //       4           red, green, blue, alpha
 };
 
-enum TextureType
+enum TextureType : int32_t
 {
 	TEXTURE_2D = 1,
 	TEXTURE_CUBE = 6
@@ -37,7 +37,7 @@ struct Texture
 
 	~Texture( void )
 	{
-		stbi_image_free(_data);
+		//stbi_image_free(_data);
 	}
 
 	Texture& operator=(const Texture& b)
@@ -48,6 +48,8 @@ struct Texture
 		this->_width = b._width;
 		this->_height = b._height;
 		this->_format = b._format;
+		this->_tType = b._tType;
+
 		return *this;
 	}
 };

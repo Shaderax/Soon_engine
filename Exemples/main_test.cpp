@@ -1,7 +1,5 @@
 #include "Core/Engine.hpp"
 #include "Core/Math/vec3.hpp"
-//#include "Components/TriangleRenderer.hpp"
-//#include "Components/RecRenderer.hpp"
 #include "Scene/Object.hpp"
 #include "Scene/3D/Components/Mesh.hpp"
 #include "Scene/3D/Components/Camera.hpp"
@@ -45,10 +43,15 @@ int main(int argc, char**argv)
 
 //	Soon::Object Particles;
 //	Particles.AddComponent<Soon::ParticlesSystem>();
-	Soon::Object Maya;
-	Soon::Mesh mesh = Maya.AddComponent<Soon::Mesh>();
-//	Soon::MeshArray ar = Soon::RessourceImporter::GetSingleton().Load<Soon::MeshArray>("../Ressources/objects/Borderlands 2 - Maya/untitled.obj");
-//	Soon::Object* Maya = Instantiate(ar);
+//	Soon::Object Maya;
+//	Soon::Mesh& mesh = Maya.AddComponent<Soon::Mesh>((*ar)[2]);
+//	mesh.EnableRender();
+//	Soon::Object* Maya = Instantiate(*ar);
+	
+	Soon::MeshArray* ar = Soon::RessourceImporter::GetSingleton().Load<Soon::MeshArray>("../Ressources/objects/Borderlands 2 - Maya/untitled.obj");
+	Soon::Object* Maya = Instantiate(*ar);
+	ar = Soon::RessourceImporter::GetSingleton().Load<Soon::MeshArray>("../Ressources/objects/Basics/Cube.obj");
+	Instantiate(*ar);
 
 //	Maya.GetComponent<Soon::Mesh>().LoadMesh("../Ressources/objects/Borderlands 2 - Maya/untitled.obj");
 //	Maya.GetComponent<Soon::Mesh>().LoadMesh("../Ressources/objects/Borderlands 2 - Maya/maya.obj");

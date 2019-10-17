@@ -1,7 +1,7 @@
 #version 450
 #extension GL_ARB_separate_shader_objects : enable
 
-layout(binding = 0, set = 2) uniform sampler3D texSampler;
+layout(binding = 0, set = 2) uniform sampler2D texSampler;
 
 layout(binding = 0, set = 3) uniform UniformMaterial
 {
@@ -19,7 +19,7 @@ layout(binding = 0, set = 4) uniform UniformLight
 } ul;
 
 layout(location = 0) in vec3 fragNormal;
-layout(location = 1) in vec3 fragTexCoord;
+layout(location = 1) in vec2 fragTexCoord;
 
 layout(location = 0) out vec4 outColor;
 

@@ -12,6 +12,10 @@
 
 #include <cstring>
 
+#include "Graphics/Vulkan/GraphicsInstance.hpp"
+
+#include "Scene/3D/Components/Mesh.hpp"
+
 namespace Soon
 {
 	struct DefaultPipeline : ShaderPipeline
@@ -64,20 +68,17 @@ namespace Soon
 			_conf.pipelineInfo.layout = _pipelineLayout;
 			_graphicPipeline = GraphicsInstance::GetInstance()->CreateGraphicsPipeline(
 					_conf,
-					"../Source/Graphics/Shaders/Default_Shader.vert.spv",
-					"../Source/Graphics/Shaders/Default_Shader.frag.spv");
+					"../Source/Graphics/Shaders/DefaultShader.vert.spv",
+					"../Source/Graphics/Shaders/DefaultShader.frag.spv");
 
 			_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), _descriptorSetLayout, 0);
+
+			UniformSets lightUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformLight), _descriptorSetLayout, 4);
+
+			_uniformsLights.push_back(lightUniform._uniformRender);
+			_uniformsLightsDescriptorSets.push_back(lightUniform._descriptorSets);
 		}
 
-		//		struct Properties
-		//		{
-		//			Texture2D _texture;
-		//			alignas(16) vec3<float> _ambient;
-		//			alignas(16) vec3<float> _diffuse;
-		//			alignas(16) vec3<float> _specular;
-		//			alignas(4)  float       _shininess;
-		//		};
 		//		struct o
 		//		{
 		//			string name;
@@ -146,65 +147,63 @@ namespace Soon
 			for (auto& uniformMaterial : _uniformsMaterials)
 			{
 				++i;
-				//struct UniformMaterial
-				//{
-				//	alignas(16)	vec3<float>		_ambient;
-				//	alignas(16)	vec3<float>		_diffuse;
-				//	alignas(16)	vec3<float>		_specular;
-				//	alignas(4)	float			_shininess;
-				//};
-
 
 				vkMapMemory(device, uniformMaterial._BufferMemory[currentImage], 0, sizeof(UniformMaterial), 0, &data);
 
-				memcpy(data + offsetof(UniformMaterial, _ambient), _vecMaterials.at(i)->GetVec3("ambient"), sizeof(vec3<float>));
-				memcpy(data + offsetof(UniformMaterial, _diffuse), _vecMaterials.at(i)->GetVec3("diffuse"), sizeof(vec3<float>));
-				memcpy(data + offsetof(UniformMaterial, _specular), _vecMaterials.at(i)->GetVec3("specular"), sizeof(vec3<float>));
-				memcpy(data + offsetof(UniformMaterial, _shininess), _vecMaterials.at(i)->GetFloat("shininess"), sizeof(float));
+				memcpy(data + offsetof(UniformMaterial, _ambient), &(_vecMaterials.at(i)->GetVec3("ambient")), sizeof(vec3<float>));
+				memcpy(data + offsetof(UniformMaterial, _diffuse), &(_vecMaterials.at(i)->GetVec3("diffuse")), sizeof(vec3<float>));
+				memcpy(data + offsetof(UniformMaterial, _specular), &(_vecMaterials.at(i)->GetVec3("specular")), sizeof(vec3<float>));
+				memcpy(data + offsetof(UniformMaterial, _shininess), &(_vecMaterials.at(i)->GetFloat("shininess")), sizeof(float));
 
 				vkUnmapMemory(device, uniformMaterial._BufferMemory[currentImage]);
 			}
 			data = nullptr;
 
 			///////// LIGHTs
-			//			i = -1;
-			//			for (auto& uniformLight : _uniformsLights)
-			//			{
-			//				++i;
-			//				vkMapMemory(device, uniformLight._BufferMemory[currentImage], 0, sizeof(UniformLight), 0, &data);
-			//				memcpy(data, &(_vecLights.at(i)->_direction), sizeof(UniformLight));
-			//				vkUnmapMemory(device, uniformLight._BufferMemory[currentImage]);
-			//			}
+			UniformLight li;
+			li._direction = vec3<float>(0.0f, 1.0f, 0.0f);
+			li._lightColor = vec3<float>(1.0f, 1.0f, 1.0f);
+			li._intensity = 1.0f;
+
+			i = -1;
+			for (auto& uniformLight : _uniformsLights)
+			{
+				++i;
+				vkMapMemory(device, uniformLight._BufferMemory[currentImage], 0, sizeof(UniformLight), 0, &data);
+				memcpy(data, &(li._direction), sizeof(UniformLight));
+				vkUnmapMemory(device, uniformLight._BufferMemory[currentImage]);
+			}
 
 		}
 
 		void BindCaller( VkCommandBuffer commandBuffer, uint32_t index )
 		{
-			//			vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _graphicPipeline);
+			std::cout << "DefaultPipeline BindCaller" << std::endl;
+			vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _graphicPipeline);
 
-			//			VkDeviceSize offsets[] = {0};
+			VkDeviceSize offsets[] = {0};
 
 			// Bind Cam
-			//			if (!_gpuBuffers.empty())
-			//				vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 0, 1, &(_uniformCamera._descriptorSets.at(index)), 0, nullptr);
+			if (!_gpuBuffers.empty())
+				vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 0, 1, &(_uniformCamera._descriptorSets.at(index)), 0, nullptr);
 
-			//			vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 4, 1, &(_uniformsLightsDescriptorSets.at(0).at(index)), 0, nullptr);
+			vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 4, 1, &(_uniformsLightsDescriptorSets.at(0).at(index)), 0, nullptr);
 
-			//uint32_t j = 0;
-			//			for (auto& buf : _gpuBuffers)
-			//			{
-			//				vkCmdBindVertexBuffers(commandBuffer, 0, 1, &buf, offsets);
+			uint32_t j = 0;
+			for (auto& buf : _gpuBuffers)
+			{
+				vkCmdBindVertexBuffers(commandBuffer, 0, 1, &buf, offsets);
 
-			//				vkCmdBindIndexBuffer(commandBuffer, _indexBuffers.at(j)._Buffer[0], 0, VK_INDEX_TYPE_UINT32);
+				vkCmdBindIndexBuffer(commandBuffer, _indexBuffers.at(j)._Buffer[0], 0, VK_INDEX_TYPE_UINT32);
 
-			//				vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 1, 1, &_uniformsDescriptorSets.at(j).at(index), 0, nullptr);
-			//				vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 2, 1, &_uniformsImagesDescriptorSets.at(j).at(index), 0, nullptr);
+				vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 1, 1, &_uniformsDescriptorSets.at(j).at(index), 0, nullptr);
+				vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 2, 1, &_uniformsImagesDescriptorSets.at(j).at(index), 0, nullptr);
 
-			//				vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 3, 1, &_uniformsMaterialsDescriptorSets.at(j).at(index), 0  , nullptr);
+				vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 3, 1, &_uniformsMaterialsDescriptorSets.at(j).at(index), 0  , nullptr);
 
-			//				vkCmdDrawIndexed(commandBuffer, _indexSize.at(j), 1, 0, 0, 0);
-			//				++j;
-			//			}
+				vkCmdDrawIndexed(commandBuffer, _indexSize.at(j), 1, 0, 0, 0);
+				++j;
+			}
 		}
 
 		std::vector<VkDescriptorSetLayoutBinding> GetLayoutBinding( void )
@@ -274,51 +273,47 @@ namespace Soon
 
 		void AddToRender( Transform3D& tr, Mesh* mesh )
 		{
-			//			std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(inf._vertexSize, inf._vertexData, false);
+			std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(mesh->_vertices.size() * sizeof(Vertex), mesh->_vertices.data());
 			//      ComponentRenderer ret;
 
-			//			_stagingBuffers.push_back(handler[0]);
-			//			_gpuBuffers.push_back(handler[1]._Buffer[0]);
-			//			_gpuMemoryBuffers.push_back(handler[1]._BufferMemory[0]);
+			_stagingBuffers.push_back(handler[0]);
+			_gpuBuffers.push_back(handler[1]._Buffer[0]);
+			_gpuMemoryBuffers.push_back(handler[1]._BufferMemory[0]);
 
-			//			_indexBuffers.push_back(GraphicsInstance::GetInstance()->CreateIndexBuffer(inf));
+			_indexBuffers.push_back(GraphicsInstance::GetInstance()->CreateIndexBuffer(mesh->_indices));
 
-			//			_nbVertex.push_back(inf._nbVertex);
-			//			_indexSize.push_back(inf._indexSize);
-			//			_transforms.push_back(&tr);
-
-			//			ret._transform = _transforms.end();
-			//			ret._vkBuffers = _gpuBuffers.end();
-			//			ret._vkDevicesMemoryBuffers = _gpuMemoryBuffers.end();
+			_nbVertex.push_back(mesh->_vertices.size());
+			_indexSize.push_back(mesh->_indices.size());
+			_transforms.push_back(&tr);
 
 			///////////// UNIFORM /////////////
 
-			//			UniformSets modelUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformModel), _descriptorSetLayout, 1);
+			UniformSets modelUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformModel), _descriptorSetLayout, 1);
 
-			//			_uniformsBuffers.push_back(modelUniform._uniformRender);
-			//			_uniformsDescriptorSets.push_back(modelUniform._descriptorSets);
+			_uniformsBuffers.push_back(modelUniform._uniformRender);
+			_uniformsDescriptorSets.push_back(modelUniform._descriptorSets);
 
 			///////////// TEXTURE ////////////
 
-			//			Image img;
-			//			DefaultVertexPipeline::Properties* prop = reinterpret_cast<DefaultVertexPipeline::Properties*>(inf._material->_properties);
+			Image img;
 
-			//			std::cout << prop->_texture._width << " " << prop->_texture._height << std::endl;
-			//			_imagesRenderer.push_back(GraphicsInstance::GetInstance()->CreateTextureImage(&(prop->_texture)));
-			//			img._textureSampler = GraphicsInstance::GetInstance()->CreateTextureSampler();
-			//			img._imageView = GraphicsInstance::GetInstance()->CreateImageView(_imagesRenderer.back()._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT);
-			//			_images.push_back(img);
+			Texture* texture = mesh->_material.GetTexture("texSampler");
 
-			//			std::vector<VkDescriptorSet> imageUniform = GraphicsInstance::GetInstance()->CreateImageDescriptorSets(img._imageView, img._textureSampler, _descriptorSetLayout[2]);
-			//			_uniformsImagesDescriptorSets.push_back(imageUniform);
+			_imagesRenderer.push_back(GraphicsInstance::GetInstance()->CreateTextureImage(texture));
+			img._textureSampler = GraphicsInstance::GetInstance()->CreateTextureSampler();
+			img._imageView = GraphicsInstance::GetInstance()->CreateImageView(_imagesRenderer.back()._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D);
+			_images.push_back(img);
+
+			std::vector<VkDescriptorSet> imageUniform = GraphicsInstance::GetInstance()->CreateImageDescriptorSets(img._imageView, img._textureSampler, _descriptorSetLayout[2]);
+			_uniformsImagesDescriptorSets.push_back(imageUniform);
 
 			/////////// MATERIAL //////////////
 
-			//			UniformSets matUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformMaterial), _descriptorSetLayout, 3);
+			UniformSets matUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformMaterial), _descriptorSetLayout, 3);
 
-			//			_uniformsMaterials.push_back(matUniform._uniformRender);
-			//			_uniformsMaterialsDescriptorSets.push_back(matUniform._descriptorSets);
-			//			_vecMaterials.push_back(inf._material);
+			_uniformsMaterials.push_back(matUniform._uniformRender);
+			_uniformsMaterialsDescriptorSets.push_back(matUniform._descriptorSets);
+			_vecMaterials.push_back(&(mesh->_material));
 
 			/////////////////
 
@@ -357,13 +352,14 @@ namespace Soon
 
 			///// RECREATE LIGHTS
 			j = 0;
-			//			while (j < _vecLights.size())
-			//			{
-			//				UniformSets lightUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformLight), _descriptorSetLayout, 4);
-			//				_uniformsLights.at(j) = lightUniform._uniformRender;
-			//				_uniformsLightsDescriptorSets.at(j) = lightUniform._descriptorSets;
-			//				++j;
-			//			}
+			//while (j < _vecLights.size())
+			while (j < _uniformsLights.size())
+			{
+				UniformSets lightUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformLight), _descriptorSetLayout, 4);
+				_uniformsLights.at(j) = lightUniform._uniformRender;
+				_uniformsLightsDescriptorSets.at(j) = lightUniform._descriptorSets;
+				++j;
+			}
 		}
 
 		//		void AddLightToRender( Transform3D& tr, DirectionalLight* dl)
@@ -381,8 +377,8 @@ namespace Soon
 			_conf.pipelineInfo.renderPass = GraphicsInstance::GetInstance()->GetRenderPass();
 			_graphicPipeline = GraphicsInstance::GetInstance()->CreateGraphicsPipeline(
 					_conf,
-					"../Source/Graphics/Shaders/Default_Shader.vert.spv",
-					"../Source/Graphics/Shaders/Default_Shader.frag.spv");
+					"../Source/Graphics/Shaders/DefaultShader.vert.spv",
+					"../Source/Graphics/Shaders/DefaultShader.frag.spv");
 		}
 
 		void RemoveFromPipeline( void ) {};

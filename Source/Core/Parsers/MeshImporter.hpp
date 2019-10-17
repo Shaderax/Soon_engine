@@ -36,7 +36,7 @@ namespace Soon
 
 			void LoadMaterialTextures(ShaderMaterial& material, aiMaterial *mat, aiTextureType type, std::string typeName);
 
-			MeshArray& ProcessNode(aiNode *node, const aiScene *scene);
+			MeshArray* ProcessNode(aiNode *node, const aiScene *scene);
 	};
 }
 

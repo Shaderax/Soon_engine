@@ -11,12 +11,7 @@ namespace Soon
 			OS( void );
 			~OS( void );
 
-		//	static OS* GetInstance( void );
-	static OS* GetInstance( void )
-	{
-		return (_singleton);
-	}
-
+			static OS* GetInstance( void );
 
 			struct WindowAttribute
 			{
@@ -62,5 +57,4 @@ namespace Soon
 			//		Input*      _input;
 	};
 	OS* NewOS( void );
-	OS* OS::_singleton = nullptr;
 }

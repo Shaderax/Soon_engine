@@ -10,3 +10,4 @@ add_subdirectory(Input)
 
 #target_link_libraries(OS Input)
 #target_link_libraries(OS Input Graphics)
+target_link_libraries(OS GraphicsGLFW)

@@ -24,7 +24,7 @@ namespace Soon
 
 			uint32_t MeshImporter::IdValidType( void )
 			{
-				return (ClassTypeId<RessourceImporter>::GetId<ValidType>());
+				return (ClassTypeId<RessourceImporter>::GetId<MeshArray>());
 			}
 
 			bool MeshImporter::import( std::string path )
@@ -40,7 +40,8 @@ namespace Soon
 
 				_path = path.substr(0, path.find_last_of('/'));
 
-				MeshArray ma = ProcessNode(scene->mRootNode, scene);
+				std::cout << "Load Mesh : " << path << std::endl;
+				MeshArray* ma = ProcessNode(scene->mRootNode, scene);
 
 				GetRessourceMap<MeshArray>().emplace(std::make_pair(path, ma));
 
@@ -87,24 +88,15 @@ namespace Soon
 				// now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
 				for(unsigned int i = 0; i < mesh->mNumFaces; i++)
 				{
-					//			std::cout << "Face : " << i << std::endl;
 					aiFace face = mesh->mFaces[i];
 					// retrieve all indices of the face and store them in the indices vector
 					for(unsigned int j = 0; j < face.mNumIndices; j++)
 					{
-						//				std::cout << "Indices : " << face.mIndices[j] << std::endl;
 						objMesh._indices.push_back(face.mIndices[j]);
 					}
-					//			std::cout << std::endl;
 				}
 				// process materials
 				aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-				// we assume a convention for sampler names in the shaders. Each diffuse texture should be named
-				// as 'texture_diffuseN' where N is a sequential number ranging from 1 to MAX_SAMPLER_NUMBER.
-				// Same applies to other texture as the following list summarizes:
-				// diffuse: texture_diffuseN
-				// specular: texture_specularN
-				// normal: texture_normalN
 
 				if (material)
 				{
@@ -120,11 +112,6 @@ namespace Soon
 
 				}
 
-				//		if (!textures.empty())
-				//			objMesh._mat._texture = textures.at(0);
-				//		else
-				//			objMesh._mat._texture = Texture2D("../Ressources/texture/texture_oui.bmp");
-
 				// 3. normal maps
 				//		std::vector<Texture2D> normalMaps = LoadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
 				//		objMesh._textures.insert(objMesh._textures.end(), normalMaps.begin(), normalMaps.end());
@@ -139,32 +126,30 @@ namespace Soon
 
 			void MeshImporter::LoadMaterialTextures(ShaderMaterial& material, aiMaterial *mat, aiTextureType type, std::string typeName)
 			{
-				//		std::vector<Texture2D> textures(0);
-
 				///// TEST ////
 				aiColor3D diff;
 				aiColor3D ambient;
 				aiColor3D spec;
 				float shini = 0;
 				aiReturn ret;
-				ret = mat->Get(AI_MATKEY_COLOR_DIFFUSE, diff);
-				std::cout << (ret == AI_SUCCESS ? "AI_SUCCESS" : "AI_FAILURE") << std::endl;
-				std::cout << "Diffuse : " << diff.r << std::endl;
-				std::cout << "Diffuse : " << diff.g << std::endl;
-				std::cout << "Diffuse : " << diff.b << std::endl;
-				ret = mat->Get(AI_MATKEY_COLOR_AMBIENT, ambient);
-				std::cout << (ret == AI_SUCCESS ? "AI_SUCCESS" : "AI_FAILURE") << std::endl;
-				std::cout << "Ambient : " << ambient.r << std::endl;
-				std::cout << "Ambient : " << ambient.g << std::endl;
-				std::cout << "Ambient : " << ambient.b << std::endl;
-				ret = mat->Get(AI_MATKEY_COLOR_SPECULAR, spec);
-				std::cout << (ret == AI_SUCCESS ? "AI_SUCCESS" : "AI_FAILURE") << std::endl;
-				std::cout << "Specular : " << spec.r << std::endl;
-				std::cout << "Specular : " << spec.g << std::endl;
-				std::cout << "Specular : " << spec.b << std::endl;
-				ret = mat->Get(AI_MATKEY_SHININESS_STRENGTH, shini);
-				std::cout << (ret == AI_SUCCESS ? "AI_SUCCESS" : "AI_FAILURE") << std::endl;
-				std::cout << "Shininess : " << shini << std::endl;
+//				ret = mat->Get(AI_MATKEY_COLOR_DIFFUSE, diff);
+//				std::cout << (ret == AI_SUCCESS ? "AI_SUCCESS" : "AI_FAILURE") << std::endl;
+//				std::cout << "Diffuse : " << diff.r << std::endl;
+//				std::cout << "Diffuse : " << diff.g << std::endl;
+//				std::cout << "Diffuse : " << diff.b << std::endl;
+//				ret = mat->Get(AI_MATKEY_COLOR_AMBIENT, ambient);
+//				std::cout << (ret == AI_SUCCESS ? "AI_SUCCESS" : "AI_FAILURE") << std::endl;
+//				std::cout << "Ambient : " << ambient.r << std::endl;
+//				std::cout << "Ambient : " << ambient.g << std::endl;
+//				std::cout << "Ambient : " << ambient.b << std::endl;
+//				ret = mat->Get(AI_MATKEY_COLOR_SPECULAR, spec);
+//				std::cout << (ret == AI_SUCCESS ? "AI_SUCCESS" : "AI_FAILURE") << std::endl;
+//				std::cout << "Specular : " << spec.r << std::endl;
+//				std::cout << "Specular : " << spec.g << std::endl;
+//				std::cout << "Specular : " << spec.b << std::endl;
+//				ret = mat->Get(AI_MATKEY_SHININESS_STRENGTH, shini);
+//				std::cout << (ret == AI_SUCCESS ? "AI_SUCCESS" : "AI_FAILURE") << std::endl;
+//				std::cout << "Shininess : " << shini << std::endl;
 
 				vec3<float> tmp(ambient.r, ambient.g, ambient.b);
 				material.SetVec3("ambient", tmp);
@@ -174,44 +159,25 @@ namespace Soon
 				material.SetVec3("specular", tmp);
 				material.SetFloat("shininess", shini);
 
-				std::cout << "mat->GetTextureCount(type) : " << mat->GetTextureCount(type) << std::endl;
+				//std::cout << "mat->GetTextureCount(type) : " << mat->GetTextureCount(type) << std::endl;
+				if (mat->GetTextureCount(type) == 0)
+					material.SetTexture("texSampler", RessourceImporter::GetSingleton().Load<Texture2D>("../Ressources/texture/white.png"));
+					//material.SetTexture("texSampler", RessourceImporter::GetSingleton().Load<Texture2D>("../Ressources/texture/texture_oui.bmp"));
 				for(unsigned int i = 0; i < mat->GetTextureCount(type); i++)
 				{
 					aiString str;
 					mat->GetTexture(type, i, &str);
-					//			std::cout << str.C_Str() << std::endl;
 					// check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
-					//			bool skip = false;
-					//			for(unsigned int j = 0; j < textures_loaded.size(); j++)
-					//			{
-					//				if(std::strcmp(textures_loaded[j].path.data(), str.C_Str()) == 0)
-					//				{
-					//					textures.push_back(textures_loaded[j]);
-					//					skip = true; // a texture with the same filepath has already been loaded, continue to next one. (optimization)
-					//					break;
-					//				}
-					//			}
-					//			if(!skip)
-					//			{   // if texture hasn't been loaded already, load it
 					std::string filename(str.C_Str());
 					int pos = filename.find_last_of('/');
 					if (std::string::npos == (std::size_t)pos)
 						pos = 0;
-					Texture2D t = RessourceImporter::GetSingleton().Load<Texture2D>(_path + "/" + filename.substr(pos, filename.length()));
+					Texture2D* t = RessourceImporter::GetSingleton().Load<Texture2D>(_path + "/" + filename.substr(pos, filename.length()));
 					material.SetTexture("texSampler", t);
-					//				texture.id = TextureFromFile(str.C_Str(), this->directory);
-					//				texture.type = typeName;
-					//				texture.path = str.C_Str();
-
-					//			textures.push_back(texture);
-
-					//				textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
-					//			}
 				}
-				//		return textures;
 			}
 
-			MeshArray& MeshImporter::ProcessNode(aiNode *node, const aiScene *scene)
+			MeshArray* MeshImporter::ProcessNode(aiNode *node, const aiScene *scene)
 			{
 				MeshArray* ma = new MeshArray();
 				//process all the node's meshes (if any)
@@ -219,14 +185,7 @@ namespace Soon
 				{
 					aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
 
-					//				Object* obj;
-
-					//				if (_owner != nullptr)
-					//					obj = new Object(_owner->GetComponent<ObjectOwner>()._owner);
-					//				else
-					//					obj = new Object();
-
-					Mesh objMesh;// = obj->AddComponent<Soon::Mesh>();
+					Mesh objMesh;
 					objMesh._path = _path;
 
 					ProcessMesh(objMesh, mesh, scene);
@@ -241,13 +200,17 @@ namespace Soon
 //					objMesh._inf._indexData = objMesh._indices.data();
 //					objMesh._inf._material = &(objMesh._mat);
 
-					(*ma)._meshArray.push_back(objMesh);
-
-					// GraphicsRenderer::GetInstance()->AddVertexToRender(_owner.GetComponent<Transform3D>(), objMesh._inf);
+					//if (objMesh._material.GetTexture("texSampler"))
+					//	exit(-1);
+					ma->_meshArray.push_back(objMesh);
+				//	if (ma->_meshArray.back()._material.GetTexture("texSampler"))
+				//		exit(-1);
+				//	if (ma->_meshArray[0]._material.GetTexture("texSampler"))
+				//		exit(-1);
 				}
 				// then do the same for each of its children
 				for(unsigned int i = 0; i < node->mNumChildren; i++)
-					*ma += ProcessNode(node->mChildren[i], scene);
-				return (*ma);
+					*ma += *(ProcessNode(node->mChildren[i], scene));
+				return (ma);
 			}
 }

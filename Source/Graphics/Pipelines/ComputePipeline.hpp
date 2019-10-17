@@ -9,7 +9,7 @@ namespace Soon
 	class ComputePipeline : public BasePipeline
 	{
 		public:
-		static const PipelineType _type = PipelineType::COMPUTE;;
+		static const PipelineType _type = PipelineType::COMPUTE;
 			ComputePipeline()
 			{
 			}

@@ -524,9 +524,13 @@ namespace Soon
 		viewInfo.subresourceRange.levelCount = 1;
 		viewInfo.subresourceRange.baseArrayLayer = 0;
 		if (viewType == VK_IMAGE_VIEW_TYPE_2D)
+		{
 			viewInfo.subresourceRange.layerCount = 1;
+		}
 		else if (viewType == VK_IMAGE_VIEW_TYPE_CUBE)
+		{
 			viewInfo.subresourceRange.layerCount = 6;
+		}
 		viewInfo.subresourceRange.aspectMask = aspectFlags;
 
 		VkImageView imageView;
@@ -541,7 +545,9 @@ namespace Soon
 		std::ifstream file(filename, std::ios::ate | std::ios::binary);
 
 		if (!file.is_open())
-			throw std::runtime_error("failed to open file!");
+		{
+			throw std::runtime_error("failed to open file!" + filename);
+		}
 
 		size_t fileSize = (size_t) file.tellg();
 		std::vector<char> buffer(fileSize);
@@ -1254,12 +1260,12 @@ namespace Soon
 	ImageRenderer GraphicsInstance::CreateTextureImage( Texture* texture )
 	{
 		ImageRenderer ir;
-		uint32_t imageSize = texture->_tType * texture->_width * texture->_height * texture->_format;
+		size_t imageSize = texture->_tType * texture->_width * texture->_height * 4;//texture->_format;
 		VkBuffer stagingBuffer;
 		VkDeviceMemory stagingBufferMemory;
 
 		std::cout << "ImageSize BUFFER CREATION : " << imageSize <<  std::endl;
-		std::cout << "width " << texture->_width <<  " " << "Height : " << texture->_height << std::endl;
+		std::cout << "width " << texture->_width <<  " " << "Height : " << texture->_height << "Format : " << texture->_format << std::endl;
 
 		CreateBuffer(imageSize, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, stagingBuffer, stagingBufferMemory);
 
@@ -1270,9 +1276,9 @@ namespace Soon
 
 		CreateImage(texture->_width, texture->_width, texture->_tType, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, ir._textureImage, ir._textureImageMemory);
 
-		TransitionImageLayout(ir._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, texture->_tType == TEXTURE_2D ? VK_IMAGE_VIEW_TYPE_2D : VK_IMAGE_VIEW_TYPE_CUBE);
-		CopyBufferToImage(stagingBuffer, ir._textureImage, static_cast<uint32_t>(texture->_width), static_cast<uint32_t>(texture->_height), texture->_tType == TEXTURE_2D ? VK_IMAGE_VIEW_TYPE_2D : VK_IMAGE_VIEW_TYPE_CUBE);
-		TransitionImageLayout(ir._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, texture->_tType == TEXTURE_2D ? VK_IMAGE_VIEW_TYPE_2D : VK_IMAGE_VIEW_TYPE_CUBE);
+		TransitionImageLayout(ir._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, texture->_tType == TextureType::TEXTURE_2D ? VK_IMAGE_VIEW_TYPE_2D : VK_IMAGE_VIEW_TYPE_CUBE);
+		CopyBufferToImage(stagingBuffer, ir._textureImage, static_cast<uint32_t>(texture->_width), static_cast<uint32_t>(texture->_height), texture->_tType == TextureType::TEXTURE_2D ? VK_IMAGE_VIEW_TYPE_2D : VK_IMAGE_VIEW_TYPE_CUBE);
+		TransitionImageLayout(ir._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, texture->_tType == TextureType::TEXTURE_2D ? VK_IMAGE_VIEW_TYPE_2D : VK_IMAGE_VIEW_TYPE_CUBE);
 
 		vkDestroyBuffer(_device, stagingBuffer, nullptr);
 		vkFreeMemory(_device, stagingBufferMemory, nullptr);
@@ -1741,7 +1747,6 @@ namespace Soon
 
 	VkRenderPass GraphicsInstance::GetRenderPass( void )
 	{
-		std::cout << "GetRender" << std::endl;
 		return (_renderPass);
 	}
 	////////// INIT ////////////

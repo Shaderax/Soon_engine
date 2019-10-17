@@ -47,14 +47,14 @@ namespace Soon
 				}
 
 			template<class T>
-				T Load( std::string path )
+				T* Load( std::string path )
 				{
-					T ret;
+					T* ret = nullptr;
 					Importer* imp = GetValidImporter<T>();
 
 					if (!imp)
 					{
-						std::cout << "Not found valid Importer" << std::endl;
+						std::cout << "Not found valid Importer for : " << path << std::endl;
 						exit(-1);
 					}
 					else

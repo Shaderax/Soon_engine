@@ -6,16 +6,19 @@
 
 namespace Soon
 {
-		Object* Instantiate( MeshArray meshArray, Object* parent = nullptr)
+	Object* Instantiate( MeshArray meshArray, Object* parent = nullptr)
+	{
+		Object* folder = new Object(parent);
+		for (Mesh& mesh : meshArray._meshArray)
 		{
-			Object* folder = new Object(parent);
-			for (Mesh& mesh : meshArray._meshArray)
-			{
-				Object* obj = new Object(folder);
-				obj->AddComponent<Soon::Mesh>() = mesh;
-			}
-				return folder;
+			Texture* tt = mesh._material.GetTexture("texSampler");
+
+			Object* obj = new Object(folder);
+			Mesh& me = obj->AddComponent<Soon::Mesh>(mesh);
+			me.EnableRender();
 		}
+		return folder;
+	}
 }
 
 // Try without template

@@ -30,6 +30,10 @@ namespace Soon
 
 	void GraphicsRenderer::Initialize( void )
 	{
+		for (ShaderPipeline* pip : _graphicPipelines)
+			pip = nullptr;
+		for (ComputePipeline* pip : _computePipelines)
+			pip = nullptr;
 		AddPipeline<SkyboxPipeline>();
 	}
 

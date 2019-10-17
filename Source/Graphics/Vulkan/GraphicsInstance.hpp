@@ -154,7 +154,7 @@ namespace Soon
 			void	CreateSwapChain( void );
 			void 	SetupDebugMessenger( void );
 			void 	CreateImageViews( void );
-			VkImageView CreateImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags, VkImageViewType viewType = VK_IMAGE_VIEW_TYPE_2D );
+			VkImageView CreateImageView(VkImage image, VkFormat format, VkImageAspectFlags aspectFlags, VkImageViewType viewType );
 			std::vector<VkDescriptorSetLayout> CreateDescriptorSetLayout( std::vector<VkDescriptorSetLayoutBinding> uboLayoutBinding );
 			VkPipeline CreateGraphicsPipeline(
 				GraphicsPipelineConf&						conf,

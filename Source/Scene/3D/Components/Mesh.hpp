@@ -19,10 +19,39 @@ namespace Soon
 			{
 			}
 
+			Mesh(const Mesh& other)
+			{
+				_vertices = other._vertices;
+				_indices = other._indices;
+				_path = other._path;
+				_material = other._material;
+				_active = other._active;
+			}
+
+			Mesh(Entity& entity, const Mesh& other) : _owner(&entity)
+			{
+				_vertices = other._vertices;
+				_indices = other._indices;
+				_path = other._path;
+				_material = other._material;
+				_active = other._active;
+			}
+
 			~Mesh( void )
 			{
 
 			}
+
+			/*
+			Mesh& operator=(const Mesh& other)
+			{
+				_vertices = other._vertices;
+				_indices = other._indices;
+				_path = other._path;
+
+				return *this;
+			}
+			*/
 
 			void EnableRender();
 			void DisableRender();

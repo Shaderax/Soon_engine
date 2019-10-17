@@ -51,16 +51,16 @@ namespace Soon
 				_conf.pipelineInfo.layout = _pipelineLayout;
 				_graphicPipeline = GraphicsInstance::GetInstance()->CreateGraphicsPipeline(
 						_conf,
-						"../Source/Graphics/Shaders/DefaultPipeline.vert.spv",
-						"../Source/Graphics/Shaders/DefaultPipeline.frag.spv");
+						"../Source/Graphics/Shaders/SkyboxShader.vert.spv",
+						"../Source/Graphics/Shaders/SkyboxShader.frag.spv");
 
 				_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), _descriptorSetLayout, 0);
 
 				///////////////
 
-				MeshArray ma = RessourceImporter::GetSingleton().Load<MeshArray>("../Ressources/objects/Basics/cube2.obj");
+				MeshArray* ma = RessourceImporter::GetSingleton().Load<MeshArray>("../Ressources/objects/Basics/cube2.obj");
 
-				Mesh skybox = ma[0];
+				Mesh skybox = (*ma)[0];
 
 				std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(skybox._vertices.size() * sizeof(Vertex), skybox._vertices.data());
 
@@ -83,6 +83,7 @@ namespace Soon
 
 			void BindCaller( VkCommandBuffer commandBuffer, uint32_t index )
 			{
+				std::cout << "SkyboxPipeline BindCaller" << std::endl;
 				vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _graphicPipeline);
 
 				VkDeviceSize offsets[] = {0};
@@ -200,8 +201,8 @@ namespace Soon
 				_conf.pipelineInfo.renderPass = GraphicsInstance::GetInstance()->GetRenderPass();
 				_graphicPipeline = GraphicsInstance::GetInstance()->CreateGraphicsPipeline(
 						_conf,
-						"../Source/Graphics/Shaders/DefaultPipeline.vert.spv",
-						"../Source/Graphics/Shaders/DefaultPipeline.frag.spv");
+						"../Source/Graphics/Shaders/SkyboxShader.vert.spv",
+						"../Source/Graphics/Shaders/SkyboxShader.frag.spv");
 			}
 	};
 }

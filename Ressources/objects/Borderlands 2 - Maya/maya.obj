@@ -40660,7 +40660,7 @@ f -2753/-2753/-2753 -7/-7/-7 -2749/-2749/-2749
 f -1/-1/-1 -3/-3/-3 -2/-2/-2
 f -44/-44/-44 -2892/-2892/-2892 -2890/-2890/-2890
 
-mtllib C:\Users\Animation\Desktop\XNALara\data\dummy\Borderlands 2 - Maya\maya.mtl
+mtllib maya.mtl
 g Model001_5_Material14_1.0_0.0_0.0
 usemtl Model001_Material004
 v 0.0131451 1.597416 0.0600969
