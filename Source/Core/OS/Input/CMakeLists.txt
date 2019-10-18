@@ -5,4 +5,3 @@ set(SRC
 	)
 
 add_library(Input ${SRC})
-#target_link_libraries(Input OS)

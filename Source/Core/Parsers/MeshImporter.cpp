@@ -14,7 +14,6 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include "Scene/Common/ObjectOwner.hpp"
 #include "Scene/Common/Texture2D.hpp"
 
 namespace Soon

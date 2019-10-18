@@ -53,4 +53,3 @@ endif()
 
 #linux :
 #VK_LAYER_PATH=/home/shaderax/Documents/Project/Soon_engine/ThirdParty/vulkan/Validation_Layer/explicit_layer.d/linux/
-

@@ -1,1 +1,19 @@
-- Material System
+Priority Importer
+{
+	priority	id of class
+	{0,       10}
+}
+
+Max pipeline reach
+
+Difference between Compute ans Graphics pipelines in renderer
+
+Surcouche a la gestion des pipelines pour update etc
+
+Light struct is not alignas for gpu alignement
+
+put TypeId au ileu de uint32_t
+
+reimplement input
+
+Time
