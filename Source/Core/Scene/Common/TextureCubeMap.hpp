@@ -1,19 +1,19 @@
 #pragma once
 
-#define STB_IMAGE_IMPLEMENTATION
+//#define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 #include <cstring>
-#include "Scene/Common/Texture.hpp"
+#include "Core/Scene/Common/Texture.hpp"
 
 std::array<char const *, 6> files =
 {
 	{
-	"../Ressources/skybox/hw_lagoon/lagoon_rt.tga",
-	"../Ressources/skybox/hw_lagoon/lagoon_lf.tga",
-	"../Ressources/skybox/hw_lagoon/lagoon_up.tga",
-	"../Ressources/skybox/hw_lagoon/lagoon_dn.tga",
-	"../Ressources/skybox/hw_lagoon/lagoon_bk.tga",
-	"../Ressources/skybox/hw_lagoon/lagoon_ft.tga"
+	"../Ressources/Skybox/hw_lagoon/lagoon_rt.tga",
+	"../Ressources/Skybox/hw_lagoon/lagoon_lf.tga",
+	"../Ressources/Skybox/hw_lagoon/lagoon_up.tga",
+	"../Ressources/Skybox/hw_lagoon/lagoon_dn.tga",
+	"../Ressources/Skybox/hw_lagoon/lagoon_bk.tga",
+	"../Ressources/Skybox/hw_lagoon/lagoon_ft.tga"
 	}
 };
 

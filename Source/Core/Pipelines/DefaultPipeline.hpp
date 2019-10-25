@@ -17,6 +17,9 @@
 #include "Core/Scene/3D/Components/Mesh.hpp"
 #include "Utilities/ShadersUniform.hpp"
 
+#include "Core/Scene/Common/Texture2D.hpp"
+#include "Core/Parsers/RessourceImporter.hpp"
+
 namespace Soon
 {
 	struct DefaultPipeline : ShaderPipeline
@@ -69,8 +72,8 @@ namespace Soon
 			_conf.pipelineInfo.layout = _pipelineLayout;
 			_graphicPipeline = GraphicsInstance::GetInstance()->CreateGraphicsPipeline(
 					_conf,
-					"../Source/Graphics/Shaders/DefaultShader.vert.spv",
-					"../Source/Graphics/Shaders/DefaultShader.frag.spv");
+					"../Ressources/Shaders/DefaultShader.vert.spv",
+					"../Ressources/Shaders/DefaultShader.frag.spv");
 
 			_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), _descriptorSetLayout, 0);
 
@@ -300,6 +303,9 @@ namespace Soon
 
 			Texture* texture = mesh->_material.GetTexture("texSampler");
 
+			if (!texture)
+				texture = Soon::RessourceImporter::GetSingleton().Load<Texture2D>("../Ressources/Textures/white.png");
+
 			_imagesRenderer.push_back(GraphicsInstance::GetInstance()->CreateTextureImage(texture->_width, texture->_height, texture->_data, static_cast<int32_t>(texture->_tType), static_cast<int32_t>(texture->_format)));
 			img._textureSampler = GraphicsInstance::GetInstance()->CreateTextureSampler();
 			img._imageView = GraphicsInstance::GetInstance()->CreateImageView(_imagesRenderer.back()._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_2D);
@@ -378,8 +384,8 @@ namespace Soon
 			_conf.pipelineInfo.renderPass = GraphicsInstance::GetInstance()->GetRenderPass();
 			_graphicPipeline = GraphicsInstance::GetInstance()->CreateGraphicsPipeline(
 					_conf,
-					"../Source/Graphics/Shaders/DefaultShader.vert.spv",
-					"../Source/Graphics/Shaders/DefaultShader.frag.spv");
+					"../Ressources/Shaders/DefaultShader.vert.spv",
+					"../Ressources/Shaders/DefaultShader.frag.spv");
 		}
 
 		void RemoveFromPipeline( void ) {};

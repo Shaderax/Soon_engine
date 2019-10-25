@@ -7,7 +7,7 @@
 #include "Core/Renderer/Pipelines/ShaderPipeline.hpp"
 #include "Core/Renderer/Pipelines/ComputePipeline.hpp"
 
-#include "ClassTypeId.hpp"
+#include "ECS/ClassTypeId.hpp"
 
 #include <bitset>
 #include <array>

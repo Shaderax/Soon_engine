@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Scene/Scene.hpp"
+#include "Core/Scene/Scene.hpp"
 #include <vector>
 
 namespace Soon

@@ -1,13 +1,15 @@
 #include "GraphicsRenderer.hpp"
 #include "GraphicsInstance.hpp"
 #include <typeinfo>
-#include "ClassTypeId.hpp"
+#include "ECS/ClassTypeId.hpp"
 
 #include "Core/Renderer/Pipelines/BasePipeline.hpp"
 #include "Core/Renderer/Pipelines/ShaderPipeline.hpp"
 #include "Core/Renderer/Pipelines/ComputePipeline.hpp"
 
 #include <iostream>
+
+#include "Core/Pipelines/SkyboxPipeline.hpp"
 
 namespace Soon
 {
@@ -41,7 +43,7 @@ namespace Soon
 			pip = nullptr;
 		for (ComputePipeline* pip : _computePipelines)
 			pip = nullptr;
-//		AddPipeline<SkyboxPipeline>();
+		AddPipeline<SkyboxPipeline>();
 	}
 
 	GraphicsRenderer::GraphicsRenderer( void ) : _changes(false)

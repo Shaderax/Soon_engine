@@ -2,7 +2,7 @@
 
 #include "Core/Scene/ComponentRenderer.hpp"
 #include <vector>
-#include <iostream>
+#include <string>
 #include "Utilities/Vertex.hpp"
 #include "ECS/Entity.hpp"
 

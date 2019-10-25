@@ -49,8 +49,8 @@ namespace Soon
 						GetBindingDescription(),
 						GetAttributeDescriptions(),
 						GraphicsInstance::ShaderType::COMPUTE,
-						"../Source/Graphics/Shaders/DefaultParticles.vert.spv",
-						"../Source/Graphics/Shaders/DefaultParticles.frag.spv");
+						"../Ressources/Shaders/DefaultParticles.vert.spv",
+						"../Ressources/Shaders/DefaultParticles.frag.spv");
 				_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), _descriptorSetLayout, 0);
 			}
 
@@ -187,8 +187,8 @@ namespace Soon
 						GetBindingDescription(),
 						GetAttributeDescriptions(),
 						GraphicsInstance::ShaderType::COMPUTE,
-						"../Source/Graphics/Shaders/DefaultParticles.vert.spv",
-						"../Source/Graphics/Shaders/DefaultParticles.frag.spv");
+						"../Ressources/Shaders/DefaultParticles.vert.spv",
+						"../Ressources/Shaders/DefaultParticles.frag.spv");
 			}
 	};
 }

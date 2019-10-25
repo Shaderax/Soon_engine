@@ -13,7 +13,7 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
-#include "assimp/material.h"
+#include <assimp/material.h>
 
 #include "Core/Scene/Common/Texture2D.hpp"
 
@@ -160,8 +160,7 @@ namespace Soon
 
 		//std::cout << "mat->GetTextureCount(type) : " << mat->GetTextureCount(type) << std::endl;
 		if (mat->GetTextureCount(type) == 0)
-			material.SetTexture("texSampler", RessourceImporter::GetSingleton().Load<Texture2D>("../Ressources/texture/white.png"));
-		//material.SetTexture("texSampler", RessourceImporter::GetSingleton().Load<Texture2D>("../Ressources/texture/texture_oui.bmp"));
+			material.SetTexture("texSampler", RessourceImporter::GetSingleton().Load<Texture2D>("../Ressources/Textures/white.png"));
 		for(unsigned int i = 0; i < mat->GetTextureCount(type); i++)
 		{
 			aiString str;

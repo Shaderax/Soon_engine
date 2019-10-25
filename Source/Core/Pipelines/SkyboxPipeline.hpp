@@ -1,15 +1,18 @@
 #pragma once
 
-#include "Graphics/Pipelines/ShaderPipeline.hpp"
-#include "Scene/3D/Components/Camera.hpp"
-#include "Scene/Common/TextureCubeMap.hpp"
-#include "Scene/3D/Components/Mesh.hpp"
+#include "Core/Engine.hpp"
+
+#include "Core/Renderer/Pipelines/ShaderPipeline.hpp"
+#include "Core/Scene/3D/Components/Camera.hpp"
+#include "Core/Scene/Common/TextureCubeMap.hpp"
+#include "Core/Scene/3D/Components/Mesh.hpp"
 #include "Utilities/MeshArray.hpp"
+#include "Utilities/ShadersUniform.hpp"
 #include "Core/Parsers/RessourceImporter.hpp"
 
 #include <cstring>
 
-#include "Graphics/Vulkan/GraphicsPipelineConf.hpp"
+#include "Core/Renderer/Vulkan/PipelineConf.hpp"
 
 namespace Soon
 {
@@ -51,14 +54,14 @@ namespace Soon
 				_conf.pipelineInfo.layout = _pipelineLayout;
 				_graphicPipeline = GraphicsInstance::GetInstance()->CreateGraphicsPipeline(
 						_conf,
-						"../Source/Graphics/Shaders/SkyboxShader.vert.spv",
-						"../Source/Graphics/Shaders/SkyboxShader.frag.spv");
+						"../Ressources/Shaders/SkyboxShader.vert.spv",
+						"../Ressources/Shaders/SkyboxShader.frag.spv");
 
 				_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), _descriptorSetLayout, 0);
 
 				///////////////
 
-				MeshArray* ma = RessourceImporter::GetSingleton().Load<MeshArray>("../Ressources/objects/Basics/cube2.obj");
+				MeshArray* ma = RessourceImporter::GetSingleton().Load<MeshArray>("../Ressources/Objects/Basics/cube2.obj");
 
 				Mesh skybox = (*ma)[0];
 
@@ -72,7 +75,7 @@ namespace Soon
 				_indexSize.push_back(skybox._indices.size());
 
 				Image img;
-				_imagesRenderer.push_back(GraphicsInstance::GetInstance()->CreateTextureImage(&_skybox));
+				_imagesRenderer.push_back(GraphicsInstance::GetInstance()->CreateTextureImage(_skybox._width, _skybox._height, _skybox._data, static_cast<int32_t>(_skybox._tType), static_cast<int32_t>(_skybox._format)));
 				img._textureSampler = GraphicsInstance::GetInstance()->CreateTextureSampler();
 				img._imageView = GraphicsInstance::GetInstance()->CreateImageView(_imagesRenderer.back()._textureImage, VK_FORMAT_R8G8B8A8_UNORM, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_VIEW_TYPE_CUBE);
 				_images.push_back(img);
@@ -201,8 +204,8 @@ namespace Soon
 				_conf.pipelineInfo.renderPass = GraphicsInstance::GetInstance()->GetRenderPass();
 				_graphicPipeline = GraphicsInstance::GetInstance()->CreateGraphicsPipeline(
 						_conf,
-						"../Source/Graphics/Shaders/SkyboxShader.vert.spv",
-						"../Source/Graphics/Shaders/SkyboxShader.frag.spv");
+						"../Ressources/Shaders/SkyboxShader.vert.spv",
+						"../Ressources/Shaders/SkyboxShader.frag.spv");
 			}
 	};
 }

@@ -30,7 +30,7 @@ namespace Soon
 				_pipelineLayout = GraphicsInstance::GetInstance()->CreatePipelineLayout(_descriptorSetLayout);
 				_computePipeline = GraphicsInstance::GetInstance()->CreateComputePipeline(
 						_pipelineLayout,
-						"../Source/Graphics/Shaders/DefaultParticles.comp.spv");
+						"../Ressources/Shaders/DefaultParticles.comp.spv");
 			//	_gpuBuffers = &pSysPipeline->GetGpuBuffers();
 			//	_pSize = &pSysPipeline->GetPSize();
 			}
@@ -88,7 +88,7 @@ namespace Soon
 			{
 				_computePipeline = GraphicsInstance::GetInstance()->CreateComputePipeline(
 						_pipelineLayout,
-						"../Source/Graphics/Shaders/DefaultParticles.comp.spv");
+						"../Ressources/Shaders/DefaultParticles.comp.spv");
 			}
 	VkVertexInputBindingDescription GetBindingDescription( void ) {}
 	std::vector<VkVertexInputAttributeDescription> GetAttributeDescriptions( void ) {}

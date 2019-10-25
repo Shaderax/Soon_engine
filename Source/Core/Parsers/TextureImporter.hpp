@@ -5,6 +5,7 @@
 #include "RessourceImporter.hpp"
 
 #include "Core/Scene/Common/Texture2D.hpp"
+
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 
@@ -12,7 +13,6 @@ namespace Soon
 {
 	class Texture2DImporter : public Importer
 	{
-		typedef Texture2D ValidType;
 		public:
 		std::string _path;
 		Texture2DImporter( void ) { };
@@ -20,7 +20,7 @@ namespace Soon
 
 		uint32_t IdValidType( void )
 		{
-			return (ClassTypeId<RessourceImporter>::GetId<ValidType>());
+			return (ClassTypeId<RessourceImporter>::GetId<Texture2D>());
 		}
 
 		bool import( std::string path )
@@ -52,7 +52,7 @@ namespace Soon
 			{
 				std::cout << "Texture2D failed to load at path: " << path << std::endl;
 				stbi_image_free(texture->_data);
-				texture->_data = stbi_load("../Ressources/texture/white.png", &texture->_width, &texture->_height, &format, 0);
+				texture->_data = stbi_load("../Ressources/Textures/white.png", &texture->_width, &texture->_height, &format, 0);
 				if (!texture->_data)
 					exit(-1);
 			}

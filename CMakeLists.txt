@@ -27,15 +27,14 @@ include_directories(Source)
 include_directories(Modules)
 #include_directories(ThirdParty/glfw/include/)
 include_directories(/usr/include/)
-include_directories(ThirdParty/assimp_lib/include/)
-include_directories(ThirdParty/assimp_lib/code)
+#include_directories(ThirdParty/assimp_lib/include/)
+#include_directories(ThirdParty/assimp_lib/code)
 include_directories(ThirdParty/)
 
 #LINK_DIRECTORIES(
 #	  ${Assimp_BINARY_DIR}
 #	    ${Assimp_BINARY_DIR}/code/
 #	)
-
 
 project(Soon)
 

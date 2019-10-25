@@ -1,8 +1,10 @@
 #pragma once
 
 #include "ECS/System.hpp"
-#include "Core/Math/vec3.hpp"
+#include "Math/vec3.hpp"
 #include "Core/OS/Input/Input.hpp"
+#include "Core/Scene/3D/Components/3dObjectControler.hpp"
+#include "Core/Scene/3D/Components/Transform3D.hpp"
 
 struct ObjectControlerSystem : public System
 {

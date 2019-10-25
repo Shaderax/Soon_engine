@@ -6,10 +6,13 @@ set(SRC
 	./Parsers/MeshImporter.cpp
 
 	./OS/OS.cpp
+	
+	./OS/Input/Input.cpp
 
 	./Scene/Scene.cpp
 	./Scene/Object.cpp
 
+	./Scene/3D/Components/Camera.cpp
 	./Scene/3D/Components/ParticlesSystem.cpp
 	./Scene/3D/Components/Mesh.cpp
 
@@ -19,6 +22,7 @@ set(SRC
 	./Renderer/Vulkan/GraphicsRenderer.cpp
 	./Renderer/Vulkan/PipelineConf.cpp
 	)
+
 if(APPLE)
 	find_library(
 		VULKAN_LIB
@@ -46,4 +50,4 @@ add_library(Core ${SRC})
 
 add_subdirectory(Renderer)
 
-target_link_libraries(Core GraphicsGLFW ${VULKAN_LIB} assimp)#Parsers)
+target_link_libraries(Core ECS GraphicsGLFW ${VULKAN_LIB} assimp)#Parsers)
