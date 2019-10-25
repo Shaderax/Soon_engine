@@ -18,6 +18,22 @@ if (APPLE)
 	set(CMAKE_CXX_COMPILER g++)
 endif ()
 
+find_package(assimp)
+
+if (APPLE)
+	if (assimp_FOUND)
+		message("assimp FOUND")
+	else()
+		execute_process(COMMAND brew install assimp)
+	endif()
+elseif (UNIX)
+	if (glfw3_FOUND)
+		message("assimp FOUND")
+	else()
+		execute_process(COMMAND sudo apt-get install libassimp-dev)
+	endif()
+endif()
+
 message( ${CMAKE_CURRENT_SOURCE_DIR} )
 
 set(ENV{VK_ICD_FILENAMES} "${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty/MoltenVK/macOS/MoltenVK_icd.json")
