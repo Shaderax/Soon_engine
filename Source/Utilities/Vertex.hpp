@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core/Math/vec3.hpp"
+#include "Math/vec3.hpp"
 
 namespace Soon
 {

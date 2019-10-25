@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Scene/3D/Components/Mesh.hpp"
+#include "Core/Scene/3D/Components/Mesh.hpp"
 #include <vector>
 
 namespace Soon

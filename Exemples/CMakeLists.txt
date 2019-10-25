@@ -6,4 +6,4 @@ project(Test)
 
 add_executable (Test main_test.cpp)
 
-target_link_libraries(Test Core ECS Graphics glfw Scene)
+target_link_libraries( Test Soon )

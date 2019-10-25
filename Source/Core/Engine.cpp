@@ -1,8 +1,8 @@
 #include "Engine.hpp"
 #include "Core/OS/OS.hpp"
 #include "ECS/World.hpp"
-#include "Graphics/Vulkan/GraphicsRenderer.hpp"
-#include "Graphics/Vulkan/GraphicsInstance.hpp"
+#include "Core/Renderer/Vulkan/GraphicsRenderer.hpp"
+#include "Core/Renderer/Vulkan/GraphicsInstance.hpp"
 
 #include "Core/Parsers/InitRessourceImporter.hpp"
 
@@ -19,10 +19,16 @@ namespace Soon
 		Destroy();
 	}
 
+	Engine& Engine::GetInstance( void )
+	{
+		static Engine engine;
+
+		return (engine);
+	}
+
 	bool Engine::Init( void )
 	{
 		InitRessourceImporter();
-		new OS;
 		OS::GetInstance()->Initialize();
 		NewScene();
 
@@ -31,31 +37,20 @@ namespace Soon
 
 	void Engine::Destroy()
 	{
-
-	}
-
-	void Engine::DrawFrame( void )
-	{
-		OS::GetInstance()->PollEvent();
-		OS::GetInstance()->DrawFrame();
+		OS::GetInstance()->Destroy();
 	}
 
 	void Engine::Update( void )
 	{
 		_world.Update();
 
-		if (GraphicsRenderer::GetInstance()->HasChange())
-		{
-			GraphicsInstance::GetInstance()->FillCommandBuffer();
-			GraphicsRenderer::GetInstance()->SetChangeFalse();
-		}
+		OS::GetInstance()->Update();
 	}
 
-	Engine& Engine::GetInstance( void )
+	void Engine::DrawFrame( void )
 	{
-		static Engine engine;
-
-		return (engine);
+		OS::GetInstance()->PollEvent();
+		OS::GetInstance()->DrawFrame();
 	}
 
 	bool Engine::ShouldEnd( void )
@@ -77,4 +72,3 @@ namespace Soon
 		return (_currentScene);
 	}
 }
-

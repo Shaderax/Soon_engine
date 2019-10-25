@@ -8,9 +8,9 @@ namespace Soon
 	class Engine
 	{
 		public:
-			void Update( void );
-			bool Init( void );
 			static Engine& GetInstance( void );
+			bool Init( void );
+			void Update( void );
 			Scene& NewScene( void );
 			void Destroy( void );
 			bool ShouldEnd( void );

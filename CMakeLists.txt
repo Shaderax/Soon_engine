@@ -25,7 +25,8 @@ set(ENV{VK_LAYER_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty/vulkan/Validation
 
 include_directories(Source)
 include_directories(Modules)
-include_directories(ThirdParty/glfw/include/)
+#include_directories(ThirdParty/glfw/include/)
+include_directories(/usr/include/)
 include_directories(ThirdParty/assimp_lib/include/)
 include_directories(ThirdParty/assimp_lib/code)
 include_directories(ThirdParty/)
@@ -47,5 +48,3 @@ add_subdirectory(ThirdParty)
 add_subdirectory(Modules)
 add_subdirectory(Source)
 add_subdirectory(Exemples)
-
-add_library (Build INTERFACE)

@@ -17,3 +17,9 @@ put TypeId au ileu de uint32_t
 reimplement input
 
 Time
+
+GraphicsRenderer::changes
+
+Allocator Components
+
+Implement DELETE
