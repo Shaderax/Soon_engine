@@ -23,7 +23,6 @@ namespace Soon
 
 		Entity::~Entity( void )
 		{
-			// TODO
 //			Kill();
 		}
 
@@ -54,8 +53,7 @@ namespace Soon
 
 		void Entity::Kill( void )
 		{
-			std::cout << "COUCOUC" << std::endl;
-		//	Soon::ECS::World::GetInstance().KillEntity(*this);
+			Soon::ECS::World::GetInstance().KillEntity(*this);
 		}
 
 		void Entity::AddComponent( Component* component, TypeId componentId)

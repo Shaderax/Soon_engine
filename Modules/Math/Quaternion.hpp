@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Math/vec3.hpp"
-#include "Math/mat4.hpp"
+#include "vec3.hpp"
+#include "mat4.hpp"
 #include <math.h>
 
 struct Quaternion

@@ -23,3 +23,5 @@ GraphicsRenderer::changes
 Allocator Components
 
 Implement DELETE
+
+Separate 2D/3D Object

@@ -29,7 +29,7 @@ class mat4
 			return (elem[y][x]);
 		}
 
-		mat4<T>& operator=(mat4<T> const& b)
+		mat4<T>& operator=(const mat4<T> & b)
 		{
 			int x;
 			int y;
