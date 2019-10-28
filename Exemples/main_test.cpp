@@ -38,6 +38,7 @@ int main(int argc, char**argv)
 
 	//Soon::MeshArray* ar = Soon::RessourceImporter::GetSingleton().Load<Soon::MeshArray>("../Ressources/Objects/Basics/Cube.obj");
 	Soon::MeshArray* ar = Soon::RessourceImporter::GetSingleton().Load<Soon::MeshArray>("../Ressources/Objects/Borderlands 2 - Maya/untitled.obj");
+	//Soon::MeshArray* ar = Soon::RessourceImporter::GetSingleton().Load<Soon::MeshArray>("../Ressources/Objects/Basics/Quad.obj");
 	Soon::Object* Maya = Instantiate(*ar);
 
 //	Soon::Object Sun;

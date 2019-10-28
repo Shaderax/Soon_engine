@@ -1,12 +1,12 @@
 cmake_minimum_required (VERSION 3.10)
-
-#execute_process(COMMAND source export.sh)
 set (CMAKE_CXX_STANDARD 17)
 
-set(GLFW_BUILD_EXAMPLES "Build the GLFW example programs" OFF FORCE)
-set(GLFW_BUILD_TESTS "Build the GLFW test programs" OFF FORCE)
+#execute_process(COMMAND source export.sh)
+
+#set(GLFW_BUILD_EXAMPLES "Build the GLFW example programs" OFF FORCE)
+#set(GLFW_BUILD_TESTS "Build the GLFW test programs" OFF FORCE)
+
 if (UNIX AND NOT APPLE)
-	#set(CMAKE_CXX_COMPILER /usr/bin/g++-8)
 	set(CMAKE_CXX_COMPILER g++)
 	execute_process(COMMAND apt-get install libx11-dev)
 	execute_process(COMMAND apt-get install xorg-dev libglu1-mesa-dev)

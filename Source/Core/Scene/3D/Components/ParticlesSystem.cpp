@@ -3,7 +3,6 @@
 
 #include "ECS/ClassTypeId.hpp"
 
-#include "../..//2D/Components/Sprite.hpp"
 #include "Mesh.hpp"
 
 namespace Soon
