@@ -11,16 +11,6 @@
 #include "Core/Scene/Instantiate.hpp"
 
 
-
-//#include "Scene/3D/Components/ParticlesSystem.hpp"
-
-
-
-//#define GLFW_INCLUDE_VULKAN
-//#include <GLFW/glfw3.h>
-
-//#include "Core/Math/vec3.hpp"
-
 Soon::Engine& engine = Soon::Engine::GetInstance();
 
 int main(int argc, char**argv)
