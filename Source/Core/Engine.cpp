@@ -8,6 +8,8 @@
 
 namespace Soon
 {
+	Engine* Engine::_instance = nullptr;
+
 	Engine::Engine( void ) :
 		_world(Soon::ECS::World::GetInstance())
 	{
@@ -16,8 +18,7 @@ namespace Soon
 	
 	Engine::~Engine( void )
 	{
-		OS::GetInstance()->Destroy();
-
+		OS::ReleaseInstance();
 		_currentScene = nullptr;
 		for (Scene* scene : _scenes)
 			delete scene;
@@ -25,9 +26,19 @@ namespace Soon
 
 	Engine& Engine::GetInstance( void )
 	{
-		static Engine engine;
+		if (!_instance)
+			_instance = new Engine;
 
-		return (engine);
+		return (*_instance);
+	}
+
+	void Engine::ReleaseInstance( void )
+	{
+		if (_instance)
+		{
+			delete _instance;
+			_instance = nullptr;
+		}
 	}
 
 	bool Engine::Init( void )

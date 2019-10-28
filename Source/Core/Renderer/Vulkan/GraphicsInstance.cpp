@@ -18,6 +18,9 @@
 
 #define MAX_FRAMES_IN_FLIGHT 2
 
+#include "Core/Renderer/GLFW/Init.hpp"
+#include "Core/Renderer/GLFW/Hints.hpp"
+
 const std::vector<const char*> validationLayers = {
 	"VK_LAYER_LUNARG_standard_validation"
 };
@@ -95,17 +98,23 @@ void DestroyDebugUtilsMessengerEXT(VkInstance instance, VkDebugUtilsMessengerEXT
 
 namespace Soon
 {
-	//GraphicsInstance* GraphicsInstance::_singleton = nullptr;
 	GraphicsInstance* GraphicsInstance::_instance = nullptr;
 
 	GraphicsInstance* GraphicsInstance::GetInstance( void )
 	{
 		if (!_instance)
 			_instance = new GraphicsInstance;
-		//static GraphicsInstance* instance = new GraphicsInstance;
 
 		return _instance;
-		//return (_singleton);
+	}
+
+	void GraphicsInstance::ReleaseInstance( void )
+	{
+		if (_instance)
+		{
+			delete _instance;
+			_instance = nullptr;
+		}
 	}
 
 	GraphicsInstance::GraphicsInstance( void ) : _physicalDevice(VK_NULL_HANDLE), _currentFrame(0), _framebufferResized(false)
@@ -117,10 +126,6 @@ namespace Soon
 	}
 
 	GraphicsInstance::~GraphicsInstance( void )
-	{
-	}
-
-	void GraphicsInstance::Destroy( void )
 	{
 		vkDeviceWaitIdle(_device);
 		CleanupSwapChain();
@@ -143,11 +148,21 @@ namespace Soon
 			DestroyDebugUtilsMessengerEXT(_vulkanInstance, _debugMessenger, nullptr);
 		vkDestroySurfaceKHR(_vulkanInstance, _surface, nullptr);
 		vkDestroyInstance(_vulkanInstance, nullptr);
-		glfwDestroyWindow(_window);
 		//		vkDestroyBuffer(device, vertexBuffer, nullptr);
 		//		vkFreeMemory(device, vertexBufferMemory, nullptr);
+		glfwDestroyWindow(_window);
+		glfwTerminate();
 	}
 
+	void GraphicsInstance::PollEvent( void )
+	{
+		glfwPollEvents();
+	}
+
+	bool GraphicsInstance::ShouldClose( GLFWwindow* window )
+	{
+		return (glfwWindowShouldClose(window));
+	}
 
 	GraphicsInstance::WindowAttribute GraphicsInstance::GetWindowAttribute( void )
 	{
@@ -1755,9 +1770,12 @@ namespace Soon
 
 	void GraphicsInstance::Initialize( void )
 	{
-		std::cout << "Begin Init GrInstance" << std::endl;
+		InitGLFW();
+		InitGLFWHints();
+
 		if (!glfwVulkanSupported())
 			std::cout << "VULKAN Y VEUT PAS SANS DOUTE A CAUSE DE SE MOLTENVK DE MERDE" << std::endl;
+
 		CreateWindow();
 		CreateInstance();
 		SetupDebugMessenger();
@@ -1776,6 +1794,5 @@ namespace Soon
 		CreateSyncObjects();
 
 		CreateCommandBuffers();
-		std::cout << "End Init GrInstance" << std::endl;
 	}
 }

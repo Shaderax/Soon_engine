@@ -13,19 +13,23 @@
 
 namespace Soon
 {
-	//GraphicsRenderer* GraphicsRenderer::_instance = nullptr;
+	GraphicsRenderer* GraphicsRenderer::_instance = nullptr;
 
 	GraphicsRenderer* GraphicsRenderer::GetInstance( void )
 	{
-		static GraphicsRenderer* instance = new GraphicsRenderer;
+		if (!_instance)
+			_instance = new GraphicsRenderer;
 
-		return (instance);
-		//return (_instance);
+		return (_instance);
 	}
 
-	void GraphicsRenderer::Destroy( void )
+	void GraphicsRenderer::ReleaseInstance( void )
 	{
-
+		if (_instance)
+		{
+			delete _instance;
+			_instance = nullptr;
+		}
 	}
 
 	template<typename T>

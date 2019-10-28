@@ -1,37 +1,43 @@
 #include "Core/OS/OS.hpp"
-#include "Core/Renderer/GLFW/Init.hpp"
-#include "Core/Renderer/GLFW/Hints.hpp"
 #include "Core/Renderer/Vulkan/GraphicsInstance.hpp"
 #include "Core/Renderer/Vulkan/GraphicsRenderer.hpp"
 #include <iostream>
 
 namespace Soon
 {
-        OS* OS::_singleton = nullptr;
+	OS* OS::_instance = nullptr;
 
 	OS::OS( void )
 	{
-		//_singleton = this;
+
 	}
 
 	OS::~OS( void )
 	{
-		//_singleton = nullptr;
-		Destroy();
+		GraphicsInstance::ReleaseInstance();
+		GraphicsRenderer::ReleaseInstance();
 	}
 	
 	OS* OS::GetInstance( void )
         {
-		if (!_singleton)
-			_singleton = new OS;
+		if (!_instance)
+			_instance = new OS;
 
-                return (_singleton);
+                return (_instance);
+        }
+
+	void OS::ReleaseInstance( void )
+        {
+		if (_instance)
+		{
+			delete _instance;
+			_instance = nullptr;
+
+		}
         }
 
 	void OS::Initialize( void )
 	{
-		InitGLFW();
-		InitGLFWHints();
 		GraphicsInstance::GetInstance()->Initialize();
 		GraphicsRenderer::GetInstance()->Initialize();
 		_window = GraphicsInstance::GetInstance()->GetWindow();
@@ -46,13 +52,6 @@ namespace Soon
 		}
 	}
 
-	void OS::Destroy( void )
-	{
-		GraphicsInstance::GetInstance()->Destroy();
-		GraphicsRenderer::GetInstance()->Destroy();
-		glfwTerminate();
-	}
-
 	GLFWwindow* OS::GetWindow( void )
 	{
 		return (_window);
@@ -60,19 +59,13 @@ namespace Soon
 
 	bool OS::ShouldClose( void )
 	{
-		return (glfwWindowShouldClose(_window));
+		return (GraphicsInstance::GetInstance()->ShouldClose(_window));
 	}
 
 	void OS::PollEvent( void )
 	{
-		glfwPollEvents();
+		GraphicsInstance::GetInstance()->PollEvent();
 	}
-
-//	void OS::SwapBuffer( void )
-//	{
-//		if (_window)
-//			glfwSwapBuffers(_window);
-//	}
 
 	void OS::DrawFrame( void )
 	{

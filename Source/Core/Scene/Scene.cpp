@@ -7,6 +7,11 @@ namespace Soon
 
 	}
 
+	Scene::~Scene( void )
+	{
+
+	}
+
 	bool Scene::IsObjectInScene( Object& obj )
 	{
 		return (obj._scene == this ? true : false);

@@ -20,12 +20,14 @@ namespace Soon
 
 	class GraphicsRenderer
 	{
+		static GraphicsRenderer* _instance;
 		static constexpr const std::uint32_t MAX_PIPELINES = 32;
 		//static GraphicsRenderer* _instance;
 
 		public:
 		GraphicsRenderer( void );
 		static GraphicsRenderer* 	GetInstance( void );
+		static void 			ReleaseInstance( void );
 		void 				Initialize( void );
 		void 				RecreateAllUniforms( void );
 		void 				RecreateAllPipelines( void );
@@ -35,7 +37,6 @@ namespace Soon
 		void HasChange( void );
 		bool IsChange( void );
 		void ResetChange( void );
-		void Destroy();
 
 		// TODO 
 		// Max pipelines reach

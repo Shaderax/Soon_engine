@@ -84,6 +84,7 @@ namespace Soon
 			};
 		private:
 
+			static GraphicsInstance*				_instance;
 			WindowAttribute						_windowAttribute;
 			GLFWwindow*						_window;
 			VkInstance						_vulkanInstance;
@@ -115,10 +116,6 @@ namespace Soon
 			VkImage							_depthImage;
 			VkDeviceMemory					_depthImageMemory;
 			VkImageView						_depthImageView;
-
-			//static GraphicsInstance*		_singleton;
-			static GraphicsInstance*		_instance;
-
 		public:
 			enum class ShaderType
 			{
@@ -127,10 +124,10 @@ namespace Soon
 			};
 
 			static GraphicsInstance* GetInstance( void );
+			static void ReleaseInstance( void );
 			GraphicsInstance( void );
 			~GraphicsInstance( void );
 			void Initialize( void );
-			void Destroy( void );
 			GLFWwindow* GetWindow( void );
 			WindowAttribute GetWindowAttribute( void );
 
@@ -191,6 +188,8 @@ namespace Soon
 			void CreateDepthResources( void );
 			bool HasStencilComponent(VkFormat format);
 			VkDevice GetDevice( void );
+			void PollEvent( void );
+			bool ShouldClose( GLFWwindow* window );
 
 
 			VkExtent2D GetSwapChainExtent( void );//						_swapChainExtent;

@@ -10,7 +10,6 @@
 #include "Core/Parsers/RessourceImporter.hpp"
 #include "Core/Scene/Instantiate.hpp"
 
-
 Soon::Engine& engine = Soon::Engine::GetInstance();
 
 int main(int argc, char**argv)
@@ -40,5 +39,7 @@ int main(int argc, char**argv)
 		engine.Update();
 		engine.DrawFrame();
 	}
+
+	Soon::Engine::ReleaseInstance();
 	return (0);
 }

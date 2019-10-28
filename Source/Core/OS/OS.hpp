@@ -12,9 +12,10 @@ namespace Soon
 			~OS( void );
 
 			static OS* GetInstance( void );
+			static void ReleaseInstance( void );
+			static OS* _instance;
 
 			void Initialize( void );
-			void Destroy( void );
 			GLFWwindow* GetWindow( void );
 			bool ShouldClose( void );
 			void PollEvent( void );
@@ -22,8 +23,6 @@ namespace Soon
 			void Update( void );
 
 		private:
-			static OS*	_singleton;
-
 			GLFWwindow*	_window;
 	};
 }
