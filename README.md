@@ -18,7 +18,7 @@ Today the project is only at the beginning.
 ## Basic Example
 Forget the includes...
 
-```
+```cpp
 #include "Core/Engine.hpp"
 #include "Utilities/ShowFps.hpp"
 #include "Core/Scene/Object.hpp"
