@@ -12,7 +12,6 @@ namespace Soon
 			bool Init( void );
 			void Update( void );
 			Scene& NewScene( void );
-			void Destroy( void );
 			bool ShouldEnd( void );
 
 			Scene* GetCurrentScene( void );

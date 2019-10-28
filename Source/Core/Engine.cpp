@@ -16,7 +16,11 @@ namespace Soon
 	
 	Engine::~Engine( void )
 	{
-		Destroy();
+		OS::GetInstance()->Destroy();
+
+		_currentScene = nullptr;
+		for (Scene* scene : _scenes)
+			delete scene;
 	}
 
 	Engine& Engine::GetInstance( void )
@@ -33,11 +37,6 @@ namespace Soon
 		NewScene();
 
 		return (true);
-	}
-
-	void Engine::Destroy()
-	{
-		OS::GetInstance()->Destroy();
 	}
 
 	void Engine::Update( void )
