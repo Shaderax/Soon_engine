@@ -4,7 +4,6 @@
 #include "Core/Renderer/Pipelines/ShaderPipeline.hpp"
 #include "Core/Engine.hpp"
 #include "Core/Scene/3D/Components/Camera.hpp"
-//#include "Scene/3D/Components/DirectionalLight.hpp"
 #include "Core/Scene//Materials/Material.hpp"
 
 #include "Core/Renderer/Vulkan/PipelineConf.hpp"
@@ -277,17 +276,17 @@ namespace Soon
 
 		void AddToRender( Transform3D& tr, Mesh* mesh )
 		{
-			std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(mesh->_vertices.size() * sizeof(Vertex), mesh->_vertices.data());
+			std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(mesh->_vertices->size() * sizeof(Vertex), mesh->_vertices->data());
 			//      ComponentRenderer ret;
 
 			_stagingBuffers.push_back(handler[0]);
 			_gpuBuffers.push_back(handler[1]._Buffer[0]);
 			_gpuMemoryBuffers.push_back(handler[1]._BufferMemory[0]);
 
-			_indexBuffers.push_back(GraphicsInstance::GetInstance()->CreateIndexBuffer(mesh->_indices));
+			_indexBuffers.push_back(GraphicsInstance::GetInstance()->CreateIndexBuffer(*(mesh->_indices)));
 
-			_nbVertex.push_back(mesh->_vertices.size());
-			_indexSize.push_back(mesh->_indices.size());
+			_nbVertex.push_back(mesh->_vertices->size());
+			_indexSize.push_back(mesh->_indices->size());
 			_transforms.push_back(&tr);
 
 			///////////// UNIFORM /////////////

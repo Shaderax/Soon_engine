@@ -28,7 +28,7 @@ namespace Soon
 			{
 				_vertices = other._vertices;
 				_indices = other._indices;
-				_path = other._path;
+				//_path = other._path;
 				_material = other._material;
 				_active = other._active;
 			}
@@ -37,7 +37,7 @@ namespace Soon
 			{
 				_vertices = other._vertices;
 				_indices = other._indices;
-				_path = other._path;
+				//_path = other._path;
 				_material = other._material;
 				_active = other._active;
 			}

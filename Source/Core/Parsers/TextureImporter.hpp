@@ -70,12 +70,12 @@ namespace Soon
 			{
 				try
 				{
-					Texture2D* texture = GetRessourceMap<T>().at(path);
+					Texture2D* texture = GetRessourceMap<Texture2D>().at(path);
 					if (!texture)
 						return false;
 					stbi_image_free(texture->_data);
 					delete texture;
-					GetRessourceMap<T>().erase(path);
+					GetRessourceMap<Texture2D>().erase(path);
 				}
 				catch (std::out_of_range & )
 				{

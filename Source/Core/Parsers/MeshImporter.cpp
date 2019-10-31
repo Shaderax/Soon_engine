@@ -53,19 +53,19 @@ namespace Soon
 	{
 		try
 		{
-			MeshArray* ar = GetRessourceMap<T>().at(path);
+			MeshArray* ar = GetRessourceMap<MeshArray>().at(path);
 			if (!ar)
 				return false;
 			for (Mesh& mesh : ar->_meshArray)
 			{
-				delete mesh->_vertices;
-				mesh->_vertices = nullptr;
-				delete mesh->_indices;
-				mesh->_indices = nullptr;
+				delete mesh._vertices;
+				mesh._vertices = nullptr;
+				delete mesh._indices;
+				mesh._indices = nullptr;
 
-				delete ar;
 			}
-			GetRessourceMap<T>().erase(path);
+			delete ar;
+			GetRessourceMap<MeshArray>().erase(path);
 		}
 		catch (std::out_of_range & )
 		{
@@ -75,12 +75,9 @@ namespace Soon
 
 	void MeshImporter::ProcessMesh(Mesh& objMesh, aiMesh *mesh, const aiScene *scene)
 	{
-		// data to fill
-		//		std::vector<Vertex> vertices;
-		//		std::vector<unsigned int> indices;
-		//std::vector<Texture2D> textures;
-
 		// Walk through each of the mesh's vertices
+		objMesh._vertices = new std::vector< Vertex >();
+		objMesh._indices = new std::vector< uint32_t >();
 		for(unsigned int i = 0; i < mesh->mNumVertices; i++)
 		{
 			Vertex vertex;
@@ -108,7 +105,7 @@ namespace Soon
 			}
 			else
 				vertex._texCoords = vec3<float>(0.0f, 0.0f, 0.0f);
-			objMesh._vertices.push_back(vertex);
+			objMesh._vertices->push_back(vertex);
 		}
 		// now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
 		for(unsigned int i = 0; i < mesh->mNumFaces; i++)
@@ -117,7 +114,7 @@ namespace Soon
 			// retrieve all indices of the face and store them in the indices vector
 			for(unsigned int j = 0; j < face.mNumIndices; j++)
 			{
-				objMesh._indices.push_back(face.mIndices[j]);
+				objMesh._indices->push_back(face.mIndices[j]);
 			}
 		}
 		// process materials
@@ -209,7 +206,7 @@ namespace Soon
 			aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
 
 			Mesh objMesh;
-			objMesh._path = _path;
+			//objMesh._path = _path;
 
 			ProcessMesh(objMesh, mesh, scene);
 

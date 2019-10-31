@@ -65,14 +65,14 @@ namespace Soon
 
 				Mesh skybox = (*ma)[0];
 
-				std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(skybox._vertices.size() * sizeof(Vertex), skybox._vertices.data());
+				std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(skybox._vertices->size() * sizeof(Vertex), skybox._vertices->data());
 
 				_stagingBuffers.push_back(handler[0]);
 				_gpuBuffers.push_back(handler[1]._Buffer[0]);
 				_gpuMemoryBuffers.push_back(handler[1]._BufferMemory[0]);
-				_indexBuffers.push_back(GraphicsInstance::GetInstance()->CreateIndexBuffer(skybox._indices));
-				_nbVertex.push_back(skybox._vertices.size());
-				_indexSize.push_back(skybox._indices.size());
+				_indexBuffers.push_back(GraphicsInstance::GetInstance()->CreateIndexBuffer(*(skybox._indices)));
+				_nbVertex.push_back(skybox._vertices->size());
+				_indexSize.push_back(skybox._indices->size());
 
 				Image img;
 				_imagesRenderer.push_back(GraphicsInstance::GetInstance()->CreateTextureImage(_skybox._width, _skybox._height, _skybox._data, static_cast<int32_t>(_skybox._tType), static_cast<int32_t>(_skybox._format)));
