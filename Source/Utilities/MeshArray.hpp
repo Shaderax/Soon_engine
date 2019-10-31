@@ -8,7 +8,8 @@ namespace Soon
 	class MeshArray
 	{
 		public:
-			std::vector<Mesh> _meshArray;
+			std::string		_path;
+			std::vector<Mesh>	_meshArray;
 
 			  MeshArray& operator+=(const MeshArray& rhs)
 			  {

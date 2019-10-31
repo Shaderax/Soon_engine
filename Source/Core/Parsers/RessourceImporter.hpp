@@ -59,7 +59,7 @@ namespace Soon
 					}
 					else
 					{
-						if (imp->import(path))
+						if (imp->Import(path))
 							ret = GetRessourceMap<T>()[path];
 						else
 						{
@@ -68,6 +68,29 @@ namespace Soon
 						}
 					}
 					return (ret);
+				}
+
+			template<class T>
+				void Unload( std::string path )
+				{
+					Importer* imp = GetValidImporter<T>();
+
+					if (!imp)
+					{
+						std::cout << "Not found valid Importer for : " << path << std::endl;
+						exit(-1);
+					}
+					else
+					{
+						if (imp->Unload(path))
+						{
+						}
+						else
+						{
+							std::cout << "Fail UnLoad" << std::endl;
+							exit(-1);
+						}
+					}
 				}
 
 			std::list<Importer*>	_importers;

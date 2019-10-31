@@ -30,6 +30,7 @@ struct Texture
 	int			_height;
 	TextureFormat		_format;
 	TextureType		_tType;
+	std::string		_path;
   
 	Texture( void ) : _data(nullptr), _width(0), _height(0)
 	{

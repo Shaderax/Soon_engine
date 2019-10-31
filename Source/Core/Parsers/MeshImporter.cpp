@@ -27,7 +27,7 @@ namespace Soon
 		return (ClassTypeId<RessourceImporter>::GetId<MeshArray>());
 	}
 
-	bool MeshImporter::import( std::string path )
+	bool MeshImporter::Import( std::string path )
 	{
 		Assimp::Importer importer;
 		const aiScene *scene = importer.ReadFile(path.c_str(), aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals);
@@ -42,10 +42,35 @@ namespace Soon
 
 		std::cout << "Load Mesh : " << path << std::endl;
 		MeshArray* ma = ProcessNode(scene->mRootNode, scene);
+		ma->_path = path;
 
 		GetRessourceMap<MeshArray>().emplace(std::make_pair(path, ma));
 
 		return (true);
+	}
+
+	bool MeshImporter::Unload( std::string path )
+	{
+		try
+		{
+			MeshArray* ar = GetRessourceMap<T>().at(path);
+			if (!ar)
+				return false;
+			for (Mesh& mesh : ar->_meshArray)
+			{
+				delete mesh->_vertices;
+				mesh->_vertices = nullptr;
+				delete mesh->_indices;
+				mesh->_indices = nullptr;
+
+				delete ar;
+			}
+			GetRessourceMap<T>().erase(path);
+		}
+		catch (std::out_of_range & )
+		{
+			std::cout << "Error : GetRessourceMap : Out of range" << std::endl; 
+		}
 	}
 
 	void MeshImporter::ProcessMesh(Mesh& objMesh, aiMesh *mesh, const aiScene *scene)
@@ -159,8 +184,8 @@ namespace Soon
 		material.SetFloat("shininess", shini);
 
 		//std::cout << "mat->GetTextureCount(type) : " << mat->GetTextureCount(type) << std::endl;
-		if (mat->GetTextureCount(type) == 0)
-			material.SetTexture("texSampler", RessourceImporter::GetSingleton().Load<Texture2D>("../Ressources/Textures/white.png"));
+		//if (mat->GetTextureCount(type) == 0)
+		//	material.SetTexture("texSampler", RessourceImporter::GetSingleton().Load<Texture2D>("../Ressources/Textures/white.png"));
 		for(unsigned int i = 0; i < mat->GetTextureCount(type); i++)
 		{
 			aiString str;

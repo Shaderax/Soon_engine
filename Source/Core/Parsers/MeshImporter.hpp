@@ -30,7 +30,9 @@ namespace Soon
 
 		uint32_t IdValidType( void );
 
-		bool import( std::string path );
+		bool Import( std::string path );
+
+		bool Unload( std::string path );
 
 		void ProcessMesh(Mesh& objMesh, aiMesh *mesh, const aiScene *scene);
 

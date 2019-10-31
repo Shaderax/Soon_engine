@@ -14,10 +14,14 @@ namespace Soon
 		public:
 			Mesh( void ) : _owner(nullptr)
 			{
+				_vertices = nullptr;
+				_indices = nullptr;
 			}
 
 			Mesh(Entity& entity) : _owner(&entity)
 			{
+				_vertices = nullptr;
+				_indices = nullptr;
 			}
 
 			Mesh(const Mesh& other)
@@ -43,23 +47,11 @@ namespace Soon
 
 			}
 
-			/*
-			Mesh& operator=(const Mesh& other)
-			{
-				_vertices = other._vertices;
-				_indices = other._indices;
-				_path = other._path;
-
-				return *this;
-			}
-			*/
-
 			void EnableRender();
 			void DisableRender();
 
-			std::vector< Vertex >		_vertices;
-			std::vector<uint32_t>		_indices;
-			std::string			_path;
+			std::vector< Vertex >*		_vertices;
+			std::vector<uint32_t>*		_indices;
 
 		private:
 			Entity*				_owner;
