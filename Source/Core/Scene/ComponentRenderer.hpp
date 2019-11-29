@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ECS/Entity.hpp"
 #include "ECS/Component.hpp"
 #include "Core/Scene/Materials/ShaderMaterial.hpp"
 
@@ -8,17 +9,14 @@ namespace Soon
 	class ComponentRenderer : public Component
 	{
 		public:
+			Entity*		_owner;
 			ShaderMaterial	_material;
 			bool		_active;
 
-			ComponentRenderer( void ) : _active(false)
-			{
+			ComponentRenderer( void );
+			~ComponentRenderer( void );
 
-			}
-
-			virtual ~ComponentRenderer( void ) {};
-
-			virtual void EnableRender( void ) = 0;
-			virtual void DisableRender( void ) = 0;
+			void Enable( void );
+			void Disable( void );
 	};
 }

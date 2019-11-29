@@ -13,6 +13,7 @@ namespace Soon
 			Scene( void );
 			~Scene( void );
 			void AddObject( Object* parent, Object* obj );
+			void RemoveObject( Object* object );
 
 			 bool IsObjectInScene( Object& obj );
 			 Camera3D* GetCurrentCamera( void );

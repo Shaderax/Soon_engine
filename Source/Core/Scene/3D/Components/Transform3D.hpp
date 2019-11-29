@@ -7,7 +7,7 @@
 
 struct Transform3D : Component
 {
-	Transform3D( Entity& entity )
+	Transform3D( [[maybe_unused]] Entity& entity )
 	{
 		_pos = vec3<float>(0.0f, 0.0f, 0.0f);
 		_rot = Quaternion(vec3<float>(0.0f, 0.0f, 0.0f), 1.0f);

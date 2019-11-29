@@ -1,14 +1,12 @@
 #include "Core/Scene/Object.hpp"
 #include "Core/Engine.hpp"
 #include "Core/Scene/3D/Components/Transform3D.hpp"
-//#include "Scene/Common/ObjectOwner.hpp"
 
 namespace Soon
 {
 	Object::Object( Object* parent )
 	{
 		AddComponent<Transform3D>();
-		//AddComponent<ObjectOwner>(this);
 
 		if (Engine::GetInstance().GetCurrentScene())
 			Engine::GetInstance().GetCurrentScene()->AddObject(parent, this);
@@ -16,6 +14,12 @@ namespace Soon
 	
 	Object::~Object( void )
 	{
+		if (_scene && !_parent)
+			_scene->RemoveObject(this);
+
+		for (Object* child : _childrens)
+			delete child;
+
 		Kill();
 	}
 

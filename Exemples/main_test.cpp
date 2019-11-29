@@ -35,6 +35,7 @@ int main(int argc, char**argv)
 	}
 
 	RessourceImporter::GetSingleton().Unload<MeshArray>(ar->_path);
+	delete Maya;
 	Engine::ReleaseInstance();
 	return (0);
 }

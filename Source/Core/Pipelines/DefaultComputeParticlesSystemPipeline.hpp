@@ -66,12 +66,18 @@ namespace Soon
 				return (uboLayoutBinding);
 			}
 
-			void AddToRender( Transform3D& tr, Mesh* mesh, uint32_t amount )
+		bool	RemoveFromPipeline( uint32_t id )
+		{
+
+		}
+
+			uint32_t AddToRender( Transform3D& tr, Mesh* mesh, uint32_t amount )
 			{
 				std::cout << "Create Particle System Descriptor Set" << std::endl;
 				// Go creer un tas de transform 
 				_particlesDescriptorSets.push_back(GraphicsInstance::GetInstance()->CreateDescriptorSets(ps->_size * sizeof(Particle), _descriptorSetLayout, 0, &((*_gpuBuffers).back()), VK_DESCRIPTOR_TYPE_STORAGE_BUFFER));
 				std::cout << "END : Create Particle System Descriptor Set" << std::endl;
+				return _particlesDescriptorSets.size();
 			}
 
 			void RecreateUniforms( void )

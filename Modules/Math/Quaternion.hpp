@@ -71,9 +71,17 @@ struct Quaternion
 		return (vec3<float>(roll * 180/M_PI, pitch * 180/M_PI, yaw * 180/M_PI));
 	}
 
-	friend Quaternion operator*(Quaternion left, Quaternion const& b)
+	Quaternion(const Quaternion& quat)
 	{
-		return left *= b;
+		this->v = quat.v;
+		this->f = quat.f;
+	}
+
+	Quaternion operator*(Quaternion const& b)
+	{
+		Quaternion q(*this);
+
+		return q *= b;
 	}
 
 	Quaternion& operator*=(Quaternion const& b)

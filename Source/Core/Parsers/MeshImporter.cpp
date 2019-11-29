@@ -62,7 +62,6 @@ namespace Soon
 				mesh._vertices = nullptr;
 				delete mesh._indices;
 				mesh._indices = nullptr;
-
 			}
 			delete ar;
 			GetRessourceMap<MeshArray>().erase(path);
@@ -152,7 +151,7 @@ namespace Soon
 		aiColor3D ambient;
 		aiColor3D spec;
 		float shini = 0;
-		aiReturn ret;
+		//aiReturn ret;
 		//				ret = mat->Get(AI_MATKEY_COLOR_DIFFUSE, diff);
 		//				std::cout << (ret == AI_SUCCESS ? "AI_SUCCESS" : "AI_FAILURE") << std::endl;
 		//				std::cout << "Diffuse : " << diff.r << std::endl;

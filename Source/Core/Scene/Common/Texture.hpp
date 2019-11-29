@@ -26,11 +26,12 @@ enum TextureType : int32_t
 struct Texture
 {
 	unsigned char*		_data;
-	int			_width;
-	int			_height;
+	uint32_t		_width;
+	uint32_t		_height;
 	TextureFormat		_format;
 	TextureType		_tType;
 	std::string		_path;
+	uint32_t		_size;
   
 	Texture( void ) : _data(nullptr), _width(0), _height(0)
 	{

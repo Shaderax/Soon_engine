@@ -65,11 +65,10 @@ namespace Soon
 
 				Mesh skybox = (*ma)[0];
 
-				std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(skybox._vertices->size() * sizeof(Vertex), skybox._vertices->data());
+				BufferRenderer handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(skybox._vertices->size() * sizeof(Vertex), skybox._vertices->data());
 
-				_stagingBuffers.push_back(handler[0]);
-				_gpuBuffers.push_back(handler[1]._Buffer[0]);
-				_gpuMemoryBuffers.push_back(handler[1]._BufferMemory[0]);
+				_gpuBuffers.push_back(handler._Buffer[0]);
+				_gpuMemoryBuffers.push_back(handler._BufferMemory[0]);
 				_indexBuffers.push_back(GraphicsInstance::GetInstance()->CreateIndexBuffer(*(skybox._indices)));
 				_nbVertex.push_back(skybox._vertices->size());
 				_indexSize.push_back(skybox._indices->size());
@@ -99,12 +98,12 @@ namespace Soon
 				vkCmdDrawIndexed(commandBuffer, _indexSize.at(0), 1, 0, 0, 0);
 			}
 
-			void AddToRender( Transform3D& tr, Mesh* mesh )
+			uint32_t AddToRender( Transform3D& tr, Mesh* mesh )
 			{
 
 			}
 
-			void RemoveFromPipeline( void )
+			bool RemoveFromPipeline( uint32_t id )
 			{
 
 			}
@@ -112,9 +111,11 @@ namespace Soon
 			void Enable( void )
 			{
 
-			};
+			}
+
 			void Disable( void )
 			{
+
 			}
 
 			void RecreateUniforms( void )

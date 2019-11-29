@@ -32,6 +32,26 @@ namespace Soon
 		}
 	}
 
+	void GraphicsRenderer::Initialize( void )
+	{
+		for (ShaderPipeline* pip : _graphicPipelines)
+			pip = nullptr;
+		for (ComputePipeline* pip : _computePipelines)
+			pip = nullptr;
+		//AddPipeline<SkyboxPipeline>();
+	}
+
+	GraphicsRenderer::GraphicsRenderer( void ) : _changes(false)
+	{
+		//_instance = this;
+	}
+
+	GraphicsRenderer::~GraphicsRenderer( void )
+	{
+		vkDeviceWaitIdle(GraphicsInstance::GetInstance()->GetDevice());
+		RemoveAllPipelines();
+	}
+
 	template<typename T>
 		void GraphicsRenderer::RemovePipeline( void )
 		{
@@ -41,18 +61,24 @@ namespace Soon
 			_graphicPipelines[ClassTypeId<BasePipeline>::GetId<T>()] = nullptr;
 		}
 
-	void GraphicsRenderer::Initialize( void )
+	void GraphicsRenderer::RemoveAllPipelines( void )
 	{
-		for (ShaderPipeline* pip : _graphicPipelines)
-			pip = nullptr;
-		for (ComputePipeline* pip : _computePipelines)
-			pip = nullptr;
-		AddPipeline<SkyboxPipeline>();
-	}
-
-	GraphicsRenderer::GraphicsRenderer( void ) : _changes(false)
-	{
-		//_instance = this;
+		for (ShaderPipeline* bp : _graphicPipelines)
+		{
+			if (bp)
+			{
+				delete bp;
+				bp = nullptr;
+			}
+		}
+		for (ComputePipeline* bp : _computePipelines)
+		{
+			if (bp)
+			{
+				delete bp;
+				bp = nullptr;
+			}
+		}
 	}
 
 	void GraphicsRenderer::RecreateAllUniforms( void )

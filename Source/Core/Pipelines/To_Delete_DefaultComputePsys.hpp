@@ -151,7 +151,7 @@ namespace Soon
 				return attributeDescriptions;
 			}
 
-			void AddToRender( Transform3D& tr, ParticlesSystem* ps )
+			uint32_t AddToRender( Transform3D& tr, ParticlesSystem* ps )
 			{
 				std::vector<BufferRenderer>	bufRenderer;
 
@@ -173,6 +173,13 @@ namespace Soon
 				_gpuBuffers.push_back(bufRenderer[1]._Buffer[0]);
 				_gpuMemoryBuffers.push_back(bufRenderer[1]._BufferMemory[0]);
 				_stagingBuffers.push_back(bufRenderer[0]);
+
+				return _transforms.size();
+			}
+
+			bool RemoveFromPipeline( uint32_t id )
+			{
+
 			}
 
 			void RecreateUniforms( void )

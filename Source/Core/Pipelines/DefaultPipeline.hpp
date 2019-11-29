@@ -1,35 +1,32 @@
 #pragma once
 
+#include <cstring>
+#include "Core/Engine.hpp"
+#include "Core/Parsers/RessourceImporter.hpp"
+#include "Core/Scene/Common/Texture2D.hpp"
+#include "Core/Scene/Materials/Material.hpp"
+#include "Core/Scene/3D/Components/Camera.hpp"
+#include "Core/Scene/3D/Components/Mesh.hpp"
 #include "Core/Renderer/Pipelines/BasePipeline.hpp"
 #include "Core/Renderer/Pipelines/ShaderPipeline.hpp"
-#include "Core/Engine.hpp"
-#include "Core/Scene/3D/Components/Camera.hpp"
-#include "Core/Scene//Materials/Material.hpp"
-
 #include "Core/Renderer/Vulkan/PipelineConf.hpp"
-#include "Utilities/Vertex.hpp"
-
-#include <cstring>
-
 #include "Core/Renderer/Vulkan/GraphicsInstance.hpp"
-
-#include "Core/Scene/3D/Components/Mesh.hpp"
+#include "Utilities/Vertex.hpp"
 #include "Utilities/ShadersUniform.hpp"
-
-#include "Core/Scene/Common/Texture2D.hpp"
-#include "Core/Parsers/RessourceImporter.hpp"
 
 namespace Soon
 {
 	struct DefaultPipeline : ShaderPipeline
 	{
-		std::vector< uint32_t >				_nbVertex;
+		//// UNIFORM CAMERA
+		UniformSets						_uniformCamera;
+
 		std::vector< Transform3D* >			_transforms;
-		std::vector< VkBuffer >				_gpuBuffers;
+
+		std::vector< VkBuffer >			_gpuBuffers;
 		std::vector< VkDeviceMemory >		_gpuMemoryBuffers;
-		std::vector< BufferRenderer >		_stagingBuffers;
 		std::vector< BufferRenderer >		_indexBuffers;
-		std::vector< uint32_t >				_indexSize;
+		std::vector< uint32_t >			_indexSize;
 
 		std::vector< ImageRenderer >		_imagesRenderer;
 		std::vector< std::vector< VkDescriptorSet > >	_uniformsImagesDescriptorSets;
@@ -38,9 +35,6 @@ namespace Soon
 		// UNIFORM
 		std::vector< BufferRenderer > 	_uniformsBuffers;
 		std::vector< std::vector< VkDescriptorSet > >	_uniformsDescriptorSets;
-
-		//// UNIFORM CAMERA
-		UniformSets						_uniformCamera;
 
 		// UNIFORM MATERIAL
 		// NEW
@@ -82,11 +76,43 @@ namespace Soon
 			_uniformsLightsDescriptorSets.push_back(lightUniform._descriptorSets);
 		}
 
-		//		struct o
-		//		{
-		//			string name;
-		//			type tt;
-		//		};
+		~DefaultPipeline( void )
+		{
+			VkDevice device = GraphicsInstance::GetInstance()->GetDevice();
+
+			for (VkBuffer buffer : _gpuBuffers)
+				vkDestroyBuffer(device, buffer, nullptr);
+			for (VkDeviceMemory bufferMemory : _gpuMemoryBuffers)
+				vkFreeMemory(device, bufferMemory, nullptr);
+
+			DestroyBufferRenderer(_indexBuffers);
+			DestroyBufferRenderer(_uniformsBuffers);
+			DestroyBufferRenderer(_uniformsMaterials);
+			DestroyBufferRenderer(_uniformsLights);
+
+			for (VkDescriptorSetLayout& dsl : _descriptorSetLayout)
+				vkDestroyDescriptorSetLayout(device, dsl, nullptr);
+
+			vkDestroyPipeline(device, _graphicPipeline, nullptr);
+			vkDestroyPipelineLayout(device, _pipelineLayout, nullptr);
+
+			for (ImageRenderer& img : _imagesRenderer)
+			{
+				vkDestroyImage(device, img._textureImage, nullptr);
+				vkFreeMemory(device, img._textureImageMemory, nullptr);
+			}
+
+			for (Image& img : _images)
+			{
+				vkDestroySampler(device, img._textureSampler, nullptr);
+				vkDestroyImageView(device, img._imageView, nullptr);
+			}
+
+			for (VkBuffer& bu : _uniformCamera._uniformRender._Buffer)
+				vkDestroyBuffer(device, bu, nullptr);
+			for (VkDeviceMemory& bu : _uniformCamera._uniformRender._BufferMemory)
+				vkFreeMemory(device, bu, nullptr);
+		}
 
 		void UpdateData( int currentImage )
 		{
@@ -103,7 +129,7 @@ namespace Soon
 			}
 			else
 			{
-				//          std::cout << "No Current Camera.";
+				std::cout << "No Current Camera.";
 				uc.view = mat4<float>();
 				uc.proj = mat4<float>();
 			}
@@ -179,36 +205,6 @@ namespace Soon
 
 		}
 
-		void BindCaller( VkCommandBuffer commandBuffer, uint32_t index )
-		{
-			std::cout << "DefaultPipeline BindCaller" << std::endl;
-			vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _graphicPipeline);
-
-			VkDeviceSize offsets[] = {0};
-
-			// Bind Cam
-			if (!_gpuBuffers.empty())
-				vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 0, 1, &(_uniformCamera._descriptorSets.at(index)), 0, nullptr);
-
-			vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 4, 1, &(_uniformsLightsDescriptorSets.at(0).at(index)), 0, nullptr);
-
-			uint32_t j = 0;
-			for (auto& buf : _gpuBuffers)
-			{
-				vkCmdBindVertexBuffers(commandBuffer, 0, 1, &buf, offsets);
-
-				vkCmdBindIndexBuffer(commandBuffer, _indexBuffers.at(j)._Buffer[0], 0, VK_INDEX_TYPE_UINT32);
-
-				vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 1, 1, &_uniformsDescriptorSets.at(j).at(index), 0, nullptr);
-				vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 2, 1, &_uniformsImagesDescriptorSets.at(j).at(index), 0, nullptr);
-
-				vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 3, 1, &_uniformsMaterialsDescriptorSets.at(j).at(index), 0  , nullptr);
-
-				vkCmdDrawIndexed(commandBuffer, _indexSize.at(j), 1, 0, 0, 0);
-				++j;
-			}
-		}
-
 		std::vector<VkDescriptorSetLayoutBinding> GetLayoutBinding( void )
 		{
 			std::vector<VkDescriptorSetLayoutBinding> uboLayoutBinding(5);
@@ -274,18 +270,104 @@ namespace Soon
 			attributeDescriptions[2].offset = offsetof(Vertex, _texCoords);
 		}
 
-		void AddToRender( Transform3D& tr, Mesh* mesh )
+		bool	RemoveFromPipeline( uint32_t id )
 		{
-			std::vector<BufferRenderer> handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(mesh->_vertices->size() * sizeof(Vertex), mesh->_vertices->data());
-			//      ComponentRenderer ret;
+			/*
+			VkDevice device = GraphicsInstance::GetInstance()->GetDevice();
 
-			_stagingBuffers.push_back(handler[0]);
-			_gpuBuffers.push_back(handler[1]._Buffer[0]);
-			_gpuMemoryBuffers.push_back(handler[1]._BufferMemory[0]);
+			for (VkBuffer buffer : _gpuBuffers)
+				vkDestroyBuffer(device, buffer, nullptr);
+			for (VkDeviceMemory bufferMemory : _gpuMemoryBuffers)
+				vkFreeMemory(device, bufferMemory, nullptr);
+
+			DestroyBufferRenderer(_indexBuffers);
+			DestroyBufferRenderer(_uniformsBuffers);
+			DestroyBufferRenderer(_uniformsMaterials);
+			DestroyBufferRenderer(_uniformsLights);
+
+			for (VkDescriptorSetLayout& dsl : _descriptorSetLayout)
+				vkDestroyDescriptorSetLayout(device, dsl, nullptr);
+
+			vkDestroyPipeline(device, _graphicPipeline, nullptr);
+			vkDestroyPipelineLayout(device, _pipelineLayout, nullptr);
+
+			for (ImageRenderer& img : _imagesRenderer)
+			{
+				vkDestroyImage(device, img._textureImage, nullptr);
+				vkFreeMemory(device, img._textureImageMemory, nullptr);
+			}
+
+			for (Image& img : _images)
+			{
+				vkDestroySampler(device, img._textureSampler, nullptr);
+				vkDestroyImageView(device, img._imageView, nullptr);
+			}
+
+			for (VkBuffer& bu : _uniformCamera._uniformRender._Buffer)
+				vkDestroyBuffer(device, bu, nullptr);
+			for (VkDeviceMemory& bu : _uniformCamera._uniformRender._BufferMemory)
+				vkFreeMemory(device, bu, nullptr);
+			_gpuBuffers.erase(_gpuBuffers.begin() + id );
+			_gpuMemoryBuffers.erase(_gpuMemoryBuffers.begin() + id );
+
+			   _indexBuffers.erase(_indexBuffers.begin() + id );
+			   _indexSize.erase(_indexSize.begin() + id );
+			   _transforms.erase( _transforms.begin() + id );
+			_uniformsBuffers.erase(_uniformsBuffers.begin() + id);
+			_uniformsDescriptorSets.erase(_uniformsDescriptorSets.begin() + id );
+			_imagesRenderer.erase(_imagesRenderer.begin() + id );
+
+			_images.erase(_images.begin() + id );
+			_uniformsImagesDescriptorSets.erase(_uniformsImagesDescriptorSets.begin() + id );
+			_uniformsMaterials.erase(_uniformsMaterials.begin() + id );
+			_uniformsMaterialsDescriptorSets.erase(_uniformsMaterialsDescriptorSets.begin() + id );
+			_vecMaterials.erase(_vecMaterials.begin() + id);
+			*/
+
+			return true;
+		}
+
+		/*
+		void BindCaller( VkCommandBuffer commandBuffer, uint32_t index )
+		{
+			std::cout << "DefaultPipeline BindCaller" << std::endl;
+			vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _graphicPipeline);
+
+			VkDeviceSize offsets[] = {0};
+
+			// Bind Cam
+			if (!_gpuBuffers.empty())
+				vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 0, 1, &(_uniformCamera._descriptorSets.at(index)), 0, nullptr);
+
+			vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 4, 1, &(_uniformsLightsDescriptorSets.at(0).at(index)), 0, nullptr);
+
+			uint32_t j = 0;
+			for (auto& buf : _gpuBuffers)
+			{
+				vkCmdBindVertexBuffers(commandBuffer, 0, 1, &buf, offsets);
+
+				vkCmdBindIndexBuffer(commandBuffer, _indexBuffers.at(j)._Buffer[0], 0, VK_INDEX_TYPE_UINT32);
+
+				vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 1, 1, &_uniformsDescriptorSets.at(j).at(index), 0, nullptr);
+				vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 2, 1, &_uniformsImagesDescriptorSets.at(j).at(index), 0, nullptr);
+
+				vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, _pipelineLayout, 3, 1, &_uniformsMaterialsDescriptorSets.at(j).at(index), 0  , nullptr);
+
+				vkCmdDrawIndexed(commandBuffer, _indexSize.at(j), 1, 0, 0, 0);
+				++j;
+			}
+		}
+
+
+		uint32_t AddToRender( Transform3D& tr, Mesh* mesh )
+		{
+			BufferRenderer handler = GraphicsInstance::GetInstance()->CreateVertexBuffer(mesh->_vertices->size() * sizeof(Vertex), mesh->_vertices->data());
+
+			_gpuBuffers.push_back(handler._Buffer[0]);
+			_gpuMemoryBuffers.push_back(handler._BufferMemory[0]);
 
 			_indexBuffers.push_back(GraphicsInstance::GetInstance()->CreateIndexBuffer(*(mesh->_indices)));
 
-			_nbVertex.push_back(mesh->_vertices->size());
 			_indexSize.push_back(mesh->_indices->size());
 			_transforms.push_back(&tr);
 
@@ -324,15 +406,26 @@ namespace Soon
 			/////////////////
 
 			//			return ret;
+			return _transforms.size();
 		}
-
+*/
 		void RecreateUniforms( void )
 		{
+			VkDevice device = GraphicsInstance::GetInstance()->GetDevice();
+
+			for (VkBuffer& bu : _uniformCamera._uniformRender._Buffer)
+				vkDestroyBuffer(device, bu, nullptr);
+			for (VkDeviceMemory& bu : _uniformCamera._uniformRender._BufferMemory)
+				vkFreeMemory(device, bu, nullptr);
 			_uniformCamera = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformCamera), _descriptorSetLayout, 0);
 
 			std::size_t j = 0;
 			while (j < _uniformsBuffers.size())
 			{
+				for (VkBuffer& bu : _uniformsBuffers.at(j)._Buffer)
+					vkDestroyBuffer(device, bu, nullptr);
+				for (VkDeviceMemory& bu : _uniformsBuffers.at(j)._BufferMemory)
+					vkFreeMemory(device, bu, nullptr);
 				UniformSets modelUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformModel), _descriptorSetLayout, 1);
 				_uniformsBuffers.at(j) = modelUniform._uniformRender;
 				_uniformsDescriptorSets.at(j) = modelUniform._descriptorSets;
@@ -340,7 +433,7 @@ namespace Soon
 			}
 			j = 0;
 			while (j < _uniformsImagesDescriptorSets.size())
-			{
+			{	
 				std::vector<VkDescriptorSet> imageUniform = GraphicsInstance::GetInstance()->CreateImageDescriptorSets(_images.at(j)._imageView, _images.at(j)._textureSampler, _descriptorSetLayout[2]);
 				_uniformsImagesDescriptorSets.at(j) = imageUniform;
 				++j;
@@ -350,6 +443,11 @@ namespace Soon
 			j = 0;
 			while (j < _uniformsMaterialsDescriptorSets.size())
 			{
+				for (VkBuffer& bu : _uniformsMaterials.at(j)._Buffer)
+					vkDestroyBuffer(device, bu, nullptr);
+				for (VkDeviceMemory& bu : _uniformsMaterials.at(j)._BufferMemory)
+					vkFreeMemory(device, bu, nullptr);
+
 				UniformSets matUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformMaterial), _descriptorSetLayout, 3);
 				_uniformsMaterials.at(j) = matUniform._uniformRender;
 				_uniformsMaterialsDescriptorSets.at(j) = matUniform._descriptorSets;
@@ -361,6 +459,11 @@ namespace Soon
 			//while (j < _vecLights.size())
 			while (j < _uniformsLights.size())
 			{
+				for (VkBuffer& bu : _uniformsLights.at(j)._Buffer)
+					vkDestroyBuffer(device, bu, nullptr);
+				for (VkDeviceMemory& bu : _uniformsLights.at(j)._BufferMemory)
+					vkFreeMemory(device, bu, nullptr);
+
 				UniformSets lightUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformLight), _descriptorSetLayout, 4);
 				_uniformsLights.at(j) = lightUniform._uniformRender;
 				_uniformsLightsDescriptorSets.at(j) = lightUniform._descriptorSets;
@@ -368,18 +471,9 @@ namespace Soon
 			}
 		}
 
-		//		void AddLightToRender( Transform3D& tr, DirectionalLight* dl)
-		//		{
-		//			UniformSets lightUniform = GraphicsInstance::GetInstance()->CreateUniform(sizeof(UniformLight), _descriptorSetLayout, 4);
-		//
-		//			_uniformsLights.push_back(lightUniform._uniformRender);
-		//			_uniformsLightsDescriptorSets.push_back(lightUniform._descriptorSets);
-		//
-		//			_vecLights.push_back(dl);
-		//		}
-
 		void RecreatePipeline( void )
 		{
+			vkDestroyPipeline(GraphicsInstance::GetInstance()->GetDevice(), _graphicPipeline, nullptr);
 			_conf.pipelineInfo.renderPass = GraphicsInstance::GetInstance()->GetRenderPass();
 			_graphicPipeline = GraphicsInstance::GetInstance()->CreateGraphicsPipeline(
 					_conf,
@@ -387,9 +481,20 @@ namespace Soon
 					"../Ressources/Shaders/DefaultShader.frag.spv");
 		}
 
-		void RemoveFromPipeline( void ) {};
+		void DestroyBufferRenderer(std::vector<BufferRenderer>& buffer)
+		{
+			VkDevice device = GraphicsInstance::GetInstance()->GetDevice();
+
+			for (BufferRenderer& br : buffer)
+			{
+				for (VkBuffer& bu : br._Buffer)
+					vkDestroyBuffer(device, bu, nullptr);
+				for (VkDeviceMemory& bu : br._BufferMemory)
+					vkFreeMemory(device, bu, nullptr);
+			}
+		}
+
 		void Enable( void ) {};
 		void Disable( void ) {};
-
 	};
 }

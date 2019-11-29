@@ -19,7 +19,7 @@ namespace Soon
 
 	void Scene::AddObject( Object* parent, Object* obj )
 	{
-		if (parent != nullptr)
+		if (parent)
 		{
 			if (parent->_scene != this)
 				std::cout << "Parent Not in Scene" << std::endl;
@@ -37,6 +37,18 @@ namespace Soon
 		}
 	}
 
+	void Scene::RemoveObject( Object* object )
+	{
+		for (std::vector<Object*>::iterator it = Root.begin() ; it != Root.end(); ++it)
+		{
+			if (*it == object)
+			{
+				Root.erase(it);
+				return ;
+			}
+		}
+	}
+
 	Camera3D* Scene::GetCurrentCamera( void )
 	{
 		return (_camera);
@@ -46,5 +58,4 @@ namespace Soon
 	{
 		_camera = cam;
 	}
-
 }

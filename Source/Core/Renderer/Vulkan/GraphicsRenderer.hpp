@@ -26,8 +26,11 @@ namespace Soon
 
 		public:
 		GraphicsRenderer( void );
+		~GraphicsRenderer( void );
 		static GraphicsRenderer* 	GetInstance( void );
 		static void 			ReleaseInstance( void );
+		void				RemoveAllPipelines( void );
+
 		void 				Initialize( void );
 		void 				RecreateAllUniforms( void );
 		void 				RecreateAllPipelines( void );

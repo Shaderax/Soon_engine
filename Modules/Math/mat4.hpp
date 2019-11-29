@@ -24,6 +24,11 @@ class mat4
 
 		T elem[4][4];
 
+		mat4( const mat4<T>& other)
+		{
+			*this = other;
+		}
+
 		T& operator()(int y, int x)
 		{
 			return (elem[y][x]);

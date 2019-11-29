@@ -11,6 +11,7 @@ set(SRC
 
 	./Scene/Scene.cpp
 	./Scene/Object.cpp
+	./Scene/ComponentRenderer.cpp
 
 	./Scene/3D/Components/Camera.cpp
 	./Scene/3D/Components/ParticlesSystem.cpp

@@ -120,20 +120,13 @@ namespace Soon
 	GraphicsInstance::GraphicsInstance( void ) : _physicalDevice(VK_NULL_HANDLE), _currentFrame(0), _framebufferResized(false)
 	{
 		std::cout << "In Constructor GrInstance" << std::endl;
-		//_instance = this;
 		_window = nullptr;
-	//	_singleton = this;
 	}
 
 	GraphicsInstance::~GraphicsInstance( void )
 	{
 		vkDeviceWaitIdle(_device);
 		CleanupSwapChain();
-
-		// TODO
-		//
-		//for (auto& dsl : _descriptorSetLayout)
-		//	vkDestroyDescriptorSetLayout(_device, dsl, nullptr);
 
 		for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++)
 		{
@@ -148,8 +141,6 @@ namespace Soon
 			DestroyDebugUtilsMessengerEXT(_vulkanInstance, _debugMessenger, nullptr);
 		vkDestroySurfaceKHR(_vulkanInstance, _surface, nullptr);
 		vkDestroyInstance(_vulkanInstance, nullptr);
-		//		vkDestroyBuffer(device, vertexBuffer, nullptr);
-		//		vkFreeMemory(device, vertexBufferMemory, nullptr);
 		glfwDestroyWindow(_window);
 		glfwTerminate();
 	}
@@ -1093,6 +1084,11 @@ namespace Soon
 
 		vkDeviceWaitIdle(_device);
 
+		// TODO
+		// GraphicsRenderer::GetInstance()->DestroyAllGraphicsPipeline();
+//		vkDestroyPipeline(_device, _graphicsPipeline, nullptr);
+//		vkDestroyPipelineLayout(_device, _pipelineLayout, nullptr);
+
 		CleanupSwapChain();
 
 		CreateSwapChain();
@@ -1163,66 +1159,64 @@ namespace Soon
 		throw std::runtime_error("failed to find suitable memory type!");
 	}
 	
-	std::vector<BufferRenderer> GraphicsInstance::CreateStorageBuffer( uint32_t size, void* ptrData )
+	BufferRenderer GraphicsInstance::CreateStorageBuffer( uint32_t size, void* ptrData )
 	{
-		std::vector<BufferRenderer>					bufRenderer;
+		BufferRenderer					stagingBuffer;
+		BufferRenderer					bufRenderer;
 		std::cout << "Vertex BUFFER CREATION : " << size << std::endl;
 
-		bufRenderer.resize(2);
+		stagingBuffer._Buffer.resize(1);
+		stagingBuffer._BufferMemory.resize(1);
+		bufRenderer._Buffer.resize(1);
+		bufRenderer._BufferMemory.resize(1);
 
-		bufRenderer[0]._Buffer.resize(1);
-		bufRenderer[0]._BufferMemory.resize(1);
-		bufRenderer[1]._Buffer.resize(1);
-		bufRenderer[1]._BufferMemory.resize(1);
-
-		CreateBuffer(size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, bufRenderer[0]._Buffer[0], bufRenderer[0]._BufferMemory[0]);
+		CreateBuffer(size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, stagingBuffer._Buffer[0], stagingBuffer._BufferMemory[0]);
 
 		if (ptrData)
 		{
 			void* data;
-			vkMapMemory(_device, bufRenderer[0]._BufferMemory[0], 0, size, 0, &data);
+			vkMapMemory(_device, stagingBuffer._BufferMemory[0], 0, size, 0, &data);
 			memcpy(data, ptrData, (size_t)size);
-			vkUnmapMemory(_device, bufRenderer[0]._BufferMemory[0]);
+			vkUnmapMemory(_device, stagingBuffer._BufferMemory[0]);
 		}
 
-		CreateBuffer(size, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, bufRenderer[1]._Buffer[0], bufRenderer[1]._BufferMemory[0] );
+		CreateBuffer(size, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, bufRenderer._Buffer[0], bufRenderer._BufferMemory[0] );
 
-		CopyBuffer(bufRenderer[0]._Buffer[0], bufRenderer[1]._Buffer[0], size);
+		CopyBuffer(stagingBuffer._Buffer[0], bufRenderer._Buffer[0], size);
 
-		//		vkDestroyBuffer(_device, stagingBuffer, nullptr);
-		//		vkFreeMemory(_device, stagingBufferMemory, nullptr);
+		vkDestroyBuffer(_device, stagingBuffer._Buffer[0], nullptr);
+		vkFreeMemory(_device, stagingBuffer._BufferMemory[0], nullptr);
 
 		return ( bufRenderer );
 	}
 
-	std::vector<BufferRenderer> GraphicsInstance::CreateVertexBuffer( uint32_t size, void* ptrData )
+	BufferRenderer GraphicsInstance::CreateVertexBuffer( uint32_t size, void* ptrData )
 	{
-		std::vector<BufferRenderer>					bufRenderer;
+		BufferRenderer					stagingBuffer;
+		BufferRenderer					bufRenderer;
 		std::cout << "Vertex BUFFER CREATION : " << size << std::endl;
 
-		bufRenderer.resize(2);
+		stagingBuffer._Buffer.resize(1);
+		stagingBuffer._BufferMemory.resize(1);
+		bufRenderer._Buffer.resize(1);
+		bufRenderer._BufferMemory.resize(1);
 
-		bufRenderer[0]._Buffer.resize(1);
-		bufRenderer[0]._BufferMemory.resize(1);
-		bufRenderer[1]._Buffer.resize(1);
-		bufRenderer[1]._BufferMemory.resize(1);
-
-		CreateBuffer(size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, bufRenderer[0]._Buffer[0], bufRenderer[0]._BufferMemory[0]);
+		CreateBuffer(size, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, stagingBuffer._Buffer[0], stagingBuffer._BufferMemory[0]);
 
 		if (ptrData)
 		{
 			void* data;
-			vkMapMemory(_device, bufRenderer[0]._BufferMemory[0], 0, size, 0, &data);
+			vkMapMemory(_device, stagingBuffer._BufferMemory[0], 0, size, 0, &data);
 			memcpy(data, ptrData, (size_t)size);
-			vkUnmapMemory(_device, bufRenderer[0]._BufferMemory[0]);
+			vkUnmapMemory(_device, stagingBuffer._BufferMemory[0]);
 		}
 
-		CreateBuffer(size, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, bufRenderer[1]._Buffer[0], bufRenderer[1]._BufferMemory[0] );
+		CreateBuffer(size, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, bufRenderer._Buffer[0], bufRenderer._BufferMemory[0] );
 
-		CopyBuffer(bufRenderer[0]._Buffer[0], bufRenderer[1]._Buffer[0], size);
+		CopyBuffer(stagingBuffer._Buffer[0], bufRenderer._Buffer[0], size);
 
-		//		vkDestroyBuffer(_device, stagingBuffer, nullptr);
-		//		vkFreeMemory(_device, stagingBufferMemory, nullptr);
+		vkDestroyBuffer(_device, stagingBuffer._Buffer[0], nullptr);
+		vkFreeMemory(_device, stagingBuffer._BufferMemory[0], nullptr);
 
 		return ( bufRenderer );
 	}

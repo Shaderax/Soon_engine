@@ -57,7 +57,7 @@ struct Image
 struct UniformSets
 {
 	std::vector<VkDescriptorSet>	_descriptorSets;
-	BufferRenderer					_uniformRender;
+	BufferRenderer			_uniformRender;
 };
 
 namespace Soon
@@ -164,8 +164,8 @@ namespace Soon
 			void 	CleanupSwapChain( void );
 			VkExtent2D ChooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
 			static void FramebufferResizeCallback(GLFWwindow *window, int width, int height);
-			std::vector<BufferRenderer> CreateVertexBuffer( uint32_t size, void* ptrData );
-			std::vector<BufferRenderer> CreateStorageBuffer( uint32_t size, void* ptrData );
+			BufferRenderer CreateVertexBuffer( uint32_t size, void* ptrData );
+			BufferRenderer CreateStorageBuffer( uint32_t size, void* ptrData );
 			uint32_t FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
 			void	FillCommandBuffer( void );
 			void 	CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory);

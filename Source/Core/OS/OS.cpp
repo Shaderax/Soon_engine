@@ -14,8 +14,8 @@ namespace Soon
 
 	OS::~OS( void )
 	{
-		GraphicsInstance::ReleaseInstance();
 		GraphicsRenderer::ReleaseInstance();
+		GraphicsInstance::ReleaseInstance();
 	}
 	
 	OS* OS::GetInstance( void )

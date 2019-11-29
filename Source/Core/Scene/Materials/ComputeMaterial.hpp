@@ -10,13 +10,14 @@ namespace Soon
 	class ComputeMaterial : public Material
 	{
 		public:
+			uint32_t		_id;
 			ComputePipeline*	_computePipeline;
 
 			template<class T>
 				void SetPipeline( void )
 				{
 					if (_computePipeline)
-						_computePipeline->RemoveFromPipeline();
+						_computePipeline->RemoveFromPipeline(_id);
 					_computePipeline = GraphicsRenderer::GetInstance()->AddPipeline<T>();
 				}
 	};
