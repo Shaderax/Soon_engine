@@ -49,3 +49,5 @@ Add mat in a gr vec for all Set* functions used
 Opti to not memcpy all the mat
 
 Move ShaderPipeline->Uniforms struct in Material for handle Texture changes with SetTexture()
+
+Read Shader to Fill struct.
