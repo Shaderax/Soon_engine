@@ -12,7 +12,7 @@ Surcouche a la gestion des pipelines pour update etc
 
 Light struct is not alignas for gpu alignement
 
-put TypeId au ileu de uint32_t
+put TypeId au lieu de uint32_t
 
 reimplement input
 
