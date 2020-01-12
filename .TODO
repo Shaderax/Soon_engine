@@ -14,6 +14,6 @@ Light struct is not alignas for gpu alignement
 
 put TypeId au lieu de uint32_t
 
-reimplement input
+Reimplement input
 
 Time
