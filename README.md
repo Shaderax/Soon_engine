@@ -1,4 +1,4 @@
-# Soon Engine
+# Soon Engine [Ongoing]
 
 A Vulkan game engine to practice my C++ skill and 3D programming.
 
@@ -6,7 +6,7 @@ A Vulkan game engine to practice my C++ skill and 3D programming.
 
 ## Disclaimer
 
-Switch to the CleanUp Branch to see the latest version of the engine.  
+Switch to the CleanUp Branch to see the latest version of the engine, but it doesn't compile because the engine underwent some feature additions.  
 Soon is a learning project that is ongoing and not complete.  
 Feel free to contact me if you have any ideas or want to discuss about it.  
 
