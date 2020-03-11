@@ -41,6 +41,7 @@ namespace SpirvReader
 			block.isTexture = true;
 			block.set = set;
 			block.name = ressource.name;
+			block._type = ub_type;
 			block.binding = gl.get_decoration(ressource.id, spv::DecorationBinding);
 			blocks.push_back(block);
 		}
@@ -58,14 +59,15 @@ namespace SpirvReader
 			spirv_cross::SmallVector<spirv_cross::BufferRange> ranges = gl.get_active_buffer_ranges(ressource.id);
 			printf("%s at set %u, binding %u\n", ressource.name.c_str(), set, binding);
 
-			for (auto& range : ranges)
+			for (uint32_t index = 0; index < ranges.size() ; index++)
 			{
 				Member member;
-				member.name = gl.get_member_name(ressource.base_type_id, range.index);
-				member.size = range.range;
-				member.offset = range.offset;
+				member.name = gl.get_member_name(ressource.base_type_id, ranges[index].index);
+				member.size = ranges[index].range;
+				member.offset = ranges[index].offset;
+				member._type = gl.get_type(ub_type.member_types[index]);
 				block.members.push_back(member);
-				std::cout << ressource.name << "." << member.name << std::endl;
+				std::cout << ressource.name << "." << member.name << " Has size of " << ranges[index].range << ", With vecsize of : " << member._type.vecsize << " and commum of : " << member._type.columns << std::endl;
 			}
 
 			block.set = set;
@@ -84,12 +86,14 @@ namespace SpirvReader
 			unsigned location = gl.get_decoration(ressource.id, spv::DecorationLocation);
 			const spirv_cross::SPIRType& ub_type = gl.get_type(ressource.base_type_id);
 
+			std::cout << ub_type.vecsize << std::endl;
+
 			IOData data;
 			data.name = ressource.name;
 			data.location = location;
 			data.type = ub_type;
 			block.push_back(data);
-			printf("%s at location %u\n", ressource.name.c_str(), location);
+			printf("%s at location %u with type %d\n", ressource.name.c_str(), location, ub_type.basetype);
 		}
 	}
 

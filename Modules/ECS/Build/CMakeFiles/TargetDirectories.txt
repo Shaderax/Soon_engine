@@ -1,0 +1,3 @@
+/home/shaderax/Documents/Project/Soon_engine/Modules/ECS/Build/CMakeFiles/rebuild_cache.dir
+/home/shaderax/Documents/Project/Soon_engine/Modules/ECS/Build/CMakeFiles/ECS.dir
+/home/shaderax/Documents/Project/Soon_engine/Modules/ECS/Build/CMakeFiles/edit_cache.dir

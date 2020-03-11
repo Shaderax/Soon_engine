@@ -118,7 +118,7 @@ namespace Soon
 			_systemPool.erase(SystemTypeId);
 		}
 
-		void	World::DesactivateEntity( Entity entity )
+		void	World::DeactivateEntity( Entity entity )
 		{
 			ECS_ASSERT(IsValid(entity), "Invalid id tried to be desactivated");
 
@@ -136,7 +136,7 @@ namespace Soon
 		{
 			ECS_ASSERT(IsValid(entity), "Invalid id tried to kill entity");
 
-			DesactivateEntity(entity);
+			DeactivateEntity(entity);
 
 			_entityCache._killed.push_back(entity);
 		}

@@ -6,24 +6,34 @@
 
 namespace Soon
 {
-	ComponentRenderer::ComponentRenderer( void ) : _active(false), _owner(nullptr)
+	ComponentRenderer::ComponentRenderer( void )
 	{
 
 	}
 
 	ComponentRenderer::~ComponentRenderer( void )
 	{
-
 	}
 
 	void ComponentRenderer::Enable( void )
 	{
-		if (_owner)
-			_material.Render(_owner->GetComponent<Transform3D>(), _owner->GetComponent<Mesh>());
+		if (!IsActivated())
+		{
+        	Entity owner(_ownerId);
+       		owner.EnableComponent( _componentId );
+
+			_material.Render(_owner->GetComponent<Transform3D>(), owner.GetComponent(_componentId));
+		}
 	}
 
 	void ComponentRenderer::Disable( void )
 	{
-		_material.UnRender();
+		if (IsActivated())
+		{
+        	Entity owner(_ownerId);
+        	owner.DisableComponent( _componentId );
+
+			_material.UnRender(_id);
+		}
 	}
 };

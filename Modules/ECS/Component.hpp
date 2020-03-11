@@ -12,7 +12,20 @@ namespace Soon
 		class Component
 		{
 			public:
-				virtual ~Component( void ) {};
+				Component( void );
+				virtual ~Component( void );
+
+				virtual void Enable( void );
+				virtual void Disable( void );
+
+				bool IsActivated( void );
+
+				void SetComponentId(TypeId id);
+				void SetOwner(TypeId entity);
+
+			private:
+				TypeId _componentId;
+				TypeId _ownerId;
 		};
 
 		template < typename T >

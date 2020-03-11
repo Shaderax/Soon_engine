@@ -37,7 +37,7 @@ namespace Soon
 				std::size_t	GetEntityCount( void ) const;
 
 				void ActivateEntity( Entity entity );
-				void DesactivateEntity( Entity entity );
+				void DeactivateEntity( Entity entity );
 
 				void RemoveAllSystems( void );
 				void RemoveSystem( TypeId SystemTypeId );

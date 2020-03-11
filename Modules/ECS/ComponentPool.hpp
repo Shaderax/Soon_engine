@@ -28,6 +28,11 @@ namespace Soon
 				void AddComponent( Entity entity, Component* component, TypeId componentId );
 				void RemoveComponent( Entity entity, TypeId componentId );
 
+				void EnableComponent( Entity entity, TypeId componentId );
+				void DisableComponent( Entity entity, TypeId componentId );
+
+				bool IsComponentActivated( Entity entity, TypeId componentId );
+
 				Component& GetComponent( Entity entity, TypeId componentTypeId);
 
 				void Clear( void );

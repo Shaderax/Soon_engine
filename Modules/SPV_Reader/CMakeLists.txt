@@ -17,4 +17,4 @@ include_directories(./ThirdParty/SPIRV-Cross/)
 
 add_library(SpirvReader STATIC ${SRC})
 
-#add_executable(testee  ./Sources/main.cpp ${SRC})
+add_executable(testee  ./Sources/main.cpp ${SRC})

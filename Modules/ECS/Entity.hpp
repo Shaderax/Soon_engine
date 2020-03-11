@@ -27,7 +27,7 @@ namespace Soon
 
 				bool IsActivated( void ) const;
 				void Activate( void );
-				void Desactivate( void );
+				void Deactivate( void );
 				void Kill( void );
 
 				void RemoveAllComponents( void );
@@ -52,6 +52,21 @@ namespace Soon
 
 				Component& GetComponent( TypeId componentTypeId ) const;
 
+				template < typename T >
+					void EnableComponent( void );
+
+				void EnableComponent( TypeId componentTypeId );
+
+				template < typename T >
+					void DisableComponent( void );
+
+				void DisableComponent( TypeId componentTypeId );
+
+				template < typename T >
+					bool IsComponentActivated( void );
+
+				bool IsComponentActivated( TypeId componentTypeId );
+
 				bool operator==( const Entity& rhs )
 				{
 					return (_id == rhs._id);
@@ -65,9 +80,10 @@ namespace Soon
 			T& Entity::AddComponent( Args && ... args )
 			{
 				static_assert(std::is_base_of<Component, T>(), "T is not a component, cannot add T");
-	//			std::cout << "In Add Component : " << GetId() << std::endl;
 				T* component = new T(*this, std::forward<Args>(args) ...);
 				AddComponent(component, GetComponentTypeId<T>());
+				component->SetComponentId(GetComponentTypeId<T>());
+				component->SetOwnerId(*this);
 				Activate();
 				return *(component);
 			}
@@ -92,6 +108,29 @@ namespace Soon
 			{
 				static_assert(std::is_base_of<Component, T>(), "T is not a component, cannot get T");
 				return (static_cast<T&>(GetComponent(GetComponentTypeId<T>())));
+			}
+
+		template < typename T >
+			void Entity::EnableComponent( void )
+			{
+				static_assert(std::is_base_of<Component, T>(), "T is not a component, cannot get T");
+				Activate();
+				EnableComponent(GetComponentTypeId<T>());
+			}
+
+		template < typename T >
+			void Entity::DisableComponent( void )
+			{
+				static_assert(std::is_base_of<Component, T>(), "T is not a component, cannot get T");
+				Activate();
+				DisableComponent(GetComponentTypeId<T>());
+			}
+
+		template < typename T >
+			bool IsComponentActivated( void )
+			{
+				static_assert(std::is_base_of<Component, T>(), "T is not a component, cannot get T");
+				return (IsComponentActivated(GetComponentTypeId<T>()));
 			}
 	}
 }

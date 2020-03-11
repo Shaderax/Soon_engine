@@ -28,6 +28,30 @@ namespace Soon
 			_entitiesComponents.resize(amount);
 		}
 
+		void ComponentPool::EnableComponent( Entity entity, TypeId componentId )
+		{
+			ECS_ASSERT(entity.IsValid() && HasComponent(entity, componentId), "invalid entity cannot have components added to it");
+
+			TypeId index = entity.GetId();
+			_entitiesComponents[index]._componentsTypeList[componentId] = true;
+		}
+
+		bool ComponentPool::IsComponentActivated( Entity entity, TypeId componentId )
+		{
+			ECS_ASSERT(entity.IsValid() && HasComponent(entity, componentId), "invalid entity cannot have components added to it");
+
+			TypeId index = entity.GetId();
+			return (_entitiesComponents[index]._componentsTypeList[componentId]);
+		}
+
+		void ComponentPool::DisableComponent( Entity entity, TypeId componentId )
+		{
+			ECS_ASSERT(entity.IsValid() && HasComponent(entity, componentId), "invalid entity cannot remove components");
+
+			TypeId index = entity.GetId();
+			_entitiesComponents[index]._componentsTypeList[componentId] = false;
+		}
+
 		void ComponentPool::AddComponent( Entity entity, Component* component, TypeId componentId )
 		{
 			ECS_ASSERT(entity.IsValid(), "invalid entity cannot have components added to it");

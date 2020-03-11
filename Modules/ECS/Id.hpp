@@ -1,12 +1,14 @@
 #pragma once
 
 #include <cstdint>
+#include <limits>
 
 namespace Soon
 {
 	namespace ECS
 	{
 		typedef std::uint32_t TypeId;
+		constexpr TypeId TypeIdError = std::numeric_limits<TypeId>::max();
 
 		struct Id
 		{

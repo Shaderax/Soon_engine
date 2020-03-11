@@ -9,12 +9,11 @@ namespace Soon
 	class ComponentRenderer : public Component
 	{
 		public:
-			Entity*		_owner;
+			// No ptr for destructor
 			ShaderMaterial	_material;
-			bool		_active;
 
 			ComponentRenderer( void );
-			~ComponentRenderer( void );
+			virtual ~ComponentRenderer( void );
 
 			void Enable( void );
 			void Disable( void );

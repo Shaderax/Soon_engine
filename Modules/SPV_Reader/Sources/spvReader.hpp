@@ -12,6 +12,7 @@ namespace SpirvReader
 		std::string	name;
 		uint32_t	size;
 		uint32_t	offset;
+		spirv_cross::SPIRType _type;
 	};
 
 	struct Block
@@ -22,6 +23,7 @@ namespace SpirvReader
 		uint32_t	binding;
 		std::vector<Member> members;
 		bool isTexture;
+		spirv_cross::SPIRType _type;
 	};
 
 	struct IOData

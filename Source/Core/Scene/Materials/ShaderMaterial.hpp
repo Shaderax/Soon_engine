@@ -10,15 +10,14 @@ namespace Soon
 	class ShaderMaterial : public Material
 	{
 		public:
-			uint32_t		_id;
+			uint32_t			_id;
 			ShaderPipeline*		_shaderPipeline;
 
 			ShaderMaterial( void );
 			~ShaderMaterial( void );
 
 			void Render( Transform3D& tr, Mesh* mesh );
-			void Unrender( void );
-			void Destroy( void );
+			void Unrender( uint32_t id );
 
 			template<class T>
 				void SetPipeline( void )

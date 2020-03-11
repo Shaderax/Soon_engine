@@ -1,0 +1,4 @@
+/home/shaderax/Documents/Project/Soon_engine/Modules/SPV_Reader/Build/CMakeFiles/rebuild_cache.dir
+/home/shaderax/Documents/Project/Soon_engine/Modules/SPV_Reader/Build/CMakeFiles/edit_cache.dir
+/home/shaderax/Documents/Project/Soon_engine/Modules/SPV_Reader/Build/CMakeFiles/SpirvReader.dir
+/home/shaderax/Documents/Project/Soon_engine/Modules/SPV_Reader/Build/CMakeFiles/testee.dir

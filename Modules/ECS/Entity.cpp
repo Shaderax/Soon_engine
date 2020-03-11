@@ -46,9 +46,9 @@ namespace Soon
 			Soon::ECS::World::GetInstance().ActivateEntity(*this);
 		}
 
-		void Entity::Desactivate( void )
+		void Entity::Deactivate( void )
 		{
-			Soon::ECS::World::GetInstance().DesactivateEntity(*this);
+			Soon::ECS::World::GetInstance().DeactivateEntity(*this);
 		}
 
 		void Entity::Kill( void )
@@ -56,7 +56,8 @@ namespace Soon
 			Soon::ECS::World::GetInstance().KillEntity(*this);
 		}
 
-		void Entity::AddComponent( Component* component, TypeId componentId)
+		// Maybe Set To Private
+		void Entity::AddComponent( Component* component, TypeId componentId )
 		{
 			Soon::ECS::World::GetInstance()._entityAttributes._componentPool.AddComponent(*this, component, componentId);
 		}
@@ -84,6 +85,21 @@ namespace Soon
 		Component& Entity::GetComponent( TypeId componentTypeId ) const
 		{
 			return (Soon::ECS::World::GetInstance()._entityAttributes._componentPool.GetComponent(*this, componentTypeId));
+		}
+
+		void Entity::EnableComponent( TypeId componentTypeId )
+		{
+			Soon::ECS::World::GetInstance()._entityAttributes._componentPool.EnableComponent(*this, componentTypeId);
+		}
+
+		void Entity::DisableComponent( TypeId componentTypeId )
+		{
+			Soon::ECS::World::GetInstance()._entityAttributes._componentPool.DisableComponent(*this, componentTypeId);
+		}
+
+		bool Entity::IsComponentActivated( TypeId componentTypeId )
+		{
+			return (Soon::ECS::World::GetInstance()._entityAttributes._componentPool.IsComponentActivated(*this, componentTypeId));
 		}
 	}
 }

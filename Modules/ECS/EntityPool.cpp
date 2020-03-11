@@ -50,7 +50,7 @@ namespace Soon
 		{
 			TypeId nb = id.GetId();
 
-			if (nb > GetEntityCount() || _idKilled[nb])
+			if (nb > GetEntityCount() || _idKilled[nb] || nb == TypeIdError)
 				return (false);
 			return (true);
 		}

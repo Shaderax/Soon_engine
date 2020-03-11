@@ -57,8 +57,8 @@ namespace Soon
 			return _vec3s[name];
 		}
 
-		std::unordered_map<std::string, Texture*>	_textures;
-		std::unordered_map<std::string, float>		_floats;
+		std::unordered_map<std::string, Texture*>		_textures;
+		std::unordered_map<std::string, float>			_floats;
 		std::unordered_map<std::string, vec3<float>>	_vec3s;
 	};
 }
