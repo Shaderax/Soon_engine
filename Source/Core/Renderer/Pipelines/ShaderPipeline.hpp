@@ -18,13 +18,21 @@ struct Default
 {
 	std::string _name;
 	void (*f)( void );
-	
 };
 
 std::vector<std::string> DefaultVar = { "UniformCamera", "UniformModel" };
 
 class ShaderPipeline : public BasePipeline
 {
+	private:
+	std::vector<VkBuffer>		_gpuBuffers;
+	std::vector<VkDeviceMemory> _gpuMemoryBuffers;
+	std::vector<BufferRenderer> _indexBuffers;
+	std::vector<uint32_t>		_indexSize;
+
+	std::vector<Transform3D *> _transforms;
+	std::vector<Material *> _vecMaterials;
+
 public:
 	std::string _pathVert;
 	std::string _pathFrag;
@@ -66,14 +74,6 @@ public:
 			virtual void RecreateUniforms( void ) = 0;
 			virtual void RecreatePipeline( void ) = 0;
 				*/
-
-	std::vector<VkBuffer> _gpuBuffers;
-	std::vector<VkDeviceMemory> _gpuMemoryBuffers;
-	std::vector<BufferRenderer> _indexBuffers;
-	std::vector<uint32_t> _indexSize;
-
-	std::vector<Transform3D *> _transforms;
-	std::vector<Material *> _vecMaterials;
 
 
 	void UpdateData(Mesh *mesh) // call in Internal for every

@@ -87,6 +87,16 @@ struct UniformsTexture
 
 class BasePipeline
 {
+private:
+	std::vector<VkDescriptorSetLayout> _descriptorSetLayout;
+	VkPipelineLayout	_pipelineLayout;
+	VkPipeline			_graphicPipeline;
+	std::vector<uint32_t> _toDraw;
+	VertexDescription	_vertexDescription;
+
+	std::vector<UniformsTexture> _uniformsTexture; // uniformSampler2D
+	std::vector<Uniform> _uniforms;				   // uniformModel, uniformLight
+	std::vector<InputVar> _inputs;				   // inPosition
 public:
 	BasePipeline(void)
 	{
@@ -161,14 +171,5 @@ public:
 			}
 		}
 	}
-
-	std::vector<VkDescriptorSetLayout> _descriptorSetLayout;
-	VkPipelineLayout _pipelineLayout;
-	VkPipeline _graphicPipeline;
-	std::vector<uint32_t> _toDraw;
-
-	std::vector<UniformsTexture> _uniformsTexture; // uniformSampler2D
-	std::vector<Uniform> _uniforms;				   // uniformModel, uniformLight
-	std::vector<InputVar> _inputs;				   // inPosition
 };
 } // namespace Soon
