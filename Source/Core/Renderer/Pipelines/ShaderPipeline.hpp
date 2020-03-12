@@ -20,6 +20,13 @@ struct Default
 	void (*f)( void );
 };
 
+struct VertexBindingDescription
+{
+	VertexDescription vd;
+	uint32_t binding;
+}
+
+std::vector<std::string> DefaultVertexVar = { "inPosition", "inNormal" };
 std::vector<std::string> DefaultVar = { "UniformCamera", "UniformModel" };
 
 class ShaderPipeline : public BasePipeline
@@ -32,6 +39,7 @@ class ShaderPipeline : public BasePipeline
 
 	std::vector<Transform3D *> _transforms;
 	std::vector<Material *> _vecMaterials;
+	std::vector<VkVertexInputBindingDescription> bindingDescription = {};
 
 public:
 	std::string _pathVert;
@@ -57,7 +65,20 @@ public:
 
 	uint32_t AddToPipeline(Transform3D &transform, Mesh *mesh)
 	{
+		// Check if mesh is equal to the pipeline stride
 
+		//Alloc data
+	}
+
+	void GenerateBinding( void )
+	{
+		for (InputVar& input : _inputs)
+		{
+			VkVertexInputAttributeDescription bDescription;
+			bDescription.binding = input._location;
+			bDescription.stride = ;
+			bDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+		}
 	}
 
 	//virtual void Render( uint32_t id ) = 0;

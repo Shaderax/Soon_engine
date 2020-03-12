@@ -14,7 +14,7 @@ enum struct PipelineType : uint32_t
 	COMPUTE = 1
 };
 
-enum class EnumUniformsType : uint8_t
+enum class EnumShaderType : uint8_t
 {
 	UNKNOW = 0,
 	VOID = 1,
@@ -40,20 +40,73 @@ enum class EnumUniformsType : uint8_t
 	// Keep internal types at the end.
 	CONTROLPOINTARRAY = 20,
 	CHAR = 21,
-	VECTOR2 = 22,
-	VECTOR3 = 23,
-	VECTOR4 = 24,
-	MAT2 = 25,
-	MAT3 = 26,
-	MAT4 = 27,
-	TEXTURE2D = 28,
-	TEXTURE3D = 29
 };
+
+struct ShaderType
+{
+	EnumShaderType	type;
+	uint32_t		length;
+};
+
+DataType SpirTypeToShaderType( spirv_cross::SPIRType type )
+{
+	DataType dt;
+	dt.length = type.vecsize;
+
+	switch (type.basetype)
+	{
+		case SPIRType::BaseType::Unknown :
+			dt.type = EnumUniformsType::UNKNOW;
+		case SPIRType::BaseType::Void :
+			dt.type = EnumUniformsType::VOID;
+		case SPIRType::BaseType::Boolean :
+			dt.type = EnumUniformsType::BOOLEAN;
+		case SPIRType::BaseType::SByte :
+			dt.type = EnumUniformsType::SBYTE;
+		case SPIRType::BaseType::UByte :
+			dt.type = EnumUniformsType::UBYTE;
+		case SPIRType::BaseType::Short :
+			dt.type = EnumUniformsType::SHORT;
+		case SPIRType::BaseType::UShort :
+			dt.type = EnumUniformsType::USHORT;
+		case SPIRType::BaseType::Int :
+			dt.type = EnumUniformsType::INT;
+		case SPIRType::BaseType::UInt :
+			dt.type = EnumUniformsType::UINT;
+		case SPIRType::BaseType::Int64 :
+			dt.type = EnumUniformsType::UINT64;
+		case SPIRType::BaseType::UInt64 :
+			dt.type = EnumUniformsType::UINT64;
+		case SPIRType::BaseType::AtomicCounter :
+			dt.type = EnumUniformsType::ATOMICCOUNTER;
+		case SPIRType::BaseType::Half :
+			dt.type = EnumUniformsType::HALF;
+		case SPIRType::BaseType::Float :
+			dt.type = EnumUniformsType::FLOAT;
+		case SPIRType::BaseType::Double :
+			dt.type = EnumUniformsType::DOUBLE;
+		case SPIRType::BaseType::Struct :
+			dt.type = EnumUniformsType::STRUCT;
+		case SPIRType::BaseType::Image :
+			dt.type = EnumUniformsType::IMAGE;
+		case SPIRType::BaseType::SampledImage :
+			dt.type = EnumUniformsType::SAMPLEDIMAGE;
+		case SPIRType::BaseType::Sampler :
+			dt.type = EnumUniformsType::SAMPLER;
+		case SPIRType::BaseType::AccelerationStructureNV :
+			dt.type = EnumUniformsType::ACCELERATIONSTRUCTURENV;
+		case SPIRType::BaseType::ControlPointArray :
+			dt.type = EnumUniformsType::CONTROLPOINTARRAY;
+		case SPIRType::BaseType::Char :
+			dt.type = EnumUniformsType::CHAR;
+	}
+	return (dt);
+}
 
 struct UniformVar
 {
 	std::string _name;
-	EnumUniformsType _type;
+	ShaderType _type;
 	uint32_t _size;
 	uint32_t _offset;
 };
@@ -71,7 +124,7 @@ struct Uniform
 struct InputVar
 {
 	std::string _name;
-	EnumUniformsType _type;
+	ShaderType _type;
 	uint32_t _location;
 };
 

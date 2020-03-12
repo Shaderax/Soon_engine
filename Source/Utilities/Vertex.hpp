@@ -19,33 +19,46 @@ namespace Soon
 		//VES_PSIZE = 10 /**< Point size */
 	};
 
-	enum class VertexType : uint16_t
-	{
-		FLOAT = 0,
-		FLOAT2 = 1,
-		FLOAT3 = 2
-	};
-
 	struct VertexElement
 	{
 		VertexElementSementic sementic;
-		VertexType type;
+		ShaderType type;
 
-		uint32_t GetTypeSize( VertexType type )
+		uint32_t GetTypeSize( ShaderType type )
 		{
-			switch (type)
+			switch (type.type)
 			{
-				case VertexType::FLOAT :
-					return (sizeof(float));
-				case VertexType::FLOAT2 :
-					return (sizeof(float) * 2);
-				case VertexType::FLOAT3 :
-					return (sizeof(float) * 3);
+				case EnumShaderType::BOOLEAN :
+					return (sizeof(bool) * type.length);
+				case EnumShaderType::SBYTE :
+					return (sizeof(uint8_t) * type.length);
+				case EnumShaderType::UBYTE :
+					return (sizeof(uint8_t) * type.length);
+				case EnumShaderType::SHORT :
+					return (sizeof(uint16_t) * type.length);
+				case EnumShaderType::USHORT :
+					return (sizeof(uint16_t) * type.length);
+				case EnumShaderType::INT :
+					return (sizeof(uint32_t) * type.length);
+				case EnumShaderType::UINT :
+					return (sizeof(uint32_t) * type.length);
+				case EnumShaderType::INT64 :
+					return (sizeof(uint64_t) * type.length);
+				case EnumShaderType::UINT64 :
+					return (sizeof(uint64_t) * type.length);
+				case EnumShaderType::ATOMICCOUNTER :
+					return (sizeof(uint32_t) * type.length);
+				case EnumShaderType::HALF :
+					return (sizeof(uint16_t) * type.length);
+				case EnumShaderType::FLOAT :
+					return (sizeof(float) * type.length);
+				case EnumShaderType::DOUBLE :
+					return (sizeof(double) * type.length);
 				default :
 					break ;
 			}
-		}
 		return (0);
+		}
 	};
 
 	struct VertexDescription
@@ -53,7 +66,7 @@ namespace Soon
 		std::vector<VertexElement> data;
 		uin32_t strideSize;
 
-		bool HasElement( VertexElementSementic sem, VertexType type )
+		bool HasElement( VertexElementSementic sem, EnumShaderType type, uint32_t length )
 		{
 			for (VertexElement& element : data)
 			{
@@ -65,18 +78,19 @@ namespace Soon
 			return (false);
 		}
 
-		void AddVertexElement( VertexElementSementic sem, VertexType type )
+		void AddVertexElement( VertexElementSementic sem, EnumShaderType type, uint32_t length )
 		{
 			assert(!HasElement(sem, type) && "Has Element");
 
 			VertexElement vd;
 			vd.sementic = sem;
-			vd.type = type;
+			vd.type.type = type;
+			vd.type.length = length;
 			data.push_back(vd);
 			strideSize += vd.GetTypeSize();
 		}
 
-		void RemoveVertexElement( VertexElementSementic sem )
+		void RemoveVertexElement( VertexElementSementic sem, EnumShaderType type )
 		{
 			assert(!HasElement(sem, type) && "Has Element");
 
@@ -84,7 +98,7 @@ namespace Soon
 			{
 				if (element.sementic == sem)
 				{
-					strideSize -= element.GetTypeSize();
+					strideSize -= element.GetTypeSize(element.type);
 					data.erase(element);
 				}
 			}
@@ -95,7 +109,7 @@ namespace Soon
 			return (strideSize);
 		}
 
-		uint32_t GetElementOffset( VertexElementSementic sem, VertexType type )
+		uint32_t GetElementOffset( VertexElementSementic sem, EnumShaderType type )
 		{
 			assert(!HasElement(sem, type) && "Has Element");
 
@@ -105,39 +119,9 @@ namespace Soon
 			{
 				if (sem == element.sementic)
 					break ;
-				offset += element.GetTypeSize(element.type)
+				offset += element.GetTypeSize(element.type.type)
 			}
 			return (offset);
-		}
-	};
-
-	class Vertex // Mesh
-	{
-		private:
-			VertexDescription _vertexDescription;
-			uint8_t* _vertexData;
-			uint8_t* _indices;
-			uint32_t _numIndices;
-			uint32_t _numVertex;
-
-		public:
-		Vertex( VertexDescription v )
-		{
-			_vertexDescription = v;
-		}
-
-		void SetVertexElement( uint8_t* data, uint32_t size, VertexElement elem )
-		{
-			assert(!_vertexDescription.HasElement(sem, type) && "Has Element");
-
-			uint32_t elementSize = elem.GetTypeSize();
-			uint32_t offset = _vertexDescription.GetElementOffset( elem.sementic, elem.type );
-			uint32_t strideSize = _vertexDescription.GetVertexStrideSize();
-
-			for (uint32_t index = 0 ; index < _numVertex ; index++)
-			{
-				memcpy(_vertexData + (index * strideSize) + offset, data + (index * elementSize), elementSize);
-			}
 		}
 	};
 }
